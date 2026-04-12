@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MSQM Class of 2027 - Aug 2026 Residency Optional Activities</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; background-color: #f1f5f9; padding: 1rem 0; color: #1e293b; }
+        
+        /* The "Floating Paper" Container */
+        .page {
+            background: white;
+            width: 95%;
+            max-width: 8.5in;
+            min-height: 11in;
+            margin: 0 auto 2.5rem auto;
+            padding: 1.5rem; 
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            border-radius: 12px;
+        }
+
+        /* Desktop specific margins/padding */
+        @media (min-width: 8.5in) {
+            body { padding: 2rem 0; }
+            .page { padding: 0.6in 0.8in; border-radius: 0; }
+        }
+
+        h1, h2, h3 { font-family: 'Playfair Display', serif; color: #57068c; }
+        .nyu-bg { background-color: #57068c; }
+        
+        /* Navigation - Large Tap Targets for Mobile */
+        .toc-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+        .toc-tab {
+            padding: 1rem;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        .toc-tab.active {
+            border-color: #57068c;
+            background-color: #faf5ff;
+            box-shadow: 0 4px 12px rgba(87, 6, 140, 0.1);
+        }
+        .step-num {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: #e2e8f0;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+        .toc-tab.active .step-num { background-color: #57068c; color: white; }
+
+        /* Map & Table Responsiveness */
+        .map-container {
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            background: #f8fafc;
+            position: relative;
+            overflow: hidden;
+            height: 420px;
+            margin-top: 1rem;
+        }
+        .map-label {
+            background: white;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 600;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            white-space: nowrap;
+            z-index: 10;
+            border: 1px solid #f1f5f9;
+        }
+        .marker-num {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            background: #57068c;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 18px;
+            font-size: 10px;
+            margin-right: 6px;
+        }
+
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border-radius: 12px;
+            border: 1px solid #f1f5f9;
+        }
+        .itinerary-table { min-width: 650px; }
+        .itinerary-table th { font-size: 11px; text-transform: uppercase; padding: 16px 12px; color: white; }
+        .itinerary-table td { padding: 16px 12px; border-bottom: 1px solid #f1f5f9; font-size: 14px; }
+
+        .footer {
+            margin-top: auto;
+            padding-top: 2rem;
+            text-align: center;
+            font-size: 11px;
+            color: #94a3b8;
+            letter-spacing: 0.05em;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page" id="thursday">
+        <header class="flex justify-between items-start border-b-2 border-gray-100 pb-6 mb-8">
+            <div>
+                <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight">MSQM Class of 2027</h1>
+                <p class="text-gray-400 uppercase tracking-widest text-xs font-bold mt-1">Residency Optional Activities</p>
+            </div>
+            <div class="nyu-bg text-white p-4 rounded-xl text-center shadow-lg">
+                <div class="text-[10px] uppercase font-bold opacity-80">Residency</div>
+                <div class="text-xl font-black leading-none mt-1">AUG 14 - 17</div>
+            </div>
+        </header>
+
+        <nav class="toc-container">
+            <div class="toc-tab active">
+                <div class="step-num">01</div>
+                <div class="text-xs md:text-sm font-bold text-gray-900 leading-tight">Thursday Aug 13 <br>Early Arrivers</div>
+            </div>
+            <a href="#sunday" class="toc-tab">
+                <div class="step-num">02</div>
+                <div class="text-xs md:text-sm font-semibold text-gray-400 leading-tight">Sunday Aug 16 <br>Gift Exchange</div>
+            </a>
+        </nav>
+
+        <section class="mb-8 p-6 md:p-8 bg-purple-50 border-l-8 border-purple-800 rounded-r-2xl">
+            <h2 class="text-lg md:text-xl mb-3 text-purple-900 font-bold uppercase tracking-tight flex items-center gap-2">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                Thursday, Aug 13: Optional Early Arrivers Activity
+            </h2>
+            <p class="text-gray-700 leading-relaxed text-sm md:text-base">
+                <strong>I am organizing an optional activity day on Thursday, Aug 13</strong> for anyone in NYC early. This is a chance to connect on Thursday, before we dive into class on Friday!
+            </p>
+        </section>
+
+        <div class="table-container mb-8">
+            <table class="w-full text-left border-collapse itinerary-table">
+                <thead>
+                    <tr class="nyu-bg">
+                        <th class="w-28">Time</th>
+                        <th>Activity</th>
+                        <th>Location</th>
+                        <th>Detail</th>
+                    </tr>
+                </thead>
+                <tbody class="text-gray-600">
+                    <tr>
+                        <td class="font-bold text-gray-900">10:00 AM</td>
+                        <td class="font-semibold text-purple-900">Meet up</td>
+                        <td><strong>787 Coffee</strong><br><span class="text-xs font-normal">93 Worth St, NY</span></td>
+                        <td class="italic">Meet for coffee near the bridge at popular cafe.</td>
+                    </tr>
+                    <tr class="bg-gray-50/50">
+                        <td class="font-bold text-gray-900">11:00 AM</td>
+                        <td class="font-semibold text-purple-900">Bridge Walk</td>
+                        <td>Brooklyn Bridge</td>
+                        <td class="italic">Walk Manhattan --> Brooklyn over iconic bridge.</td>
+                    </tr>
+                    <tr>
+                        <td class="font-bold text-gray-900">1:00 PM</td>
+                        <td class="font-semibold text-purple-900">Pizza Lunch</td>
+                        <td><strong>Juliana's Pizza</strong><br><span class="text-xs font-normal">19 Old Fulton St, BK</span></td>
+                        <td class="italic">Coal-fired pies. One of "NY's best."</td>
+                    </tr>
+                    <tr class="bg-gray-50/50">
+                        <td class="font-bold text-gray-900">3:00 PM</td>
+                        <td class="font-semibold text-purple-900">Park Walk</td>
+                        <td>Brooklyn Bridge Park</td>
+                        <td class="italic">Waterfront park with gorgeous NYC views.</td>
+                    </tr>
+                    <tr>
+                        <td class="font-bold text-gray-900 border-b-2 border-purple-800">5:00 PM</td>
+                        <td class="font-semibold text-purple-900 border-b-2 border-purple-800">Happy Hour</td>
+                        <td class="border-b-2 border-purple-800"><strong>Talea Beer Co.</strong><br><span class="text-xs font-normal">102 Christopher St, NY</span></td>
+                        <td class="text-purple-700 font-medium italic border-b-2 border-purple-800">Take subway from BK --> NYU.<br>Drinks (and food) at Talea.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <section class="mb-4">
+            <h2 class="text-xs font-bold mb-3 uppercase tracking-widest text-gray-400 flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A2 2 0 013 15.382V6.618a2 2 0 011.106-1.789L9 2m0 18l9.447-4.724A2 2 0 0019 13.618V4.82a2 2 0 00-1.106-1.789L9 2m0 18V2"></path></svg>
+                Map
+            </h2>
+            <div class="map-container shadow-inner">
+                <svg viewBox="0 0 800 500" class="w-full h-full">
+                    <rect x="0" y="0" width="350" height="500" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1" />
+                    <rect x="500" y="0" width="300" height="500" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1" />
+                    <rect x="350" y="0" width="150" height="500" fill="#e0f2fe" />
+                    <path d="M 350 350 L 500 280" stroke="#94a3b8" stroke-width="14" stroke-linecap="butt" opacity="0.2" />
+                    <path d="M 350 350 L 500 280" stroke="#fff" stroke-width="2" stroke-dasharray="6,4" />
+                    <path d="M 180 420 L 350 350 L 500 280 L 560 250 L 520 280" stroke="#57068c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke-dasharray="8,6" />
+                    <path d="M 520 280 Q 300 280 150 120" stroke="#0039A6" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.3" />
+                    <circle cx="180" cy="420" r="8" fill="#57068c" stroke="white" stroke-width="2" />
+                    <circle cx="560" cy="250" r="8" fill="#57068c" stroke="white" stroke-width="2" />
+                    <circle cx="520" cy="280" r="8" fill="#57068c" stroke="white" stroke-width="2" />
+                    <circle cx="150" cy="120" r="10" fill="#ef4444" stroke="white" stroke-width="2" />
+                    <text x="20" y="30" font-size="12" font-weight="800" fill="#94a3b8" opacity="0.6 uppercase">MANHATTAN</text>
+                    <text x="710" y="30" font-size="12" font-weight="800" fill="#94a3b8" opacity="0.6 uppercase">BROOKLYN</text>
+                </svg>
+
+                <div class="map-label" style="top: 86%; left: 5%; border-left: 4px solid #57068c;"><span class="marker-num">1</span>787 Coffee</div>
+                <div class="map-label" style="top: 38%; left: 70%; border-left: 4px solid #57068c;"><span class="marker-num">2</span>Juliana's Pizza</div>
+                <div class="map-label" style="top: 62%; left: 65%; border-left: 4px solid #57068c;"><span class="marker-num">3</span>Brooklyn Bridge Park</div>
+                <div class="map-label" style="top: 12%; left: 8%; border-left: 4px solid #ef4444;"><span class="marker-num" style="background:#ef4444">4</span>Talea Beer Co.</div>
+            </div>
+        </section>
+
+        <footer class="footer">NYU Stern School of Business • MSQM Class of 2027</footer>
+    </div>
+
+    <div class="page" id="sunday">
+        <header class="flex justify-between items-start border-b-2 border-gray-100 pb-6 mb-8">
+            <div>
+                <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight">MSQM Class of 2027</h1>
+                <p class="text-gray-400 uppercase tracking-widest text-xs font-bold mt-1">Residency Optional Activities</p>
+            </div>
+            <div class="nyu-bg text-white p-4 rounded-xl text-center shadow-lg">
+                <div class="text-[10px] uppercase font-bold opacity-80">Residency</div>
+                <div class="text-xl font-black leading-none mt-1">AUG 14 - 17</div>
+            </div>
+        </header>
+
+        <nav class="toc-container">
+            <a href="#thursday" class="toc-tab">
+                <div class="step-num">01</div>
+                <div class="text-xs md:text-sm font-semibold text-gray-400 leading-tight">Thursday Aug 13 <br>Early Arrivers</div>
+            </a>
+            <div class="toc-tab active">
+                <div class="step-num">02</div>
+                <div class="text-xs md:text-sm font-bold text-gray-900 leading-tight">Sunday Aug 16 <br>Gift Exchange</div>
+            </div>
+        </nav>
+
+        <section class="mb-8 p-6 md:p-8 bg-purple-50 border-l-8 border-purple-800 rounded-r-2xl">
+            <h2 class="text-lg md:text-xl mb-2 text-purple-900 font-bold uppercase tracking-tight flex items-center gap-2">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-14L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                Sunday, Aug 16: Optional (Opt-In) Gift Exchange
+            </h2>
+            <p class="text-gray-700 leading-relaxed text-sm md:text-base">
+                <strong>I am organizing a gift exchange</strong> to help further transform our connections from Digital to Tangible. It's an opportunity to share something with a classmate, like a piece of your home.
+            </p>
+        </section>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+            <div class="bg-gray-50 p-6 rounded-2xl border border-gray-200">
+                <h3 class="text-base font-bold mb-4 uppercase tracking-wider text-purple-900 border-b-2 border-purple-100 pb-2 flex items-center gap-2">Rules</h3>
+                <ul class="text-sm space-y-4 text-gray-700">
+                    <li class="flex items-start">
+                        <span class="text-purple-800 font-black mr-3 text-lg">·</span>
+                        <span><strong>$25 Max Spend:</strong> No need to go too crazy lol</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-purple-800 font-black mr-3 text-lg">·</span>
+                        <span><strong>Portability:</strong> Suitcase-friendly. No liquids or perishables.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-purple-800 font-black mr-3 text-lg">·</span>
+                        <span><strong>Sign-Up:</strong> Opt-in and share preferences by <strong>July 15th</strong>.</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="bg-purple-50 p-6 rounded-2xl border border-purple-100">
+                <h3 class="text-base font-bold mb-4 uppercase tracking-wider text-purple-900 border-b-2 border-purple-200 pb-2 flex items-center gap-2">Logistics</h3>
+                <ul class="text-sm space-y-4 text-gray-700">
+                    <li class="flex items-start">
+                        <span class="text-purple-800 font-black mr-3 text-lg">·</span>
+                        <span><strong>Flexible Theme:</strong> Recipients can help gifters by sharing preferences.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-purple-800 font-black mr-3 text-lg">·</span>
+                        <span><strong>Pairing:</strong> Assigned classmates shared by July 17th.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-purple-800 font-black mr-3 text-lg">·</span>
+                        <span><strong>The Reveal:</strong> Exchange happens during Sunday lunch on Aug 16.</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <section class="bg-white border-4 border-dashed border-purple-300 p-8 md:p-12 rounded-[2.5rem] text-center shadow-inner">
+            <h3 class="text-2xl md:text-3xl font-black mb-4 text-purple-900 tracking-tight">Ready to Opt-In?</h3>
+            <div class="inline-block nyu-bg text-white px-12 py-5 rounded-2xl font-bold text-lg shadow-xl cursor-pointer">
+                Click Here!
+            </div>
+        </section>
+
+        <footer class="footer">NYU Stern School of Business • MSQM Class of 2027</footer>
+    </div>
+
+</body>
+</html>
