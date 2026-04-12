@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MSQM Class of 2027 - Aug 2026 Residency Optional Activities</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Smooth scrolling when clicking the tabs */
+        html { scroll-behavior: smooth; }
+        
+        body { font-family: 'Inter', sans-serif; background-color: #f1f5f9; padding: 1rem 0; color: #1e293b; }
+        
+        .page {
+            background: white;
+            /* MOBILE FIRST: Use 95% of screen width */
+            width: 95%;
+            /* DESKTOP LIMIT: Never get wider than a piece of paper */
+            max-width: 8.5in;
+            min-height: 11in;
+            margin: 0 auto 2.5rem auto;
+            padding: 1.5rem; /* Smaller padding for mobile */
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            border-radius: 12px;
+        }
+
+        /* Adjustments for Desktop/Printing */
+        @media (min-width: 8.5in) {
+            body { padding: 2rem 0; }
+            .page { 
+                padding: 0.6in 0.8in; 
+                border-radius: 0; /* Traditional paper look on big screens */
+            }
+        }
+
+        h1, h2, h3 { font-family: 'Playfair Display', serif; color: #57068c; }
+        .nyu-violet { color: #57068c; }
+        .nyu-bg { background-color: #57068c; }
+        
+        @media print {
+            body { background: none; padding: 0; }
+            .page { margin: 0; box-shadow: none; width: 100%; height: 100%; page-break-after: always; }
+        }
+
+        /* Nav/TOC Styling */
+        .toc-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .toc-tab {
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.2s ease;
+            text-decoration: none; /* Removes underline from links */
+            cursor: pointer;
+        }
+        .toc-tab.active {
+            border-color: #57068c;
+            background-color: #faf5ff;
+            box-shadow: 0 4px 6px -1px rgba(87, 6, 140, 0.1);
+        }
+        .toc-tab.active .step-num {
+            background-color: #57068c;
+            color: white;
+        }
+        .step-num {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: #e2e8f0;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        /* Map Styling */
+        .map-container {
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            background: #f8fafc;
+            position: relative;
+            overflow: hidden;
+            height: 420px;
+            margin-top: 1rem;
+        }
+        
+        /* Ensures the table is scrollable if it gets too wide for the phone */
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .footer {
+            margin-top: auto;
+            padding-top: 1.5rem;
+            border-top: 1px solid #f1f5f9;
+            text-align: center;
+            font-size: 10px;
+            color: #94a3b8;
+            letter-spacing: 0.025em;
+        }
+        
+        .itinerary-table { min-width: 500px; } /* Ensures table content doesn't squash */
+        .itinerary-table th { font-size: 10px; text-transform: uppercase; padding: 12px; color: white; }
+        .itinerary-table td { padding: 14px 12px; border-bottom: 1px solid #f1f5f9; }
+    </style>
+</head>
+<body>
+
+    <div class="page" id="thursday">
+        <header class="flex justify-between items-start border-b-2 border-gray-100 pb-6 mb-6">
+            <div>
+                <h1 class="text-2xl md:text-4xl font-extrabold tracking-tight">MSQM Class of 2027</h1>
+                <p class="text-gray-400 uppercase tracking-widest text-[10px] md:text-xs font-bold mt-1">Residency Optional Activities</p>
+            </div>
+            <div class="nyu-bg text-white p-2 md:p-4 rounded-xl text-center shadow-lg">
+                <div class="text-[8px] md:text-[10px] uppercase font-bold opacity-80">Residency</div>
+                <div class="text-sm md:text-xl font-black leading-none mt-1">AUG 14 - 17</div>
+            </div>
+        </header>
+
+        <nav class="toc-container">
+            <div class="toc-tab active">
+                <div class="step-num">01</div>
+                <div class="text-[10px] md:text-xs font-semibold text-gray-900">Thursday Aug 13 <br> Early Arrivers Activity</div>
+            </div>
+            <a href="#sunday" class="toc-tab">
+                <div class="step-num">02</div>
+                <div class="text-[10px] md:text-xs font-semibold text-gray-400">Sunday Aug 16 <br>Optional Gift Exchange</div>
+            </a>
+        </nav>
+
+        <section class="mb-8 p-4 md:p-6 bg-purple-50 border-l-4 border-purple-800 rounded-r-xl">
+            <h2 class="text-sm md:text-lg mb-2 text-purple-900 font-bold uppercase tracking-tight flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                Thursday, Aug 13: Activity
+            </h2>
+            <p class="text-gray-700 leading-relaxed text-xs md:text-sm">
+                Connect before we dive into class on Friday!
+            </p>
+        </section>
+
+        <div class="table-container">
+            <table class="w-full text-left border-collapse mb-8 itinerary-table">
+                <thead>
+                    <tr class="nyu-bg">
+                        <th class="rounded-tl-xl w-24">Time</th>
+                        <th>Activity</th>
+                        <th>Location</th>
+                        <th class="rounded-tr-xl">Detail</th>
+                    </tr>
+                </thead>
+                <tbody class="text-xs text-gray-600">
+                    <tr>
+                        <td class="font-bold text-gray-900">10:00 AM</td>
+                        <td class="font-semibold text-purple-900">Meet up</td>
+                        <td>787 Coffee</td>
+                        <td class="italic">Meet for coffee.</td>
+                    </tr>
+                    <tr>
+                        <td class="font-bold text-gray-900 border-b-2 border-purple-800">5:00 PM</td>
+                        <td class="font-semibold text-purple-900 border-b-2 border-purple-800">Happy Hour</td>
+                        <td class="border-b-2 border-purple-800">Talea Beer Co.</td>
+                        <td class="text-purple-700 font-medium italic border-b-2 border-purple-800">Drinks at Talea.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <footer class="footer">NYU Stern • MSQM Class of 2027</footer>
+    </div>
+
+    <div class="page" id="sunday">
+        <header class="flex justify-between items-start border-b-2 border-gray-100 pb-6 mb-6">
+            <div>
+                <h1 class="text-2xl md:text-4xl font-extrabold tracking-tight">MSQM Class of 2027</h1>
+                <p class="text-gray-400 uppercase tracking-widest text-[10px] md:text-xs font-bold mt-1">Residency Optional Activities</p>
+            </div>
+            <div class="nyu-bg text-white p-2 md:p-4 rounded-xl text-center shadow-lg">
+                <div class="text-[8px] md:text-[10px] uppercase font-bold opacity-80">Residency</div>
+                <div class="text-sm md:text-xl font-black leading-none mt-1">AUG 14 - 17</div>
+            </div>
+        </header>
+
+        <nav class="toc-container">
+            <a href="#thursday" class="toc-tab">
+                <div class="step-num">01</div>
+                <div class="text-[10px] md:text-xs font-semibold text-gray-400">Thursday Aug 13 <br> Early Arrivers Activity</div>
+            </a>
+            <div class="toc-tab active">
+                <div class="step-num">02</div>
+                <div class="text-[10px] md:text-xs font-semibold text-gray-900">Sunday Aug 16 <br>Optional Gift Exchange</div>
+            </div>
+        </nav>
+
+        <section class="mb-8 p-6 bg-purple-50 border-l-4 border-purple-800 rounded-r-xl">
+            <h2 class="text-lg mb-2 text-purple-900 font-bold uppercase tracking-tight flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-14L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                Sunday, Aug 16: Optional Gift Exchange
+            </h2>
+            <p class="text-gray-700 leading-relaxed text-sm">Transform connections from Digital to Tangible.</p>
+        </section>
+
+        <section class="bg-white border-2 border-dashed border-purple-300 p-10 rounded-3xl text-center">
+            <h3 class="text-xl font-black mb-3 text-purple-900">Ready to Opt-In?</h3>
+            <div class="inline-block nyu-bg text-white px-10 py-4 rounded-2xl font-bold text-sm shadow-xl">
+                Click Here!
+            </div>
+        </section>
+
+        <footer class="footer">NYU Stern • MSQM Class of 2027</footer>
+    </div>
+
+</body>
+</html>
