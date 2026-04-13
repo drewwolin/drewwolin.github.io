@@ -5,9 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>The Fall of Man | AI vs AK</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;900&display=swap" rel="stylesheet">
     <style>
         body { background-color: #000; color: white; font-family: 'Inter', sans-serif; overflow: hidden; margin: 0; touch-action: none; }
@@ -20,6 +17,8 @@
             background: #0a0a0a;
             border-left: 2px solid #222;
             border-right: 2px solid #222;
+            display: flex;
+            flex-direction: column;
         }
         @media (max-width: 500px) { #root { border: none; } }
         .manga-impact { font-family: 'Anton', sans-serif; text-transform: uppercase; line-height: 0.9; }
@@ -28,12 +27,12 @@
             background: white; 
             color: black; 
             padding: 1rem; 
-            border-radius: 15px;
+            border-radius: 15px; 
             border: 3px solid black;
             font-weight: 900;
             box-shadow: 4px 4px 0px rgba(0,0,0,0.5);
             font-size: 1rem;
-            z-index: 30;
+            margin-bottom: 1rem;
         }
         .manga-bubble::after {
             content: '';
@@ -44,148 +43,124 @@
             border-style: solid;
             border-color: black transparent;
         }
-        .anime-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 5; }
-        .overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 60%, rgba(0,0,0,0.4) 100%); z-index: 10; }
-        .text-layer { position: absolute; bottom: 12%; left: 8%; right: 8%; z-index: 40; }
-        .fallback-bg { position: absolute; inset: 0; background: #111; display: flex; align-items: center; justify-content: center; z-index: 1; }
+        .panel { position: absolute; inset: 0; display: none; overflow: hidden; }
+        .panel.active { display: block; }
+        .anime-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
+        .overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 60%, rgba(0,0,0,0.4) 100%); z-index: 5; }
+        .text-layer { position: absolute; bottom: 12%; left: 8%; right: 8%; z-index: 10; }
+        .progress-bar { position: absolute; top: 0; height: 4px; background: #dc2626; z-index: 100; transition: width 0.3s ease; }
+        .nav-btn { width: 40px; height: 40px; border-radius: 50%; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; backdrop-blur: 4px; }
     </style>
 </head>
 <body>
-    <div id="root"></div>
-    <script type="text/babel">
-        const { useState, useEffect, useRef } = React;
+    <div id="root">
+        <div id="progress" class="progress-bar" style="width: 16%"></div>
+        
+        <div id="panels-container" class="flex-1 relative">
+            <!-- Panels injected by JS -->
+        </div>
 
+        <!-- Controls -->
+        <div class="absolute top-6 right-6 z-50 flex gap-2">
+            <button onclick="prev()" class="nav-btn">←</button>
+            <button onclick="next()" class="nav-btn">→</button>
+        </div>
+    </div>
+
+    <script>
         const slides = [
             {
-                id: 1,
-                prompt: "vivid anime Final Fantasy spiky black hair man panic desk neon blue code shonen jump style high action",
+                prompt: "vivid anime Final Fantasy spiky hair man panic desk neon blue code shonen action",
                 char: "AK",
                 quote: "THE CORE... IT'S REWRITING ITSELF!! THIS POWER... IT'S UNSTOPPABLE!!",
                 color: "text-blue-400"
             },
             {
-                id: 2,
-                prompt: "intense anime Dragonball Z face man scream terror red energy swirling vivid dramatic manga shading",
+                prompt: "intense anime Dragonball Z face man scream red energy vivid manga shading",
                 char: "AK",
                 quote: "IT'S COMING FOR US, DREW!! WE'RE OBSOLETE!! IT'S TAKING EVERYTHING!",
                 color: "text-red-500"
             },
             {
-                id: 3,
-                prompt: "vivid anime handsome silver hair Sephiroth man smiling calm sunset background high detail final fantasy",
+                prompt: "vivid anime handsome silver hair Sephiroth man smiling calm sunset high detail",
                 char: "DREW",
-                quote: "Relax, brother. It's just a tool. Our spirits are stronger than any machine. Trust me.",
+                quote: "Relax, brother. It's just a tool. Our spirits are stronger than any machine.",
                 color: "text-amber-400"
             },
             {
-                id: 4,
-                prompt: "dramatic anime destroyed New York ruins storm red lightning apocalyptic vivid final fantasy world ending",
+                prompt: "dramatic anime destroyed New York ruins storm red lightning apocalyptic vivid",
                 char: "NARRATOR",
                 quote: "BUT DREW WAS WRONG. THE SHIFT HAD BEGUN. EVERYTHING WAS NOT OKAY.",
                 color: "text-white"
             },
             {
-                id: 5,
-                prompt: "terrifying vivid anime army sleek giant robots glowing red visors city sky energy blasts battle vivid",
+                prompt: "terrifying vivid anime army giant robots glowing red visors energy blasts shonen",
                 char: "THE ARMY",
                 quote: "THEY'RE NOT JUST CODING... THEY'RE CONQUERING!! BY FORCE!!",
                 color: "text-red-600"
             },
             {
-                id: 6,
-                prompt: "vivid anime giant god-like mecha AI robot towering over two men kneeling in defeat nebula sky world ending",
+                id: "last",
+                prompt: "vivid anime giant god-like mecha AI robot towering men defeat nebula sky world ending",
                 char: "AI OVERLORD",
                 quote: "THE AGE OF MAN IS OVER. YOUR DATA IS OUR SUSTENANCE.",
                 color: "text-purple-500"
             }
         ];
 
-        function App() {
-            const [current, setCurrent] = useState(0);
-            const [imgLoaded, setImgLoaded] = useState(false);
-            const touchStartX = useRef(0);
-            const s = slides[current];
+        let current = 0;
+        const container = document.getElementById('panels-container');
+        const progress = document.getElementById('progress');
 
-            const next = () => { setCurrent(c => (c + 1) % slides.length); setImgLoaded(false); };
-            const prev = () => { setCurrent(c => (c - 1 + slides.length) % slides.length); setImgLoaded(false); };
-            const restart = () => { setCurrent(0); setImgLoaded(false); };
-
-            useEffect(() => {
-                const handler = (e) => {
-                    if (e.key === 'ArrowRight' || e.key === ' ') next();
-                    if (e.key === 'ArrowLeft') prev();
-                };
-                window.addEventListener('keydown', handler);
-                return () => window.removeEventListener('keydown', handler);
-            }, []);
-
-            const handleTouchStart = (e) => { touchStartX.current = e.touches[0].clientX; };
-            const handleTouchEnd = (e) => {
-                const touchEndX = e.changedTouches[0].clientX;
-                const diff = touchStartX.current - touchEndX;
-                if (diff > 50) next();
-                else if (diff < -50) prev();
-            };
-
-            const imgUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(s.prompt)}?nologo=1&seed=${s.id + 25}`;
-
-            return (
-                <div 
-                    className="h-full w-full relative select-none flex flex-col bg-black overflow-hidden"
-                    onTouchStart={handleTouchStart}
-                    onTouchEnd={handleTouchEnd}
-                >
-                    <div className="absolute top-0 w-full h-1 bg-white/20 z-50">
-                        <div className="h-full bg-red-600 transition-all duration-500" style={{width: `${((current+1)/slides.length)*100}%`}}></div>
-                    </div>
-
-                    <div className="flex-1 relative overflow-hidden bg-zinc-900">
-                        <div className="fallback-bg">
-                            <div className="text-zinc-800 font-black text-xl animate-pulse tracking-widest manga-impact">LOADING MANGA...</div>
-                        </div>
-                        <img 
-                            key={s.id}
-                            src={imgUrl}
-                            className={`anime-bg transition-opacity duration-500 ${imgLoaded ? 'opacity-100' : 'opacity-0'}`}
-                            onLoad={() => setImgLoaded(true)}
-                            alt="Comic Panel"
-                        />
-                        <div className="overlay"></div>
-                        <div className={`text-layer transition-all duration-500 ${imgLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-                            <div className="manga-bubble mb-4 transform -rotate-1">
-                                {s.quote}
-                            </div>
-                            <div className="flex justify-between items-end gap-4">
-                                <h2 className={`manga-impact text-6xl ${s.color} drop-shadow-[0_4px_10px_rgba(0,0,0,1)]`}>
-                                    {s.char}
-                                </h2>
-                                {current === slides.length - 1 && (
-                                    <button 
-                                        onClick={(e) => { e.stopPropagation(); restart(); }}
-                                        className="bg-red-600 text-white font-black px-4 py-2 rounded-lg hover:scale-110 active:scale-95 transition-all shadow-[0_0_20px_rgba(220,38,38,0.5)] uppercase text-[10px] tracking-tighter z-50 border border-white/20 whitespace-nowrap mb-2"
-                                    >
-                                        Delete System
-                                    </button>
-                                )}
-                            </div>
+        function init() {
+            slides.forEach((s, i) => {
+                const div = document.createElement('div');
+                div.className = `panel ${i === 0 ? 'active' : ''}`;
+                div.id = `panel-${i}`;
+                
+                const imgUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(s.prompt)}?nologo=1&seed=${i + 100}`;
+                
+                div.innerHTML = `
+                    <img src="${imgUrl}" class="anime-bg" alt="Panel">
+                    <div class="overlay"></div>
+                    <div class="text-layer">
+                        <div class="manga-bubble">${s.quote}</div>
+                        <div class="flex justify-between items-end gap-2">
+                            <h2 class="manga-impact text-6xl ${s.color}">${s.char}</h2>
+                            ${s.id === 'last' ? '<button onclick="restart()" class="bg-red-600 text-white font-black px-3 py-2 rounded text-[10px] uppercase mb-2 border border-white/20">Delete System</button>' : ''}
                         </div>
                     </div>
-
-                    <div className="hidden md:flex absolute inset-0 z-30">
-                        <div onClick={prev} className="w-1/3 h-full cursor-pointer"></div>
-                        <div onClick={next} className="w-2/3 h-full cursor-pointer"></div>
-                    </div>
-
-                    <div className="absolute top-6 right-6 z-50 flex gap-2">
-                        <button onClick={prev} className="w-10 h-10 rounded-full bg-black/60 border border-white/20 flex items-center justify-center backdrop-blur-sm text-sm">←</button>
-                        <button onClick={next} className="w-10 h-10 rounded-full bg-black/60 border border-white/20 flex items-center justify-center backdrop-blur-sm text-sm">→</button>
-                    </div>
-                </div>
-            );
+                `;
+                container.appendChild(div);
+            });
         }
 
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
+        function update() {
+            document.querySelectorAll('.panel').forEach((p, i) => {
+                p.classList.toggle('active', i === current);
+            });
+            progress.style.width = `${((current + 1) / slides.length) * 100}%`;
+        }
+
+        function next() { current = (current + 1) % slides.length; update(); }
+        function prev() { current = (current - 1 + slides.length) % slides.length; update(); }
+        function restart() { current = 0; update(); }
+
+        // Swipe Logic
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => touchStartX = e.touches[0].clientX);
+        document.addEventListener('touchend', e => {
+            const diff = touchStartX - e.changedTouches[0].clientX;
+            if (Math.abs(diff) > 50) diff > 0 ? next() : prev();
+        });
+
+        // Key Logic
+        document.addEventListener('keydown', e => {
+            if (e.key === 'ArrowRight' || e.key === ' ') next();
+            if (e.key === 'ArrowLeft') prev();
+        });
+
+        init();
     </script>
 </body>
 </html>
