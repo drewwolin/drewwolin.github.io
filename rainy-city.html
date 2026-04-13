@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>raiNYCity | A Rainy NYC Adventure</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { margin: 0; padding: 0; overflow: hidden; background: #1a1a2e; font-family: 'Inter', sans-serif; touch-action: none; }
+        canvas { display: block; }
+        .ui-layer { pointer-events: none; }
+        .interactive { pointer-events: auto; }
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+        .cartoon-font { font-family: 'Fredoka One', cursive; }
+    </style>
+</head>
+<body>
+
+    <div id="game-container" class="relative w-full h-screen overflow-hidden">
+        <canvas id="gameCanvas"></canvas>
+        
+        <!-- UI Overlay -->
+        <div class="absolute inset-0 ui-layer flex flex-col items-center justify-between p-8">
+            <!-- Score & Distance -->
+            <div class="w-full flex justify-between items-start">
+                <div class="bg-black/60 backdrop-blur-md text-white p-4 rounded-3xl border-2 border-white/20">
+                    <div class="text-xs uppercase tracking-widest font-black opacity-60">Current Location</div>
+                    <div id="score" class="text-2xl cartoon-font">100th St</div>
+                </div>
+                <div id="highscore-container" class="bg-black/60 backdrop-blur-md text-white p-4 rounded-3xl border-2 border-white/20 hidden">
+                    <div class="text-xs uppercase tracking-widest font-black opacity-60 text-right">Longest Walk</div>
+                    <div id="highscore" class="text-2xl cartoon-font text-right">0</div>
+                </div>
+            </div>
+
+            <!-- Start Screen -->
+            <div id="start-screen" class="interactive bg-white/10 backdrop-blur-xl p-10 rounded-[3rem] border-4 border-white/30 text-center shadow-2xl max-w-sm">
+                <h1 class="text-6xl text-white cartoon-font mb-4 drop-shadow-lg">raiNYCity</h1>
+                <p class="text-white/80 text-sm mb-8 leading-relaxed font-medium">Walk from 100th St to the World Trade Center! <br>Hold <span class="text-white font-bold">SPACE</span> to lift your umbrella.</p>
+                <button id="start-btn" class="bg-emerald-500 hover:bg-emerald-400 text-white cartoon-font text-2xl px-10 py-5 rounded-2xl shadow-xl transform transition hover:scale-105 active:scale-95 border-b-8 border-emerald-700">
+                    WALK SOUTH
+                </button>
+            </div>
+
+            <!-- Game Over Screen -->
+            <div id="game-over-screen" class="interactive bg-rose-600 p-12 rounded-[3rem] border-4 border-white/30 text-center shadow-2xl max-w-sm hidden">
+                <h2 class="text-6xl text-white cartoon-font mb-4">DRIP!</h2>
+                <p class="text-white/90 text-xl mb-2 font-bold">You bumped your umbrella!</p>
+                <div id="final-score" class="text-3xl text-white cartoon-font mb-8">Got to 42nd St</div>
+                <button id="restart-btn" class="bg-white text-rose-600 cartoon-font text-2xl px-10 py-5 rounded-2xl shadow-xl transform transition hover:scale-105 active:scale-95 border-b-8 border-rose-200">
+                    TRY AGAIN
+                </button>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="w-full max-w-md bg-black/40 h-3 rounded-full overflow-hidden border border-white/10 mb-4">
+                <div id="progress-fill" class="h-full bg-emerald-500 transition-all duration-300" style="width: 0%"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const scoreElement = document.getElementById('score');
+        const startScreen = document.getElementById('start-screen');
+        const gameOverScreen = document.getElementById('game-over-screen');
+        const finalScoreElement = document.getElementById('final-score');
+        const highscoreElement = document.getElementById('highscore');
+        const highscoreContainer = document.getElementById('highscore-container');
+        const progressFill = document.getElementById('progress-fill');
+
+        // Game Constants
+        const PLAYER_X = 150;
+        const GROUND_Y_OFFSET = 120;
+        const UMBRELLA_MIN_Y = -65;
+        const UMBRELLA_MAX_Y = -140;
+        const TOTAL_STREETS = 100; // 100th to 1st
+        const PIXELS_PER_STREET = 600; // Walk 1 street roughly every 3-4 seconds
+        const COLLISION_BUFFER = 2; // VERY tight hitboxes now
+        const UMBRELLA_WIDTH = 110; // Wider umbrellas = harder to thread
+        const UMBRELLA_HEIGHT = 28; // Thicker umbrellas = harder to thread
+
+        let width, height;
+        let gameState = 'START';
+        let highscore = localStorage.getItem('rainycity-highscore-st') || 100;
+        let frame = 0;
+        let distanceTraveled = 0; 
+        let currentStreet = 100;
+        let inputActive = false;
+
+        // Sequence of content
+        const LANDMARKS = [
+            { street: 96, label: "Central Park Reservoir", type: "LANDMARK" },
+            { street: 96, label: "96th St Station (6)", type: "SUBWAY", line: "GREEN" },
+            { street: 82, label: "The Met Museum", type: "LANDMARK" },
+            { street: 72, label: "The Dakota", type: "LANDMARK" },
+            { street: 72, label: "72nd St Station (Q)", type: "SUBWAY", line: "YELLOW" },
+            { street: 59, label: "Roosevelt Island Tram", type: "LANDMARK" },
+            { street: 50, label: "Rockefeller Center", type: "LANDMARK" },
+            { street: 42, label: "Chrysler Building", type: "LANDMARK" },
+            { street: 42, label: "Grand Central (4,5,6)", type: "SUBWAY", line: "GREEN" },
+            { street: 34, label: "Empire State Building", type: "LANDMARK" },
+            { street: 23, label: "Flatiron Building", type: "LANDMARK" },
+            { street: 14, label: "Union Square (N,Q,R,W)", type: "SUBWAY", line: "YELLOW" },
+            { street: 8, label: "Washington Sq Arch", type: "LANDMARK" },
+            { street: 1, label: "Canal Street", type: "LANDMARK" },
+            { street: -5, label: "Brooklyn Bridge", type: "LANDMARK" },
+            { street: -10, label: "World Trade Center", type: "LANDMARK" }
+        ];
+
+        function resize() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+
+        // Character Classes (Hey Arnold Aesthetic)
+        class Character {
+            constructor(x, y, type) {
+                this.x = x;
+                this.y = y;
+                this.type = type; // 'PLAYER', 'SHORT', 'TALL'
+                this.width = 50;
+                this.height = type === 'TALL' ? 100 : 70;
+                this.umbrellaY = type === 'TALL' ? -150 : -75;
+                this.color = `hsl(${Math.random() * 360}, 60%, 50%)`;
+                this.headShape = Math.random() > 0.5 ? 'football' : 'tall';
+            }
+
+            draw(currentUmbrellaY = this.umbrellaY) {
+                const groundY = height - GROUND_Y_OFFSET;
+                const charY = groundY - this.height;
+                
+                ctx.save();
+                ctx.translate(this.x, charY);
+                
+                // Outline
+                ctx.strokeStyle = '#000';
+                ctx.lineWidth = 4;
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+
+                // Stumpy Body
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                if (this.type === 'TALL') {
+                    ctx.roundRect(0, 20, 40, 80, 5);
+                } else {
+                    ctx.roundRect(0, 30, 45, 40, 10);
+                }
+                ctx.fill();
+                ctx.stroke();
+
+                // Head
+                ctx.fillStyle = '#ffdbac';
+                ctx.beginPath();
+                if (this.headShape === 'football') {
+                    ctx.ellipse(22, 15, 25, 15, 0, 0, Math.PI * 2);
+                } else {
+                    ctx.ellipse(22, 10, 18, 25, 0, 0, Math.PI * 2);
+                }
+                ctx.fill();
+                ctx.stroke();
+
+                // Eyes (Dotto style)
+                ctx.fillStyle = '#000';
+                ctx.beginPath();
+                ctx.arc(12, 12, 3, 0, Math.PI * 2);
+                ctx.arc(32, 12, 3, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Handle (Pole) - Thin and clean
+                ctx.strokeStyle = '#000';
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.moveTo(22, 35);
+                ctx.lineTo(22, currentUmbrellaY + 10);
+                ctx.stroke();
+
+                // Umbrella Top (Wide and Flat)
+                ctx.fillStyle = this.type === 'PLAYER' ? '#e74c3c' : '#3498db';
+                ctx.beginPath();
+                ctx.ellipse(22, currentUmbrellaY + 10, UMBRELLA_WIDTH / 2, UMBRELLA_HEIGHT / 2, 0, Math.PI, 0);
+                ctx.fill();
+                ctx.stroke();
+                
+                // Umbrella Spikes (Cartoonish)
+                ctx.beginPath();
+                ctx.moveTo(22 - (UMBRELLA_WIDTH / 2), currentUmbrellaY + 10);
+                ctx.lineTo(22 + (UMBRELLA_WIDTH / 2), currentUmbrellaY + 10);
+                ctx.stroke();
+
+                ctx.restore();
+            }
+        }
+
+        let player = new Character(PLAYER_X, 0, 'PLAYER');
+        player.umbrellaY = UMBRELLA_MIN_Y;
+        let obstacles = [];
+        let particles = [];
+        let worldObjects = [];
+
+        // Input Logic
+        window.addEventListener('keydown', (e) => { if (e.code === 'Space') inputActive = true; });
+        window.addEventListener('keyup', (e) => { if (e.code === 'Space') inputActive = false; });
+        window.addEventListener('mousedown', () => inputActive = true);
+        window.addEventListener('mouseup', () => inputActive = false);
+        window.addEventListener('touchstart', (e) => { e.preventDefault(); inputActive = true; });
+        window.addEventListener('touchend', (e) => { e.preventDefault(); inputActive = false; });
+
+        document.getElementById('start-btn').addEventListener('click', startGame);
+        document.getElementById('restart-btn').addEventListener('click', startGame);
+
+        function startGame() {
+            gameState = 'PLAYING';
+            startScreen.classList.add('hidden');
+            gameOverScreen.classList.add('hidden');
+            distanceTraveled = 0;
+            currentStreet = 100;
+            frame = 0;
+            obstacles = [];
+            worldObjects = [];
+            initRain();
+        }
+
+        function initRain() {
+            particles = [];
+            for (let i = 0; i < 200; i++) {
+                particles.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    len: 15 + Math.random() * 20,
+                    speed: 10 + Math.random() * 10
+                });
+            }
+        }
+
+        function spawnObstacle() {
+            const isTall = Math.random() > 0.5;
+            obstacles.push(new Character(width + 100, 0, isTall ? 'TALL' : 'SHORT'));
+        }
+
+        function update() {
+            if (gameState !== 'PLAYING') return;
+
+            frame++;
+            distanceTraveled += 1.5;
+            const walkProgress = distanceTraveled / PIXELS_PER_STREET;
+            currentStreet = Math.max(0, Math.floor(100 - walkProgress));
+            
+            scoreElement.innerText = currentStreet > 0 ? `${currentStreet}th St` : (currentStreet === 0 ? "Canal St" : "Financial District");
+            progressFill.style.width = `${(100 - currentStreet)}%`;
+
+            // Umbrella physics (Slower and smoother)
+            const UMBRELLA_TRANSITION_SPEED = 4;
+            if (inputActive) {
+                player.umbrellaY = Math.max(UMBRELLA_MAX_Y, player.umbrellaY - UMBRELLA_TRANSITION_SPEED);
+            } else {
+                player.umbrellaY = Math.min(UMBRELLA_MIN_Y, player.umbrellaY + UMBRELLA_TRANSITION_SPEED);
+            }
+
+            // Spawn obstacles
+            if (frame % Math.max(40, 100 - (100 - currentStreet)) === 0) {
+                spawnObstacle();
+            }
+
+            // Move Obstacles
+            obstacles.forEach((obs, index) => {
+                obs.x -= 5;
+                
+                // Tightened Hitboxes (Smaller buffer = harder)
+                const pU = { 
+                    x: PLAYER_X - (UMBRELLA_WIDTH / 2) + 22 + COLLISION_BUFFER, 
+                    y: (height - GROUND_Y_OFFSET - player.height) + player.umbrellaY + 10 - (UMBRELLA_HEIGHT / 2) + COLLISION_BUFFER, 
+                    w: UMBRELLA_WIDTH - (COLLISION_BUFFER * 2), 
+                    h: UMBRELLA_HEIGHT - (COLLISION_BUFFER * 2) 
+                };
+                const nU = { 
+                    x: obs.x - (UMBRELLA_WIDTH / 2) + 22 + COLLISION_BUFFER, 
+                    y: (height - GROUND_Y_OFFSET - obs.height) + obs.umbrellaY + 10 - (UMBRELLA_HEIGHT / 2) + COLLISION_BUFFER, 
+                    w: UMBRELLA_WIDTH - (COLLISION_BUFFER * 2), 
+                    h: UMBRELLA_HEIGHT - (COLLISION_BUFFER * 2) 
+                };
+
+                if (pU.x < nU.x + nU.w && pU.x + pU.w > nU.x && pU.y < nU.y + nU.h && pU.y + pU.h > nU.y) {
+                    endGame();
+                }
+
+                if (obs.x < -200) obstacles.splice(index, 1);
+            });
+
+            // Rain
+            particles.forEach(p => {
+                p.y += p.speed;
+                p.x -= 2;
+                if (p.y > height) { p.y = -20; p.x = Math.random() * width; }
+            });
+
+            // Win condition
+            if (currentStreet <= -10) {
+                gameState = 'WIN';
+                alert("YOU REACHED THE WORLD TRADE CENTER! 🏙️");
+                startGame();
+            }
+        }
+
+        function endGame() {
+            gameState = 'GAME_OVER';
+            gameOverScreen.classList.remove('hidden');
+            finalScoreElement.innerText = `Got to ${currentStreet}th Street`;
+            if (currentStreet < highscore) {
+                highscore = currentStreet;
+                localStorage.setItem('rainycity-highscore-st', highscore);
+            }
+        }
+
+        function drawBackground() {
+            const groundY = height - GROUND_Y_OFFSET;
+            
+            // Sky
+            const grad = ctx.createLinearGradient(0,0,0,height);
+            grad.addColorStop(0, '#1a1a2e');
+            grad.addColorStop(1, '#16213e');
+            ctx.fillStyle = grad;
+            ctx.fillRect(0,0,width,height);
+
+            // Cityscape (Scrolling Buildings)
+            ctx.fillStyle = '#0f3460';
+            for(let i=0; i<6; i++) {
+                const bX = (i * 300 - (distanceTraveled % 300));
+                ctx.fillRect(bX, groundY - 200, 150, 200);
+                ctx.fillRect(bX + 180, groundY - 350, 100, 350);
+            }
+
+            // Draw Landmarks & Signs based on distance
+            LANDMARKS.forEach(l => {
+                const lDist = (100 - l.street) * PIXELS_PER_STREET;
+                const relX = width + (lDist - distanceTraveled);
+                
+                if (relX > -500 && relX < width + 500) {
+                    if (l.type === "SUBWAY") {
+                        // Subway Sign
+                        ctx.fillStyle = l.line === "GREEN" ? "#00933C" : "#FCCC0A";
+                        ctx.beginPath();
+                        ctx.roundRect(relX, groundY - 140, 180, 40, 5);
+                        ctx.fill();
+                        ctx.fillStyle = 'white';
+                        ctx.font = 'bold 14px Inter';
+                        ctx.fillText(l.label, relX + 10, groundY - 115);
+                    } else {
+                        // Landmark Silhouette
+                        ctx.fillStyle = '#e94560';
+                        ctx.beginPath();
+                        ctx.rect(relX, groundY - 400, 120, 400);
+                        ctx.fill();
+                        ctx.fillStyle = 'white';
+                        ctx.font = '900 24px Fredoka One';
+                        ctx.fillText(l.label.toUpperCase(), relX, groundY - 420);
+                    }
+                }
+            });
+
+            // Street Signs every 2 blocks
+            for(let s=100; s>=0; s-=2) {
+                const sDist = (100 - s) * PIXELS_PER_STREET;
+                const relX = width + (sDist - distanceTraveled);
+                if (relX > -200 && relX < width + 200) {
+                    ctx.fillStyle = '#27ae60';
+                    ctx.strokeStyle = '#fff';
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    ctx.roundRect(relX, groundY - 180, 100, 30, 2);
+                    ctx.fill();
+                    ctx.stroke();
+                    ctx.fillStyle = 'white';
+                    ctx.font = 'bold 12px Inter';
+                    ctx.fillText(`${s}th St`, relX + 10, groundY - 160);
+                }
+            }
+
+            // Ground
+            ctx.fillStyle = '#1a1a1a';
+            ctx.fillRect(0, groundY, width, GROUND_Y_OFFSET);
+            ctx.strokeStyle = '#333';
+            ctx.beginPath();
+            ctx.moveTo(0, groundY);
+            ctx.lineTo(width, groundY);
+            ctx.stroke();
+        }
+
+        function render() {
+            ctx.clearRect(0,0,width,height);
+            drawBackground();
+            
+            obstacles.forEach(obs => obs.draw());
+            player.draw(player.umbrellaY);
+
+            // Rain
+            ctx.strokeStyle = 'rgba(255,255,255,0.2)';
+            ctx.lineWidth = 2;
+            particles.forEach(p => {
+                ctx.beginPath();
+                ctx.moveTo(p.x, p.y);
+                ctx.lineTo(p.x - 2, p.y + p.len);
+                ctx.stroke();
+            });
+
+            update();
+            requestAnimationFrame(render);
+        }
+
+        initRain();
+        render();
+    </script>
+</body>
+</html>

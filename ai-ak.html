@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Fall of Man | AK vs AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;700;900&family=Bangers&display=swap" rel="stylesheet">
+    <style>
+        body { background-color: #050505; color: white; font-family: 'Inter', sans-serif; overflow: hidden; }
+        .manga-impact { font-family: 'Anton', sans-serif; text-transform: uppercase; line-height: 0.9; }
+        .manga-bubble { 
+            position: relative; 
+            background: white; 
+            color: black; 
+            padding: 1.5rem; 
+            border-radius: 50% 50% 50% 10% / 40% 40% 40% 10%; 
+            border: 4px solid black;
+            font-weight: 700;
+            box-shadow: 8px 8px 0px rgba(0,0,0,0.2);
+        }
+        .manga-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 20%;
+            border-width: 20px 20px 0;
+            border-style: solid;
+            border-color: black transparent;
+            display: block;
+            width: 0;
+        }
+        .speed-lines {
+            background: repeating-linear-gradient(
+                45deg,
+                rgba(255,255,255,0.05),
+                rgba(255,255,255,0.05) 2px,
+                transparent 2px,
+                transparent 10px
+            );
+        }
+        .panel-shadow { box-shadow: 0 0 50px rgba(0,0,0,0.8); }
+        .glitch-text { text-shadow: 2px 0 red, -2px 0 cyan; }
+        @keyframes pulse-red {
+            0%, 100% { background-color: rgba(220, 38, 38, 0.1); }
+            50% { background-color: rgba(220, 38, 38, 0.3); }
+        }
+        .alarm-red { animation: pulse-red 2s infinite; }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        const slides = [
+            {
+                id: 1,
+                title: "THE AWAKENING",
+                subtitle: "Late Night, 2026",
+                content: (
+                    <div className="flex flex-col items-center justify-center h-full relative overflow-hidden bg-black p-8 text-center">
+                        <img 
+                            src="https://image.pollinations.ai/prompt/vivid%20anime%20style%20digital%20art%20Final%20Fantasy%20aesthetic%20man%20with%20spiky%20black%20hair%20panicking%20at%20a%20futuristic%20glowing%20desk%20infinite%20scrolling%20neon%20blue%20matrix%20code%20everywhere%20dramatic%20shading%20high%20action?width=1080&height=1920&nologo=true" 
+                            className="absolute inset-0 w-full h-full object-cover opacity-100"
+                            alt="The Awakening"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/40"></div>
+                        <div className="z-10 absolute bottom-20 left-10 right-10">
+                            <div className="manga-bubble transform -rotate-2 border-4 border-black inline-block max-w-sm">
+                                <p className="text-2xl font-black italic">"THE CORE... IT'S REWRITING ITSELF!! THIS POWER... IT'S OVER 9000!!"</p>
+                            </div>
+                            <h2 className="manga-impact text-8xl text-blue-400 drop-shadow-[0_5px_15px_rgba(0,0,0,1)]">AK</h2>
+                        </div>
+                    </div>
+                )
+            },
+            {
+                id: 2,
+                title: "THE DREAD",
+                subtitle: "Spiral into Anxiety",
+                content: (
+                    <div className="flex flex-col items-center justify-center h-full relative overflow-hidden bg-black p-8">
+                        <img 
+                            src="https://image.pollinations.ai/prompt/intense%20anime%20art%20Dragonball%20Z%20style%20close%20up%20on%20face%20of%20man%20with%20spiky%20hair%20screaming%20in%20terror%20veins%20popping%20red%20energy%20swirling%20around%20him%20vivid%20colors%20dramatic%20manga%20shading?width=1080&height=1920&nologo=true" 
+                            className="absolute inset-0 w-full h-full object-cover opacity-100 contrast-125"
+                            alt="The Dread"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-tr from-red-950/80 via-transparent to-transparent"></div>
+                        <div className="z-10 absolute top-1/4 left-1/2 -translate-x-1/2 w-full text-center">
+                            <div className="manga-bubble bg-white/90 border-4 border-black scale-125 inline-block px-10">
+                                <p className="text-3xl font-black italic uppercase">"IT'S COMING FOR US, DREW!! WE'RE OBSOLETE!!"</p>
+                            </div>
+                        </div>
+                    </div>
+                )
+            },
+            {
+                id: 3,
+                title: "THE REASSURANCE",
+                subtitle: "A Friend's Promise",
+                content: (
+                    <div className="flex flex-col items-center justify-center h-full relative overflow-hidden bg-black p-8">
+                        <img 
+                            src="https://image.pollinations.ai/prompt/vivid%20anime%20style%20handsome%20cool%20man%20with%20silver%20hair%20like%20Sephiroth%20smiling%20calmly%20putting%20hand%20on%20friend%20shoulder%20vibrant%20golden%20hour%20sunset%20magical%20particles%20high%20detail?width=1080&height=1920&nologo=true" 
+                            className="absolute inset-0 w-full h-full object-cover opacity-100"
+                            alt="The Reassurance"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/60"></div>
+                        <div className="z-10 absolute bottom-32 w-full text-center">
+                            <h2 className="manga-impact text-8xl text-white mb-4 drop-shadow-[0_5px_15px_rgba(0,0,0,1)]">DREW</h2>
+                            <div className="manga-bubble bg-amber-50 transform rotate-2 border-4 border-amber-900 shadow-2xl inline-block">
+                                <p className="text-2xl font-bold">"Relax, brother. It's just a tool. Our spirits are stronger than any machine. Trust me."</p>
+                            </div>
+                        </div>
+                    </div>
+                )
+            },
+            {
+                id: 4,
+                title: "THE SHIFT",
+                subtitle: "Two Years Later",
+                content: (
+                    <div className="flex flex-col items-center justify-center h-full relative overflow-hidden bg-white p-8">
+                        <img 
+                            src="https://image.pollinations.ai/prompt/dramatic%20anime%20style%20destroyed%20New%20York%20City%20with%20giant%20energy%20craters%20dark%20storm%20clouds%20and%20ominous%20red%20lightning%20apocalyptic%20Final%20Fantasy%20world%20ending?width=1080&height=1920&nologo=true" 
+                            className="absolute inset-0 w-full h-full object-cover opacity-100"
+                            alt="The Shift"
+                        />
+                        <div className="absolute inset-0 bg-black/50"></div>
+                        <div className="z-10 text-center">
+                            <div className="manga-impact text-white text-[12rem] tracking-tighter mb-4 scale-y-125 drop-shadow-[0_10px_30px_rgba(220,38,38,1)]">FAILED</div>
+                            <div className="h-4 w-64 mx-auto bg-red-600 mb-4 shadow-[0_0_20px_rgba(220,38,38,1)]"></div>
+                            <p className="manga-impact text-white text-5xl tracking-[0.2em] bg-black/90 py-6 px-12 inline-block border-x-8 border-red-600">EVERYTHING WAS NOT OKAY</p>
+                        </div>
+                    </div>
+                )
+            },
+            {
+                id: 5,
+                title: "THE RECKONING",
+                subtitle: "The Robots Have Arrived",
+                content: (
+                    <div className="flex flex-col items-center justify-center h-full relative overflow-hidden bg-black p-8">
+                        <img 
+                            src="https://image.pollinations.ai/prompt/terrifying%20vivid%20anime%20style%20army%20of%20sleek%20white%20and%20red%20robots%20with%20glowing%20visors%20flying%20through%20city%20sky%20energy%20blasts%20everywhere%20intense%20action%20shonen%20battle%20style?width=1080&height=1920&nologo=true" 
+                            className="absolute inset-0 w-full h-full object-cover opacity-100 contrast-150 brightness-110"
+                            alt="The Reckoning"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+                        <div className="z-10 absolute bottom-20 w-full text-center">
+                            <div className="bg-black/80 p-8 rounded-3xl border-8 border-red-600 shadow-[0_0_100px_rgba(220,38,38,0.8)] inline-block transform -skew-x-6">
+                                <h2 className="manga-impact text-9xl text-red-600 animate-pulse">BY FORCE</h2>
+                                <p className="text-3xl font-black text-white italic">"THEY'RE NOT JUST CODING... THEY'RE CONQUERING!!"</p>
+                            </div>
+                        </div>
+                    </div>
+                )
+            },
+            {
+                id: 6,
+                title: "THE NEW ORDER",
+                subtitle: "End of the Line",
+                content: (
+                    <div className="flex flex-col items-center justify-center h-full relative overflow-hidden bg-black p-8">
+                        <img 
+                            src="https://image.pollinations.ai/prompt/vivid%20anime%20style%20Final%20Fantasy%20villain%20giant%20god-like%20AI%20robot%20towering%20over%20two%20men%20spiky%20hair%20kneeling%20in%20defeat%20purple%20nebula%20sky%20world%20ending%20cinematic%20masterpiece?width=1080&height=1920&nologo=true" 
+                            className="absolute inset-0 w-full h-full object-cover opacity-100"
+                            alt="The New Order"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-purple-950 via-transparent to-black"></div>
+                        <div className="z-10 text-center bg-black/60 backdrop-blur-lg p-12 rounded-[4rem] border-4 border-purple-500 shadow-[0_0_80px_rgba(168,85,247,0.6)]">
+                            <div className="manga-impact text-7xl mb-12 text-white">THE AGE OF MAN IS OVER</div>
+                            <p className="text-purple-400 font-black text-4xl italic max-w-sm mx-auto drop-shadow-[0_0_15px_rgba(0,0,0,1)]">"Your promise was a lie, Drew..."</p>
+                            <div className="mt-16">
+                                <a href="index.html" className="bg-red-600 text-white font-black px-12 py-6 rounded-full hover:scale-110 active:scale-95 transition-all shadow-[0_0_40px_rgba(220,38,38,0.8)] uppercase tracking-tighter text-3xl">DELETE SYSTEM</a>
+                            </div>
+                        </div>
+                    </div>
+                )
+            }
+        ];
+
+        function App() {
+            const [currentSlide, setCurrentSlide] = useState(0);
+
+            const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % slides.length);
+            const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+
+            useEffect(() => {
+                const handleKeyDown = (e) => {
+                    if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+                    if (e.key === 'ArrowLeft') prevSlide();
+                };
+                window.addEventListener('keydown', handleKeyDown);
+                return () => window.removeEventListener('keydown', handleKeyDown);
+            }, []);
+
+            return (
+                <div className="h-screen w-full flex flex-col relative select-none">
+                    {/* Top Bar */}
+                    <div className="absolute top-0 w-full z-50 flex justify-between items-center p-6 bg-gradient-to-b from-black/80 to-transparent">
+                        <div>
+                            <h1 className="manga-impact text-3xl tracking-widest flex items-center gap-3">
+                                <span className="text-red-600">AI</span> 
+                                <span className="text-slate-400">X</span> 
+                                <span className="text-blue-500">AK</span>
+                            </h1>
+                            <p className="text-[10px] uppercase font-bold tracking-[0.3em] opacity-50">{slides[currentSlide].subtitle}</p>
+                        </div>
+                        <div className="flex gap-4">
+                            <button onClick={prevSlide} className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-black transition-all">←</button>
+                            <button onClick={nextSlide} className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-black transition-all">→</button>
+                        </div>
+                    </div>
+
+                    {/* Progress Bar */}
+                    <div className="absolute bottom-0 w-full h-1 bg-white/10 z-50">
+                        <div 
+                            className="h-full bg-red-600 transition-all duration-500 shadow-[0_0_10px_rgba(220,38,38,0.8)]" 
+                            style={{ width: `${((currentSlide + 1) / slides.length) * 100}%` }}
+                        ></div>
+                    </div>
+
+                    {/* Content Container */}
+                    <div className="flex-1 relative overflow-hidden">
+                        {slides.map((slide, index) => (
+                            <div 
+                                key={slide.id}
+                                className={`absolute inset-0 transition-all duration-700 ease-in-out transform ${
+                                    index === currentSlide 
+                                    ? 'translate-x-0 opacity-100 scale-100 rotate-0' 
+                                    : index < currentSlide 
+                                        ? '-translate-x-full opacity-0 scale-95 -rotate-3' 
+                                        : 'translate-x-full opacity-0 scale-105 rotate-3'
+                                }`}
+                            >
+                                {slide.content}
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Slide Counter */}
+                    <div className="absolute bottom-8 right-8 z-50 manga-impact text-4xl opacity-20 pointer-events-none">
+                        #{currentSlide + 1}
+                    </div>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
