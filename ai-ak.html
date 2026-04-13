@@ -45,11 +45,14 @@
         }
         .panel { position: absolute; inset: 0; display: none; overflow: hidden; }
         .panel.active { display: block; }
-        .anime-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
+        .anime-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; opacity: 0; transition: opacity 0.5s ease; }
+        .anime-bg.loaded { opacity: 1; }
         .overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 60%, rgba(0,0,0,0.4) 100%); z-index: 5; }
-        .text-layer { position: absolute; bottom: 12%; left: 8%; right: 8%; z-index: 10; }
+        .text-layer { position: absolute; bottom: 12%; left: 8%; right: 8%; z-index: 10; transition: transform 0.5s ease, opacity 0.5s ease; }
         .progress-bar { position: absolute; top: 0; height: 4px; background: #dc2626; z-index: 100; transition: width 0.3s ease; }
         .nav-btn { width: 40px; height: 40px; border-radius: 50%; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; backdrop-blur: 4px; }
+        .loading-shimmer { position: absolute; inset: 0; background: linear-gradient(90deg, #111 25%, #222 50%, #111 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; z-index: 0; }
+        @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
     </style>
 </head>
 <body>
@@ -60,7 +63,6 @@
             <!-- Panels injected by JS -->
         </div>
 
-        <!-- Controls -->
         <div class="absolute top-6 right-6 z-50 flex gap-2">
             <button onclick="prev()" class="nav-btn">←</button>
             <button onclick="next()" class="nav-btn">→</button>
@@ -70,38 +72,38 @@
     <script>
         const slides = [
             {
-                prompt: "vivid anime Final Fantasy spiky hair man panic desk neon blue code shonen action",
+                prompt: "vivid anime Final Fantasy spiky hair man panic desk neon blue code action",
                 char: "AK",
                 quote: "THE CORE... IT'S REWRITING ITSELF!! THIS POWER... IT'S UNSTOPPABLE!!",
                 color: "text-blue-400"
             },
             {
-                prompt: "intense anime Dragonball Z face man scream red energy vivid manga shading",
+                prompt: "intense anime Dragonball Z face man scream terror red energy vivid dramatic",
                 char: "AK",
                 quote: "IT'S COMING FOR US, DREW!! WE'RE OBSOLETE!! IT'S TAKING EVERYTHING!",
                 color: "text-red-500"
             },
             {
-                prompt: "vivid anime handsome silver hair Sephiroth man smiling calm sunset high detail",
+                prompt: "vivid anime handsome silver hair Sephiroth man smiling calm sunset detail",
                 char: "DREW",
                 quote: "Relax, brother. It's just a tool. Our spirits are stronger than any machine.",
                 color: "text-amber-400"
             },
             {
-                prompt: "dramatic anime destroyed New York ruins storm red lightning apocalyptic vivid",
+                prompt: "dramatic anime destroyed New York ruins storm red lightning apocalyptic",
                 char: "NARRATOR",
                 quote: "BUT DREW WAS WRONG. THE SHIFT HAD BEGUN. EVERYTHING WAS NOT OKAY.",
                 color: "text-white"
             },
             {
-                prompt: "terrifying vivid anime army giant robots glowing red visors energy blasts shonen",
+                prompt: "terrifying vivid anime army sleek giant robots glowing red visors blasts",
                 char: "THE ARMY",
                 quote: "THEY'RE NOT JUST CODING... THEY'RE CONQUERING!! BY FORCE!!",
                 color: "text-red-600"
             },
             {
                 id: "last",
-                prompt: "vivid anime giant god-like mecha AI robot towering men defeat nebula sky world ending",
+                prompt: "vivid anime giant god-like mecha AI robot towering men kneeling defeat nebula",
                 char: "AI OVERLORD",
                 quote: "THE AGE OF MAN IS OVER. YOUR DATA IS OUR SUSTENANCE.",
                 color: "text-purple-500"
@@ -118,16 +120,19 @@
                 div.className = `panel ${i === 0 ? 'active' : ''}`;
                 div.id = `panel-${i}`;
                 
-                const imgUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(s.prompt)}?nologo=1&seed=${i + 100}`;
+                // ULTRA LOW RES (256x456) FOR INSTANT LOADS
+                // On mobile screens, this creates a cool retro pixelated anime vibe
+                const imgUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(s.prompt)}?width=256&height=456&nologo=1&seed=${i + 999}`;
                 
                 div.innerHTML = `
-                    <img src="${imgUrl}" class="anime-bg" alt="Panel">
+                    <div class="loading-shimmer"></div>
+                    <img src="${imgUrl}" class="anime-bg" alt="Panel" onload="this.classList.add('loaded')">
                     <div class="overlay"></div>
                     <div class="text-layer">
                         <div class="manga-bubble">${s.quote}</div>
                         <div class="flex justify-between items-end gap-2">
                             <h2 class="manga-impact text-6xl ${s.color}">${s.char}</h2>
-                            ${s.id === 'last' ? '<button onclick="restart()" class="bg-red-600 text-white font-black px-3 py-2 rounded text-[10px] uppercase mb-2 border border-white/20">Delete System</button>' : ''}
+                            ${s.id === 'last' ? '<button onclick="restart(event)" class="bg-red-600 text-white font-black px-3 py-2 rounded text-[10px] uppercase mb-2 border border-white/20 z-50">Delete System</button>' : ''}
                         </div>
                     </div>
                 `;
@@ -144,9 +149,8 @@
 
         function next() { current = (current + 1) % slides.length; update(); }
         function prev() { current = (current - 1 + slides.length) % slides.length; update(); }
-        function restart() { current = 0; update(); }
+        function restart(e) { if(e) e.stopPropagation(); current = 0; update(); }
 
-        // Swipe Logic
         let touchStartX = 0;
         document.addEventListener('touchstart', e => touchStartX = e.touches[0].clientX);
         document.addEventListener('touchend', e => {
@@ -154,7 +158,6 @@
             if (Math.abs(diff) > 50) diff > 0 ? next() : prev();
         });
 
-        // Key Logic
         document.addEventListener('keydown', e => {
             if (e.key === 'ArrowRight' || e.key === ' ') next();
             if (e.key === 'ArrowLeft') prev();
