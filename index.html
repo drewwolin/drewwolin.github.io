@@ -13,21 +13,33 @@
         body { font-family: 'Inter', sans-serif; }
     </style>
 </head>
-<body class="bg-slate-50">
+<body class="bg-slate-50 text-slate-900">
     <div id="root"></div>
 
     <script type="text/babel">
-        const { useState } = React;
-
         function App() {
-            const [projects, setProjects] = useState([
-                { id: 1, title: "Portfolio Redesign", description: "Updating my site with React.", start: "2024-03-01", end: "2024-05-15", link: "https://true-well-then.github.io" }
+            // EDIT YOUR CURRENT SPRINTS HERE (Max 3 each)
+            const [learnings] = React.useState([
+                { 
+                    id: 1, 
+                    title: "TypeScript Mastery", 
+                    description: "Deep dive into advanced types and generics.", 
+                    start: "2026-03-10", 
+                    end: "2026-04-20", 
+                    link: "https://linkedin.com" 
+                }
             ]);
-            const [learnings, setLearnings] = useState([
-                { id: 1, title: "TypeScript Mastery", description: "Learning advanced types.", start: "2024-03-10", end: "2024-04-20", link: "https://linkedin.com" }
+
+            const [projects] = React.useState([
+                { 
+                    id: 1, 
+                    title: "Portfolio Redesign", 
+                    description: "Migrating my site to a cleaner, React-based architecture.", 
+                    start: "2026-03-01", 
+                    end: "2026-05-15", 
+                    link: "https://true-well-then.github.io" 
+                }
             ]);
-            const [showForm, setShowForm] = useState(null);
-            const [formData, setFormData] = useState({ title: '', description: '', start: '', end: '', link: '' });
 
             const calculateProgress = (start, end) => {
                 const s = new Date(start);
@@ -38,90 +50,94 @@
                 return Math.round(((now - s) / (e - s)) * 100);
             };
 
-            const handleAdd = (e) => {
-                e.preventDefault();
-                const item = { ...formData, id: Date.now() };
-                if (showForm === 'project') setProjects([...projects, item]);
-                else setLearnings([...learnings, item]);
-                setShowForm(null);
-                setFormData({ title: '', description: '', start: '', end: '', link: '' });
-            };
-
             return (
-                <div className="min-h-screen p-8">
-                    <header className="max-w-6xl mx-auto flex justify-between items-center mb-12">
+                <div className="min-h-screen p-6 md:p-12">
+                    {/* Header */}
+                    <header className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center mb-16 gap-6">
                         <div>
-                            <h1 className="text-4xl font-extrabold text-indigo-600">Current Sprints</h1>
-                            <p className="text-slate-500">Studying, skill building, and projects.</p>
+                            <h1 className="text-5xl font-extrabold tracking-tight text-slate-900 mb-2">Current Sprints</h1>
+                            <p className="text-slate-500 text-lg font-medium">Studying, skill building, and projects.</p>
                         </div>
-                        <div className="space-x-4">
-                            <a href="https://true-well-then.github.io" className="text-sm font-bold px-4 py-2 bg-slate-800 text-white rounded-lg">Github</a>
-                            <a href="https://linkedin.com" className="text-sm font-bold px-4 py-2 bg-blue-600 text-white rounded-lg">LinkedIn</a>
+                        <div className="flex gap-3">
+                            <a href="https://true-well-then.github.io" className="flex items-center gap-2 text-sm font-bold px-5 py-2.5 bg-slate-900 text-white rounded-full hover:bg-slate-800 transition-all shadow-sm">
+                                Github
+                            </a>
+                            <a href="https://linkedin.com" className="flex items-center gap-2 text-sm font-bold px-5 py-2.5 bg-[#0077b5] text-white rounded-full hover:opacity-90 transition-all shadow-sm">
+                                LinkedIn
+                            </a>
                         </div>
                     </header>
 
-                    <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10">
-                        {/* Projects */}
+                    <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
+                        
+                        {/* Learning Section (Left) */}
                         <section>
-                            <div className="flex justify-between mb-4">
-                                <h2 className="text-2xl font-bold">Projects ({projects.length}/3)</h2>
-                                {projects.length < 3 && <button onClick={() => setShowForm('project')} className="bg-indigo-100 text-indigo-600 px-3 rounded">+</button>}
+                            <div className="flex items-center gap-3 mb-6">
+                                <h2 className="text-2xl font-bold">Learning</h2>
+                                <span className="text-sm font-semibold bg-emerald-100 text-emerald-700 px-2.5 py-0.5 rounded-full">
+                                    {learnings.length}/3
+                                </span>
                             </div>
-                            {projects.map(p => (
-                                <div key={p.id} className="bg-white p-6 rounded-xl shadow-sm mb-4 border border-slate-100">
-                                    <h3 className="font-bold text-lg">{p.title}</h3>
-                                    <p className="text-slate-500 text-sm mb-4">{p.description}</p>
-                                    <div className="w-full bg-slate-100 h-2 rounded-full mb-2">
-                                        <div className="bg-indigo-500 h-2 rounded-full" style={{width: calculateProgress(p.start, p.end) + '%'}}></div>
+                            
+                            <div className="space-y-6">
+                                {learnings.map(l => (
+                                    <div key={l.id} className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                                        <h3 className="font-bold text-xl mb-1">{l.title}</h3>
+                                        <p className="text-slate-500 text-sm mb-6">{l.description}</p>
+                                        
+                                        <div className="space-y-3">
+                                            <div className="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+                                                <div 
+                                                    className="bg-emerald-500 h-full transition-all duration-1000" 
+                                                    style={{width: calculateProgress(l.start, l.end) + '%'}}
+                                                ></div>
+                                            </div>
+                                            <div className="flex justify-between items-center text-xs font-bold uppercase tracking-wider">
+                                                <span className="text-emerald-600">{calculateProgress(l.start, l.end)}% Complete</span>
+                                                <a href={l.link} target="_blank" className="text-slate-400 hover:text-emerald-600 transition-colors">View Certificate →</a>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className="flex justify-between text-xs font-bold">
-                                        <span>{calculateProgress(p.start, p.end)}%</span>
-                                        <a href={p.link} className="text-indigo-600">Link →</a>
-                                    </div>
-                                </div>
-                            ))}
+                                ))}
+                            </div>
                         </section>
 
-                        {/* Learnings */}
+                        {/* Projects Section (Right) */}
                         <section>
-                            <div className="flex justify-between mb-4">
-                                <h2 className="text-2xl font-bold">Learning ({learnings.length}/3)</h2>
-                                {learnings.length < 3 && <button onClick={() => setShowForm('learning')} className="bg-emerald-100 text-emerald-600 px-3 rounded">+</button>}
+                            <div className="flex items-center gap-3 mb-6">
+                                <h2 className="text-2xl font-bold">Projects</h2>
+                                <span className="text-sm font-semibold bg-indigo-100 text-indigo-700 px-2.5 py-0.5 rounded-full">
+                                    {projects.length}/3
+                                </span>
                             </div>
-                            {learnings.map(l => (
-                                <div key={l.id} className="bg-white p-6 rounded-xl shadow-sm mb-4 border border-slate-100">
-                                    <h3 className="font-bold text-lg">{l.title}</h3>
-                                    <p className="text-slate-500 text-sm mb-4">{l.description}</p>
-                                    <div className="w-full bg-slate-100 h-2 rounded-full mb-2">
-                                        <div className="bg-emerald-500 h-2 rounded-full" style={{width: calculateProgress(l.start, l.end) + '%'}}></div>
+
+                            <div className="space-y-6">
+                                {projects.map(p => (
+                                    <div key={p.id} className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                                        <h3 className="font-bold text-xl mb-1">{p.title}</h3>
+                                        <p className="text-slate-500 text-sm mb-6">{p.description}</p>
+                                        
+                                        <div className="space-y-3">
+                                            <div className="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+                                                <div 
+                                                    className="bg-indigo-600 h-full transition-all duration-1000" 
+                                                    style={{width: calculateProgress(p.start, p.end) + '%'}}
+                                                ></div>
+                                            </div>
+                                            <div className="flex justify-between items-center text-xs font-bold uppercase tracking-wider">
+                                                <span className="text-indigo-600">{calculateProgress(p.start, p.end)}% Progress</span>
+                                                <a href={p.link} target="_blank" className="text-slate-400 hover:text-indigo-600 transition-colors">GitHub Repo →</a>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className="flex justify-between text-xs font-bold">
-                                        <span>{calculateProgress(l.start, l.end)}%</span>
-                                        <a href={l.link} className="text-emerald-600">LinkedIn →</a>
-                                    </div>
-                                </div>
-                            ))}
+                                ))}
+                            </div>
                         </section>
                     </div>
 
-                    {showForm && (
-                        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4">
-                            <form onSubmit={handleAdd} className="bg-white p-8 rounded-2xl w-full max-w-md shadow-xl">
-                                <h2 className="text-xl font-bold mb-4">Add New</h2>
-                                <input required placeholder="Title" className="w-full border p-2 mb-2 rounded" onChange={e => setFormData({...formData, title: e.target.value})} />
-                                <textarea placeholder="Description" className="w-full border p-2 mb-2 rounded" onChange={e => setFormData({...formData, description: e.target.value})} />
-                                <div className="flex gap-2 mb-2">
-                                    <input type="date" required className="w-1/2 border p-2 rounded" onChange={e => setFormData({...formData, start: e.target.value})} />
-                                    <input type="date" required className="w-1/2 border p-2 rounded" onChange={e => setFormData({...formData, end: e.target.value})} />
-                                </div>
-                                <input placeholder="Link" className="w-full border p-2 mb-4 rounded" onChange={e => setFormData({...formData, link: e.target.value})} />
-                                <div className="flex gap-2">
-                                    <button type="button" onClick={() => setShowForm(null)} className="w-1/2 p-2 bg-slate-100 rounded">Cancel</button>
-                                    <button type="submit" className="w-1/2 p-2 bg-indigo-600 text-white rounded">Add</button>
-                                </div>
-                            </form>
-                        </div>
-                    )}
+                    <footer className="max-w-6xl mx-auto mt-24 pt-8 border-t border-slate-200 text-center text-slate-400 text-xs font-medium">
+                        PUBLISHED VIA <a href="https://true-well-then.github.io" className="underline hover:text-slate-600 uppercase">github.io</a>
+                    </footer>
                 </div>
             );
         }

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sprint Hub | Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 p-6">
+    <div class="max-w-4xl mx-auto">
+        <header class="mb-10 flex justify-between items-end">
+            <div>
+                <h1 class="text-3xl font-extrabold text-indigo-400">Update Center</h1>
+                <p class="text-slate-400">Modify your current sprints and projects.</p>
+            </div>
+            <div class="text-right">
+                <button id="saveBtn" onclick="submitUpdate()" class="bg-indigo-600 hover:bg-indigo-500 text-white px-8 py-3 rounded-xl font-bold transition-all shadow-lg shadow-indigo-500/20">
+                    Push Updates to GitHub
+                </button>
+            </div>
+        </header>
+
+        <div class="grid md:grid-cols-2 gap-8">
+            <section class="bg-slate-800 p-6 rounded-2xl border border-slate-700 space-y-4 md:col-span-2">
+                <h2 class="text-lg font-bold text-indigo-300">1. Credentials</h2>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <input type="password" id="ghToken" placeholder="GitHub Personal Access Token" class="bg-slate-900 border border-slate-700 p-2 rounded w-full">
+                    <input type="text" id="ghUser" placeholder="Username (drewwolin)" class="bg-slate-900 border border-slate-700 p-2 rounded w-full">
+                    <input type="text" id="ghRepo" placeholder="Repo Name (drewwolin.github.io)" class="bg-slate-900 border border-slate-700 p-2 rounded w-full">
+                </div>
+            </section>
+
+            <section id="learningSection" class="space-y-6">
+                <h2 class="text-2xl font-bold flex items-center gap-2">📚 Learning (Max 3)</h2>
+                </section>
+
+            <section id="projectSection" class="space-y-6">
+                <h2 class="text-2xl font-bold flex items-center gap-2">🛠 Projects (Max 3)</h2>
+                </section>
+        </div>
+        
+        <div id="status" class="mt-8 p-4 rounded-xl hidden"></div>
+    </div>
+
+    <script>
+        // Load saved credentials from localStorage
+        const fields = ['ghToken', 'ghUser', 'ghRepo'];
+        fields.forEach(f => document.getElementById(f).value = localStorage.getItem(f) || '');
+
+        const createSlot = (type, index) => `
+            <div class="${type}-slot bg-slate-800 p-5 rounded-2xl border border-slate-700 space-y-3">
+                <h3 class="text-xs font-bold uppercase tracking-widest text-slate-500">${type} Slot ${index + 1}</h3>
+                <input type="text" placeholder="Title" class="title bg-slate-900 border border-slate-700 p-2 rounded w-full font-bold">
+                <textarea placeholder="Short Description" class="desc bg-slate-900 border border-slate-700 p-2 rounded w-full text-sm" rows="2"></textarea>
+                <div class="grid grid-cols-2 gap-2">
+                    <input type="date" class="start bg-slate-900 border border-slate-700 p-2 rounded text-sm text-slate-400">
+                    <input type="date" class="end bg-slate-900 border border-slate-700 p-2 rounded text-sm text-slate-400">
+                </div>
+                <input type="url" placeholder="Link" class="link bg-slate-900 border border-slate-700 p-2 rounded w-full text-sm">
+            </div>
+        `;
+
+        for(let i=0; i<3; i++) {
+            document.getElementById('learningSection').innerHTML += createSlot('learning', i);
+            document.getElementById('projectSection').innerHTML += createSlot('project', i);
+        }
+
+        async function submitUpdate() {
+            const btn = document.getElementById('saveBtn');
+            const status = document.getElementById('status');
+            
+            // Save settings
+            fields.forEach(f => localStorage.setItem(f, document.getElementById(f).value));
+
+            const token = document.getElementById('ghToken').value;
+            const user = document.getElementById('ghUser').value;
+            const repo = document.getElementById('ghRepo').value;
+
+            if(!token || !user || !repo) return alert("Please fill in GitHub credentials.");
+
+            btn.disabled = true;
+            btn.innerText = "Processing...";
+
+            const getItems = (selector) => {
+                return Array.from(document.querySelectorAll(selector)).map((slot, i) => ({
+                    id: i + 1,
+                    title: slot.querySelector('.title').value,
+                    description: slot.querySelector('.desc').value,
+                    start: slot.querySelector('.start').value,
+                    end: slot.querySelector('.end').value,
+                    link: slot.querySelector('.link').value
+                })).filter(item => item.title); // Only keep if title exists
+            };
+
+            const learningData = getItems('.learning-slot');
+            const projectData = getItems('.project-slot');
+
+            // Generate the final index.html string
+            const finalHTML = generateHTML(learningData, projectData);
+
+            try {
+                // 1. Get the current file's SHA (required to update)
+                const fileUrl = `https://api.github.com/repos/${user}/${repo}/contents/index.html`;
+                const getFile = await fetch(fileUrl, {
+                    headers: { 'Authorization': `token ${token}` }
+                });
+                const fileData = await getFile.json();
+                
+                // 2. Push the update
+                const update = await fetch(fileUrl, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        message: `Update Sprints: ${new Date().toLocaleString()}`,
+                        content: btoa(unescape(encodeURIComponent(finalHTML))),
+                        sha: fileData.sha
+                    })
+                });
+
+                if (update.ok) {
+                    status.className = "mt-8 p-4 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/50 block";
+                    status.innerText = "Success! Your site will update in ~60 seconds.";
+                } else {
+                    throw new Error("GitHub API rejected the request.");
+                }
+            } catch (err) {
+                status.className = "mt-8 p-4 rounded-xl bg-red-500/20 text-red-400 border border-red-500/50 block";
+                status.innerText = "Error: " + err.message;
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "Push Updates to GitHub";
+            }
+        }
+
+        // The Master Template
+        function generateHTML(learnings, projects) {
+            return `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drew's Current Sprints</title>
+    <script src="https://cdn.tailwindcss.com"><\/script>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"><\/script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"><\/script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"><\/script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+    <div id="root"></div>
+    <script type="text/babel">
+        function App() {
+            const learnings = ${JSON.stringify(learnings)};
+            const projects = ${JSON.stringify(projects)};
+
+            const calculateProgress = (start, end) => {
+                const s = new Date(start);
+                const e = new Date(end);
+                const now = new Date();
+                if (now < s) return 0;
+                if (now > e) return 100;
+                return Math.round(((now - s) / (e - s)) * 100);
+            };
+
+            return (
+                <div className="min-h-screen p-6 md:p-12">
+                    <header className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center mb-16 gap-6">
+                        <div>
+                            <h1 className="text-5xl font-extrabold tracking-tight text-slate-900 mb-2">Current Sprints</h1>
+                            <p className="text-slate-500 text-lg font-medium">Studying, skill building, and projects.</p>
+                        </div>
+                        <div className="flex gap-3">
+                            <a href="https://true-well-then.github.io" className="text-sm font-bold px-5 py-2.5 bg-slate-900 text-white rounded-full hover:bg-slate-800 transition-all shadow-sm">Github</a>
+                            <a href="https://linkedin.com" className="text-sm font-bold px-5 py-2.5 bg-[#0077b5] text-white rounded-full hover:opacity-90 transition-all shadow-sm">LinkedIn</a>
+                        </div>
+                    </header>
+
+                    <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
+                        <section>
+                            <div className="flex items-center gap-3 mb-6">
+                                <h2 className="text-2xl font-bold">Learning</h2>
+                                <span className="text-sm font-semibold bg-emerald-100 text-emerald-700 px-2.5 py-0.5 rounded-full">{learnings.length}/3</span>
+                            </div>
+                            <div className="space-y-6">
+                                {learnings.map(l => (
+                                    <div key={l.id} className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                                        <h3 className="font-bold text-xl mb-1">{l.title}</h3>
+                                        <p className="text-slate-500 text-sm mb-6">{l.description}</p>
+                                        <div className="space-y-3">
+                                            <div className="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+                                                <div className="bg-emerald-500 h-full transition-all duration-1000" style={{width: calculateProgress(l.start, l.end) + '%'}}></div>
+                                            </div>
+                                            <div className="flex justify-between items-center text-xs font-bold uppercase tracking-wider">
+                                                <span className="text-emerald-600">{calculateProgress(l.start, l.end)}% Complete</span>
+                                                <a href={l.link} target="_blank" className="text-slate-400 hover:text-emerald-600 transition-colors">View Certificate →</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </section>
+
+                        <section>
+                            <div className="flex items-center gap-3 mb-6">
+                                <h2 className="text-2xl font-bold">Projects</h2>
+                                <span className="text-sm font-semibold bg-indigo-100 text-indigo-700 px-2.5 py-0.5 rounded-full">{projects.length}/3</span>
+                            </div>
+                            <div className="space-y-6">
+                                {projects.map(p => (
+                                    <div key={p.id} className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                                        <h3 className="font-bold text-xl mb-1">{p.title}</h3>
+                                        <p className="text-slate-500 text-sm mb-6">{p.description}</p>
+                                        <div className="space-y-3">
+                                            <div className="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+                                                <div className="bg-indigo-600 h-full transition-all duration-1000" style={{width: calculateProgress(p.start, p.end) + '%'}}></div>
+                                            </div>
+                                            <div className="flex justify-between items-center text-xs font-bold uppercase tracking-wider">
+                                                <span className="text-indigo-600">{calculateProgress(p.start, p.end)}% Progress</span>
+                                                <a href={p.link} target="_blank" className="text-slate-400 hover:text-indigo-600 transition-colors">GitHub Repo →</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </section>
+                    </div>
+                    <footer className="max-w-6xl mx-auto mt-24 pt-8 border-t border-slate-200 text-center text-slate-400 text-xs font-medium">
+                        PUBLISHED VIA <a href="https://true-well-then.github.io" className="underline hover:text-slate-600 uppercase">github.io</a>
+                    </footer>
+                </div>
+            );
+        }
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    <\/script>
+</body>
+</html>`;
+        }
+    </script>
+</body>
+</html>
