@@ -15,31 +15,10 @@
 </head>
 <body class="bg-slate-50 text-slate-900">
     <div id="root"></div>
-
     <script type="text/babel">
         function App() {
-            // EDIT YOUR CURRENT SPRINTS HERE (Max 3 each)
-            const [learnings] = React.useState([
-                { 
-                    id: 1, 
-                    title: "TypeScript Mastery", 
-                    description: "Deep dive into advanced types and generics.", 
-                    start: "2026-03-10", 
-                    end: "2026-04-20", 
-                    link: "https://linkedin.com" 
-                }
-            ]);
-
-            const [projects] = React.useState([
-                { 
-                    id: 1, 
-                    title: "Portfolio Redesign", 
-                    description: "Migrating my site to a cleaner, React-based architecture.", 
-                    start: "2026-03-01", 
-                    end: "2026-05-15", 
-                    link: "https://true-well-then.github.io" 
-                }
-            ]);
+            const learnings = [{"id":1,"title":"Claude 101","description":"","start":"2026-04-01","end":"2026-04-21","link":""}];
+            const projects = [{"id":1,"title":"Rebuilding Github Page","description":"Going hogwild using AI to make useful website on my personal Github page.","start":"2026-04-01","end":"2026-05-01","link":""},{"id":2,"title":"Hip Rehab","description":"Getting my hip right.","start":"2026-04-03","end":"2026-06-01","link":""}];
 
             const calculateProgress = (start, end) => {
                 const s = new Date(start);
@@ -52,45 +31,31 @@
 
             return (
                 <div className="min-h-screen p-6 md:p-12">
-                    {/* Header */}
                     <header className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center mb-16 gap-6">
                         <div>
                             <h1 className="text-5xl font-extrabold tracking-tight text-slate-900 mb-2">Current Sprints</h1>
                             <p className="text-slate-500 text-lg font-medium">Studying, skill building, and projects.</p>
                         </div>
                         <div className="flex gap-3">
-                            <a href="https://true-well-then.github.io" className="flex items-center gap-2 text-sm font-bold px-5 py-2.5 bg-slate-900 text-white rounded-full hover:bg-slate-800 transition-all shadow-sm">
-                                Github
-                            </a>
-                            <a href="https://linkedin.com" className="flex items-center gap-2 text-sm font-bold px-5 py-2.5 bg-[#0077b5] text-white rounded-full hover:opacity-90 transition-all shadow-sm">
-                                LinkedIn
-                            </a>
+                            <a href="https://true-well-then.github.io" className="text-sm font-bold px-5 py-2.5 bg-slate-900 text-white rounded-full hover:bg-slate-800 transition-all shadow-sm">Github</a>
+                            <a href="https://linkedin.com" className="text-sm font-bold px-5 py-2.5 bg-[#0077b5] text-white rounded-full hover:opacity-90 transition-all shadow-sm">LinkedIn</a>
                         </div>
                     </header>
 
                     <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
-                        
-                        {/* Learning Section (Left) */}
                         <section>
                             <div className="flex items-center gap-3 mb-6">
                                 <h2 className="text-2xl font-bold">Learning</h2>
-                                <span className="text-sm font-semibold bg-emerald-100 text-emerald-700 px-2.5 py-0.5 rounded-full">
-                                    {learnings.length}/3
-                                </span>
+                                <span className="text-sm font-semibold bg-emerald-100 text-emerald-700 px-2.5 py-0.5 rounded-full">{learnings.length}/3</span>
                             </div>
-                            
                             <div className="space-y-6">
                                 {learnings.map(l => (
                                     <div key={l.id} className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
                                         <h3 className="font-bold text-xl mb-1">{l.title}</h3>
                                         <p className="text-slate-500 text-sm mb-6">{l.description}</p>
-                                        
                                         <div className="space-y-3">
                                             <div className="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
-                                                <div 
-                                                    className="bg-emerald-500 h-full transition-all duration-1000" 
-                                                    style={{width: calculateProgress(l.start, l.end) + '%'}}
-                                                ></div>
+                                                <div className="bg-emerald-500 h-full transition-all duration-1000" style={{width: calculateProgress(l.start, l.end) + '%'}}></div>
                                             </div>
                                             <div className="flex justify-between items-center text-xs font-bold uppercase tracking-wider">
                                                 <span className="text-emerald-600">{calculateProgress(l.start, l.end)}% Complete</span>
@@ -102,27 +67,19 @@
                             </div>
                         </section>
 
-                        {/* Projects Section (Right) */}
                         <section>
                             <div className="flex items-center gap-3 mb-6">
                                 <h2 className="text-2xl font-bold">Projects</h2>
-                                <span className="text-sm font-semibold bg-indigo-100 text-indigo-700 px-2.5 py-0.5 rounded-full">
-                                    {projects.length}/3
-                                </span>
+                                <span className="text-sm font-semibold bg-indigo-100 text-indigo-700 px-2.5 py-0.5 rounded-full">{projects.length}/3</span>
                             </div>
-
                             <div className="space-y-6">
                                 {projects.map(p => (
                                     <div key={p.id} className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
                                         <h3 className="font-bold text-xl mb-1">{p.title}</h3>
                                         <p className="text-slate-500 text-sm mb-6">{p.description}</p>
-                                        
                                         <div className="space-y-3">
                                             <div className="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
-                                                <div 
-                                                    className="bg-indigo-600 h-full transition-all duration-1000" 
-                                                    style={{width: calculateProgress(p.start, p.end) + '%'}}
-                                                ></div>
+                                                <div className="bg-indigo-600 h-full transition-all duration-1000" style={{width: calculateProgress(p.start, p.end) + '%'}}></div>
                                             </div>
                                             <div className="flex justify-between items-center text-xs font-bold uppercase tracking-wider">
                                                 <span className="text-indigo-600">{calculateProgress(p.start, p.end)}% Progress</span>
@@ -134,14 +91,12 @@
                             </div>
                         </section>
                     </div>
-
                     <footer className="max-w-6xl mx-auto mt-24 pt-8 border-t border-slate-200 text-center text-slate-400 text-xs font-medium">
                         PUBLISHED VIA <a href="https://true-well-then.github.io" className="underline hover:text-slate-600 uppercase">github.io</a>
                     </footer>
                 </div>
             );
         }
-
         const root = ReactDOM.createRoot(document.getElementById('root'));
         root.render(<App />);
     </script>
