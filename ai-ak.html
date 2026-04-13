@@ -26,12 +26,12 @@
             position: relative; 
             background: white; 
             color: black; 
-            padding: 1rem; 
+            padding: 1.2rem; 
             border-radius: 15px; 
             border: 3px solid black;
             font-weight: 900;
             box-shadow: 4px 4px 0px rgba(0,0,0,0.5);
-            font-size: 1rem;
+            font-size: 1.1rem;
             margin-bottom: 1rem;
         }
         .manga-bubble::after {
@@ -45,14 +45,11 @@
         }
         .panel { position: absolute; inset: 0; display: none; overflow: hidden; }
         .panel.active { display: block; }
-        .anime-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; opacity: 0; transition: opacity 0.5s ease; }
-        .anime-bg.loaded { opacity: 1; }
+        .anime-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
         .overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 60%, rgba(0,0,0,0.4) 100%); z-index: 5; }
-        .text-layer { position: absolute; bottom: 12%; left: 8%; right: 8%; z-index: 10; transition: transform 0.5s ease, opacity 0.5s ease; }
+        .text-layer { position: absolute; bottom: 12%; left: 8%; right: 8%; z-index: 10; }
         .progress-bar { position: absolute; top: 0; height: 4px; background: #dc2626; z-index: 100; transition: width 0.3s ease; }
         .nav-btn { width: 40px; height: 40px; border-radius: 50%; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; backdrop-blur: 4px; }
-        .loading-shimmer { position: absolute; inset: 0; background: linear-gradient(90deg, #111 25%, #222 50%, #111 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; z-index: 0; }
-        @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
     </style>
 </head>
 <body>
@@ -72,38 +69,38 @@
     <script>
         const slides = [
             {
-                prompt: "vivid anime Final Fantasy spiky hair man panic desk neon blue code action",
+                image: "images/panel1.jpg",
                 char: "AK",
                 quote: "THE CORE... IT'S REWRITING ITSELF!! THIS POWER... IT'S UNSTOPPABLE!!",
                 color: "text-blue-400"
             },
             {
-                prompt: "intense anime Dragonball Z face man scream terror red energy vivid dramatic",
+                image: "images/panel2.jpg",
                 char: "AK",
                 quote: "IT'S COMING FOR US, DREW!! WE'RE OBSOLETE!! IT'S TAKING EVERYTHING!",
                 color: "text-red-500"
             },
             {
-                prompt: "vivid anime handsome silver hair Sephiroth man smiling calm sunset detail",
+                image: "images/panel3.jpg",
                 char: "DREW",
                 quote: "Relax, brother. It's just a tool. Our spirits are stronger than any machine.",
                 color: "text-amber-400"
             },
             {
-                prompt: "dramatic anime destroyed New York ruins storm red lightning apocalyptic",
+                image: "images/panel4.jpg",
                 char: "NARRATOR",
                 quote: "BUT DREW WAS WRONG. THE SHIFT HAD BEGUN. EVERYTHING WAS NOT OKAY.",
                 color: "text-white"
             },
             {
-                prompt: "terrifying vivid anime army sleek giant robots glowing red visors blasts",
+                image: "images/panel5.jpg",
                 char: "THE ARMY",
                 quote: "THEY'RE NOT JUST CODING... THEY'RE CONQUERING!! BY FORCE!!",
                 color: "text-red-600"
             },
             {
                 id: "last",
-                prompt: "vivid anime giant god-like mecha AI robot towering men kneeling defeat nebula",
+                image: "images/panel6.jpg",
                 char: "AI OVERLORD",
                 quote: "THE AGE OF MAN IS OVER. YOUR DATA IS OUR SUSTENANCE.",
                 color: "text-purple-500"
@@ -120,13 +117,8 @@
                 div.className = `panel ${i === 0 ? 'active' : ''}`;
                 div.id = `panel-${i}`;
                 
-                // ULTRA LOW RES (256x456) FOR INSTANT LOADS
-                // On mobile screens, this creates a cool retro pixelated anime vibe
-                const imgUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(s.prompt)}?width=256&height=456&nologo=1&seed=${i + 999}`;
-                
                 div.innerHTML = `
-                    <div class="loading-shimmer"></div>
-                    <img src="${imgUrl}" class="anime-bg" alt="Panel" onload="this.classList.add('loaded')">
+                    <img src="${s.image}" class="anime-bg" alt="Panel">
                     <div class="overlay"></div>
                     <div class="text-layer">
                         <div class="manga-bubble">${s.quote}</div>
@@ -154,6 +146,7 @@
         let touchStartX = 0;
         document.addEventListener('touchstart', e => touchStartX = e.touches[0].clientX);
         document.addEventListener('touchend', e => {
+            if (!e.changedTouches.length) return;
             const diff = touchStartX - e.changedTouches[0].clientX;
             if (Math.abs(diff) > 50) diff > 0 ? next() : prev();
         });
