@@ -1,286 +1,133 @@
-import React, { useState, useEffect } from 'react';
-import { 
-  Github, 
-  Linkedin, 
-  Calendar, 
-  ExternalLink, 
-  Plus, 
-  Trash2, 
-  BookOpen, 
-  Briefcase,
-  Clock,
-  CheckCircle2
-} from 'lucide-react';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sprint Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50">
+    <div id="root"></div>
 
-const App = () => {
-  // Initial state for Projects and Learnings
-  const [projects, setProjects] = useState([
-    { id: 1, title: "Portfolio Redesign", description: "Updating my site with React and Framer Motion.", start: "2024-03-01", end: "2024-04-15", link: "https://github.com/true-well-then" }
-  ]);
-  
-  const [learnings, setLearnings] = useState([
-    { id: 1, title: "Advanced TypeScript", description: "Deep dive into generics and utility types.", start: "2024-03-10", end: "2024-04-01", link: "https://linkedin.com" }
-  ]);
+    <script type="text/babel">
+        const { useState } = React;
 
-  const [showForm, setShowForm] = useState(null); // 'project' | 'learning' | null
-  const [formData, setFormData] = useState({ title: '', description: '', start: '', end: '', link: '' });
+        function App() {
+            const [projects, setProjects] = useState([
+                { id: 1, title: "Portfolio Redesign", description: "Updating my site with React.", start: "2024-03-01", end: "2024-05-15", link: "https://true-well-then.github.io" }
+            ]);
+            const [learnings, setLearnings] = useState([
+                { id: 1, title: "TypeScript Mastery", description: "Learning advanced types.", start: "2024-03-10", end: "2024-04-20", link: "https://linkedin.com" }
+            ]);
+            const [showForm, setShowForm] = useState(null);
+            const [formData, setFormData] = useState({ title: '', description: '', start: '', end: '', link: '' });
 
-  // Branded Links
-  const githubUrl = "https://true-well-then.github.io";
-  const linkedinUrl = "https://linkedin.com"; // User can specify their actual profile path
+            const calculateProgress = (start, end) => {
+                const s = new Date(start);
+                const e = new Date(end);
+                const now = new Date();
+                if (now < s) return 0;
+                if (now > e) return 100;
+                return Math.round(((now - s) / (e - s)) * 100);
+            };
 
-  const calculateProgress = (start, end) => {
-    const startDate = new Date(start);
-    const endDate = new Date(end);
-    const today = new Date();
-    
-    if (isNaN(startDate) || isNaN(endDate)) return 0;
-    if (today < startDate) return 0;
-    if (today > endDate) return 100;
-    
-    const total = endDate - startDate;
-    const progress = today - startDate;
-    return Math.min(Math.max(Math.round((progress / total) * 100), 0), 100);
-  };
+            const handleAdd = (e) => {
+                e.preventDefault();
+                const item = { ...formData, id: Date.now() };
+                if (showForm === 'project') setProjects([...projects, item]);
+                else setLearnings([...learnings, item]);
+                setShowForm(null);
+                setFormData({ title: '', description: '', start: '', end: '', link: '' });
+            };
 
-  const handleAddItem = (e) => {
-    e.preventDefault();
-    const newItem = { ...formData, id: Date.now() };
-    
-    if (showForm === 'project' && projects.length < 3) {
-      setProjects([...projects, newItem]);
-    } else if (showForm === 'learning' && learnings.length < 3) {
-      setLearnings([...learnings, newItem]);
-    }
-    
-    setFormData({ title: '', description: '', start: '', end: '', link: '' });
-    setShowForm(null);
-  };
+            return (
+                <div className="min-h-screen p-8">
+                    <header className="max-w-6xl mx-auto flex justify-between items-center mb-12">
+                        <div>
+                            <h1 className="text-4xl font-extrabold text-indigo-600">Sprint Hub</h1>
+                            <p className="text-slate-500">Active goals and projects.</p>
+                        </div>
+                        <div className="space-x-4">
+                            <a href="https://true-well-then.github.io" className="text-sm font-bold px-4 py-2 bg-slate-800 text-white rounded-lg">Github</a>
+                            <a href="https://linkedin.com" className="text-sm font-bold px-4 py-2 bg-blue-600 text-white rounded-lg">LinkedIn</a>
+                        </div>
+                    </header>
 
-  const removeItem = (type, id) => {
-    if (type === 'project') setProjects(projects.filter(p => p.id !== id));
-    else setLearnings(learnings.filter(l => l.id !== id));
-  };
+                    <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10">
+                        {/* Projects */}
+                        <section>
+                            <div className="flex justify-between mb-4">
+                                <h2 className="text-2xl font-bold">Projects ({projects.length}/3)</h2>
+                                {projects.length < 3 && <button onClick={() => setShowForm('project')} className="bg-indigo-100 text-indigo-600 px-3 rounded">+</button>}
+                            </div>
+                            {projects.map(p => (
+                                <div key={p.id} className="bg-white p-6 rounded-xl shadow-sm mb-4 border border-slate-100">
+                                    <h3 className="font-bold text-lg">{p.title}</h3>
+                                    <p className="text-slate-500 text-sm mb-4">{p.description}</p>
+                                    <div className="w-full bg-slate-100 h-2 rounded-full mb-2">
+                                        <div className="bg-indigo-500 h-2 rounded-full" style={{width: calculateProgress(p.start, p.end) + '%'}}></div>
+                                    </div>
+                                    <div className="flex justify-between text-xs font-bold">
+                                        <span>{calculateProgress(p.start, p.end)}%</span>
+                                        <a href={p.link} className="text-indigo-600">Link →</a>
+                                    </div>
+                                </div>
+                            ))}
+                        </section>
 
-  const Card = ({ item, type }) => {
-    const progress = calculateProgress(item.start, item.end);
-    
-    return (
-      <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-100 dark:border-slate-700 hover:shadow-md transition-shadow">
-        <div className="flex justify-between items-start mb-4">
-          <h3 className="text-xl font-bold text-slate-800 dark:text-white">{item.title}</h3>
-          <button 
-            onClick={() => removeItem(type, item.id)}
-            className="text-slate-400 hover:text-red-500 transition-colors"
-          >
-            <Trash2 size={18} />
-          </button>
-        </div>
-        <p className="text-slate-600 dark:text-slate-400 mb-6 text-sm line-clamp-2">{item.description}</p>
-        
-        <div className="space-y-4">
-          <div className="flex items-center justify-between text-xs font-medium text-slate-500">
-            <span className="flex items-center gap-1"><Calendar size={14} /> {item.start}</span>
-            <span className="flex items-center gap-1"><Clock size={14} /> {item.end}</span>
-          </div>
-          
-          <div className="w-full bg-slate-100 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
-            <div 
-              className={`h-full transition-all duration-1000 ${progress === 100 ? 'bg-emerald-500' : 'bg-indigo-500'}`}
-              style={{ width: `${progress}%` }}
-            ></div>
-          </div>
-          
-          <div className="flex justify-between items-center">
-            <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400">{progress}% Complete</span>
-            {item.link && (
-              <a 
-                href={item.link} 
-                target="_blank" 
-                rel="noreferrer"
-                className="flex items-center gap-1 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:text-indigo-600"
-              >
-                Project Link <ExternalLink size={12} />
-              </a>
-            )}
-          </div>
-        </div>
-      </div>
-    );
-  };
+                        {/* Learnings */}
+                        <section>
+                            <div className="flex justify-between mb-4">
+                                <h2 className="text-2xl font-bold">Learning ({learnings.length}/3)</h2>
+                                {learnings.length < 3 && <button onClick={() => setShowForm('learning')} className="bg-emerald-100 text-emerald-600 px-3 rounded">+</button>}
+                            </div>
+                            {learnings.map(l => (
+                                <div key={l.id} className="bg-white p-6 rounded-xl shadow-sm mb-4 border border-slate-100">
+                                    <h3 className="font-bold text-lg">{l.title}</h3>
+                                    <p className="text-slate-500 text-sm mb-4">{l.description}</p>
+                                    <div className="w-full bg-slate-100 h-2 rounded-full mb-2">
+                                        <div className="bg-emerald-500 h-2 rounded-full" style={{width: calculateProgress(l.start, l.end) + '%'}}></div>
+                                    </div>
+                                    <div className="flex justify-between text-xs font-bold">
+                                        <span>{calculateProgress(l.start, l.end)}%</span>
+                                        <a href={l.link} className="text-emerald-600">LinkedIn →</a>
+                                    </div>
+                                </div>
+                            ))}
+                        </section>
+                    </div>
 
-  return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 font-sans text-slate-900 dark:text-slate-100 p-4 md:p-8">
-      {/* Header */}
-      <header className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
-        <div>
-          <h1 className="text-4xl font-extrabold tracking-tight mb-2 bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">
-            Sprint Hub
-          </h1>
-          <p className="text-slate-500 dark:text-slate-400">Manage your active projects and learning milestones.</p>
-        </div>
-        
-        <div className="flex gap-4">
-          <a 
-            href={githubUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="flex items-center gap-2 px-4 py-2 bg-slate-800 text-white rounded-full hover:bg-black transition-colors text-sm font-medium"
-          >
-            <Github size={18} /> true-well-then.github.io
-          </a>
-          <a 
-            href={linkedinUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors text-sm font-medium"
-          >
-            <Linkedin size={18} /> LinkedIn
-          </a>
-        </div>
-      </header>
-
-      <main className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
-        
-        {/* Current Projects Section */}
-        <section>
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-bold flex items-center gap-2">
-              <Briefcase className="text-indigo-500" /> Current Projects
-              <span className="text-sm font-normal text-slate-400 ml-2">({projects.length}/3)</span>
-            </h2>
-            {projects.length < 3 && (
-              <button 
-                onClick={() => setShowForm('project')}
-                className="p-2 bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 hover:border-indigo-500 transition-colors"
-              >
-                <Plus size={20} className="text-indigo-600" />
-              </button>
-            )}
-          </div>
-          
-          <div className="space-y-4">
-            {projects.length === 0 && (
-              <div className="border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-2xl p-12 text-center text-slate-400">
-                No active projects. Add one to start tracking.
-              </div>
-            )}
-            {projects.map(p => <Card key={p.id} item={p} type="project" />)}
-          </div>
-        </section>
-
-        {/* Current Learnings Section */}
-        <section>
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-bold flex items-center gap-2">
-              <BookOpen className="text-violet-500" /> Current Learnings
-              <span className="text-sm font-normal text-slate-400 ml-2">({learnings.length}/3)</span>
-            </h2>
-            {learnings.length < 3 && (
-              <button 
-                onClick={() => setShowForm('learning')}
-                className="p-2 bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 hover:border-violet-500 transition-colors"
-              >
-                <Plus size={20} className="text-violet-600" />
-              </button>
-            )}
-          </div>
-          
-          <div className="space-y-4">
-            {learnings.length === 0 && (
-              <div className="border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-2xl p-12 text-center text-slate-400">
-                No learning sprints active. Knowledge is power!
-              </div>
-            )}
-            {learnings.map(l => <Card key={l.id} item={l} type="learning" />)}
-          </div>
-        </section>
-      </main>
-
-      {/* Modal Form */}
-      {showForm && (
-        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-          <div className="bg-white dark:bg-slate-800 rounded-2xl w-full max-w-md p-8 shadow-2xl">
-            <h3 className="text-2xl font-bold mb-6">Add New {showForm === 'project' ? 'Project' : 'Learning'}</h3>
-            <form onSubmit={handleAddItem} className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium mb-1 text-slate-500">Title</label>
-                <input 
-                  required
-                  className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  value={formData.title}
-                  onChange={e => setFormData({...formData, title: e.target.value})}
-                  placeholder="The Next Big Thing..."
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1 text-slate-500">Description</label>
-                <textarea 
-                  className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  rows="2"
-                  value={formData.description}
-                  onChange={e => setFormData({...formData, description: e.target.value})}
-                  placeholder="Short summary of goals..."
-                ></textarea>
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium mb-1 text-slate-500">Start Date</label>
-                  <input 
-                    type="date"
-                    required
-                    className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
-                    value={formData.start}
-                    onChange={e => setFormData({...formData, start: e.target.value})}
-                  />
+                    {showForm && (
+                        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4">
+                            <form onSubmit={handleAdd} className="bg-white p-8 rounded-2xl w-full max-w-md shadow-xl">
+                                <h2 className="text-xl font-bold mb-4">Add New</h2>
+                                <input required placeholder="Title" className="w-full border p-2 mb-2 rounded" onChange={e => setFormData({...formData, title: e.target.value})} />
+                                <textarea placeholder="Description" className="w-full border p-2 mb-2 rounded" onChange={e => setFormData({...formData, description: e.target.value})} />
+                                <div className="flex gap-2 mb-2">
+                                    <input type="date" required className="w-1/2 border p-2 rounded" onChange={e => setFormData({...formData, start: e.target.value})} />
+                                    <input type="date" required className="w-1/2 border p-2 rounded" onChange={e => setFormData({...formData, end: e.target.value})} />
+                                </div>
+                                <input placeholder="Link" className="w-full border p-2 mb-4 rounded" onChange={e => setFormData({...formData, link: e.target.value})} />
+                                <div className="flex gap-2">
+                                    <button type="button" onClick={() => setShowForm(null)} className="w-1/2 p-2 bg-slate-100 rounded">Cancel</button>
+                                    <button type="submit" className="w-1/2 p-2 bg-indigo-600 text-white rounded">Add</button>
+                                </div>
+                            </form>
+                        </div>
+                    )}
                 </div>
-                <div>
-                  <label className="block text-sm font-medium mb-1 text-slate-500">End Date</label>
-                  <input 
-                    type="date"
-                    required
-                    className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
-                    value={formData.end}
-                    onChange={e => setFormData({...formData, end: e.target.value})}
-                  />
-                </div>
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1 text-slate-500">External Link</label>
-                <input 
-                  type="url"
-                  className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  value={formData.link}
-                  onChange={e => setFormData({...formData, link: e.target.value})}
-                  placeholder="https://..."
-                />
-              </div>
-              <div className="flex gap-4 pt-4">
-                <button 
-                  type="button"
-                  onClick={() => setShowForm(null)}
-                  className="flex-1 py-3 text-sm font-bold text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-xl transition-colors"
-                >
-                  Cancel
-                </button>
-                <button 
-                  type="submit"
-                  className="flex-1 py-3 text-sm font-bold bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition-colors"
-                >
-                  Create
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
+            );
+        }
 
-      {/* Footer Branded Link */}
-      <footer className="max-w-6xl mx-auto mt-20 pt-8 border-t border-slate-200 dark:border-slate-800 text-center text-slate-400 text-xs">
-        <p>© {new Date().getFullYear()} Sprint Hub Dashboard. Hosting on <a href={githubUrl} className="underline hover:text-indigo-500">true-well-then.github.io</a></p>
-      </footer>
-    </div>
-  );
-};
-
-export default App;
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
