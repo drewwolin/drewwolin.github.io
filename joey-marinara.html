@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joey Marinara | Premier Cookie Baker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;600&family=Bangers&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #fffaf5;
+            color: #2d1b0d;
+        }
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+        .fun-lettering {
+            font-family: 'Bangers', cursive;
+            letter-spacing: 2px;
+        }
+        .cookie-card:hover {
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+        .hero-gradient {
+            background: linear-gradient(rgba(255,250,245,0.7), rgba(255,250,245,0.9)), url('https://www.transparenttextures.com/patterns/pinstriped-suit.png');
+        }
+        .batch-alert {
+            background-color: #3b82f6; /* Inspired by the blue shirt */
+            color: white;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 50;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-orange-100 px-6 py-4">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div class="fun-lettering text-3xl text-blue-600">Joey Marinara</div>
+            <div class="hidden md:flex space-x-8 font-medium">
+                <a href="#journey" class="hover:text-blue-500 transition">The Journey</a>
+                <a href="#cookies" class="hover:text-blue-500 transition">The Cookies</a>
+                <button onclick="toggleModal()" class="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition shadow-lg">Order Now</button>
+            </div>
+            <button class="md:hidden text-2xl" onclick="toggleModal()"><i class="fas fa-cookie-bite text-blue-600"></i></button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative py-20 px-6 hero-gradient overflow-hidden">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-12 md:mb-0 text-center md:text-left">
+                <h2 class="italic text-xl text-blue-600 mb-2">From the Park to the Pantry</h2>
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">Mastering the Art of the <span class="text-amber-800">Perfect Crumb.</span></h1>
+                <p class="text-lg text-gray-600 mb-8 max-w-lg">Joey Marinara doesn't just bake cookies; he engineers moments of pure bliss. Small batches, hand-picked ingredients, and demand that defies logic.</p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center md:justify-start">
+                    <button onclick="document.getElementById('cookies').scrollIntoView({behavior: 'smooth'})" class="bg-amber-800 text-white px-8 py-4 rounded-xl font-bold hover:bg-amber-900 transition shadow-xl">Explore the Menu</button>
+                    <div class="flex items-center text-blue-600 font-bold px-4">
+                        <i class="fas fa-certificate mr-2"></i> Only 100 dozen baked weekly
+                    </div>
+                </div>
+            </div>
+            <div class="md:w-1/2 flex justify-center relative">
+                <div class="absolute -z-10 w-80 h-80 bg-blue-100 rounded-full blur-3xl opacity-50"></div>
+                <img src="https://drewwolin.github.io/images/joey_marinara.png" alt="Joey Marinara" class="w-full max-w-md drop-shadow-2xl rounded-2xl transform hover:scale-105 transition duration-500">
+            </div>
+        </div>
+    </header>
+
+    <!-- The Journey -->
+    <section id="journey" class="py-24 px-6 bg-white">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-8">The Marinara Origin Story</h2>
+            <div class="space-y-6 text-lg text-gray-700 leading-relaxed">
+                <p>It started with a simple realization under a tall oak tree: life is too short for mediocre snacks. While others were playing ball, Joey was thinking about the Maillard reaction. He took his signature "Number One" attitude from the streets and brought it into the kitchen.</p>
+                <p>Today, the Chef's hat is more than a uniform—it's a crown. Joey has traded the playground for the pastry board, perfecting a secret recipe that has the neighborhood (and soon, the world) lining up before sunrise.</p>
+            </div>
+            <div class="mt-12 flex justify-center space-x-12 opacity-50 grayscale hover:grayscale-0 transition duration-500">
+                <i class="fas fa-utensils text-4xl"></i>
+                <i class="fas fa-temperature-high text-4xl"></i>
+                <i class="fas fa-mortar-pestle text-4xl"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Disclaimer Bar -->
+    <div class="batch-alert py-6 text-center font-bold px-4 shadow-inner">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-center space-y-2 md:space-y-0 md:space-x-8">
+            <span><i class="fas fa-exclamation-triangle mr-2"></i> DEMAND IS OFF THE CHARTS</span>
+            <span class="hidden md:inline">|</span>
+            <span>SMALL BATCHES ONLY (MAX 12 PER CUSTOMER)</span>
+            <span class="hidden md:inline">|</span>
+            <span>QUALITY > QUANTITY</span>
+        </div>
+    </div>
+
+    <!-- Signature Cookies -->
+    <section id="cookies" class="py-24 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">The Signature Five</h2>
+                <p class="text-gray-600">Hand-rolled, slow-chilled, and baked to golden perfection.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Cookie 1 -->
+                <div class="cookie-card bg-white p-8 rounded-3xl shadow-sm border border-orange-50 relative overflow-hidden group">
+                    <div class="absolute top-4 right-4 text-blue-200 text-6xl opacity-20 group-hover:rotate-12 transition"><i class="fas fa-cookie"></i></div>
+                    <h3 class="text-2xl font-bold mb-2 text-amber-900">The Marinara Midnight</h3>
+                    <p class="text-blue-600 font-bold mb-4 italic">Triple Dark Chocolate & Sea Salt</p>
+                    <p class="text-gray-600">A rich, decadent cocoa base loaded with 70% cacao chunks and finished with hand-harvested Maldon salt.</p>
+                </div>
+
+                <!-- Cookie 2 -->
+                <div class="cookie-card bg-white p-8 rounded-3xl shadow-sm border border-orange-50 relative overflow-hidden group">
+                    <div class="absolute top-4 right-4 text-blue-200 text-6xl opacity-20 group-hover:rotate-12 transition"><i class="fas fa-wind"></i></div>
+                    <h3 class="text-2xl font-bold mb-2 text-amber-900">The "Pattern-Pro" Sugar</h3>
+                    <p class="text-blue-600 font-bold mb-4 italic">Swirl-Iced Classic</p>
+                    <p class="text-gray-600">Inspired by Joey’s iconic blue and green pants, this vanilla bean sugar cookie features a mesmerizing psychedelic swirl.</p>
+                </div>
+
+                <!-- Cookie 3 -->
+                <div class="cookie-card bg-white p-8 rounded-3xl shadow-sm border border-orange-50 relative overflow-hidden group">
+                    <div class="absolute top-4 right-4 text-blue-200 text-6xl opacity-20 group-hover:rotate-12 transition"><i class="fas fa-sun"></i></div>
+                    <h3 class="text-2xl font-bold mb-2 text-amber-900">Golden Cacao Crunch</h3>
+                    <p class="text-blue-600 font-bold mb-4 italic">Toasted Pecan & Honey</p>
+                    <p class="text-gray-600">A buttery, golden-hued cookie with fire-toasted pecans and a drizzle of local wildflower honey. Pure sunshine.</p>
+                </div>
+
+                <!-- Cookie 4 -->
+                <div class="cookie-card bg-white p-8 rounded-3xl shadow-sm border border-orange-50 relative overflow-hidden group">
+                    <div class="absolute top-4 right-4 text-blue-200 text-6xl opacity-20 group-hover:rotate-12 transition"><i class="fas fa-bolt"></i></div>
+                    <h3 class="text-2xl font-bold mb-2 text-amber-900">Salted Espresso Toffee</h3>
+                    <p class="text-blue-600 font-bold mb-4 italic">The "Wake Up" Cookie</p>
+                    <p class="text-gray-600">Infused with freshly ground espresso beans and house-made buttery toffee bits. For the high-performance baker.</p>
+                </div>
+
+                <!-- Cookie 5 -->
+                <div class="cookie-card bg-white p-8 rounded-3xl shadow-sm border border-orange-50 relative overflow-hidden group md:col-span-2 lg:col-span-1">
+                    <div class="absolute top-4 right-4 text-blue-200 text-6xl opacity-20 group-hover:rotate-12 transition"><i class="fas fa-trophy"></i></div>
+                    <h3 class="text-2xl font-bold mb-2 text-amber-900">Joey’s Original "The 1"</h3>
+                    <p class="text-blue-600 font-bold mb-4 italic">Malted Milk Chocolate Chip</p>
+                    <p class="text-gray-600">The cookie that started it all. A nostalgic malted base with pools of silky milk chocolate. The undisputed heavyweight champion.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer / Contact Trigger -->
+    <footer class="bg-amber-900 text-white py-16 px-6">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-8 md:mb-0 text-center md:text-left">
+                <div class="fun-lettering text-4xl mb-4">Joey Marinara</div>
+                <p class="text-amber-200 max-w-xs">Crafting the world's finest cookies one small, perfect batch at a time.</p>
+            </div>
+            <div class="text-center md:text-right">
+                <button onclick="toggleModal()" class="bg-blue-600 hover:bg-blue-500 text-white px-10 py-4 rounded-full font-bold text-xl shadow-2xl transition transform hover:scale-105">
+                    Apply for an Order Slot
+                </button>
+                <p class="mt-4 text-sm text-amber-300 italic">* Note: Order fulfillment is NOT guaranteed due to extreme demand.</p>
+            </div>
+        </div>
+        <div class="max-w-6xl mx-auto mt-12 pt-8 border-t border-amber-800 text-center text-amber-400 text-sm">
+            &copy; 2024 Joey Marinara Premier Baking. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Contact Modal -->
+    <div id="contactModal" class="modal flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl w-full max-w-xl overflow-hidden shadow-2xl">
+            <div class="bg-blue-600 p-6 text-white flex justify-between items-center">
+                <h3 class="text-2xl font-bold">Request a Batch</h3>
+                <button onclick="toggleModal()" class="text-white text-2xl"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="p-8">
+                <div class="bg-amber-50 p-4 rounded-xl mb-6 text-amber-800 border border-amber-100 text-sm">
+                    <strong>Important:</strong> Joey bakes in strictly small batches to maintain his premier quality. Submitting this form adds you to the "Waitlist of Desire." Fulfillment is subject to availability and current demand levels.
+                </div>
+                <form id="orderForm" onsubmit="handleForm(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-bold mb-2">Full Name</label>
+                        <input type="text" required class="w-full p-3 rounded-xl border border-gray-200 focus:outline-blue-500" placeholder="Your Name">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold mb-2">Email</label>
+                        <input type="email" required class="w-full p-3 rounded-xl border border-gray-200 focus:outline-blue-500" placeholder="cookies@dreamer.com">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold mb-2">Cookie Selection</label>
+                        <select class="w-full p-3 rounded-xl border border-gray-200 focus:outline-blue-500">
+                            <option>The Marinara Midnight</option>
+                            <option>The Pattern-Pro Sugar</option>
+                            <option>Golden Cacao Crunch</option>
+                            <option>Salted Espresso Toffee</option>
+                            <option>Joey’s Original "The 1"</option>
+                            <option>Chef's Choice (Joey decides your fate)</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="w-full bg-blue-600 text-white py-4 rounded-xl font-bold hover:bg-blue-700 transition">Submit Request</button>
+                </form>
+                <div id="successMsg" class="hidden text-center py-4 text-green-600 font-bold">
+                    <i class="fas fa-check-circle mr-2"></i> Request Received. Now, we wait.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleModal() {
+            const modal = document.getElementById('contactModal');
+            modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        function handleForm(e) {
+            e.preventDefault();
+            document.getElementById('orderForm').classList.add('hidden');
+            document.getElementById('successMsg').classList.remove('hidden');
+            setTimeout(() => {
+                toggleModal();
+                // Reset for next time
+                setTimeout(() => {
+                    document.getElementById('orderForm').classList.remove('hidden');
+                    document.getElementById('successMsg').classList.add('hidden');
+                }, 500);
+            }, 2500);
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('contactModal');
+            if (event.target == modal) {
+                toggleModal();
+            }
+        }
+    </script>
+</body>
+</html>
