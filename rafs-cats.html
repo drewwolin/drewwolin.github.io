@@ -1,0 +1,282 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raf’s Cat Rescue & Adoption Center</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --primary: #f59e0b;
+            --bg-warm: #fffbeb;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: var(--bg-warm);
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, .nav-brand {
+            font-family: 'Fredoka', sans-serif;
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+        }
+
+        .img-container {
+            position: relative;
+            background-color: #f3f4f6;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .img-container i {
+            position: absolute;
+            color: #d1d5db;
+            font-size: 2rem;
+            z-index: 0;
+        }
+
+        .img-container img {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cat-card:hover {
+            transform: translateY(-8px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20">
+                <div class="flex items-center">
+                    <div class="h-14 w-14 rounded-full border-2 border-amber-400 mr-3 img-container shadow-sm">
+                        <i class="fas fa-cat"></i>
+                        <img src="https://drewwolin.github.io/images/IMG_2910.png" alt="Raf's Rescue Logo">
+                    </div>
+                    <span class="nav-brand text-2xl font-bold text-amber-600 hidden sm:block">Raf's Cat Rescue</span>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="text-gray-600 hover:text-amber-500 font-semibold transition">Home</a>
+                    <a href="#adopt" class="text-gray-600 hover:text-amber-500 font-semibold transition">Adopt</a>
+                    <a href="#about" class="text-gray-600 hover:text-amber-500 font-semibold transition">Our Story</a>
+                    <a href="#contact" class="bg-amber-500 text-white px-6 py-2 rounded-full hover:bg-amber-600 transition font-bold shadow-sm">Contact</a>
+                </div>
+
+                <div class="md:hidden flex items-center">
+                    <button onclick="toggleMenu()" class="text-gray-600 p-2">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 pb-4 shadow-inner">
+            <a href="#home" class="block px-6 py-3 text-gray-600 hover:bg-amber-50">Home</a>
+            <a href="#adopt" class="block px-6 py-3 text-gray-600 hover:bg-amber-50">Adopt</a>
+            <a href="#about" class="block px-6 py-3 text-gray-600 hover:bg-amber-50">Our Story</a>
+            <a href="#contact" class="block px-6 py-3 text-amber-600 font-bold hover:bg-amber-50">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-gradient py-12 md:py-24 px-4">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-12">
+            <div class="md:w-1/2 text-center md:text-left order-2 md:order-1">
+                <h1 class="text-5xl md:text-7xl font-bold text-amber-900 mb-6 leading-tight">
+                    Where Every Meow <br><span class="text-amber-600">Finds a Home</span>
+                </h1>
+                <p class="text-lg md:text-2xl text-amber-800 mb-10 max-w-lg leading-relaxed">
+                    Raf's Cat Rescue is dedicated to rescuing, rehabilitating, and rehoming feline friends. Your new best friend is waiting for you!
+                </p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6 justify-center md:justify-start">
+                    <a href="#adopt" class="bg-amber-500 text-white px-10 py-4 rounded-full text-xl font-bold hover:bg-amber-600 shadow-xl transition transform hover:scale-105 text-center">
+                        See Adoptable Cats
+                    </a>
+                    <a href="#contact" class="bg-white text-amber-600 border-2 border-amber-500 px-10 py-4 rounded-full text-xl font-bold hover:bg-amber-50 shadow-md transition transform hover:scale-105 text-center">
+                        Contact Us
+                    </a>
+                </div>
+            </div>
+            
+            <div class="md:w-1/2 flex justify-center order-1 md:order-2">
+                <div class="relative w-full max-w-lg">
+                    <div class="aspect-square rounded-[3rem] overflow-hidden shadow-2xl border-[12px] border-white bg-white img-container">
+                        <i class="fas fa-paw text-6xl"></i>
+                        <img src="https://drewwolin.github.io/images/IMG_2910.png" alt="Raf's Cat Rescue Hero Image">
+                    </div>
+                    <div class="absolute -bottom-8 -left-8 bg-amber-500 text-white p-6 rounded-3xl shadow-2xl hidden lg:block transform rotate-3">
+                        <p class="font-bold text-xl flex items-center">
+                            <i class="fas fa-heart mr-3"></i> Join our Mission!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Adoptable Cats Section -->
+    <section id="adopt" class="py-24 px-4 bg-amber-50">
+        <div class="max-w-7xl mx-auto text-center mb-20">
+            <h2 class="text-5xl font-bold text-amber-900 mb-6">Our Current Residents</h2>
+            <div class="w-32 h-1.5 bg-amber-400 mx-auto rounded-full"></div>
+            <p class="mt-4 text-gray-600 text-lg">Luna and Bella have found their forever homes! Meet our remaining friends.</p>
+        </div>
+
+        <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10" id="cat-gallery">
+            <!-- Dynamic Content -->
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center gap-16">
+            <div class="md:w-1/2">
+                <div class="rounded-3xl overflow-hidden shadow-2xl img-container h-[500px]">
+                    <i class="fas fa-house-user text-5xl"></i>
+                    <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&q=80&w=800" alt="Rescue Center Environment">
+                </div>
+            </div>
+            <div class="md:w-1/2">
+                <h2 class="text-5xl font-bold text-amber-900 mb-8">Rescue. Love. Repeat.</h2>
+                <p class="text-gray-600 text-xl mb-8 leading-relaxed">
+                    At Raf's Cat Rescue, we believe in second chances. Each cat is treated like family from the moment they arrive until they step into their forever home.
+                </p>
+                <ul class="space-y-4 text-amber-700 font-bold text-xl">
+                    <li><i class="fas fa-paw mr-3 text-amber-500"></i> Expert Veterinary Care</li>
+                    <li><i class="fas fa-paw mr-3 text-amber-500"></i> Socialization & Play</li>
+                    <li><i class="fas fa-paw mr-3 text-amber-500"></i> Careful Adopter Matching</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-amber-900 text-white py-16 px-4">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
+            <div class="flex items-center">
+                <div class="h-16 w-16 rounded-full overflow-hidden mr-4 bg-white/10 img-container">
+                    <i class="fas fa-cat text-white/20"></i>
+                    <img src="https://drewwolin.github.io/images/IMG_2910.png" alt="Raf's Logo">
+                </div>
+                <div>
+                    <span class="nav-brand text-3xl font-bold">Raf's Cat Rescue</span>
+                    <p class="text-amber-200/60">Founded with Passion by Raf</p>
+                </div>
+            </div>
+            <div class="flex space-x-6">
+                <a href="#" class="text-3xl hover:text-amber-400 transition"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="text-3xl hover:text-amber-400 transition"><i class="fab fa-facebook"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Adoption Modal -->
+    <div id="cat-modal" class="modal" onclick="closeModal(event)">
+        <div class="bg-white w-11/12 max-w-3xl rounded-[2.5rem] shadow-2xl overflow-hidden relative" onclick="event.stopPropagation()">
+            <button onclick="closeModal(null)" class="absolute top-6 right-6 text-gray-400 hover:text-amber-500 text-3xl z-50 transition">
+                <i class="fas fa-times"></i>
+            </button>
+            <div id="modal-content"></div>
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        const cats = [
+            { id: 1, name: "Oliver", age: "6 months", breed: "Orange Tabby", image: "https://images.unsplash.com/photo-1543852786-1cf6624b9987?auto=format&fit=crop&q=80&w=600" },
+            { id: 2, name: "Simba", age: "1 year", breed: "Ginger", image: "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?auto=format&fit=crop&q=80&w=600" },
+            { id: 3, name: "Misty", age: "3 years", breed: "Gray Tabby", image: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&q=80&w=600" },
+            { id: 4, name: "Felix", age: "5 years", breed: "Tuxedo", image: "https://images.unsplash.com/photo-1533738363-b7f9aef128ce?auto=format&fit=crop&q=80&w=600" }
+        ];
+
+        const gallery = document.getElementById('cat-gallery');
+        cats.forEach(cat => {
+            const card = document.createElement('div');
+            card.className = 'cat-card bg-white rounded-[2rem] shadow-xl overflow-hidden cursor-pointer group flex flex-col h-full';
+            card.innerHTML = `
+                <div class="h-64 img-container">
+                    <i class="fas fa-paw"></i>
+                    <img src="${cat.image}" alt="${cat.name}" class="group-hover:scale-110 transition duration-700">
+                </div>
+                <div class="p-8 flex flex-col flex-grow text-center">
+                    <h3 class="text-3xl font-bold text-amber-900 mb-2">${cat.name}</h3>
+                    <p class="text-amber-600 font-bold mb-6">${cat.breed} • ${cat.age}</p>
+                    <button class="mt-auto w-full bg-amber-50 text-amber-600 py-3 rounded-2xl font-bold group-hover:bg-amber-500 group-hover:text-white transition shadow-sm">Meet ${cat.name}</button>
+                </div>
+            `;
+            card.onclick = () => openModal(cat);
+            gallery.appendChild(card);
+        });
+
+        function openModal(cat) {
+            const modal = document.getElementById('cat-modal');
+            const content = document.getElementById('modal-content');
+            content.innerHTML = `
+                <div class="flex flex-col md:flex-row">
+                    <div class="md:w-1/2 h-80 md:h-[500px] img-container">
+                        <i class="fas fa-paw text-5xl"></i>
+                        <img src="${cat.image}" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-10 md:w-1/2 flex flex-col justify-center">
+                        <h2 class="text-5xl font-bold text-amber-900 mb-2">${cat.name}</h2>
+                        <p class="text-2xl text-amber-600 font-bold mb-6">${cat.breed} • ${cat.age}</p>
+                        <p class="text-gray-600 text-lg mb-10 leading-relaxed">
+                            A charming personality with a heart of gold. ${cat.name} loves interactive play and afternoon naps in the sun.
+                        </p>
+                        <button onclick="alert('Application submitted! Raf will reach out about meeting ${cat.name} soon.')" class="w-full bg-amber-500 text-white py-5 rounded-3xl font-bold text-2xl shadow-xl hover:bg-amber-600 transition transform active:scale-95">
+                            Request to Adopt
+                        </button>
+                    </div>
+                </div>
+            `;
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(e) {
+            if (!e || e.target === document.getElementById('cat-modal')) {
+                document.getElementById('cat-modal').style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+    </script>
+</body>
+</html>
+
+
