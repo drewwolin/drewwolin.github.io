@@ -45,8 +45,8 @@
             <!-- Game Over Screen -->
             <div id="game-over-screen" class="interactive bg-rose-600 p-12 rounded-[3rem] border-4 border-white/30 text-center shadow-2xl max-w-sm hidden">
                 <h2 class="text-6xl text-white cartoon-font mb-4">I'm Walkin Here!</h2>
-                <p class="text-white/90 text-xl mb-2 font-bold">You bumped your umbrella!</p>
-                <div id="final-score" class="text-3xl text-white cartoon-font mb-8">Got to 42nd St</div>
+                
+                <div id="final-score" class="text-3xl text-white cartoon-font mb-8">At 42nd St</div>
                 <button id="restart-btn" class="bg-white text-rose-600 cartoon-font text-2xl px-10 py-5 rounded-2xl shadow-xl transform transition hover:scale-105 active:scale-95 border-b-8 border-rose-200">
                     TRY AGAIN
                 </button>
@@ -312,7 +312,7 @@
         function endGame() {
             gameState = 'GAME_OVER';
             gameOverScreen.classList.remove('hidden');
-            finalScoreElement.innerText = `Got to ${currentStreet}th Street`;
+            finalScoreElement.innerText = `At ${currentStreet}th Street`;
             if (currentStreet < highscore) {
                 highscore = currentStreet;
                 localStorage.setItem('rainycity-highscore-st', highscore);
