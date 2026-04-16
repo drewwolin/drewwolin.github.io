@@ -3,21 +3,372 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Drew Wolin</title>
+    <title>Drew Wolin | Ads Yield & Data Strategy Leader</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+        
+        :root {
+            --primary: #06b6d4;
+            --bg-dark: #020617;
+            --bg-card: #0f172a;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f8fafc;
-            color: #64748b;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-dark);
+            color: #f8fafc;
+            scroll-behavior: smooth;
+        }
+
+        .mono { font-family: 'JetBrains Mono', monospace; }
+
+        .glass-nav {
+            background: rgba(2, 6, 23, 0.8);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .hero-mesh {
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(6, 182, 212, 0.15) 0, transparent 50%), 
+                radial-gradient(at 100% 0%, rgba(59, 130, 246, 0.1) 0, transparent 50%);
+        }
+
+        .card-border {
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card-border:hover {
+            border-color: var(--primary);
+            background: rgba(30, 41, 59, 0.5);
+            transform: translateY(-4px);
+        }
+
+        .timeline-gradient {
+            background: linear-gradient(to bottom, transparent, rgba(6, 182, 212, 0.5), transparent);
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .badge-stern {
+            background: linear-gradient(90deg, #57068c 0%, #8900e1 100%);
         }
     </style>
 </head>
-<body>
-    Thanks for visiting. Check back soon...
+<body class="antialiased">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-nav">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <div class="text-xl font-extrabold tracking-tighter flex items-center space-x-1">
+                    <span>DREW</span>
+                    <span class="text-cyan-400">WOLIN</span>
+                </div>
+                <div class="hidden lg:block h-4 w-[1px] bg-slate-700"></div>
+                <div class="hidden lg:block text-[10px] mono text-slate-500 uppercase tracking-widest">
+                    Based in Jersey City, NJ
+                </div>
+            </div>
+            <div class="hidden md:flex items-center space-x-8 text-[11px] font-bold tracking-widest text-slate-400">
+                <a href="#home" class="hover:text-cyan-400 transition-colors">HOME</a>
+                <a href="#about" class="hover:text-cyan-400 transition-colors">NARRATIVE</a>
+                <a href="#experience" class="hover:text-cyan-400 transition-colors">JOURNEY</a>
+                <a href="#stack" class="hover:text-cyan-400 transition-colors">STACK</a>
+                <a href="#contact" class="px-5 py-2.5 bg-white text-slate-950 rounded-full hover:bg-cyan-400 hover:text-white transition-all">LET'S TALK</a>
+            </div>
+            <button class="md:hidden text-2xl" id="menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen pt-32 pb-20 px-6 hero-mesh flex flex-col justify-center items-center">
+        <div class="max-w-5xl text-center">
+            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-slate-800/50 border border-slate-700 mb-8">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+                </span>
+                <span class="text-[10px] mono font-medium text-cyan-400 uppercase tracking-widest">Currently Architecting Yield @ Samsung Ads</span>
+            </div>
+            
+            <h1 class="text-5xl md:text-8xl font-black mb-8 leading-[0.95] text-gradient">
+                Analytics Solutions.<br>
+                <span class="text-cyan-400 italic">Results at Scale.</span>
+            </h1>
+            
+            <p class="text-xl md:text-2xl text-slate-400 mb-12 max-w-3xl mx-auto leading-relaxed font-light">
+                Managing <span class="text-white font-medium">$1B+ in ad-tech yield</span> and translating <span class="text-white font-medium">10B+ rows</span> of data into the strategic narratives that drive global growth.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6 justify-center">
+                <a href="#experience" class="px-10 py-5 bg-cyan-500 text-slate-950 font-extrabold rounded-2xl hover:scale-105 transition-all shadow-xl shadow-cyan-500/20">
+                    View Impact Portfolio
+                </a>
+                <a href="https://linkedin.com/in/drewwolin/" target="_blank" class="px-10 py-5 bg-slate-800/50 text-white font-bold rounded-2xl border border-slate-700 hover:bg-slate-700 transition-all">
+                    Connect on LinkedIn
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Bar -->
+    <section class="border-y border-slate-800 bg-slate-950">
+        <div class="max-w-7xl mx-auto px-6 py-12">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="text-center lg:text-left">
+                    <div class="text-4xl font-extrabold text-white mb-1">$1B+</div>
+                    <div class="text-[10px] mono text-cyan-500 uppercase tracking-widest">Ads Yield Managed</div>
+                </div>
+                <div class="text-center lg:text-left">
+                    <div class="text-4xl font-extrabold text-white mb-1">+10%</div>
+                    <div class="text-[10px] mono text-cyan-500 uppercase tracking-widest">YoY Revenue Growth</div>
+                </div>
+                <div class="text-center lg:text-left">
+                    <div class="text-4xl font-extrabold text-white mb-1">10B+</div>
+                    <div class="text-[10px] mono text-cyan-500 uppercase tracking-widest">Rows Modeled</div>
+                </div>
+                <div class="text-center lg:text-left">
+                    <div class="text-4xl font-extrabold text-white mb-1">400+</div>
+                    <div class="text-[10px] mono text-cyan-400 uppercase tracking-widest">Monthly Internal Users</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Narrative (About) -->
+    <section id="about" class="py-32 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-20 items-center">
+            <div class="w-full lg:w-1/2">
+                <h2 class="text-sm mono text-cyan-400 font-bold uppercase tracking-[0.3em] mb-6">The Narrative</h2>
+                <h3 class="text-4xl md:text-5xl font-bold mb-8 leading-tight">Finding Signal <br/> in the Noise.</h3>
+                <div class="space-y-6 text-slate-400 text-lg font-light leading-relaxed">
+                    <p>
+                        My career hasn’t just been about numbers; <span class="text-white font-semibold">it's been about finding the signal in the noise; building the technical skill to reliable store, access, and wrangle data; and synthesizing data into a story and strategy anyone can understand.</span>
+                    </p>
+                    <p>
+                        Analytical curiosity has always been with me, including in high school as a <span class="text-white">basketball scout and player analyst</span>, where I spent years breaking down player ability and projecting future success. That same analytical rigor and storytelling now drives my professional focus on the programmatic advertising ecosystem.
+                    </p>
+                    <p>
+                        I don't just build dashboards; <span class="text-white font-medium">I build "Decision Engines" and treat data as a Product.</span> Whether I’m leading the Ads Yield team at Samsung to unlock $100M in growth or analyzing efficiency at scale, I ensure data translates into action.
+                    </p>
+                </div>
+                
+
+            </div>
+            
+            <div class="w-full lg:w-1/2 grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="card-border p-8 rounded-3xl bg-slate-900/50">
+                    <i class="fas fa-users-cog text-cyan-400 text-2xl mb-6"></i>
+                    <h4 class="font-bold text-lg mb-3">Player-Coach Leadership</h4>
+                    <p class="text-sm text-slate-500 leading-relaxed">Building a team of analysts and data engineers while remaining hands-on with SQL, Python, and ETL pipelines.</p>
+                </div>
+                <div class="card-border p-8 rounded-3xl bg-slate-900/50">
+                    <i class="fas fa-funnel-dollar text-purple-400 text-2xl mb-6"></i>
+                    <h4 class="font-bold text-lg mb-3">Monetization Strategy</h4>
+                    <p class="text-sm text-slate-500 leading-relaxed">Specializing in CTV, Native, and Video supply optimization across global SSP/DSP ecosystems.</p>
+                </div>
+                <div class="card-border p-8 rounded-3xl bg-slate-900/50">
+                    <i class="fas fa-project-diagram text-emerald-400 text-2xl mb-6"></i>
+                    <h4 class="font-bold text-lg mb-3">Cross-Functional Impact</h4>
+                    <p class="text-sm text-slate-500 leading-relaxed">Supporting 400+ monthly unique users across Executives, Sales, Finance, Product, and more with robust systems.</p>
+                </div>
+                <div class="card-border p-8 rounded-3xl bg-slate-900/50">
+                    <i class="fas fa-microchip text-orange-400 text-2xl mb-6"></i>
+                    <h4 class="font-bold text-lg mb-3">Process Automation</h4>
+                    <p class="text-sm text-slate-500 leading-relaxed">Saving teams 100s of hours through standardized reporting and automated data governance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Timeline -->
+    <section id="experience" class="py-32 bg-slate-950">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center mb-24">
+                <h2 class="text-sm mono text-cyan-400 font-bold uppercase tracking-[0.3em] mb-6">Professional Roadmap</h2>
+                <h3 class="text-4xl font-bold">A Decade of Ad-Tech Leadership</h3>
+            </div>
+
+            <div class="relative">
+                <div class="absolute left-0 md:left-1/2 top-0 bottom-0 w-[1px] timeline-gradient"></div>
+
+                <!-- Samsung -->
+                <div class="relative mb-20 md:flex md:justify-between items-center group">
+                    <div class="md:w-[45%] text-left md:text-right mb-4 md:mb-0">
+                        <div class="inline-block px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 text-[10px] mono font-bold mb-2">2024 - PRESENT</div>
+                        <h4 class="text-2xl font-bold text-white mb-1">Samsung Ads</h4>
+                        <p class="text-sm text-slate-400 font-medium">Manager, Analytics Engineering - Ads Revenue & Yield</p>
+                    </div>
+                    <div class="absolute left-[-8px] md:left-1/2 md:ml-[-8px] w-4 h-4 rounded-full bg-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.8)] z-10"></div>
+                    <div class="md:w-[45%] pl-8 md:pl-10">
+                        <ul class="text-sm text-slate-500 space-y-3 list-disc md:list-none">
+                            <li>Own yield strategy for <span class="text-slate-300">$1B+ advertising business</span>.</li>
+                            <li>Ad sales strategies driving <span class="text-slate-300">+$100M growth</span>.</li>
+                            <li>Architect <span class="text-slate-300">10B+ rows</span> of rev & performance data.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Criteo -->
+                <div class="relative mb-20 md:flex md:justify-between items-center group">
+                    <div class="md:w-[45%] md:order-2 text-left mb-4 md:mb-0">
+                        <div class="inline-block px-3 py-1 rounded-full bg-slate-800 text-slate-400 text-[10px] mono font-bold mb-2">2022 - 2024</div>
+                        <h4 class="text-2xl font-bold text-white mb-1">Criteo</h4>
+                        <p class="text-sm text-slate-400 font-medium">Principal Program Manager - Ads Monetization</p>
+                    </div>
+                    <div class="absolute left-[-8px] md:left-1/2 md:ml-[-8px] w-4 h-4 rounded-full bg-slate-700 z-10"></div>
+                    <div class="md:w-[45%] text-left md:text-right pr-0 md:pr-10 md:order-1">
+                        <p class="text-sm text-slate-500 leading-relaxed">
+                            Operationalized new Ads formats <span class="text-slate-300">from Zero to One</span>. Spearheaded innovative supply-side solutions across global markets.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Yahoo -->
+                <div class="relative mb-20 md:flex md:justify-between items-center group">
+                    <div class="md:w-[45%] text-left md:text-right mb-4 md:mb-0">
+                        <div class="inline-block px-3 py-1 rounded-full bg-slate-800 text-slate-400 text-[10px] mono font-bold mb-2">2018 - 2022</div>
+                        <h4 class="text-2xl font-bold text-white mb-1">Yahoo!</h4>
+                        <p class="text-sm text-slate-400 font-medium">Senior Lead Analyst - Ads Exchange</p>
+                    </div>
+                    <div class="absolute left-[-8px] md:left-1/2 md:ml-[-8px] w-4 h-4 rounded-full bg-slate-700 z-10"></div>
+                    <div class="md:w-[45%] pl-8 md:pl-10">
+                        <p class="text-sm text-slate-500 leading-relaxed">
+                            Managed global team of five. Built Analytics and Insights resources for <span class="text-slate-300">$300M annual spend</span> driving revenue and efficiency.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Xandr -->
+                <div class="relative mb-20 md:flex md:justify-between items-center group">
+                    <div class="md:w-[45%] md:order-2 text-left mb-4 md:mb-0">
+                        <div class="inline-block px-3 py-1 rounded-full bg-slate-800 text-slate-400 text-[10px] mono font-bold mb-2">2015 - 2018</div>
+                        <h4 class="text-2xl font-bold text-white mb-1">AppNexus / Xandr</h4>
+                        <p class="text-sm text-slate-400 font-medium">Monetization Analyst - Ads Exchange</p>
+                    </div>
+                    <div class="absolute left-[-8px] md:left-1/2 md:ml-[-8px] w-4 h-4 rounded-full bg-slate-700 z-10"></div>
+                    <div class="md:w-[45%] text-left md:text-right pr-0 md:pr-10 md:order-1">
+                        <p class="text-sm text-slate-500 leading-relaxed">
+                            Directed monetization strategies for <span class="text-slate-300">Microsoft & LinkedIn</span>. Secured <span class="text-slate-300">+$4MM</span> via Python-based analytics tools.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack -->
+    <section id="stack" class="py-32 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-20">
+                <div>
+                    <h2 class="text-sm mono text-cyan-400 font-bold uppercase tracking-[0.3em] mb-6">Technical Arsenal</h2>
+                    <h3 class="text-4xl font-bold">Stack & Competencies</h3>
+                </div>
+                <div class="text-slate-500 text-sm max-w-xs mt-4 md:mt-0">
+                    Fluent in the languages of data engineering and the frameworks of business strategy.
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                <div class="p-6 bg-slate-900 border border-slate-800 rounded-2xl flex flex-col items-center text-center group hover:bg-slate-800 transition-all">
+                    <div class="w-12 h-12 flex items-center justify-center bg-cyan-500/10 text-cyan-400 rounded-xl mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <span class="font-bold text-sm">SQL / BigQuery</span>
+                </div>
+                <div class="p-6 bg-slate-900 border border-slate-800 rounded-2xl flex flex-col items-center text-center group hover:bg-slate-800 transition-all">
+                    <div class="w-12 h-12 flex items-center justify-center bg-blue-500/10 text-blue-400 rounded-xl mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fab fa-python"></i>
+                    </div>
+                    <span class="font-bold text-sm">Python / Pandas</span>
+                </div>
+                <div class="p-6 bg-slate-900 border border-slate-800 rounded-2xl flex flex-col items-center text-center group hover:bg-slate-800 transition-all">
+                    <div class="w-12 h-12 flex items-center justify-center bg-purple-500/10 text-purple-400 rounded-xl mb-4 group-hover:scale-110 transition-transform">
+                        <span class="font-black text-xl">R</span>
+                    </div>
+                    <span class="font-bold text-sm">Statistical Analysis</span>
+                </div>
+                <div class="p-6 bg-slate-900 border border-slate-800 rounded-2xl flex flex-col items-center text-center group hover:bg-slate-800 transition-all">
+                    <div class="w-12 h-12 flex items-center justify-center bg-emerald-500/10 text-emerald-400 rounded-xl mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <span class="font-bold text-sm">Tableau / Power BI</span>
+                </div>
+                <div class="p-6 bg-slate-900 border border-slate-800 rounded-2xl flex flex-col items-center text-center group hover:bg-slate-800 transition-all">
+                    <div class="w-12 h-12 flex items-center justify-center bg-orange-500/10 text-orange-400 rounded-xl mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-sync"></i>
+                    </div>
+                    <span class="font-bold text-sm">ETL / Modeling</span>
+                </div>
+                <div class="p-6 bg-slate-900 border border-slate-800 rounded-2xl flex flex-col items-center text-center group hover:bg-slate-800 transition-all">
+                    <div class="w-12 h-12 flex items-center justify-center bg-red-500/10 text-red-400 rounded-xl mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <span class="font-bold text-sm">Agile / Jira</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section id="contact" class="py-32 px-6 bg-slate-900 overflow-hidden relative">
+        <div class="absolute top-0 right-0 w-96 h-96 bg-cyan-500/10 rounded-full blur-[120px]"></div>
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <h2 class="text-4xl md:text-6xl font-black mb-10 leading-tight">Ready to Find and<br/> Engineer your Next Opportunity?</h2>
+            <p class="text-xl text-slate-400 mb-12">I'm always open to discussing monetization and data strategy.</p>
+            
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <a href="mailto:dwolin@gmail.com" class="px-10 py-6 bg-white text-slate-900 rounded-3xl font-black flex items-center justify-center hover:bg-cyan-400 hover:text-white transition-all">
+                    <i class="fas fa-paper-plane mr-3"></i> Contact Me
+                </a>
+                <a href="https://linkedin.com/in/drewwolin/" target="_blank" class="px-10 py-6 bg-slate-800 text-white rounded-3xl font-black flex items-center justify-center hover:bg-slate-700 transition-all border border-slate-700">
+                    <i class="fab fa-linkedin mr-3 text-2xl"></i> Connect on LinkedIn
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center text-slate-600 text-xs mono tracking-widest">
+            <div>&copy; 2026 DREW WOLIN. UPDATED MAR 2026.</div>
+            <div class="mt-4 md:mt-0 space-x-6">
+                <span class="text-cyan-500/50">NYU STERN MBA CANDIDATE (Part-Time)</span>
+                <span>/</span>
+                <span>DATA • STRATEGY • LEADERSHIP</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const btn = document.getElementById('menu-btn');
+        btn.onclick = () => {
+            const menu = document.createElement('div');
+            menu.className = 'fixed inset-0 z-[60] bg-slate-950 flex flex-col items-center justify-center space-y-8 text-4xl font-black';
+            menu.innerHTML = `
+                <button class="absolute top-8 right-8 text-2xl">&times;</button>
+                <a href="#home">HOME</a>
+                <a href="#about">NARRATIVE</a>
+                <a href="#experience">JOURNEY</a>
+                <a href="#stack">STACK</a>
+                <a href="#contact">CONTACT</a>
+            `;
+            document.body.appendChild(menu);
+            menu.querySelector('button').onclick = () => menu.remove();
+            menu.querySelectorAll('a').forEach(a => a.onclick = () => menu.remove());
+        };
+    </script>
+
 </body>
 </html>
