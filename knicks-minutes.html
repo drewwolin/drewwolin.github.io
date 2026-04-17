@@ -21,6 +21,14 @@
         .text-shadow-sm {
             text-shadow: 0 1px 2px rgba(0,0,0,0.5);
         }
+        /* Animation for the play button glow */
+        @keyframes pulse-blue {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(0, 107, 182, 0.4); }
+            50% { box-shadow: 0 0 0 8px rgba(0, 107, 182, 0); }
+        }
+        .playing-glow {
+            animation: pulse-blue 2s infinite;
+        }
     </style>
 </head>
 <body class="bg-slate-50">
@@ -145,12 +153,31 @@
 
         const App = () => {
             const [selectedSeason, setSelectedSeason] = useState(knicksData[knicksData.length - 1].season);
+            const [isPlaying, setIsPlaying] = useState(false);
+            
+            // Speed logic: 2000ms is slowest (left), 800ms is fastest (right).
+            // Slider value will represent speed rank, we map it to intervals.
+            const [playbackSpeed, setPlaybackSpeed] = useState(2000);
 
             useEffect(() => {
                 if (window.lucide) {
                     window.lucide.createIcons();
                 }
-            }, [selectedSeason]);
+            }, [selectedSeason, isPlaying]);
+
+            useEffect(() => {
+                let interval;
+                if (isPlaying) {
+                    interval = setInterval(() => {
+                        setSelectedSeason(prev => {
+                            const currentIndex = knicksData.findIndex(d => d.season === prev);
+                            const nextIndex = (currentIndex + 1) % knicksData.length;
+                            return knicksData[nextIndex].season;
+                        });
+                    }, playbackSpeed);
+                }
+                return () => clearInterval(interval);
+            }, [isPlaying, playbackSpeed]);
 
             const averageData = useMemo(() => {
                 return knicksData.map(d => ({
@@ -180,17 +207,55 @@
                                     </h1>
                                     <p className="text-slate-500 mt-1">10-Year Regular Season MPG (Top 5 Leaders)</p>
                                 </div>
-                                <div className="flex items-center gap-2">
-                                    <label className="text-sm font-medium text-slate-700">Select Season:</label>
-                                    <select 
-                                        value={selectedSeason} 
-                                        onChange={(e) => setSelectedSeason(e.target.value)}
-                                        className="bg-slate-100 border-none rounded-lg px-3 py-2 text-sm font-semibold focus:ring-2 focus:ring-[#006BB6] outline-none cursor-pointer"
-                                    >
-                                        {knicksData.map(d => (
-                                            <option key={d.season} value={d.season}>{d.season}</option>
-                                        ))}
-                                    </select>
+                                <div className="flex flex-wrap items-center gap-3">
+                                    <div className="flex items-center gap-2 bg-slate-100 p-1 rounded-lg">
+                                        <button 
+                                            onClick={() => setIsPlaying(!isPlaying)}
+                                            className={`flex items-center gap-2 px-3 py-1.5 rounded-md font-bold transition-all text-sm ${
+                                                isPlaying 
+                                                ? 'bg-slate-800 text-white' 
+                                                : 'bg-white text-slate-700 shadow-sm border border-slate-200'
+                                            }`}
+                                        >
+                                            <i data-lucide={isPlaying ? "pause" : "play"} style={{width: '14px', height: '14px'}}></i>
+                                            {isPlaying ? "Pause" : "Play"}
+                                        </button>
+                                        
+                                        <div className="flex items-center gap-2 px-2">
+                                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Slow</span>
+                                            <input 
+                                                type="range" 
+                                                min="800" 
+                                                max="2000" 
+                                                step="200" 
+                                                // Invert logic: 2000ms is left (min), 800ms is right (max)
+                                                // value = 2800 - playbackSpeed
+                                                value={2800 - playbackSpeed}
+                                                onChange={(e) => setPlaybackSpeed(2800 - Number(e.target.value))}
+                                                className="w-16 h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#006BB6]"
+                                                title={`Cycle speed: ${(playbackSpeed/1000).toFixed(1)}s`}
+                                            />
+                                            <i data-lucide="zap" className="text-orange-400" style={{width: '12px', height: '12px'}}></i>
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="h-8 w-[1px] bg-slate-200 mx-1 hidden md:block"></div>
+
+                                    <div className="flex items-center gap-2">
+                                        <label className="text-sm font-medium text-slate-700 hidden sm:block">Season:</label>
+                                        <select 
+                                            value={selectedSeason} 
+                                            onChange={(e) => {
+                                                setSelectedSeason(e.target.value);
+                                                setIsPlaying(false);
+                                            }}
+                                            className="bg-slate-100 border-none rounded-lg px-3 py-2 text-sm font-semibold focus:ring-2 focus:ring-[#006BB6] outline-none cursor-pointer"
+                                        >
+                                            {knicksData.map(d => (
+                                                <option key={d.season} value={d.season}>{d.season}</option>
+                                            ))}
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -208,7 +273,21 @@
                                             <XAxis dataKey="season" axisLine={false} tickLine={false} tick={{fill: '#64748b', fontSize: 12}} dy={10} />
                                             <YAxis domain={[24, 40]} axisLine={false} tickLine={false} tick={{fill: '#64748b', fontSize: 12}} />
                                             <Tooltip contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }} />
-                                            <Line type="monotone" dataKey="avgMpg" name="Group Avg MPG" stroke="#006BB6" strokeWidth={4} dot={{ r: 6, fill: '#006BB6', strokeWidth: 2, stroke: '#fff' }} activeDot={{ r: 8, strokeWidth: 0 }} />
+                                            <Line 
+                                                type="monotone" 
+                                                dataKey="avgMpg" 
+                                                name="Group Avg MPG" 
+                                                stroke="#006BB6" 
+                                                strokeWidth={4} 
+                                                dot={(props) => {
+                                                    const { cx, cy, payload } = props;
+                                                    if (payload.season === selectedSeason) {
+                                                        return <circle cx={cx} cy={cy} r={8} fill="#006BB6" stroke="#fff" strokeWidth={3} />;
+                                                    }
+                                                    return <circle cx={cx} cy={cy} r={5} fill="#006BB6" stroke="#fff" strokeWidth={2} />;
+                                                }}
+                                                activeDot={{ r: 10, strokeWidth: 0 }} 
+                                            />
                                             <ReferenceLine y={35} stroke="#cbd5e1" strokeDasharray="3 3" />
                                         </LineChart>
                                     </ResponsiveContainer>
@@ -229,7 +308,7 @@
                                         <BarChart data={currentSeasonData} layout="vertical" margin={{ left: 0, right: 40, top: 0, bottom: 0 }}>
                                             <XAxis type="number" hide domain={[0, 42]} />
                                             <YAxis type="category" dataKey="name" hide />
-                                            <Bar dataKey="mpg" radius={[0, 4, 4, 0]} barSize={38}>
+                                            <Bar dataKey="mpg" radius={[0, 4, 4, 0]} barSize={38} isAnimationActive={!isPlaying}>
                                                 {currentSeasonData.map((entry, index) => (
                                                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                                                 ))}
