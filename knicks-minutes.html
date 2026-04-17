@@ -29,6 +29,9 @@
         .playing-glow {
             animation: pulse-blue 2s infinite;
         }
+        .recharts-wrapper {
+            cursor: pointer;
+        }
     </style>
 </head>
 <body class="bg-slate-50">
@@ -207,6 +210,13 @@
 
             const COLORS = ['#F58426', '#006BB6', '#BEC0C2', '#262626', '#404040'];
 
+            const handleChartClick = (data) => {
+                if (data && data.activeLabel) {
+                    setSelectedSeason(data.activeLabel);
+                    setIsPlaying(false); // Stop autoplay when user interacts with chart
+                }
+            };
+
             return (
                 <div className="min-h-screen p-4 md:p-8">
                     <div className="max-w-6xl mx-auto space-y-6">
@@ -280,7 +290,11 @@
                                 </div>
                                 <div className="h-[350px] w-full">
                                     <ResponsiveContainer width="100%" height="100%">
-                                        <LineChart data={averageData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+                                        <LineChart 
+                                            data={averageData} 
+                                            margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+                                            onClick={handleChartClick}
+                                        >
                                             <CartesianGrid strokeDasharray="3 3" vertical={false} />
                                             <XAxis dataKey="season" axisLine={false} tickLine={false} tick={{fill: '#64748b', fontSize: 12}} dy={10} />
                                             <YAxis domain={[24, 40]} axisLine={false} tickLine={false} tick={{fill: '#64748b', fontSize: 12}} />
@@ -306,7 +320,7 @@
                                 </div>
                                 <div className="mt-4 flex items-start gap-2 p-3 bg-blue-50 rounded-xl text-blue-700 text-xs italic">
                                     <i data-lucide="info" className="shrink-0 mt-0.5" style={{width: '14px', height: '14px'}}></i>
-                                    <p>The trough in 2018-19 reflects a roster in transition, while the current era represents a complete commitment to a tight, high-usage rotation.</p>
+                                    <p>The trough in 2018-19 reflects a roster in transition, while the current era represents a complete commitment to a tight, high-usage rotation. Click the chart to explore specific years.</p>
                                 </div>
                             </div>
 
