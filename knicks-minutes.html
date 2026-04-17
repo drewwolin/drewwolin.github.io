@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knicks Workload Analysis</title>
+    <!-- Dependencies -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/prop-types@15.8.1/prop-types.min.js"></script>
+    <script src="https://unpkg.com/recharts@2.12.7/umd/Recharts.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .recharts-cartesian-grid-horizontal line, .recharts-cartesian-grid-vertical line {
+            stroke: #f1f5f9;
+        }
+        .text-shadow-sm {
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body class="bg-slate-50">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useMemo, useEffect } = React;
+        const { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Cell, ReferenceLine } = Recharts;
+
+        const knicksData = [
+            {
+                season: "2015-16",
+                leaders: [
+                    { name: "Carmelo Anthony", mpg: 35.1 },
+                    { name: "Arron Afflalo", mpg: 33.4 },
+                    { name: "Kristaps Porzingis", mpg: 28.4 },
+                    { name: "Jose Calderon", mpg: 28.1 },
+                    { name: "Robin Lopez", mpg: 27.1 }
+                ]
+            },
+            {
+                season: "2016-17",
+                leaders: [
+                    { name: "Carmelo Anthony", mpg: 34.3 },
+                    { name: "Kristaps Porzingis", mpg: 32.8 },
+                    { name: "Derrick Rose", mpg: 32.5 },
+                    { name: "Courtney Lee", mpg: 31.9 },
+                    { name: "Joakim Noah", mpg: 22.1 }
+                ]
+            },
+            {
+                season: "2017-18",
+                leaders: [
+                    { name: "Tim Hardaway Jr.", mpg: 33.1 },
+                    { name: "Kristaps Porzingis", mpg: 32.4 },
+                    { name: "Courtney Lee", mpg: 30.4 },
+                    { name: "Enes Kanter", mpg: 25.8 },
+                    { name: "Jarrett Jack", mpg: 25.0 }
+                ]
+            },
+            {
+                season: "2018-19",
+                leaders: [
+                    { name: "Tim Hardaway Jr.", mpg: 32.6 },
+                    { name: "Kevin Knox", mpg: 28.8 },
+                    { name: "Damyean Dotson", mpg: 27.5 },
+                    { name: "Emmanuel Mudiay", mpg: 27.2 },
+                    { name: "Noah Vonleh", mpg: 25.3 }
+                ]
+            },
+            {
+                season: "2019-20",
+                leaders: [
+                    { name: "Julius Randle", mpg: 32.5 },
+                    { name: "Marcus Morris", mpg: 32.3 },
+                    { name: "RJ Barrett", mpg: 30.4 },
+                    { name: "Elfrid Payton", mpg: 27.7 },
+                    { name: "Mitchell Robinson", mpg: 23.1 }
+                ]
+            },
+            {
+                season: "2020-21",
+                leaders: [
+                    { name: "Julius Randle", mpg: 37.6 },
+                    { name: "RJ Barrett", mpg: 34.9 },
+                    { name: "Reggie Bullock", mpg: 30.0 },
+                    { name: "Mitchell Robinson", mpg: 27.5 },
+                    { name: "Elfrid Payton", mpg: 23.6 }
+                ]
+            },
+            {
+                season: "2021-22",
+                leaders: [
+                    { name: "Julius Randle", mpg: 35.3 },
+                    { name: "RJ Barrett", mpg: 34.5 },
+                    { name: "Evan Fournier", mpg: 29.5 },
+                    { name: "Alec Burks", mpg: 28.6 },
+                    { name: "Mitchell Robinson", mpg: 25.7 }
+                ]
+            },
+            {
+                season: "2022-23",
+                leaders: [
+                    { name: "Julius Randle", mpg: 35.5 },
+                    { name: "Jalen Brunson", mpg: 35.0 },
+                    { name: "RJ Barrett", mpg: 33.9 },
+                    { name: "Quentin Grimes", mpg: 29.9 },
+                    { name: "Mitchell Robinson", mpg: 26.9 }
+                ]
+            },
+            {
+                season: "2023-24",
+                leaders: [
+                    { name: "Jalen Brunson", mpg: 35.4 },
+                    { name: "Julius Randle", mpg: 35.4 },
+                    { name: "OG Anunoby", mpg: 34.9 },
+                    { name: "Josh Hart", mpg: 33.4 },
+                    { name: "Donte DiVincenzo", mpg: 29.1 }
+                ]
+            },
+            {
+                season: "2024-25",
+                leaders: [
+                    { name: "Josh Hart", mpg: 37.6 },
+                    { name: "Mikal Bridges", mpg: 37.0 },
+                    { name: "OG Anunoby", mpg: 36.6 },
+                    { name: "Jalen Brunson", mpg: 35.4 },
+                    { name: "Karl-Anthony Towns", mpg: 35.0 }
+                ]
+            },
+            {
+                season: "2025-26",
+                leaders: [
+                    { name: "Jalen Brunson", mpg: 35.0 },
+                    { name: "OG Anunoby", mpg: 33.2 },
+                    { name: "Mikal Bridges", mpg: 32.8 },
+                    { name: "Karl-Anthony Towns", mpg: 31.0 },
+                    { name: "Josh Hart", mpg: 30.2 }
+                ]
+            }
+        ];
+
+        const App = () => {
+            const [selectedSeason, setSelectedSeason] = useState(knicksData[knicksData.length - 1].season);
+
+            useEffect(() => {
+                if (window.lucide) {
+                    window.lucide.createIcons();
+                }
+            }, [selectedSeason]);
+
+            const averageData = useMemo(() => {
+                return knicksData.map(d => ({
+                    season: d.season,
+                    avgMpg: parseFloat((d.leaders.reduce((acc, curr) => acc + curr.mpg, 0) / 5).toFixed(1))
+                }));
+            }, []);
+
+            const currentSeasonData = useMemo(() => {
+                const data = knicksData.find(d => d.season === selectedSeason);
+                return data ? [...data.leaders].sort((a, b) => b.mpg - a.mpg) : [];
+            }, [selectedSeason]);
+
+            const COLORS = ['#F58426', '#006BB6', '#BEC0C2', '#262626', '#404040'];
+
+            return (
+                <div className="min-h-screen p-4 md:p-8">
+                    <div className="max-w-6xl mx-auto space-y-6">
+                        <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+                            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                <div>
+                                    <h1 className="text-3xl font-bold text-slate-900 flex items-center gap-3">
+                                        <span className="bg-[#006BB6] p-2 rounded-lg text-white flex items-center justify-center">
+                                            <i data-lucide="timer"></i>
+                                        </span>
+                                        Knicks Workload Analysis
+                                    </h1>
+                                    <p className="text-slate-500 mt-1">10-Year Regular Season MPG (Top 5 Leaders)</p>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <label className="text-sm font-medium text-slate-700">Select Season:</label>
+                                    <select 
+                                        value={selectedSeason} 
+                                        onChange={(e) => setSelectedSeason(e.target.value)}
+                                        className="bg-slate-100 border-none rounded-lg px-3 py-2 text-sm font-semibold focus:ring-2 focus:ring-[#006BB6] outline-none cursor-pointer"
+                                    >
+                                        {knicksData.map(d => (
+                                            <option key={d.season} value={d.season}>{d.season}</option>
+                                        ))}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                            <div className="lg:col-span-2 bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+                                <div className="flex items-center gap-2 mb-6">
+                                    <i data-lucide="trending-up" className="text-[#F58426]"></i>
+                                    <h2 className="text-lg font-semibold">10-Year Trend: Group Average (Top 5)</h2>
+                                </div>
+                                <div className="h-[350px] w-full">
+                                    <ResponsiveContainer width="100%" height="100%">
+                                        <LineChart data={averageData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+                                            <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                                            <XAxis dataKey="season" axisLine={false} tickLine={false} tick={{fill: '#64748b', fontSize: 12}} dy={10} />
+                                            <YAxis domain={[24, 40]} axisLine={false} tickLine={false} tick={{fill: '#64748b', fontSize: 12}} />
+                                            <Tooltip contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }} />
+                                            <Line type="monotone" dataKey="avgMpg" name="Group Avg MPG" stroke="#006BB6" strokeWidth={4} dot={{ r: 6, fill: '#006BB6', strokeWidth: 2, stroke: '#fff' }} activeDot={{ r: 8, strokeWidth: 0 }} />
+                                            <ReferenceLine y={35} stroke="#cbd5e1" strokeDasharray="3 3" />
+                                        </LineChart>
+                                    </ResponsiveContainer>
+                                </div>
+                                <div className="mt-4 flex items-start gap-2 p-3 bg-blue-50 rounded-xl text-blue-700 text-xs italic">
+                                    <i data-lucide="info" className="shrink-0 mt-0.5" style={{width: '14px', height: '14px'}}></i>
+                                    <p>The trough in 2018-19 reflects a roster in transition, while the current era represents a complete commitment to a tight, high-usage rotation.</p>
+                                </div>
+                            </div>
+
+                            <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+                                <div className="flex items-center gap-2 mb-6">
+                                    <i data-lucide="users" className="text-[#006BB6]"></i>
+                                    <h2 className="text-lg font-semibold">{selectedSeason} Leaders</h2>
+                                </div>
+                                <div className="h-[350px] w-full relative">
+                                    <ResponsiveContainer width="100%" height="100%">
+                                        <BarChart data={currentSeasonData} layout="vertical" margin={{ left: 0, right: 40, top: 0, bottom: 0 }}>
+                                            <XAxis type="number" hide domain={[0, 42]} />
+                                            <YAxis type="category" dataKey="name" hide />
+                                            <Bar dataKey="mpg" radius={[0, 4, 4, 0]} barSize={38}>
+                                                {currentSeasonData.map((entry, index) => (
+                                                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                                ))}
+                                            </Bar>
+                                        </BarChart>
+                                    </ResponsiveContainer>
+                                    
+                                    <div className="absolute top-0 left-0 w-full h-full pointer-events-none px-3">
+                                        {currentSeasonData.map((player, idx) => (
+                                            <div key={idx} className="h-[70px] flex items-center justify-between">
+                                                <span className="text-sm font-bold text-white text-shadow-sm truncate max-w-[160px]">
+                                                    {player.name}
+                                                </span>
+                                                <span className="text-xs font-mono font-bold text-slate-600 bg-white/80 px-1.5 py-0.5 rounded ml-2">
+                                                    {player.mpg} <span className="text-[10px]">MPG</span>
+                                                </span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                                <p className="text-slate-500 text-sm font-medium uppercase tracking-wider">Regular Season Peak</p>
+                                <p className="text-3xl font-bold text-slate-900 mt-1">36.3</p>
+                                <p className="text-sm text-slate-500 mt-1">Highest Top 5 Avg (2024-25 Season)</p>
+                            </div>
+                            <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                                <p className="text-slate-500 text-sm font-medium uppercase tracking-wider">Lowest Point</p>
+                                <p className="text-3xl font-bold text-slate-900 mt-1">28.3</p>
+                                <p className="text-sm text-slate-500 mt-1">Recorded during the 2018-19 season</p>
+                            </div>
+                            <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                                <p className="text-slate-500 text-sm font-medium uppercase tracking-wider">10-Year Swing</p>
+                                <p className="text-3xl font-bold text-[#006BB6] mt-1">+8.0</p>
+                                <p className="text-sm text-slate-500 mt-1">Increase from trough (28.3) to peak (36.3)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
