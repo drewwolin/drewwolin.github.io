@@ -100,7 +100,7 @@
         const progressFill = document.getElementById('progress-fill');
 
         // Game Constants
-        const PLAYER_X = 150;
+        let playerX = 150; // Now a variable to allow mobile adjustment
         const GROUND_Y_OFFSET = 120;
         const UMBRELLA_MIN_Y = -65;
         const UMBRELLA_MAX_Y = -170; 
@@ -170,10 +170,11 @@
             height = window.innerHeight;
             canvas.width = width;
             canvas.height = height;
+            
+            // Adjust player position for mobile (75% further left from 150 is approx 40)
+            playerX = width < 600 ? 50 : 150;
+            if (player) player.x = playerX;
         }
-
-        window.addEventListener('resize', resize);
-        resize();
 
         class Character {
             constructor(x, y, type) {
@@ -277,13 +278,15 @@
             }
         }
 
-        let player = new Character(PLAYER_X, 0, 'PLAYER');
+        let player = new Character(playerX, 0, 'PLAYER');
         player.umbrellaY = UMBRELLA_MIN_Y;
         let obstacles = [];
         let particles = [];
         let currentSpeedMult = 1;
 
-        // --- UPDATED INPUT LOGIC FOR MOBILE ACCESSIBILITY ---
+        window.addEventListener('resize', resize);
+        resize();
+
         window.addEventListener('keydown', (e) => { 
             if (e.code === 'Space') inputActive = true; 
         });
@@ -297,7 +300,6 @@
             if (gameState === 'PLAYING') inputActive = false;
         });
         
-        // Only prevent default if we're actually in the game state to allow button taps
         window.addEventListener('touchstart', (e) => { 
             if (gameState === 'PLAYING') {
                 e.preventDefault(); 
@@ -363,7 +365,6 @@
             scoreElement.innerText = currentStreet > 0 ? `${currentStreet}th St` : (currentStreet === 0 ? "Canal St" : "Financial District");
             progressFill.style.width = `${Math.min(100, (100 - currentStreet))}%`;
 
-            // Umbrella physics (2x slower as requested)
             const UMBRELLA_TRANSITION_SPEED = 1.75 * currentSpeedMult;
             if (inputActive) {
                 player.umbrellaY = Math.max(UMBRELLA_MAX_Y, player.umbrellaY - UMBRELLA_TRANSITION_SPEED);
@@ -381,8 +382,8 @@
                 const pBaseY = (height - GROUND_Y_OFFSET - player.height) + player.umbrellaY + 10;
                 const oBaseY = (height - GROUND_Y_OFFSET - obs.height) + obs.umbrellaY + 10;
 
-                const pLeft = PLAYER_X - (UMBRELLA_WIDTH / 2) + 22 + COLLISION_BUFFER;
-                const pRight = PLAYER_X + (UMBRELLA_WIDTH / 2) + 22 - COLLISION_BUFFER;
+                const pLeft = playerX - (UMBRELLA_WIDTH / 2) + 22 + COLLISION_BUFFER;
+                const pRight = playerX + (UMBRELLA_WIDTH / 2) + 22 - COLLISION_BUFFER;
                 const oLeft = obs.x - (UMBRELLA_WIDTH / 2) + 22 + COLLISION_BUFFER;
                 const oRight = obs.x + (UMBRELLA_WIDTH / 2) + 22 - COLLISION_BUFFER;
 
@@ -432,7 +433,6 @@
             ctx.fillStyle = grad;
             ctx.fillRect(0,0,width,height);
 
-            // Taller Background Cityscape
             ctx.fillStyle = '#0f3460';
             for(let i=0; i<10; i++) {
                 const bX = (i * 300 - (distanceTraveled % 300));
@@ -442,7 +442,7 @@
 
             LANDMARKS.forEach(l => {
                 const lDist = (100 - l.street) * PIXELS_PER_STREET;
-                const relX = PLAYER_X + (lDist - distanceTraveled);
+                const relX = playerX + (lDist - distanceTraveled);
                 
                 if (relX > -800 && relX < width + 800) {
                     if (l.type === "SUBWAY") {
@@ -507,10 +507,9 @@
                 }
             });
 
-            // Street Signs with Poles and Pedestrian Lights
             for(let s=100; s>=5; s-=5) {
                 const sDist = (100 - s) * PIXELS_PER_STREET;
-                const relX = PLAYER_X + (sDist - distanceTraveled);
+                const relX = playerX + (sDist - distanceTraveled);
                 if (relX > -400 && relX < width + 400) {
                     const poleX = relX + 5;
                     const poleW = 10;
@@ -520,11 +519,9 @@
                     const lightSize = 40;
                     const lightY = groundY - 280;
 
-                    // Pole
                     ctx.fillStyle = '#222';
                     ctx.fillRect(poleX, groundY - 450, poleW, 450);
 
-                    // Sign
                     ctx.fillStyle = '#27ae60';
                     ctx.strokeStyle = '#fff';
                     ctx.lineWidth = 2;
@@ -536,16 +533,14 @@
                     ctx.font = 'bold 18px Inter';
                     ctx.fillText(`${s}th St`, relX + 15, signY + 30);
 
-                    // Pedestrian Light Housing (Square with yellow outline)
                     ctx.fillStyle = '#111';
-                    ctx.strokeStyle = '#f1c40f'; // NYC Yellow
+                    ctx.strokeStyle = '#f1c40f'; 
                     ctx.lineWidth = 2;
                     ctx.beginPath();
                     ctx.rect(poleX - 15, lightY, lightSize, lightSize);
                     ctx.fill();
                     ctx.stroke();
                     
-                    // Solid White Walk Silhouette
                     const manX = poleX + 5;
                     const manY = lightY + 18;
                     ctx.fillStyle = 'white';
@@ -553,16 +548,13 @@
                     ctx.lineWidth = 3;
                     ctx.lineCap = 'round';
                     
-                    // Head (Solid Circle)
                     ctx.beginPath();
                     ctx.arc(manX, manY - 7, 3.5, 0, Math.PI * 2);
                     ctx.fill();
-                    // Torso
                     ctx.beginPath();
                     ctx.moveTo(manX, manY - 4);
                     ctx.lineTo(manX, manY + 6);
                     ctx.stroke();
-                    // Walking Legs
                     ctx.beginPath();
                     ctx.moveTo(manX, manY + 6);
                     ctx.lineTo(manX - 5, manY + 16);
@@ -571,7 +563,6 @@
                     ctx.moveTo(manX, manY + 6);
                     ctx.lineTo(manX + 4, manY + 16);
                     ctx.stroke();
-                    // Walking Arms
                     ctx.beginPath();
                     ctx.moveTo(manX, manY - 1);
                     ctx.lineTo(manX - 6, manY + 4);
