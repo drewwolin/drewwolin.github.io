@@ -283,12 +283,34 @@
         let particles = [];
         let currentSpeedMult = 1;
 
-        window.addEventListener('keydown', (e) => { if (e.code === 'Space') inputActive = true; });
-        window.addEventListener('keyup', (e) => { if (e.code === 'Space') inputActive = false; });
-        window.addEventListener('mousedown', () => inputActive = true);
-        window.addEventListener('mouseup', () => inputActive = false);
-        window.addEventListener('touchstart', (e) => { e.preventDefault(); inputActive = true; }, { passive: false });
-        window.addEventListener('touchend', (e) => { e.preventDefault(); inputActive = false; }, { passive: false });
+        // --- UPDATED INPUT LOGIC FOR MOBILE ACCESSIBILITY ---
+        window.addEventListener('keydown', (e) => { 
+            if (e.code === 'Space') inputActive = true; 
+        });
+        window.addEventListener('keyup', (e) => { 
+            if (e.code === 'Space') inputActive = false; 
+        });
+        window.addEventListener('mousedown', () => {
+            if (gameState === 'PLAYING') inputActive = true;
+        });
+        window.addEventListener('mouseup', () => {
+            if (gameState === 'PLAYING') inputActive = false;
+        });
+        
+        // Only prevent default if we're actually in the game state to allow button taps
+        window.addEventListener('touchstart', (e) => { 
+            if (gameState === 'PLAYING') {
+                e.preventDefault(); 
+                inputActive = true; 
+            }
+        }, { passive: false });
+        
+        window.addEventListener('touchend', (e) => { 
+            if (gameState === 'PLAYING') {
+                e.preventDefault(); 
+                inputActive = false; 
+            }
+        }, { passive: false });
 
         document.getElementById('start-btn').addEventListener('click', startGame);
         document.getElementById('restart-btn').addEventListener('click', startGame);
@@ -341,6 +363,7 @@
             scoreElement.innerText = currentStreet > 0 ? `${currentStreet}th St` : (currentStreet === 0 ? "Canal St" : "Financial District");
             progressFill.style.width = `${Math.min(100, (100 - currentStreet))}%`;
 
+            // Umbrella physics (2x slower as requested)
             const UMBRELLA_TRANSITION_SPEED = 1.75 * currentSpeedMult;
             if (inputActive) {
                 player.umbrellaY = Math.max(UMBRELLA_MAX_Y, player.umbrellaY - UMBRELLA_TRANSITION_SPEED);
@@ -409,6 +432,7 @@
             ctx.fillStyle = grad;
             ctx.fillRect(0,0,width,height);
 
+            // Taller Background Cityscape
             ctx.fillStyle = '#0f3460';
             for(let i=0; i<10; i++) {
                 const bX = (i * 300 - (distanceTraveled % 300));
