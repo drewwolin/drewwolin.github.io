@@ -41,6 +41,7 @@
         const knicksData = [
             {
                 season: "2015-16",
+                coach: "Derek Fisher",
                 leaders: [
                     { name: "Carmelo Anthony", mpg: 35.1 },
                     { name: "Arron Afflalo", mpg: 33.4 },
@@ -51,6 +52,7 @@
             },
             {
                 season: "2016-17",
+                coach: "Jeff Hornacek",
                 leaders: [
                     { name: "Carmelo Anthony", mpg: 34.3 },
                     { name: "Kristaps Porzingis", mpg: 32.8 },
@@ -61,6 +63,7 @@
             },
             {
                 season: "2017-18",
+                coach: "Jeff Hornacek",
                 leaders: [
                     { name: "Tim Hardaway Jr.", mpg: 33.1 },
                     { name: "Kristaps Porzingis", mpg: 32.4 },
@@ -71,6 +74,7 @@
             },
             {
                 season: "2018-19",
+                coach: "David Fizdale",
                 leaders: [
                     { name: "Tim Hardaway Jr.", mpg: 32.6 },
                     { name: "Kevin Knox", mpg: 28.8 },
@@ -81,6 +85,7 @@
             },
             {
                 season: "2019-20",
+                coach: "Mike Miller",
                 leaders: [
                     { name: "Julius Randle", mpg: 32.5 },
                     { name: "Marcus Morris", mpg: 32.3 },
@@ -91,6 +96,7 @@
             },
             {
                 season: "2020-21",
+                coach: "Tom Thibodeau",
                 leaders: [
                     { name: "Julius Randle", mpg: 37.6 },
                     { name: "RJ Barrett", mpg: 34.9 },
@@ -101,6 +107,7 @@
             },
             {
                 season: "2021-22",
+                coach: "Tom Thibodeau",
                 leaders: [
                     { name: "Julius Randle", mpg: 35.3 },
                     { name: "RJ Barrett", mpg: 34.5 },
@@ -111,6 +118,7 @@
             },
             {
                 season: "2022-23",
+                coach: "Tom Thibodeau",
                 leaders: [
                     { name: "Julius Randle", mpg: 35.5 },
                     { name: "Jalen Brunson", mpg: 35.0 },
@@ -121,6 +129,7 @@
             },
             {
                 season: "2023-24",
+                coach: "Tom Thibodeau",
                 leaders: [
                     { name: "Jalen Brunson", mpg: 35.4 },
                     { name: "Julius Randle", mpg: 35.4 },
@@ -131,6 +140,7 @@
             },
             {
                 season: "2024-25",
+                coach: "Tom Thibodeau",
                 leaders: [
                     { name: "Josh Hart", mpg: 37.6 },
                     { name: "Mikal Bridges", mpg: 37.0 },
@@ -141,6 +151,7 @@
             },
             {
                 season: "2025-26",
+                coach: "Mike Brown",
                 leaders: [
                     { name: "Jalen Brunson", mpg: 35.0 },
                     { name: "OG Anunoby", mpg: 33.2 },
@@ -156,8 +167,8 @@
             const [isPlaying, setIsPlaying] = useState(false);
             
             // Speed logic: 2000ms is slowest (left), 800ms is fastest (right).
-            // Slider value will represent speed rank, we map it to intervals.
-            const [playbackSpeed, setPlaybackSpeed] = useState(2000);
+            // Defaulting to fast (800ms).
+            const [playbackSpeed, setPlaybackSpeed] = useState(800);
 
             useEffect(() => {
                 if (window.lucide) {
@@ -186,10 +197,13 @@
                 }));
             }, []);
 
-            const currentSeasonData = useMemo(() => {
-                const data = knicksData.find(d => d.season === selectedSeason);
-                return data ? [...data.leaders].sort((a, b) => b.mpg - a.mpg) : [];
+            const currentSeasonObj = useMemo(() => {
+                return knicksData.find(d => d.season === selectedSeason);
             }, [selectedSeason]);
+
+            const currentSeasonData = useMemo(() => {
+                return currentSeasonObj ? [...currentSeasonObj.leaders].sort((a, b) => b.mpg - a.mpg) : [];
+            }, [currentSeasonObj]);
 
             const COLORS = ['#F58426', '#006BB6', '#BEC0C2', '#262626', '#404040'];
 
@@ -208,12 +222,12 @@
                                     <p className="text-slate-500 mt-1">10-Year Regular Season MPG (Top 5 Leaders)</p>
                                 </div>
                                 <div className="flex flex-wrap items-center gap-3">
-                                    <div className="flex items-center gap-2 bg-slate-100 p-1 rounded-lg">
+                                    <div className="flex items-center gap-2 bg-slate-100 p-1 rounded-lg border border-slate-200">
                                         <button 
                                             onClick={() => setIsPlaying(!isPlaying)}
                                             className={`flex items-center gap-2 px-3 py-1.5 rounded-md font-bold transition-all text-sm ${
                                                 isPlaying 
-                                                ? 'bg-slate-800 text-white' 
+                                                ? 'bg-slate-800 text-white shadow-sm' 
                                                 : 'bg-white text-slate-700 shadow-sm border border-slate-200'
                                             }`}
                                         >
@@ -228,12 +242,10 @@
                                                 min="800" 
                                                 max="2000" 
                                                 step="200" 
-                                                // Invert logic: 2000ms is left (min), 800ms is right (max)
-                                                // value = 2800 - playbackSpeed
+                                                // 2000ms is left (min val on UI, max interval), 800ms is right (max val on UI, min interval)
                                                 value={2800 - playbackSpeed}
                                                 onChange={(e) => setPlaybackSpeed(2800 - Number(e.target.value))}
                                                 className="w-16 h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#006BB6]"
-                                                title={`Cycle speed: ${(playbackSpeed/1000).toFixed(1)}s`}
                                             />
                                             <i data-lucide="zap" className="text-orange-400" style={{width: '12px', height: '12px'}}></i>
                                         </div>
@@ -249,7 +261,7 @@
                                                 setSelectedSeason(e.target.value);
                                                 setIsPlaying(false);
                                             }}
-                                            className="bg-slate-100 border-none rounded-lg px-3 py-2 text-sm font-semibold focus:ring-2 focus:ring-[#006BB6] outline-none cursor-pointer"
+                                            className="bg-slate-100 border border-slate-200 rounded-lg px-3 py-2 text-sm font-semibold focus:ring-2 focus:ring-[#006BB6] outline-none cursor-pointer"
                                         >
                                             {knicksData.map(d => (
                                                 <option key={d.season} value={d.season}>{d.season}</option>
@@ -298,12 +310,12 @@
                                 </div>
                             </div>
 
-                            <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+                            <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 flex flex-col">
                                 <div className="flex items-center gap-2 mb-6">
                                     <i data-lucide="users" className="text-[#006BB6]"></i>
                                     <h2 className="text-lg font-semibold">{selectedSeason} Leaders</h2>
                                 </div>
-                                <div className="h-[350px] w-full relative">
+                                <div className="flex-1 relative min-h-[350px]">
                                     <ResponsiveContainer width="100%" height="100%">
                                         <BarChart data={currentSeasonData} layout="vertical" margin={{ left: 0, right: 40, top: 0, bottom: 0 }}>
                                             <XAxis type="number" hide domain={[0, 42]} />
@@ -322,11 +334,21 @@
                                                 <span className="text-sm font-bold text-white text-shadow-sm truncate max-w-[160px]">
                                                     {player.name}
                                                 </span>
-                                                <span className="text-xs font-mono font-bold text-slate-600 bg-white/80 px-1.5 py-0.5 rounded ml-2">
+                                                <span className="text-xs font-mono font-bold text-slate-600 bg-white/80 px-1.5 py-0.5 rounded ml-2 shadow-sm border border-slate-100">
                                                     {player.mpg} <span className="text-[10px]">MPG</span>
                                                 </span>
                                             </div>
                                         ))}
+                                    </div>
+                                </div>
+                                {/* Coach Display */}
+                                <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+                                    <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Head Coach</span>
+                                    <div className="flex items-center gap-2">
+                                        <div className="w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center">
+                                            <i data-lucide="clipboard-list" className="text-slate-500" style={{width: '12px', height: '12px'}}></i>
+                                        </div>
+                                        <span className="text-sm font-bold text-slate-700">{currentSeasonObj?.coach}</span>
                                     </div>
                                 </div>
                             </div>
