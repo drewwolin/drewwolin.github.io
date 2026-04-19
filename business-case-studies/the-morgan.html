@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Morgan | From Matzo & Tea to Symphony & Rockpoint</title>
+    <title>The Morgan: 160 Morgan Street | Historical & Financial Analysis</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
@@ -46,17 +46,17 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .historical-badge {
-            background: linear-gradient(90deg, var(--brick), #7F1D1D);
+        .matzo-badge {
+            background: linear-gradient(90deg, #991B1B, #450A0A);
             color: white;
         }
     </style>
-    <!-- Chosen Palette: Industrial Heritage (Brick Red #991B1B, Slate Navy #0F172A, Gold #B69121) -->
-    <!-- Application Structure Plan: This report presents a historical and financial deep-dive into The Morgan. It is structured to follow the site's transformation: 1. The Industrial Legacy (Manischewitz/A&P), 2. Modern Development (Toll Brothers), 3. Institutional Stewardship (Rockpoint 2025), and 4. The Cultural Future (New Jersey Symphony). -->
+    <!-- Chosen Palette: Industrial Heritage & Institutional Navy (Brick Red #991B1B for Matzo origins, Navy #0F172A for Rockpoint management, Gold #B69121 for Toll Brothers legacy) -->
+    <!-- Application Structure Plan: This interactive report follows the "Matzo-to-Symphony" narrative of Provost Square. 1. Executive Identity: The October 2025 acquisition by Rockpoint. 2. Heritage Explorer: A timeline tracing the site from the 20-million-pound matzo factory to the preservation of the 1932 warehouse. 3. Financial Analytics: Dual-axis tracking of Rent PSF and Average Unit Pricing. 4. Ecosystem Future: A map of the NJ Symphony and Great Oak Theater connectivity. -->
     <!-- Visualization & Content Choices: 
-        1. Operational Dashboard: Dual-axis Chart.js showing Monthly Rent PSF vs. Average Unit Rent.
-        2. Market Benchmarking: Bar chart comparing the $6.65 Rent PSF to other NYC metro high-rises.
-        3. Legacy Timeline: Interactive history tracing from the matzo factory to the symphony headquarters.
+        1. Performance Chart: Dual-axis Chart.js for Rent PSF vs. Average Unit Rent.
+        2. Market Benchmarking: Bar chart comparing The Morgan's $6.65 PSF to regional luxury high-rises.
+        3. Heritage Timeline: Interactive state-switcher for key historical phases.
     -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 </head>
@@ -74,7 +74,7 @@
                 <a href="#heritage" class="hover:text-[#B69121] transition">Heritage</a>
                 <a href="#financials" class="hover:text-[#B69121] transition">Analytics</a>
                 <a href="#lifecycle" class="hover:text-[#B69121] transition">Lifecycle</a>
-                <a href="#future" class="hover:text-[#B69121] transition">The Symphony</a>
+                <a href="#future" class="hover:text-[#B69121] transition">Future</a>
             </div>
         </div>
     </nav>
@@ -82,18 +82,18 @@
     <header id="heritage" class="pt-32 pb-20 px-6 max-w-7xl mx-auto">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div class="fade-in-up">
-                <div class="historical-badge inline-block px-3 py-1 mb-6 text-[10px] font-bold tracking-widest rounded uppercase">Site of the Manischewitz Matzo Factory</div>
-                <h1 class="text-5xl md:text-7xl font-bold mb-6 text-[#0F172A] leading-tight serif">Industrial <br><span class="italic text-[#991B1B]">Renaissance.</span></h1>
+                <div class="matzo-badge inline-block px-3 py-1 mb-6 text-[10px] font-bold tracking-widest rounded uppercase">Site of the Great A&P and Manischewitz Factory</div>
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 text-[#0F172A] leading-tight serif">Heritage <br><span class="italic text-[#991B1B]">Reclaimed.</span></h1>
                 <p class="text-lg text-slate-600 mb-8 leading-relaxed">
-                    160 Morgan Street ("The Morgan") occupies the historic ground of the <strong>Great Atlantic & Pacific Tea Company (A&P)</strong> Annex and the world-renowned <strong>Manischewitz Matzo Factory</strong>. Today, it is a stabilized 38-story asset in the <strong>Rockpoint</strong> portfolio.
+                    Once the headquarters of a global matzo empire, 160 Morgan Street ("The Morgan") has evolved from the industrial heart of the <strong>A&P Annex</strong> and <strong>Manischewitz</strong> into a premier residential anchor for <strong>Rockpoint</strong>.
                 </p>
                 <div class="grid grid-cols-2 gap-8 border-t border-slate-200 pt-8">
                     <div>
-                        <div class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Lead Developer</div>
+                        <div class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Developer</div>
                         <div class="font-bold text-lg text-[#0F172A]">Toll Brothers</div>
                     </div>
                     <div>
-                        <div class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Current Owner</div>
+                        <div class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Owner</div>
                         <div class="font-bold text-lg text-[#0F172A]">Rockpoint</div>
                     </div>
                 </div>
@@ -112,8 +112,8 @@
                     <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Rockpoint Acquisition</div>
                 </div>
                 <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm text-center">
-                    <div class="text-4xl font-bold text-[#991B1B] mb-2">NJSO</div>
-                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Symphony Anchor</div>
+                    <div class="text-4xl font-bold text-[#991B1B] mb-2">20M lb</div>
+                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Annual Matzo Prod. (Hist.)</div>
                 </div>
             </div>
         </div>
@@ -124,13 +124,13 @@
             <div class="text-center mb-16">
                 <h2 class="text-4xl font-bold text-[#0F172A] mb-4 serif italic">Institutional Analytics</h2>
                 <p class="text-slate-600 max-w-2xl mx-auto leading-relaxed">
-                    Analyzing The Morgan's performance through unit-level and square-foot-level metrics, framing its $6.65 Rent PSF against regional high-rise benchmarks.
+                    Measuring the stabilization of Phase I. The Morgan commands a premium Rent PSF due to its architectural pedigree and its role in the Provost Square ecosystem.
                 </p>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
                 <div class="bg-white p-10 rounded-3xl shadow-sm border border-slate-200">
-                    <h3 class="text-xl font-bold mb-8 text-[#0F172A] text-center serif">Rental Yield Performance</h3>
+                    <h3 class="text-xl font-bold mb-8 text-[#0F172A] text-center serif">Rent Yield Performance</h3>
                     <div class="chart-container">
                         <canvas id="rentMetricsChart"></canvas>
                     </div>
@@ -149,15 +149,15 @@
     <section id="lifecycle" class="py-24 bg-white">
         <div class="max-w-7xl mx-auto px-6">
             <div class="mb-16">
-                <h2 class="text-4xl font-bold text-[#0F172A] mb-4 serif italic">From Matzo to Modernism</h2>
+                <h2 class="text-4xl font-bold text-[#0F172A] mb-4 serif italic">Historical Lifecycle</h2>
                 <p class="text-slate-600 max-w-2xl leading-relaxed">
-                    The Morgan is the first residential anchor of the Provost Square master plan, revitalizing a block once dedicated to global grocery supply chains.
+                    Tracing the path from the 1932 A&P/Manischewitz warehouse preservation to the groundbreaking of The Morgan.
                 </p>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
                 <div class="lg:col-span-4 space-y-3" id="lifecycle-nav">
-                    <!-- Buttons injected by JS -->
+                    <!-- Nav buttons injected by JS -->
                 </div>
                 <div class="lg:col-span-8 p-12 bg-slate-50 rounded-3xl border border-slate-200 min-h-[450px] flex flex-col justify-center relative overflow-hidden" id="lifecycle-content">
                     <p class="text-slate-400 italic">Select a phase to explore the site's evolution.</p>
@@ -170,24 +170,24 @@
         <div class="max-w-7xl mx-auto px-6">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                 <div>
-                    <div class="text-xs font-bold text-[#B69121] uppercase tracking-widest mb-4">Phase III Integration</div>
-                    <h2 class="text-4xl font-bold text-[#0F172A] mb-6 serif italic">The Symphony Effect</h2>
+                    <div class="text-xs font-bold text-[#B69121] uppercase tracking-widest mb-4">Provost Square | Phase III Impact</div>
+                    <h2 class="text-4xl font-bold text-[#0F172A] mb-6 serif italic">The Matzo-Symphony Synergy</h2>
                     <p class="text-slate-600 leading-relaxed mb-6">
-                        The effort by <strong>Toll Brothers</strong> has revitalized the former <strong>Manischewitz factory</strong> and the <strong>A&P Annex</strong> into a mixed-use complex. The <strong>New Jersey Symphony</strong> has officially announced it will move its headquarters and performance space into the <strong>Great Oak Theater</strong> on the ground floor of 151 Bay Street.
+                        The effort has revitalized the site of the former <strong>Manischewitz factory</strong> and the <strong>A&P Annex</strong> property into a mixed-use complex. While The Morgan is a ground-up tower, the original 1932 warehouse at <strong>151 Bay Street</strong> was meticulously preserved. This block now welcomes the <strong>New Jersey Symphony</strong> into the Great Oak Theater on the ground floor.
                     </p>
                     <div class="space-y-4">
                         <div class="flex items-start space-x-4 p-5 bg-white rounded-2xl border border-slate-100 shadow-sm">
-                            <span class="text-2xl">🎻</span>
+                            <span class="text-2xl text-[#991B1B] font-bold">M</span>
                             <div>
-                                <div class="font-bold text-[#0F172A] text-sm">NJSO Headquarters</div>
-                                <div class="text-xs text-slate-500 italic">Moving into the theater space facing the cobblestone plaza.</div>
+                                <div class="font-bold text-[#0F172A] text-sm">Industrial Legacy</div>
+                                <div class="text-xs text-slate-500 italic">Manischewitz produced 20M lbs of matzo annually here until 2006.</div>
                             </div>
                         </div>
                         <div class="flex items-start space-x-4 p-5 bg-white rounded-2xl border border-slate-100 shadow-sm">
-                            <span class="text-2xl">🏙️</span>
+                            <span class="text-2xl text-[#0F172A] font-bold">🎻</span>
                             <div>
-                                <div class="font-bold text-[#0F172A] text-sm">Provost Square Plaza</div>
-                                <div class="text-xs text-slate-500 italic">A new cultural epicenter created from industrial land.</div>
+                                <div class="font-bold text-[#0F172A] text-sm">Orchestral Future</div>
+                                <div class="text-xs text-slate-500 italic">The NJ Symphony HQ sits in the theater facing a cobblestone plaza.</div>
                             </div>
                         </div>
                     </div>
@@ -195,15 +195,15 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="p-8 rounded-3xl bg-[#0F172A] text-white shadow-xl">
                         <h4 class="font-bold text-xl mb-4 serif">8th Floor Deck</h4>
-                        <p class="text-xs text-slate-400 leading-relaxed">The primary amenity hub for 160 Morgan, featuring the pool terrace and resident lounges. (No rooftop access).</p>
+                        <p class="text-xs text-slate-400 leading-relaxed">The amenity center of The Morgan. Includes a pool terrace, fire pits, and lounges. (No rooftop access).</p>
                     </div>
                     <div class="p-8 rounded-3xl bg-white border border-slate-200 shadow-sm">
                         <h4 class="font-bold text-[#0F172A] text-xl mb-4 serif italic">Dog Grooming</h4>
-                        <p class="text-xs text-slate-500 leading-relaxed">Conveniently located directly across the street, completing the pet-friendly ecosystem for Morgan residents.</p>
+                        <p class="text-xs text-slate-500 leading-relaxed">Located directly across the street, serving the high concentration of pet-owners in Provost Square.</p>
                     </div>
                     <div class="p-8 rounded-3xl bg-white border border-slate-200 shadow-sm md:col-span-2">
-                        <h4 class="font-bold text-[#0F172A] text-xl mb-4 serif">Strategic Moat</h4>
-                        <p class="text-sm text-slate-600 leading-relaxed">The symphony's presence creates a permanent cultural anchor, ensuring high demand and rent resilience for Phase I (The Morgan) under Rockpoint's stewardship.</p>
+                        <h4 class="font-bold text-[#0F172A] text-xl mb-4 serif">Warehouse Preservation</h4>
+                        <p class="text-sm text-slate-600 leading-relaxed">The 1932 warehouse at 151 Bay St was preserved and renovated, acting as a historical bridge for the modern towers of 160 Morgan and 10 Provost.</p>
                     </div>
                 </div>
             </div>
@@ -213,13 +213,13 @@
     <footer class="bg-[#0F172A] text-white py-20 border-t border-slate-800">
         <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-12">
             <div class="text-center md:text-left">
-                <div class="text-3xl font-bold mb-3 serif italic tracking-tight">The Morgan</div>
+                <div class="text-3xl font-bold mb-3 serif italic tracking-tight text-white">The Morgan</div>
                 <p class="text-slate-400 text-sm max-w-sm font-light">160 Morgan Street, Jersey City. A Rockpoint Portfolio Asset.</p>
             </div>
             <div class="flex flex-col items-center md:items-end gap-2 text-right">
                 <div class="text-[10px] tracking-[0.4em] text-slate-500 uppercase font-bold">Institutional Portfolio Record</div>
                 <div class="h-px w-32 bg-slate-800 ml-auto"></div>
-                <div class="text-xs text-slate-500">Acquired: Oct 2025 | Developer: Toll Brothers</div>
+                <div class="text-xs text-slate-500">Acquired: Oct 2025 | Developed by Toll Brothers</div>
             </div>
         </div>
     </footer>
@@ -227,34 +227,34 @@
     <script>
         const milestones = [
             {
-                year: "1920s - 1980s",
-                label: "Industrial Heritage",
-                title: "Matzo & Tea Central",
-                desc: "The site was a hub of American industry, housing the Annex for A&P (Great Atlantic & Pacific Tea Co) and the world-famous Manischewitz matzo factory. These massive operations defined the block's physical scale and character for nearly a century."
+                year: "1932 - 2006",
+                label: "Industrial Era",
+                title: "Matzo & Tea Headquarters",
+                desc: "The site serves as the headquarters for Manischewitz, producing 20 million pounds of matzo annually. The original 1932 warehouse at 151 Bay Street (A&P Annex) defines the industrial skyline of the Powerhouse Arts District until the factory moves to Newark in 2006."
             },
             {
                 year: "2012 - 2013",
-                label: "Master Plan Vision",
-                title: "Toll Brothers & Provost Square",
-                desc: "Toll Brothers City Living secures the former factory sites to initiate Provost Square. Designed by SLCE Architects, Phase I (The Morgan) is planned as a ground-up 38-story tower that honors the industrial brick heritage of the district."
+                label: "Master Plan",
+                title: "Toll Brothers Vision",
+                desc: "Toll Brothers City Living initiates the Provost Square master plan. They preserve the 1932 warehouse at 151 Bay while planning a modern 38-story tower at 160 Morgan St. SLCE Architects is tasked with balancing modern high-rise glass with contextual red brick."
             },
             {
                 year: "2015 - 2016",
-                label: "Operational Launch",
-                title: "Stabilization of Phase I",
-                desc: "The Morgan opens with 417 units and a curated 8th-floor amenity terrace. It establishes the district's operational benchmark, providing high-end rental housing for the first wave of the neighborhood's modern residential population."
+                label: "Stabilization",
+                title: "The Morgan Launch",
+                desc: "160 Morgan St (The Morgan) opens as the district's flagship rental. It features a curated 8th-floor amenity terrace and achieves rapid stabilization. This phase proves the demand for institutional-grade luxury rental housing in Jersey City's urban core."
             },
             {
                 year: "Oct 2025",
-                label: "Institutional Pivot",
+                label: "Strategic Exit",
                 title: "The Rockpoint Acquisition",
-                desc: "Rockpoint acquires The Morgan in a mid-October deal brokered by JLL. This transaction validates the building as a 'Core-Plus' asset, shifting from developer ownership to institutional investment stewardship."
+                desc: "Rockpoint acquires The Morgan from Toll Brothers in a mid-October transaction brokered by JLL. The asset's proven rent growth (climbing to $6.65 PSF) and stabilized NOI make it a premier target for institutional stewardship."
             },
             {
                 year: "2026+",
                 label: "Cultural Maturity",
-                title: "The Symphony Headquarters",
-                desc: "The New Jersey Symphony moves into the Great Oak Theater at 151 Bay Street (Phase III). The activation of this cobblestone plaza and performing arts space creates a permanent cultural ecosystem that drives the long-term value of 160 Morgan."
+                title: "Symphony & Theater Activation",
+                desc: "The New Jersey Symphony moves into the Great Oak Theater at 151 Bay Street. This activation of the ground floor and cobblestone plaza creates a cultural moat, securing the long-term rental premiums for 160 Morgan residents."
             }
         ];
 
@@ -286,7 +286,7 @@
                 b.className = 'lifecycle-btn w-full text-left p-6 rounded-2xl border border-transparent hover:bg-white transition-all duration-300 group';
                 b.innerHTML = `
                     <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1 group-hover:text-[#B69121]">${m.year}</div>
-                    <div class="font-bold text-slate-500 group-hover:text-[#0F172A]">${m.label}</div>
+                    <div class="font-bold text-slate-50 group-hover:text-[#0F172A]">${m.label}</div>
                 `;
                 b.onclick = () => updateLifecycleContent(i, b);
                 nav.appendChild(b);
@@ -302,7 +302,7 @@
                     data: {
                         labels: ['2016', '2018', '2020', '2022', '2024', '2026*'],
                         datasets: [{
-                            label: 'Avg. Monthly Rent per Unit ($)',
+                            label: 'Avg. Monthly Rent ($)',
                             data: [3250, 3650, 3400, 4050, 4350, 4425],
                             borderColor: '#0F172A',
                             backgroundColor: 'rgba(15, 23, 42, 0.05)',
