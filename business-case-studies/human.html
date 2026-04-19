@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evolution of HUMAN (formerly White Ops)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Base typography and warm neutral theme */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Merriweather:ital,wght@0,300;0,700;1,300&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #faf9f6; /* Warm off-white */
+            color: #2d3748;
+        }
+
+        h1, h2, h3, h4, .serif-text {
+            font-family: 'Merriweather', serif;
+        }
+
+        /* Chart Container Requirements */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+            max-height: 500px;
+            background: #ffffff;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        @media (max-width: 640px) {
+            .chart-container {
+                height: 300px;
+            }
+        }
+
+        /* Interactive Elements */
+        .timeline-item {
+            transition: all 0.3s ease;
+        }
+        .timeline-item:hover {
+            transform: translateX(10px);
+        }
+        .timeline-item.active .timeline-dot {
+            background-color: #1e3a8a; /* Deep blue active */
+            border-color: #bfdbfe;
+        }
+        
+        .tab-btn.active {
+            border-bottom: 2px solid #1e3a8a;
+            color: #1e3a8a;
+            font-weight: 600;
+        }
+
+        /* Hide scrollbar for clean UI but keep functionality */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-blue-200 selection:text-blue-900">
+
+    <!-- Chosen Palette: Warm Stone & Deep Slate (Background: #faf9f6, Text: #2d3748, Accents: #1e3a8a, #cbd5e1) -->
+    
+    <!-- Application Structure Plan: 
+    The SPA uses a linear but interactive narrative flow, functioning as a modern digital research paper. 
+    1. Navigation: Sticky top bar for easy jumping between key research areas.
+    2. Executive Summary: High-level overview to set context.
+    3. Interactive Timeline: Allows users to trace the chronological history without overwhelming them with text; users click eras to reveal details.
+    4. Strategic Pivots (Tabs): Uses a comparative tabbed interface to clearly delineate the company's shift from a niche AdTech tool to a broad cybersecurity platform.
+    5. Revenue & Scale (Data): Chart.js visualization of estimated ARR and valuation milestones, giving quantitative backing to the qualitative history.
+    6. Key Leaders: Grid layout profiling the critical figures who drove each era.
+    7. Future Outlook: Textual and structural breakdown of upcoming strategic initiatives based on recent market moves.
+    This structure was chosen to allow readers to either skim top-level metrics or drill down into specific historical pivots, enhancing comprehension over a traditional static PDF. -->
+
+    <!-- Visualization & Content Choices: 
+    1. Timeline: Goal = Organize history. Viz = HTML/CSS vertical connected list. Interaction = Hover effects and selection. Justification = Best for chronological storytelling without SVG.
+    2. Revenue Growth: Goal = Inform/Change. Viz = Line Chart (Chart.js). Interaction = Tooltips on hover. Justification = Clearly shows the inflection points in revenue aligned with funding/mergers.
+    3. Strategic Pivots: Goal = Compare. Viz = HTML Tabbed Interface. Interaction = Click tabs to swap content. Justification = Allows direct A/B comparison of the company's identity before and after 2020.
+    4. Future Initiatives: Goal = Organize/Inform. Viz = CSS Grid Cards. Interaction = Hover elevation. Justification = Breaks down complex future strategies into digestible chunks.
+    -->
+
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-[#faf9f6]/90 backdrop-blur-md border-b border-stone-200 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center space-x-2">
+                    <div class="w-4 h-4 bg-blue-900 rounded-sm"></div>
+                    <span class="font-bold text-xl tracking-tight text-stone-800">HUMAN Research</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#summary" class="text-stone-600 hover:text-blue-900 text-sm font-medium transition-colors">Summary</a>
+                    <a href="#timeline" class="text-stone-600 hover:text-blue-900 text-sm font-medium transition-colors">Timeline</a>
+                    <a href="#pivots" class="text-stone-600 hover:text-blue-900 text-sm font-medium transition-colors">Strategic Pivots</a>
+                    <a href="#financials" class="text-stone-600 hover:text-blue-900 text-sm font-medium transition-colors">Growth & Scale</a>
+                    <a href="#leadership" class="text-stone-600 hover:text-blue-900 text-sm font-medium transition-colors">Leadership</a>
+                    <a href="#future" class="text-stone-600 hover:text-blue-900 text-sm font-medium transition-colors">Outlook</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-24">
+
+        <!-- Header / Executive Summary -->
+        <section id="summary" class="pt-8">
+            <div class="max-w-3xl">
+                <p class="text-sm font-bold tracking-widest text-blue-800 uppercase mb-3">Research Report</p>
+                <h1 class="text-5xl font-bold text-stone-900 leading-tight mb-6">From AdTech Watchdog to Cybersecurity Behemoth</h1>
+                <p class="text-xl text-stone-600 leading-relaxed mb-8">
+                    An in-depth analysis of HUMAN Security (formerly White Ops). This report traces the company's evolution from its founding in a Brooklyn sci-fi bookstore, through its paradigm-shifting discoveries of global botnets, to its massive strategic pivot and mergers that created a modern bot-mitigation giant.
+                </p>
+                <div class="flex space-x-4">
+                    <a href="#timeline" class="px-6 py-3 bg-stone-900 text-white font-medium rounded hover:bg-blue-900 transition-colors">Explore the Timeline</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- The Timeline -->
+        <section id="timeline" class="scroll-mt-24">
+            <div class="border-b border-stone-200 pb-4 mb-8">
+                <h2 class="text-3xl font-bold text-stone-800">Historical Timeline</h2>
+                <p class="text-stone-500 mt-2">The critical milestones that defined the company's trajectory.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Timeline Navigation -->
+                <div class="col-span-1 relative">
+                    <div class="absolute left-[11px] top-4 bottom-4 w-0.5 bg-stone-200"></div>
+                    <div class="space-y-6" id="timeline-nav">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+                
+                <!-- Timeline Content Display -->
+                <div class="col-span-1 md:col-span-2 bg-white p-8 rounded-xl shadow-sm border border-stone-100 min-h-[300px]" id="timeline-content">
+                    <h3 class="text-2xl font-bold text-blue-900 mb-2">Select an era on the left</h3>
+                    <p class="text-stone-600">Interact with the timeline to explore the key events, discoveries, and strategic shifts that occurred during each phase of the company's history.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Strategic Pivots -->
+        <section id="pivots" class="scroll-mt-24">
+            <div class="border-b border-stone-200 pb-4 mb-8">
+                <h2 class="text-3xl font-bold text-stone-800">Strategic Pivots</h2>
+                <p class="text-stone-500 mt-2">How the core identity and product suite evolved.</p>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-sm border border-stone-100 overflow-hidden">
+                <div class="flex border-b border-stone-200">
+                    <button class="tab-btn active flex-1 py-4 text-center text-stone-500 hover:bg-stone-50 transition-colors" data-tab="era-1">
+                        1. The Ad Fraud Era (2012-2019)
+                    </button>
+                    <button class="tab-btn flex-1 py-4 text-center text-stone-500 hover:bg-stone-50 transition-colors" data-tab="era-2">
+                        2. The Enterprise Pivot (2020-2021)
+                    </button>
+                    <button class="tab-btn flex-1 py-4 text-center text-stone-500 hover:bg-stone-50 transition-colors" data-tab="era-3">
+                        3. The Platform Consolidation (2022-Present)
+                    </button>
+                </div>
+                
+                <div class="p-8">
+                    <div id="era-1" class="tab-content block">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                            <div>
+                                <h3 class="text-2xl font-bold text-stone-800 mb-4">Focus: Digital Advertising Protection</h3>
+                                <p class="text-stone-600 mb-4">Originally named White Ops, the company was built to solve a specific, massive problem: ad fraud. Brands were losing billions to bots viewing and clicking programmatic ads.</p>
+                                <ul class="space-y-3">
+                                    <li class="flex items-start">
+                                        <span class="text-blue-600 mr-2 font-bold">&#10003;</span>
+                                        <span class="text-stone-700"><strong>Key Target:</strong> DSPs, SSPs, and major advertisers.</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="text-blue-600 mr-2 font-bold">&#10003;</span>
+                                        <span class="text-stone-700"><strong>Core Tech:</strong> JavaScript tags measuring human interaction in browsers.</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="text-blue-600 mr-2 font-bold">&#10003;</span>
+                                        <span class="text-stone-700"><strong>Business Model:</strong> Checking ad impressions for validity before or after the bid.</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="bg-stone-50 p-6 rounded-lg border border-stone-200 text-center">
+                                <div class="text-4xl mb-4">&#128373;</div>
+                                <h4 class="font-bold text-stone-800">The Catalyst</h4>
+                                <p class="text-sm text-stone-600 mt-2">The discovery of the <strong>Methbot</strong> and <strong>3ve</strong> botnets proved their tech worked at a global, state-sponsored scale, earning them FBI collaboration.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="era-2" class="tab-content hidden">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                            <div>
+                                <h3 class="text-2xl font-bold text-stone-800 mb-4">Focus: Broader Bot Management</h3>
+                                <p class="text-stone-600 mb-4">Realizing that the same bots committing ad fraud were also taking over accounts, scraping data, and scalping inventory, the company rebranded to HUMAN.</p>
+                                <ul class="space-y-3">
+                                    <li class="flex items-start">
+                                        <span class="text-blue-600 mr-2 font-bold">&#10003;</span>
+                                        <span class="text-stone-700"><strong>Key Target:</strong> Enterprise CISOs, E-commerce, Financial Services.</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="text-blue-600 mr-2 font-bold">&#10003;</span>
+                                        <span class="text-stone-700"><strong>Core Tech:</strong> "Human Verification Engine" applied to login, checkout, and search paths.</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="text-blue-600 mr-2 font-bold">&#10003;</span>
+                                        <span class="text-stone-700"><strong>Brand Shift:</strong> Moving from a negative framing (White Ops/Black Ops) to a positive one (Verifying HUMANity).</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="bg-stone-50 p-6 rounded-lg border border-stone-200 text-center">
+                                <div class="text-4xl mb-4">&#128100;</div>
+                                <h4 class="font-bold text-stone-800">The Catalyst</h4>
+                                <p class="text-sm text-stone-600 mt-2">Acquisition by Goldman Sachs Asset Management and ClearSky in 2020 provided the capital and board direction to exit the niche ad-tech market and enter mainstream cybersecurity.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="era-3" class="tab-content hidden">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                            <div>
+                                <h3 class="text-2xl font-bold text-stone-800 mb-4">Focus: AppSec & Digital Defense Platform</h3>
+                                <p class="text-stone-600 mb-4">To compete with giants like Akamai and Cloudflare, HUMAN aggressively expanded through M&A, merging with PerimeterX to combine client-side security with bot management.</p>
+                                <ul class="space-y-3">
+                                    <li class="flex items-start">
+                                        <span class="text-blue-600 mr-2 font-bold">&#10003;</span>
+                                        <span class="text-stone-700"><strong>Key Target:</strong> Comprehensive Application Security teams.</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="text-blue-600 mr-2 font-bold">&#10003;</span>
+                                        <span class="text-stone-700"><strong>New Capabilities:</strong> Client-Side Security (Magecart protection), Malvertising defense (Clean.io acquisition).</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="text-blue-600 mr-2 font-bold">&#10003;</span>
+                                        <span class="text-stone-700"><strong>Scale:</strong> Verifying over 20 trillion digital interactions per week.</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="bg-stone-50 p-6 rounded-lg border border-stone-200 text-center">
+                                <div class="text-4xl mb-4">&#128274;</div>
+                                <h4 class="font-bold text-stone-800">The Catalyst</h4>
+                                <p class="text-sm text-stone-600 mt-2">The $100M+ growth round led by WestCap and NightDragon fueled the PerimeterX merger, instantly doubling their market footprint and engineering capacity.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Revenue & Scale -->
+        <section id="financials" class="scroll-mt-24">
+            <div class="border-b border-stone-200 pb-4 mb-8">
+                <h2 class="text-3xl font-bold text-stone-800">Revenue Growth & Scale</h2>
+                <p class="text-stone-500 mt-2">Estimated ARR trajectory mapped against key corporate events.</p>
+            </div>
+            
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-stone-100">
+                <p class="text-sm text-stone-500 mb-6 italic">* Note: As a private company, revenue figures are estimates based on public funding rounds, M&A activity, and reported growth percentages.</p>
+                <div class="chart-container">
+                    <canvas id="revenueChart"></canvas>
+                </div>
+                
+                <div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4 text-center border-t border-stone-100 pt-6">
+                    <div>
+                        <div class="text-3xl font-bold text-blue-900">~$10M</div>
+                        <div class="text-sm text-stone-500 uppercase tracking-wide">Est. ARR (2016)</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-bold text-blue-900">~$50M</div>
+                        <div class="text-sm text-stone-500 uppercase tracking-wide">Est. ARR (2020)</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-bold text-blue-900">>$150M</div>
+                        <div class="text-sm text-stone-500 uppercase tracking-wide">Est. ARR (2023+)</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Leaders -->
+        <section id="leadership" class="scroll-mt-24">
+            <div class="border-b border-stone-200 pb-4 mb-8">
+                <h2 class="text-3xl font-bold text-stone-800">Key Leaders & Eras</h2>
+                <p class="text-stone-500 mt-2">The executives who steered the company through its distinct phases of growth.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Leader 1 -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-stone-100 hover:shadow-md transition-shadow">
+                    <div class="w-12 h-12 bg-stone-200 rounded-full flex items-center justify-center text-xl font-bold text-stone-500 mb-4">1</div>
+                    <h3 class="text-xl font-bold text-stone-800">Michael Tiffany & Dan Kaminsky</h3>
+                    <p class="text-sm font-semibold text-blue-800 mb-3">The Founders (2012 - 2019)</p>
+                    <p class="text-stone-600 text-sm">
+                        Founded White Ops in a Brooklyn sci-fi bookstore. Kaminsky (a renowned cybersecurity legend) and Tiffany built the core philosophy of "making fraud unprofitable" by shifting defense from the network layer to the browser layer.
+                    </p>
+                </div>
+
+                <!-- Leader 2 -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-stone-100 hover:shadow-md transition-shadow">
+                    <div class="w-12 h-12 bg-stone-200 rounded-full flex items-center justify-center text-xl font-bold text-stone-500 mb-4">2</div>
+                    <h3 class="text-xl font-bold text-stone-800">Tamer Hassan</h3>
+                    <p class="text-sm font-semibold text-blue-800 mb-3">The Scaler (2019 - 2023)</p>
+                    <p class="text-stone-600 text-sm">
+                        Co-founder who stepped into the CEO role. He orchestrated the massive Methbot/3ve takedowns, led the company through the Goldman Sachs acquisition, rebranded to HUMAN, and executed the PerimeterX merger.
+                    </p>
+                </div>
+
+                <!-- Leader 3 -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-stone-100 hover:shadow-md transition-shadow">
+                    <div class="w-12 h-12 bg-stone-200 rounded-full flex items-center justify-center text-xl font-bold text-stone-500 mb-4">3</div>
+                    <h3 class="text-xl font-bold text-stone-800">Stu Solomon</h3>
+                    <p class="text-sm font-semibold text-blue-800 mb-3">The Integrator (2023 - Present)</p>
+                    <p class="text-stone-600 text-sm">
+                        Took over as CEO post-mergers. With a background at Recorded Future and Optiv, Solomon is tasked with consolidating the diverse product portfolio (Bot Management, AppSec, Ad Fraud) into a unified, enterprise-grade platform.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Future Outlook / Strategic Initiatives -->
+        <section id="future" class="scroll-mt-24 pb-24">
+            <div class="border-b border-stone-200 pb-4 mb-8">
+                <h2 class="text-3xl font-bold text-stone-800">Future Outlook & Strategic Initiatives</h2>
+                <p class="text-stone-500 mt-2">Where HUMAN Security is heading next in the threat landscape.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="space-y-6">
+                    <div class="p-6 bg-blue-50/50 rounded-lg border border-blue-100">
+                        <h4 class="font-bold text-blue-900 text-lg mb-2">1. AI-Driven Attack Mitigation</h4>
+                        <p class="text-stone-700 text-sm">
+                            The rise of Generative AI has lowered the barrier to entry for attackers. Bots can now solve CAPTCHAs, mimic human conversational patterns, and generate fake identities. HUMAN's stated initiative is to enhance its behavioral analysis to detect AI-generated interaction patterns, fighting "bad AI with good AI."
+                        </p>
+                    </div>
+                    
+                    <div class="p-6 bg-stone-50 rounded-lg border border-stone-200">
+                        <h4 class="font-bold text-stone-800 text-lg mb-2">2. The CAPTCHA-less Enterprise</h4>
+                        <p class="text-stone-700 text-sm">
+                            Traditional friction (like image CAPTCHAs) hurts conversion rates. A core strategic push is utilizing their vast data lake (20T+ signals/week) to authenticate users passively in the background, allowing brands to drop CAPTCHAs entirely while maintaining higher security.
+                        </p>
+                    </div>
+
+                    <div class="p-6 bg-stone-50 rounded-lg border border-stone-200">
+                        <h4 class="font-bold text-stone-800 text-lg mb-2">3. Platform Consolidation</h4>
+                        <p class="text-stone-700 text-sm">
+                            Following the acquisitions of PerimeterX and Clean.io, HUMAN is actively working to unified their disparate agents and dashboards. The goal is a single piece of JavaScript and a single pane of glass for CISOs to manage fraud, bot mitigation, and client-side app security.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Conceptual Structure Diagram using HTML/CSS -->
+                <div class="bg-white p-8 rounded-xl shadow-sm border border-stone-100 flex flex-col justify-center">
+                    <h4 class="text-center font-bold text-stone-500 uppercase tracking-widest text-xs mb-8">The Target Architecture</h4>
+                    
+                    <div class="flex flex-col items-center space-y-4 w-full max-w-sm mx-auto">
+                        <!-- Top layer -->
+                        <div class="w-full bg-blue-900 text-white p-4 rounded-lg text-center font-bold shadow-md">
+                            HUMAN Defense Platform
+                        </div>
+                        
+                        <div class="text-stone-400 font-bold">&#8595;</div>
+                        
+                        <!-- Middle layer -->
+                        <div class="w-full bg-stone-100 text-stone-800 p-3 rounded text-center border border-stone-200 text-sm font-semibold">
+                            Human Verification Engine (20T+ Signals)
+                        </div>
+                        
+                        <div class="text-stone-400 font-bold">&#8595;</div>
+                        
+                        <!-- Bottom layer grid -->
+                        <div class="grid grid-cols-2 gap-2 w-full text-xs text-center">
+                            <div class="bg-stone-50 p-3 rounded border border-stone-200">Ad Fraud Defense</div>
+                            <div class="bg-stone-50 p-3 rounded border border-stone-200">Account Takeover</div>
+                            <div class="bg-stone-50 p-3 rounded border border-stone-200">Scraping Protection</div>
+                            <div class="bg-stone-50 p-3 rounded border border-stone-200">Client-Side Security</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-stone-900 text-stone-400 py-8 text-center text-sm">
+        <p>Interactive Research Report &copy; 2026. Data and timelines are based on public historical records.</p>
+    </footer>
+
+    <script>
+        // --- 1. Timeline Data & Logic ---
+        const timelineData = [
+            {
+                year: '2012',
+                title: 'Founding of White Ops',
+                desc: 'Michael Tiffany, Dan Kaminsky, and Ash Kalb found White Ops in a sci-fi bookstore in Brooklyn. The mission: make cybercrime unprofitable by detecting bot activity in programmatic advertising.'
+            },
+            {
+                year: '2016',
+                title: 'The Methbot Discovery',
+                desc: 'White Ops uncovers "Methbot", a massive Russian ad fraud ring stealing $3M-$5M per day by spoofing premium publisher domains and faking human views. This puts the company on the global map.'
+            },
+            {
+                year: '2018',
+                title: 'Taking Down 3ve',
+                desc: 'Collaboration with Google and the FBI leads to the disruption of "3ve", an even more sophisticated botnet. This solidifies their reputation as elite threat hunters.'
+            },
+            {
+                year: '2020',
+                title: 'Acquisition & New Leadership',
+                desc: 'Goldman Sachs Asset Management and ClearSky acquire White Ops. Co-founder Tamer Hassan becomes CEO, setting the stage for a major strategic pivot out of pure ad-tech.'
+            },
+            {
+                year: '2021',
+                title: 'Rebrand to HUMAN',
+                desc: 'White Ops officially rebrands to HUMAN Security. The name change reflects a shift from a niche fraud tool to a broader enterprise cybersecurity mission: verifying humanity across the internet.'
+            },
+            {
+                year: '2022',
+                title: 'The PerimeterX Merger',
+                desc: 'Fueled by a $100M growth round (WestCap), HUMAN merges with PerimeterX. This massive deal combines ad fraud defense with elite e-commerce bot management and client-side security (Magecart defense).'
+            },
+            {
+                year: '2023',
+                title: 'Clean.io & New CEO',
+                desc: 'HUMAN acquires Clean.io to stop malvertising. Tamer Hassan steps aside, and Stu Solomon becomes CEO to lead the integration of these acquired technologies into a single platform.'
+            }
+        ];
+
+        const timelineNav = document.getElementById('timeline-nav');
+        const timelineContent = document.getElementById('timeline-content');
+
+        // Render Timeline Navigation
+        timelineData.forEach((item, index) => {
+            const navItem = document.createElement('div');
+            navItem.className = `timeline-item relative pl-8 cursor-pointer group ${index === 0 ? 'active' : ''}`;
+            navItem.dataset.index = index;
+            
+            navItem.innerHTML = `
+                <div class="timeline-dot absolute left-0 top-1.5 w-6 h-6 rounded-full border-4 border-white bg-stone-300 shadow-sm transition-colors group-hover:bg-blue-400"></div>
+                <h4 class="font-bold text-stone-800">${item.year}</h4>
+                <p class="text-sm text-stone-500 truncate">${item.title}</p>
+            `;
+            
+            navItem.addEventListener('click', () => updateTimelineContent(index));
+            timelineNav.appendChild(navItem);
+        });
+
+        // Update Timeline Content
+        function updateTimelineContent(index) {
+            // Update active state in nav
+            document.querySelectorAll('.timeline-item').forEach(el => el.classList.remove('active'));
+            document.querySelector(`.timeline-item[data-index="${index}"]`).classList.add('active');
+
+            // Update content area with fade effect
+            const data = timelineData[index];
+            timelineContent.style.opacity = 0;
+            
+            setTimeout(() => {
+                timelineContent.innerHTML = `
+                    <div class="flex items-center space-x-3 mb-4">
+                        <span class="px-3 py-1 bg-blue-100 text-blue-800 text-sm font-bold rounded-full">${data.year}</span>
+                    </div>
+                    <h3 class="text-3xl font-bold text-stone-900 mb-4">${data.title}</h3>
+                    <p class="text-lg text-stone-600 leading-relaxed">${data.desc}</p>
+                `;
+                timelineContent.style.opacity = 1;
+                timelineContent.style.transition = 'opacity 0.3s ease';
+            }, 200);
+        }
+
+        // Initialize first item
+        updateTimelineContent(0);
+
+        // --- 2. Tab Logic for Strategic Pivots ---
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active classes
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => {
+                    c.classList.remove('block');
+                    c.classList.add('hidden');
+                });
+
+                // Add active class to clicked
+                btn.classList.add('active');
+                const targetId = btn.getAttribute('data-tab');
+                const targetContent = document.getElementById(targetId);
+                targetContent.classList.remove('hidden');
+                targetContent.classList.add('block');
+            });
+        });
+
+        // --- 3. Chart.js Revenue Implementation ---
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('revenueChart').getContext('2d');
+            
+            // Estimated Data
+            const years = ['2014', '2016', '2018', '2020', '2021', '2022', '2023', '2024'];
+            const estimatedARR = [3, 10, 25, 50, 75, 120, 150, 175]; // Rough estimates for narrative
+            
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: years,
+                    datasets: [{
+                        label: 'Estimated ARR ($ Millions)',
+                        data: estimatedARR,
+                        borderColor: '#1e3a8a', // Deep blue
+                        backgroundColor: 'rgba(30, 58, 138, 0.1)',
+                        borderWidth: 3,
+                        pointBackgroundColor: '#ffffff',
+                        pointBorderColor: '#1e3a8a',
+                        pointBorderWidth: 2,
+                        pointRadius: 5,
+                        pointHoverRadius: 7,
+                        fill: true,
+                        tension: 0.4 // Smooth curves
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: '#2d3748',
+                            titleFont: { family: 'Inter', size: 13 },
+                            bodyFont: { family: 'Inter', size: 14, weight: 'bold' },
+                            padding: 12,
+                            displayColors: false,
+                            callbacks: {
+                                label: function(context) {
+                                    return '$' + context.parsed.y + ' Million Est. ARR';
+                                },
+                                afterLabel: function(context) {
+                                    const events = {
+                                        '2016': 'Event: Methbot Discovery',
+                                        '2020': 'Event: Goldman Sachs Acq.',
+                                        '2022': 'Event: PerimeterX Merger'
+                                    };
+                                    return events[context.label] ? events[context.label] : '';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                borderDash: [4, 4],
+                                color: '#e2e8f0'
+                            },
+                            ticks: {
+                                callback: function(value) {
+                                    return '$' + value + 'M';
+                                },
+                                font: { family: 'Inter' },
+                                color: '#64748b'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                font: { family: 'Inter' },
+                                color: '#64748b'
+                            }
+                        }
+                    },
+                    interaction: {
+                        intersect: false,
+                        mode: 'index',
+                    },
+                }
+            });
+        });
+    </script>
+</body>
+</html>

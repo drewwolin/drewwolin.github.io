@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Evolution of Samsung Ads</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Chosen Palette: Warm Neutrals & Corporate Slate (Background: #Faf9f6, Text: #1e293b, Accent: #2563eb) -->
+    <!-- Application Structure Plan: The SPA uses a narrative, single-page scroll structure divided into four distinct phases: Context, Origins, Pivots, and Growth. This chronological dashboard approach allows the user to understand the macro environment (Samsung Conglomerate) before drilling into the specific idea, its execution, and its financial impact. Interactive tabs and clickable timelines prevent information overload, keeping the user engaged while exploring the dense historical and financial data. -->
+    <!-- Visualization & Content Choices: 1. Doughnut Chart -> Goal: Contextualize hardware vs services revenue -> Method: Chart.js -> Justifies the necessity of the pivot to ads. 2. Interactive Tabs -> Goal: Explain strategic pivots -> Method: Vanilla JS + HTML -> Allows deep dive into complex strategies without clutter. 3. Line/Bar Combo Chart -> Goal: Show explosive growth -> Method: Chart.js -> Visually correlates device footprint with revenue scaling. CONFIRMING NO SVG or Mermaid used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            background-color: #faf9f6;
+            color: #1e293b;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (max-width: 640px) {
+            .chart-container {
+                height: 250px;
+            }
+        }
+        .nav-link {
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #2563eb;
+            font-weight: 600;
+        }
+        .tab-btn {
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+        .tab-btn.active {
+            border-bottom: 3px solid #2563eb;
+            color: #2563eb;
+            font-weight: bold;
+        }
+        .timeline-item {
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        .timeline-item:hover {
+            transform: translateX(5px);
+        }
+        .timeline-dot {
+            transition: background-color 0.3s;
+        }
+        .timeline-item.active .timeline-dot {
+            background-color: #2563eb;
+            box-shadow: 0 0 10px rgba(37, 99, 235, 0.5);
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <nav class="fixed top-0 w-full bg-white/90 backdrop-blur-md shadow-sm z-50 border-b border-gray-200">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="font-bold text-xl tracking-tight text-blue-700">&#9632; Samsung Ads <span class="text-gray-500 font-normal">History & Growth</span></div>
+            <div class="hidden md:flex space-x-8 text-sm">
+                <a href="#context" class="nav-link">The Conglomerate</a>
+                <a href="#origins" class="nav-link">Origins & Idea</a>
+                <a href="#pivots" class="nav-link">Strategic Pivots</a>
+                <a href="#growth" class="nav-link">Revenue Growth</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="pt-32 pb-20 px-6 max-w-6xl mx-auto">
+        <div class="max-w-3xl">
+            <p class="text-blue-600 font-semibold tracking-wider text-sm mb-2 uppercase">Research Synthesis</p>
+            <h1 class="text-5xl md:text-6xl font-extrabold leading-tight mb-6 text-slate-900">From Hardware Giant to <span class="text-blue-600">Platform Powerhouse</span></h1>
+            <p class="text-xl text-slate-600 leading-relaxed mb-8">
+                Explore the untold history of Samsung Ads. Born within Samsung Electronics America (SEA), this initiative transformed the humble television into a multi-billion dollar, high-margin data and advertising ecosystem, reshaping the global conglomerate's revenue strategy.
+            </p>
+            <a href="#context" class="inline-block bg-blue-600 text-white font-medium px-8 py-3 rounded-md shadow-lg hover:bg-blue-700 transition duration-300">Explore the Journey &#8595;</a>
+        </div>
+    </header>
+
+    <section id="context" class="py-20 px-6 bg-white border-t border-gray-100">
+        <div class="max-w-6xl mx-auto">
+            <div class="mb-12">
+                <h2 class="text-3xl font-bold mb-4">1. The Conglomerate Context</h2>
+                <p class="text-lg text-slate-600 max-w-4xl">
+                    This section provides the necessary background on Samsung Electronics globally. Historically, the company relied on high-volume, cyclical hardware sales (semiconductors, mobile phones, consumer electronics). The chart below illustrates the margin challenge that drove the search for recurring software and services revenue, leading to the creation of Samsung Ads.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="order-2 md:order-1">
+                    <h3 class="text-2xl font-semibold mb-4">The Hardware Dilemma</h3>
+                    <p class="text-slate-600 mb-4 leading-relaxed">
+                        For decades, Samsung Electronics was defined by its manufacturing prowess. However, the Consumer Electronics (CE) division, specifically Visual Display (televisions), faced relentless price wars and commoditization. Margins on physical TV sets were shrinking globally.
+                    </p>
+                    <p class="text-slate-600 leading-relaxed">
+                        Samsung Electronics America (SEA), operating in the most mature and competitive media market, recognized this existential threat early. The mandate from global headquarters in Suwon was clear: find new, high-margin revenue streams that leverage the massive global footprint of Samsung devices. Services and software were the answer.
+                    </p>
+                    <div class="mt-8 p-6 bg-slate-50 border-l-4 border-blue-600 rounded-r-md">
+                        <p class="font-bold text-slate-800">Key Takeaway:</p>
+                        <p class="text-slate-600 text-sm mt-2">The creation of Samsung Ads wasn't just an expansion; it was a necessary defensive and offensive maneuver to protect the profitability of the visual display business against hardware commoditization.</p>
+                    </div>
+                </div>
+                <div class="order-1 md:order-2 bg-slate-50 p-6 rounded-xl border border-gray-100 shadow-sm">
+                    <h4 class="text-center font-semibold text-slate-700 mb-2">Estimated Margin Comparison (Hardware vs. Services)</h4>
+                    <div class="chart-container">
+                        <canvas id="marginChart"></canvas>
+                    </div>
+                    <p class="text-xs text-center text-slate-400 mt-4">Interactive: Hover to view estimated gross margin profiles.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="origins" class="py-20 px-6 bg-slate-900 text-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="mb-12">
+                <h2 class="text-3xl font-bold mb-4 text-blue-400">2. Origins & The Idea</h2>
+                <p class="text-lg text-slate-300 max-w-4xl">
+                    Here we explore the genesis of Samsung Ads within the North American market. It details the shift in mindset from selling "dumb glass" to recognizing the TV as a data-rich platform, highlighting the crucial early technology integrations and the leadership vision that sparked the business.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                <div class="col-span-1 border-l-2 border-slate-700 pl-6 space-y-8">
+                    
+                    <div class="timeline-item active" onclick="updateTimeline(0)">
+                        <div class="flex items-center mb-2">
+                            <div class="timeline-dot w-4 h-4 rounded-full bg-blue-500 -ml-[33px] border-4 border-slate-900"></div>
+                            <h4 class="font-bold text-xl ml-4 text-blue-300">2014-2015: The Tizen Shift</h4>
+                        </div>
+                        <p class="text-slate-400 text-sm">Standardizing the OS.</p>
+                    </div>
+
+                    <div class="timeline-item" onclick="updateTimeline(1)">
+                        <div class="flex items-center mb-2">
+                            <div class="timeline-dot w-4 h-4 rounded-full bg-slate-600 -ml-[33px] border-4 border-slate-900"></div>
+                            <h4 class="font-bold text-xl ml-4 text-blue-300">2015-2016: The ACR Revelation</h4>
+                        </div>
+                        <p class="text-slate-400 text-sm">Discovering viewing data.</p>
+                    </div>
+
+                    <div class="timeline-item" onclick="updateTimeline(2)">
+                        <div class="flex items-center mb-2">
+                            <div class="timeline-dot w-4 h-4 rounded-full bg-slate-600 -ml-[33px] border-4 border-slate-900"></div>
+                            <h4 class="font-bold text-xl ml-4 text-blue-300">2017: Formalizing Samsung Ads</h4>
+                        </div>
+                        <p class="text-slate-400 text-sm">Building the business unit.</p>
+                    </div>
+
+                </div>
+                
+                <div class="col-span-1 lg:col-span-2 bg-slate-800 rounded-xl p-8 border border-slate-700 min-h-[350px]">
+                    <div id="timeline-content-0" class="block">
+                        <h3 class="text-2xl font-bold text-white mb-4">The Operating System Foundation</h3>
+                        <p class="text-slate-300 leading-relaxed mb-4">
+                            The critical precursor to Samsung Ads was Samsung's decision to standardize its Smart TVs on the proprietary <strong class="text-white">Tizen Operating System</strong>. Before this, TVs were fragmented. Tizen turned the television into a unified software platform, much like iOS or Android for phones.
+                        </p>
+                        <p class="text-slate-300 leading-relaxed">
+                            This meant Samsung could push updates, manage apps, and most importantly, control the user interface globally. The "glass" was no longer a passive monitor; it was an active gateway to content, owned and operated by Samsung.
+                        </p>
+                    </div>
+
+                    <div id="timeline-content-1" class="hidden">
+                        <h3 class="text-2xl font-bold text-white mb-4">Whose Idea Was It? The ACR Revelation</h3>
+                        <p class="text-slate-300 leading-relaxed mb-4">
+                            The true "Aha!" moment happened within <strong class="text-white">Samsung Electronics America (SEA)</strong>. Executives realized that with Smart TVs connected to the internet, they could integrate <strong class="text-blue-400">Automatic Content Recognition (ACR)</strong> technology.
+                        </p>
+                        <p class="text-slate-300 leading-relaxed mb-4">
+                            Leaders like <strong class="text-white">Sang Ahn</strong> (VP & GM) and others in the content/services divisions pushed the idea that Samsung possessed something no traditional broadcaster had: deterministic, glass-level data. They knew exactly what was being watched, whether on cable, broadcast, or gaming consoles, pixel by pixel.
+                        </p>
+                        <p class="text-slate-300 leading-relaxed">
+                            The idea was simple but revolutionary: Don't just sell the TV. Monetize the massive, proprietary dataset of viewing behaviors to advertisers who are losing linear TV audiences.
+                        </p>
+                    </div>
+
+                    <div id="timeline-content-2" class="hidden">
+                        <h3 class="text-2xl font-bold text-white mb-4">Formalizing the Business</h3>
+                        <p class="text-slate-300 leading-relaxed mb-4">
+                            Armed with ACR data, Samsung Ads was officially spun up as a distinct business unit. It started small, initially selling targeted UI ads (like the tile on the Smart Hub menu). 
+                        </p>
+                        <p class="text-slate-300 leading-relaxed">
+                            They began educating agencies that Samsung was no longer just a hardware vendor, but a media owner. By leveraging the SEA market as a testing ground, they proved that brands would pay premium CPMs for deterministic targeting based on actual television viewing behavior, completely independent of Nielsen ratings.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pivots" class="py-20 px-6 bg-gray-50 border-b border-gray-200">
+        <div class="max-w-6xl mx-auto">
+            <div class="mb-12 text-center">
+                <h2 class="text-3xl font-bold mb-4">3. Strategic Pivots</h2>
+                <p class="text-lg text-slate-600 max-w-3xl mx-auto">
+                    This section outlines the iterative business model changes that transformed Samsung Ads from a simple data provider into a comprehensive advertising network. Use the interactive tabs below to explore each phase of their strategic evolution.
+                </p>
+            </div>
+
+            <div class="flex flex-wrap justify-center border-b border-gray-300 mb-8 space-x-2 md:space-x-8">
+                <button class="tab-btn active px-4 py-3 text-slate-600 font-medium" onclick="switchTab(0)">1. The Data Pivot</button>
+                <button class="tab-btn px-4 py-3 text-slate-600 font-medium" onclick="switchTab(1)">2. The O&O Pivot</button>
+                <button class="tab-btn px-4 py-3 text-slate-600 font-medium" onclick="switchTab(2)">3. The DSP Pivot</button>
+            </div>
+
+            <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 min-h-[300px]">
+                
+                <div id="tab-content-0" class="block animate-fade-in">
+                    <div class="flex flex-col md:flex-row gap-8 items-start">
+                        <div class="md:w-1/3">
+                            <div class="text-5xl text-blue-600 mb-4">&#10148;</div>
+                            <h3 class="text-2xl font-bold mb-2">From Hardware to Data Arbitrage</h3>
+                        </div>
+                        <div class="md:w-2/3 text-slate-600 leading-relaxed space-y-4">
+                            <p><strong>The Strategy:</strong> The initial pivot was moving away from selling ads based on broad demographics to selling highly targeted segments based on ACR data.</p>
+                            <p><strong>The Execution:</strong> Samsung built "Rule of 3" targeting. If you watched a Ford commercial on linear TV, Samsung could identify that TV, and then serve a targeted digital ad to that same household's mobile device or Smart TV UI. It bridged the gap between traditional linear viewing and digital targeting.</p>
+                            <p><strong>The Impact:</strong> This established Samsung Ads as a premium data partner for major holding companies, proving the value of deterministic Smart TV data.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tab-content-1" class="hidden animate-fade-in">
+                    <div class="flex flex-col md:flex-row gap-8 items-start">
+                        <div class="md:w-1/3">
+                            <div class="text-5xl text-blue-600 mb-4">&#9635;</div>
+                            <h3 class="text-2xl font-bold mb-2">Creating Owned Inventory (Samsung TV Plus)</h3>
+                        </div>
+                        <div class="md:w-2/3 text-slate-600 leading-relaxed space-y-4">
+                            <p><strong>The Strategy:</strong> Selling UI ads was limited. To scale revenue, Samsung needed high-quality, in-stream video inventory that they owned completely.</p>
+                            <p><strong>The Execution:</strong> The massive expansion of <strong>Samsung TV Plus</strong>, a Free Ad-Supported Streaming TV (FAST) service built directly into every new Samsung TV. They curated hundreds of channels, providing free content to users and generating millions of hours of ad-supported watch time.</p>
+                            <p><strong>The Impact:</strong> This was the biggest revenue multiplier. Samsung no longer just sold data; they sold premium video ad spots (CTV inventory) where they kept 100% of the revenue, fundamentally changing their margin profile.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tab-content-2" class="hidden animate-fade-in">
+                    <div class="flex flex-col md:flex-row gap-8 items-start">
+                        <div class="md:w-1/3">
+                            <div class="text-5xl text-blue-600 mb-4">&#10042;</div>
+                            <h3 class="text-2xl font-bold mb-2">Becoming an Ad Network & DSP</h3>
+                        </div>
+                        <div class="md:w-2/3 text-slate-600 leading-relaxed space-y-4">
+                            <p><strong>The Strategy:</strong> To capture even more ad budgets, Samsung Ads expanded beyond its own walled garden to become a full-fledged programmatic player.</p>
+                            <p><strong>The Execution:</strong> They launched their own Demand Side Platform (DSP). This allowed advertisers to use Samsung's unique ACR data to buy ads not just on Samsung TV Plus, but across other streaming apps running on Samsung TVs, and even on mobile devices outside the home.</p>
+                            <p><strong>The Impact:</strong> This cemented Samsung Ads within the global ad-tech ecosystem. It evolved the business from a regional SEA experiment into a global network spanning the Americas, Europe, and Asia-Pacific.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="growth" class="py-20 px-6 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="mb-12">
+                <h2 class="text-3xl font-bold mb-4">4. Explosive Revenue Growth</h2>
+                <p class="text-lg text-slate-600 max-w-4xl">
+                    This section visualizes the financial impact of the pivots detailed above. While Samsung does not break out specific ad revenues in its public filings, industry consensus highlights a massive trajectory. The chart below demonstrates the correlation between the growing base of Smart TVs and the exponential growth of estimated services/ad revenue.
+                </p>
+            </div>
+
+            <div class="bg-slate-50 p-8 rounded-xl border border-gray-100 shadow-sm">
+                <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-800">Global Reach vs. Estimated Ad Revenue Growth</h3>
+                        <p class="text-sm text-slate-500">Indexed growth relative to 2016 baseline</p>
+                    </div>
+                    <div class="mt-4 md:mt-0 flex items-center space-x-4 text-sm">
+                        <div class="flex items-center"><span class="w-3 h-3 bg-blue-600 inline-block mr-2 rounded-sm"></span> TV Footprint</div>
+                        <div class="flex items-center"><span class="w-3 h-3 bg-slate-800 inline-block mr-2 rounded-sm"></span> Est. Ad Revenue</div>
+                    </div>
+                </div>
+                
+                <div class="chart-container" style="height: 400px; max-height: 500px;">
+                    <canvas id="growthChart"></canvas>
+                </div>
+                
+                <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                    <div class="p-4 border border-gray-200 rounded-lg bg-white">
+                        <div class="text-3xl font-black text-blue-600 mb-1">Hundreds of Millions</div>
+                        <div class="text-sm text-slate-500 uppercase tracking-wide font-semibold">Active Smart TVs</div>
+                    </div>
+                    <div class="p-4 border border-gray-200 rounded-lg bg-white">
+                        <div class="text-3xl font-black text-slate-800 mb-1">Multi-Billion $</div>
+                        <div class="text-sm text-slate-500 uppercase tracking-wide font-semibold">Estimated Services Run Rate</div>
+                    </div>
+                    <div class="p-4 border border-gray-200 rounded-lg bg-white">
+                        <div class="text-3xl font-black text-blue-600 mb-1">Global Scale</div>
+                        <div class="text-sm text-slate-500 uppercase tracking-wide font-semibold">Operating in NA, EU, LATAM, APAC</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 p-8 bg-slate-900 text-white rounded-xl text-center max-w-4xl mx-auto">
+                <h3 class="text-2xl font-bold mb-4">Conclusion: The Conglomerate Impact</h3>
+                <p class="text-slate-300 leading-relaxed">
+                    What started as an idea within Samsung Electronics America to monetize TV viewing data has fundamentally altered the conglomerate's Consumer Electronics division. Samsung Ads provides a high-margin, recurring revenue stream that acts as a vital hedge against the volatile hardware supply chain, proving that the hardware is simply the physical gateway to a lucrative digital platform.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-slate-950 text-slate-400 py-8 text-center text-sm border-t border-slate-800">
+        <p>Interactive Research Dashboard &copy; 2026. Data representations are estimates for illustrative synthesis based on industry trends.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const marginCtx = document.getElementById('marginChart').getContext('2d');
+            new Chart(marginCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Hardware (TVs) Est. Margin', 'Services (Ads) Est. Margin', 'COGS/Operating Costs'],
+                    datasets: [{
+                        data: [15, 75, 10], 
+                        backgroundColor: [
+                            '#94a3b8', 
+                            '#2563eb', 
+                            '#f1f5f9'  
+                        ],
+                        borderWidth: 0,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                font: { family: "'Segoe UI', sans-serif" }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return ' ' + context.label + ': ' + context.parsed + '% Relative Scale';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            const growthCtx = document.getElementById('growthChart').getContext('2d');
+            new Chart(growthCtx, {
+                type: 'line',
+                data: {
+                    labels: ['2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023+'],
+                    datasets: [
+                        {
+                            type: 'bar',
+                            label: 'Active TV Footprint (Index)',
+                            data: [100, 120, 150, 190, 240, 280, 310, 350],
+                            backgroundColor: 'rgba(37, 99, 235, 0.2)',
+                            borderColor: 'rgba(37, 99, 235, 1)',
+                            borderWidth: 1,
+                            yAxisID: 'y'
+                        },
+                        {
+                            type: 'line',
+                            label: 'Est. Ad Revenue Growth (Index)',
+                            data: [100, 150, 250, 450, 800, 1200, 1500, 1800],
+                            borderColor: '#1e293b',
+                            backgroundColor: '#1e293b',
+                            borderWidth: 3,
+                            tension: 0.4,
+                            pointBackgroundColor: '#fff',
+                            pointBorderWidth: 2,
+                            pointRadius: 4,
+                            yAxisID: 'y1'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                            titleFont: { size: 14 },
+                            bodyFont: { size: 13 },
+                            padding: 12
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { display: false }
+                        },
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            title: { display: true, text: 'Footprint Growth' },
+                            grid: { borderDash: [4, 4] }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            title: { display: true, text: 'Revenue Growth Index' },
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+        });
+
+        function updateTimeline(index) {
+            const items = document.querySelectorAll('.timeline-item');
+            const contents = [
+                document.getElementById('timeline-content-0'),
+                document.getElementById('timeline-content-1'),
+                document.getElementById('timeline-content-2')
+            ];
+
+            items.forEach((item, i) => {
+                const dot = item.querySelector('.timeline-dot');
+                if (i === index) {
+                    item.classList.add('active');
+                    dot.classList.remove('bg-slate-600');
+                    dot.classList.add('bg-blue-500');
+                    contents[i].classList.remove('hidden');
+                    contents[i].classList.add('block');
+                } else {
+                    item.classList.remove('active');
+                    dot.classList.remove('bg-blue-500');
+                    dot.classList.add('bg-slate-600');
+                    contents[i].classList.remove('block');
+                    contents[i].classList.add('hidden');
+                }
+            });
+        }
+
+        function switchTab(index) {
+            const btns = document.querySelectorAll('.tab-btn');
+            const contents = [
+                document.getElementById('tab-content-0'),
+                document.getElementById('tab-content-1'),
+                document.getElementById('tab-content-2')
+            ];
+
+            btns.forEach((btn, i) => {
+                if (i === index) {
+                    btn.classList.add('active');
+                    contents[i].classList.remove('hidden');
+                    contents[i].classList.add('block');
+                } else {
+                    btn.classList.remove('active');
+                    contents[i].classList.remove('block');
+                    contents[i].classList.add('hidden');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
