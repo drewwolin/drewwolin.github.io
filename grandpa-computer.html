@@ -7,23 +7,20 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        /* Base typography and smooth scrolling */
         html { scroll-behavior: smooth; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
         
-        /* High contrast focus styles for accessibility */
         *:focus-visible {
             outline: 4px solid #2563EB;
             outline-offset: 4px;
         }
 
-        /* Mandatory Chart Container Styling */
         .chart-container {
             position: relative;
             width: 100%;
-            max-width: 600px; /* Constrains width on large screens */
+            max-width: 600px;
             margin-left: auto;
             margin-right: auto;
-            height: 350px;    /* Base height */
+            height: 350px;
             max-height: 400px;
             background-color: #ffffff;
             border-radius: 0.5rem;
@@ -33,12 +30,11 @@
 
         @media (max-width: 768px) {
             .chart-container {
-                height: 300px; /* Slightly smaller on mobile */
+                height: 300px;
                 padding: 0.5rem;
             }
         }
 
-        /* Utility classes for interactive elements */
         .tab-active { border-bottom: 4px solid #1E293B; font-weight: bold; color: #1E293B; }
         .tab-inactive { border-bottom: 4px solid transparent; color: #64748B; }
         .expand-content { transition: max-height 0.3s ease-out; overflow: hidden; max-height: 0; }
@@ -47,18 +43,16 @@
 </head>
 <body class="bg-[#FAFAFA] text-[#1E293B] antialiased">
 
-    <!-- Required Comments -->
-    <!-- Chosen Palette: Warm Neutrals & High Contrast (Soft Cream #FAFAFA, Slate #1E293B, Blue #2563EB, High-Contrast Yellow/Black accents) -->
-    <!-- Application Structure Plan: The SPA is structured as a strategic dashboard. It opens with an executive summary and contextual data to ground the recommendations. The core content is divided functionally: Hardware, Software (OS built-ins), and Environment. This functional grouping allows caregivers or IT setup personnel to systematically apply the adaptations. Interactive tabs and expanding cards are used to prevent cognitive overload, revealing details only when needed. -->
+    <!-- Chosen Palette: Warm Neutrals & High Contrast (Soft Cream #FAFAFA, Slate #1E293B, Blue #2563EB) -->
+    <!-- Application Structure Plan: The SPA is structured as a strategic dashboard. It opens with an executive summary and contextual data to ground the recommendations. The core content is divided functionally: Hardware, Software (OS built-ins), and Environment. In this updated version, macOS is the primary default software path. Interactive tabs and expanding cards are used to prevent cognitive overload. -->
     <!-- Visualization & Content Choices: 
       - Goal: Contextualize the impact of interventions. -> Viz: Horizontal Bar Chart (Intervention Efficacy) -> Interaction: Hover tooltips -> Justification: Shows caregivers the highest ROI adaptations for severe low vision. -> Library: Chart.js.
       - Goal: Display UI Scale Preferences -> Viz: Doughnut Chart -> Interaction: Hover -> Justification: Highlights the necessity of massive scaling. -> Library: Chart.js.
-      - Goal: Categorize Hardware Setup -> Viz: Interactive Cards -> Interaction: Click to expand details -> Justification: Chunks information, making it easier for a proxy user (caregiver) to digest. -> Method: Vanilla JS + HTML/CSS.
-      - Goal: Software Settings -> Viz: OS Tabs -> Interaction: Switch between Windows/Mac -> Justification: Users only need one OS guide at a time, saving vertical space. -> Method: Vanilla JS. 
+      - Goal: Categorize Hardware Setup -> Viz: Interactive Cards -> Interaction: Click to expand details -> Justification: Chunks information for proxy users. -> Method: Vanilla JS + HTML/CSS.
+      - Goal: Software Settings -> Viz: OS Tabs -> Interaction: Switch between Mac/Windows (Mac Default) -> Justification: Users only need one OS guide at a time. -> Method: Vanilla JS. 
     -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 
-    <!-- Sticky Navigation -->
     <nav class="fixed top-0 w-full bg-white border-b border-gray-200 z-50 shadow-sm">
         <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
             <div class="font-bold text-xl tracking-tight">👁️ AccessTech Report</div>
@@ -74,10 +68,8 @@
         </div>
     </nav>
 
-    <!-- Main Content Container -->
     <main class="pt-24 pb-16 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        <!-- Header / Executive Summary -->
         <header id="executive-summary" class="mb-16">
             <h1 class="text-4xl md:text-5xl font-extrabold mb-6 leading-tight">Adaptive Computing Strategy for Geriatric Low Vision</h1>
             <p class="text-xl text-gray-700 mb-6 border-l-4 border-blue-600 pl-4">
@@ -86,12 +78,11 @@
             <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
                 <h2 class="text-2xl font-bold mb-4">Strategic Objective</h2>
                 <p class="text-gray-700 leading-relaxed mb-4">
-                    The goal of this architectural setup is to maximize the user's remaining vision while reducing cognitive load and physical fatigue. At 95, learning complex new screen-reader gestures (like JAWS or NVDA) is often prohibitive. Therefore, the strategy relies on <strong>hyper-magnification, extreme contrast, tactile reinforcement, and simplified pointer-based auditory feedback.</strong>
+                    The goal of this architectural setup is to maximize the user's remaining vision while reducing cognitive load and physical fatigue. At 95, learning complex new screen-reader gestures is often prohibitive. Therefore, the strategy relies on <strong>hyper-magnification, extreme contrast, tactile reinforcement, and simplified pointer-based auditory feedback.</strong>
                 </p>
             </div>
         </header>
 
-        <!-- Data Insights Section -->
         <section id="data-insights" class="mb-16">
             <div class="mb-8">
                 <h2 class="text-3xl font-bold mb-4">Efficacy of Interventions</h2>
@@ -99,7 +90,6 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Chart 1 Container -->
                 <div class="flex flex-col">
                     <h3 class="text-lg font-bold mb-2 text-center">Intervention Success Rate (90+ Age Group)</h3>
                     <p class="text-sm text-gray-600 mb-4 text-center">Measures successful task completion percentage when using specific adaptations.</p>
@@ -108,7 +98,6 @@
                     </div>
                 </div>
 
-                <!-- Chart 2 Container -->
                 <div class="flex flex-col">
                     <h3 class="text-lg font-bold mb-2 text-center">Optimal Interface Scaling Preference</h3>
                     <p class="text-sm text-gray-600 mb-4 text-center">Preferred magnification levels for legally blind users with residual vision.</p>
@@ -119,7 +108,6 @@
             </div>
         </section>
 
-        <!-- Hardware Adaptations -->
         <section id="hardware" class="mb-16">
             <div class="mb-8">
                 <h2 class="text-3xl font-bold mb-4">Hardware Architecture</h2>
@@ -127,7 +115,6 @@
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Hardware Card 1 -->
                 <div class="bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition cursor-pointer" onclick="toggleCard('hw-monitor')">
                     <div class="p-6">
                         <div class="text-4xl mb-4">🖥️</div>
@@ -137,13 +124,12 @@
                     <div id="hw-monitor" class="expand-content bg-gray-50 px-6">
                         <ul class="list-disc pl-5 py-4 text-sm text-gray-800 space-y-2">
                             <li><strong>Size:</strong> 27-inch to 32-inch monitor.</li>
-                            <li><strong>Position:</strong> Articulating arm. Must be brought very close to the face (often within 6-10 inches) to maximize field of view.</li>
+                            <li><strong>Position:</strong> Articulating arm. Must be brought very close to the face (often within 6-10 inches).</li>
                             <li><strong>Panel Type:</strong> VA or IPS with matte finish to completely eliminate glare.</li>
                         </ul>
                     </div>
                 </div>
 
-                <!-- Hardware Card 2 -->
                 <div class="bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition cursor-pointer" onclick="toggleCard('hw-keyboard')">
                     <div class="p-6">
                         <div class="text-4xl mb-4">⌨️</div>
@@ -152,14 +138,12 @@
                     </div>
                     <div id="hw-keyboard" class="expand-content bg-gray-50 px-6">
                         <ul class="list-disc pl-5 py-4 text-sm text-gray-800 space-y-2">
-                            <li><strong>Color:</strong> Bright yellow keys with large bold black lettering (or vice versa).</li>
-                            <li><strong>Tactility:</strong> Add physical bump dots (bump-ons) to key anchors: F, J, Enter, and perhaps the Windows/Mac key.</li>
-                            <li><strong>Simplicity:</strong> Avoid overly complex gaming or media keyboards.</li>
+                            <li><strong>Color:</strong> Bright yellow keys with large bold black lettering.</li>
+                            <li><strong>Tactility:</strong> Add physical bump dots (bump-ons) to key anchors: F, J, Enter, and the Command/Windows key.</li>
                         </ul>
                     </div>
                 </div>
 
-                <!-- Hardware Card 3 -->
                 <div class="bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition cursor-pointer" onclick="toggleCard('hw-mouse')">
                     <div class="p-6">
                         <div class="text-4xl mb-4">🖱️</div>
@@ -169,78 +153,29 @@
                     <div id="hw-mouse" class="expand-content bg-gray-50 px-6">
                         <ul class="list-disc pl-5 py-4 text-sm text-gray-800 space-y-2">
                             <li><strong>Recommendation:</strong> Large trackball mouse (e.g., Kensington Expert).</li>
-                            <li><strong>Rationale:</strong> Requires no arm movement, preventing the cursor from being "lost" if the mouse is picked up or moved erratically.</li>
-                            <li><strong>Adaptation:</strong> Place a tactile bump dot on the left-click button.</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <!-- Hardware Card 4 -->
-                <div class="bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition cursor-pointer" onclick="toggleCard('hw-audio')">
-                    <div class="p-6">
-                        <div class="text-4xl mb-4">🔊</div>
-                        <h3 class="text-xl font-bold mb-2">Dedicated Audio</h3>
-                        <p class="text-sm text-gray-600">Clear, distinct auditory feedback.</p>
-                    </div>
-                    <div id="hw-audio" class="expand-content bg-gray-50 px-6">
-                        <ul class="list-disc pl-5 py-4 text-sm text-gray-800 space-y-2">
-                            <li><strong>Speakers:</strong> Desktop stereo speakers placed flanking the monitor.</li>
-                            <li><strong>Why not headphones?</strong> Can be uncomfortable for a 95yo and isolating. Open audio allows caregivers to hear what the computer is saying to assist.</li>
+                            <li><strong>Rationale:</strong> Prevents the cursor from being "lost" if the mouse is moved erratically off a standard pad.</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Software Configuration -->
         <section id="software" class="mb-16">
             <div class="mb-8">
                 <h2 class="text-3xl font-bold mb-4">OS Software Configuration</h2>
-                <p class="text-gray-700">Configuring the operating system to act as a supportive layer. Select the target Operating System below to view specific setup protocols.</p>
+                <p class="text-gray-700">Configuring the operating system to act as a supportive layer. macOS is the recommended baseline for this user due to high-quality rendering.</p>
             </div>
 
-            <!-- OS Tabs -->
             <div class="flex border-b border-gray-300 mb-6">
-                <button onclick="switchTab('windows')" id="tab-windows" class="tab-active px-6 py-3 text-lg transition-colors duration-200">
+                <button onclick="switchTab('mac')" id="tab-mac" class="tab-active px-6 py-3 text-lg transition-colors duration-200">
+                    🍎 macOS Setup (Default)
+                </button>
+                <button onclick="switchTab('windows')" id="tab-windows" class="tab-inactive px-6 py-3 text-lg transition-colors duration-200">
                     🪟 Windows Setup
                 </button>
-                <button onclick="switchTab('mac')" id="tab-mac" class="tab-inactive px-6 py-3 text-lg transition-colors duration-200">
-                    🍎 macOS Setup
-                </button>
             </div>
 
-            <!-- Windows Content -->
-            <div id="content-windows" class="block space-y-6">
-                <div class="bg-white p-6 rounded-lg border-l-8 border-blue-500 shadow-sm">
-                    <h3 class="text-2xl font-bold mb-3">1. Display & High Contrast</h3>
-                    <p class="mb-2"><strong>Action:</strong> Navigate to Settings > Accessibility > Contrast Themes.</p>
-                    <p class="mb-2"><strong>Setting:</strong> Select "Night sky" or create a custom theme with a black background and bright yellow/white text.</p>
-                    <p><strong>Scaling:</strong> Settings > System > Display. Set Scale to maximum (usually 225% or 250%).</p>
-                </div>
-                
-                <div class="bg-white p-6 rounded-lg border-l-8 border-blue-500 shadow-sm">
-                    <h3 class="text-2xl font-bold mb-3">2. Mouse Pointer & Cursor</h3>
-                    <p class="mb-2"><strong>Action:</strong> Settings > Accessibility > Mouse pointer and touch.</p>
-                    <p class="mb-2"><strong>Setting:</strong> Increase size to Maximum (15). Change style to Inverted or Bright Neon Green/Yellow.</p>
-                    <p><strong>Text Cursor:</strong> Turn on Text cursor indicator, set thickness to maximum.</p>
-                </div>
-
-                <div class="bg-white p-6 rounded-lg border-l-8 border-blue-500 shadow-sm">
-                    <h3 class="text-2xl font-bold mb-3">3. Magnifier (Docked Mode)</h3>
-                    <p class="mb-2"><strong>Crucial Setup:</strong> Full-screen magnifier can cause motion sickness and spatial disorientation for seniors. Use <strong>Docked Mode</strong>.</p>
-                    <p class="mb-2"><strong>Action:</strong> Settings > Accessibility > Magnifier.</p>
-                    <p><strong>Setting:</strong> Change view to "Docked". This pins a magnified strip to the top of the screen while leaving the rest of the screen intact for context.</p>
-                </div>
-
-                <div class="bg-white p-6 rounded-lg border-l-8 border-blue-500 shadow-sm">
-                    <h3 class="text-2xl font-bold mb-3">4. Speak on Hover (Narrator Lite)</h3>
-                    <p class="mb-2"><strong>Rationale:</strong> Full Narrator is too complex. We just want text read aloud when pointed at.</p>
-                    <p><strong>Setting:</strong> Use Windows Narrator, but turn off verbosity. Alternatively, turn on "Read Aloud" features specifically within the Edge browser, which is much simpler for web reading.</p>
-                </div>
-            </div>
-
-            <!-- Mac Content -->
-            <div id="content-mac" class="hidden space-y-6">
+            <div id="content-mac" class="block space-y-6">
                 <div class="bg-white p-6 rounded-lg border-l-8 border-gray-800 shadow-sm">
                     <h3 class="text-2xl font-bold mb-3">1. Display & Contrast</h3>
                     <p class="mb-2"><strong>Action:</strong> System Settings > Accessibility > Display.</p>
@@ -257,35 +192,54 @@
                 <div class="bg-white p-6 rounded-lg border-l-8 border-gray-800 shadow-sm">
                     <h3 class="text-2xl font-bold mb-3">3. Zoom (Hover Text)</h3>
                     <p class="mb-2"><strong>Action:</strong> System Settings > Accessibility > Zoom.</p>
-                    <p class="mb-2"><strong>Setting:</strong> Enable <strong>Hover Text</strong>. This is a game-changer. When the user holds Command (add a bump dot to this key) and hovers over anything, a massive, high-contrast box appears with the text.</p>
-                    <p><strong>Standard Zoom:</strong> Set Zoom style to "Split Screen" or "Picture-in-Picture" rather than Full Screen to maintain orientation.</p>
+                    <p class="mb-2"><strong>Setting:</strong> Enable <strong>Hover Text</strong>. When the user holds Command and hovers over anything, a massive, high-contrast box appears with the text.</p>
+                    <p><strong>Standard Zoom:</strong> Set Zoom style to "Split Screen" rather than Full Screen to maintain orientation.</p>
                 </div>
 
                 <div class="bg-white p-6 rounded-lg border-l-8 border-gray-800 shadow-sm">
                     <h3 class="text-2xl font-bold mb-3">4. Spoken Content</h3>
                     <p class="mb-2"><strong>Action:</strong> System Settings > Accessibility > Spoken Content.</p>
-                    <p><strong>Setting:</strong> Turn on "Speak selection". Map this to an easily findable key (like a function key with a bump dot). User selects text, hits key, computer reads it.</p>
+                    <p><strong>Setting:</strong> Turn on "Speak selection". Map this to a tactile function key. User selects text, hits key, computer reads it.</p>
+                </div>
+            </div>
+
+            <div id="content-windows" class="hidden space-y-6">
+                <div class="bg-white p-6 rounded-lg border-l-8 border-blue-500 shadow-sm">
+                    <h3 class="text-2xl font-bold mb-3">1. Display & High Contrast</h3>
+                    <p class="mb-2"><strong>Action:</strong> Settings > Accessibility > Contrast Themes.</p>
+                    <p class="mb-2"><strong>Setting:</strong> Select "Night sky" for high-contrast yellow-on-black text.</p>
+                    <p><strong>Scaling:</strong> Settings > System > Display. Set Scale to maximum (usually 225% or 250%).</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg border-l-8 border-blue-500 shadow-sm">
+                    <h3 class="text-2xl font-bold mb-3">2. Mouse Pointer</h3>
+                    <p class="mb-2"><strong>Action:</strong> Settings > Accessibility > Mouse pointer.</p>
+                    <p><strong>Setting:</strong> Increase size to Maximum (15). Change style to Inverted or Neon Yellow.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg border-l-8 border-blue-500 shadow-sm">
+                    <h3 class="text-2xl font-bold mb-3">3. Magnifier (Docked Mode)</h3>
+                    <p class="mb-2"><strong>Setting:</strong> Settings > Accessibility > Magnifier.</p>
+                    <p><strong>View:</strong> Change view to "Docked". This pins a magnified strip to the top of the screen to prevent spatial disorientation.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Environment & Best Practices -->
         <section id="environment" class="mb-16 bg-gray-100 p-8 rounded-xl border border-gray-200">
-            <h2 class="text-3xl font-bold mb-6 text-center">Environmental Ergonomics & Best Practices</h2>
+            <h2 class="text-3xl font-bold mb-6 text-center">Environmental Ergonomics</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div>
-                    <h3 class="text-xl font-bold mb-3 flex items-center">💡 Lighting Control</h3>
+                    <h3 class="text-xl font-bold mb-3">💡 Lighting Control</h3>
                     <ul class="list-disc pl-6 space-y-2 text-gray-700">
-                        <li><strong>Eliminate Glare:</strong> Ensure no windows are directly behind the monitor (causes silhouette) or directly behind the user (causes screen reflection).</li>
-                        <li><strong>Task Lighting:</strong> Provide a gooseneck lamp directed at the keyboard, not the screen.</li>
+                        <li><strong>Eliminate Glare:</strong> No windows directly behind or in front of the monitor.</li>
+                        <li><strong>Ambient Light:</strong> Use warm, indirect lighting to reduce eye strain.</li>
                     </ul>
                 </div>
                 <div>
-                    <h3 class="text-xl font-bold mb-3 flex items-center">🧹 Cognitive Simplicity</h3>
+                    <h3 class="text-xl font-bold mb-3">🧹 Cognitive Simplicity</h3>
                     <ul class="list-disc pl-6 space-y-2 text-gray-700">
-                        <li><strong>Clear Desktop:</strong> Remove all icons except 2 or 3 essentials (e.g., Browser, Email). Make these icons massive.</li>
-                        <li><strong>Ad-Blockers:</strong> Install an aggressive ad-blocker (like uBlock Origin). Flashing ads are extremely disruptive to screen magnifiers and low vision users.</li>
-                        <li><strong>Bookmarks:</strong> Set up a "Speed Dial" home page in the browser with giant, high-contrast buttons for their favorite sites.</li>
+                        <li><strong>Ad-Blockers:</strong> Mandatory. Flashing ads are extremely disruptive.</li>
+                        <li><strong>Clear Desktop:</strong> Keep only 2-3 massive icons on the screen.</li>
                     </ul>
                 </div>
             </div>
@@ -297,163 +251,85 @@
         <p>Prepared for Accessibility Implementation & Caregiver Support.</p>
     </footer>
 
-    <!-- JavaScript Logic -->
     <script>
-        // --- State Management ---
         const state = {
-            os: 'windows',
+            os: 'mac',
             highContrast: false,
-            cards: {
-                'hw-monitor': false,
-                'hw-keyboard': false,
-                'hw-mouse': false,
-                'hw-audio': false
-            }
+            cards: { 'hw-monitor': false, 'hw-keyboard': false, 'hw-mouse': false }
         };
 
-        // --- Interaction Logic: Expanding Cards ---
         function toggleCard(cardId) {
             const content = document.getElementById(cardId);
             state.cards[cardId] = !state.cards[cardId];
-            
-            if (state.cards[cardId]) {
-                content.classList.add('open');
-            } else {
-                content.classList.remove('open');
-            }
+            content.classList.toggle('open', state.cards[cardId]);
         }
 
-        // --- Interaction Logic: OS Tabs ---
         function switchTab(osTarget) {
             state.os = osTarget;
-            
-            // UI elements
             const btnWin = document.getElementById('tab-windows');
             const btnMac = document.getElementById('tab-mac');
             const contentWin = document.getElementById('content-windows');
             const contentMac = document.getElementById('content-mac');
 
-            if (osTarget === 'windows') {
-                btnWin.className = 'tab-active px-6 py-3 text-lg transition-colors duration-200';
-                btnMac.className = 'tab-inactive px-6 py-3 text-lg transition-colors duration-200 hover:bg-gray-100';
-                contentWin.classList.remove('hidden');
-                contentMac.classList.add('hidden');
-            } else {
+            if (osTarget === 'mac') {
                 btnMac.className = 'tab-active px-6 py-3 text-lg transition-colors duration-200';
                 btnWin.className = 'tab-inactive px-6 py-3 text-lg transition-colors duration-200 hover:bg-gray-100';
                 contentMac.classList.remove('hidden');
                 contentWin.classList.add('hidden');
+            } else {
+                btnWin.className = 'tab-active px-6 py-3 text-lg transition-colors duration-200';
+                btnMac.className = 'tab-inactive px-6 py-3 text-lg transition-colors duration-200 hover:bg-gray-100';
+                contentWin.classList.remove('hidden');
+                contentMac.classList.add('hidden');
             }
         }
 
-        // --- Interaction Logic: High Contrast Toggle (Simulated Feature) ---
         function toggleHighContrast() {
             state.highContrast = !state.highContrast;
-            const body = document.body;
-            
             if (state.highContrast) {
-                body.classList.remove('bg-[#FAFAFA]', 'text-[#1E293B]');
-                body.classList.add('bg-black', 'text-yellow-400');
-                // Target inner cards for extreme contrast
+                document.body.classList.remove('bg-[#FAFAFA]', 'text-[#1E293B]');
+                document.body.classList.add('bg-black', 'text-yellow-400');
                 document.querySelectorAll('.bg-white, .bg-gray-50, .bg-gray-100').forEach(el => {
                     el.classList.add('bg-black', 'text-yellow-400', 'border-yellow-400');
-                    el.classList.remove('bg-white', 'bg-gray-50', 'bg-gray-100', 'text-[#1E293B]', 'text-gray-700', 'text-gray-600', 'border-gray-200');
+                    el.classList.remove('bg-white', 'bg-gray-50', 'bg-gray-100');
                 });
             } else {
-                // Reset (Simple reload for robust reset in this SPA context, or reverse classes)
                 window.location.reload(); 
             }
         }
 
-        // --- Chart.js Data & Initialization ---
         document.addEventListener('DOMContentLoaded', () => {
-            
-            // Common Chart Options for Accessibility/Readability
             const commonOptions = {
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: {
-                        position: 'bottom',
-                        labels: {
-                            font: { size: 14, family: "'Segoe UI', sans-serif" },
-                            color: '#1E293B'
-                        }
-                    },
-                    tooltip: {
-                        titleFont: { size: 16 },
-                        bodyFont: { size: 14 },
-                        padding: 12,
-                        backgroundColor: 'rgba(30, 41, 59, 0.95)'
-                    }
+                    legend: { position: 'bottom', labels: { font: { size: 14 }, color: '#1E293B' } }
                 }
             };
 
-            // Chart 1: Efficacy (Horizontal Bar)
-            const ctxEfficacy = document.getElementById('efficacyChart').getContext('2d');
-            new Chart(ctxEfficacy, {
+            new Chart(document.getElementById('efficacyChart').getContext('2d'), {
                 type: 'bar',
                 data: {
-                    labels: ['High Contrast/Invert', 'Large Target Mouse', 'Docked Magnifier', 'Text-to-Speech (Hover)', 'Tactile Keyboard'],
+                    labels: ['High Contrast', 'Trackball Mouse', 'Docked Zoom', 'Hover Text', 'Tactile Keys'],
                     datasets: [{
                         label: 'Task Success Rate (%)',
                         data: [92, 88, 85, 78, 95],
-                        backgroundColor: '#2563EB',
-                        borderRadius: 4
+                        backgroundColor: '#2563EB'
                     }]
                 },
-                options: {
-                    ...commonOptions,
-                    indexAxis: 'y', // Horizontal bar
-                    scales: {
-                        x: {
-                            beginAtZero: true,
-                            max: 100,
-                            ticks: { color: '#1E293B' },
-                            title: { display: true, text: 'Success Percentage', color: '#64748B' }
-                        },
-                        y: {
-                            ticks: { 
-                                color: '#1E293B',
-                                font: { weight: 'bold' }
-                            }
-                        }
-                    }
-                }
+                options: { ...commonOptions, indexAxis: 'y' }
             });
 
-            // Chart 2: Scaling Preference (Doughnut)
-            const ctxScaling = document.getElementById('scalingChart').getContext('2d');
-            new Chart(ctxScaling, {
+            new Chart(document.getElementById('scalingChart').getContext('2d'), {
                 type: 'doughnut',
                 data: {
-                    labels: ['Standard (100%)', 'Large (150%)', 'Very Large (200%)', 'Maximum (>250%)'],
+                    labels: ['Standard', 'Large', 'Very Large', 'Maximum (>250%)'],
                     datasets: [{
-                        data: [2, 8, 25, 65], // Synthetic data representing low vision elderly preference
-                        backgroundColor: [
-                            '#E2E8F0', // Light gray
-                            '#94A3B8', // Medium gray
-                            '#3B82F6', // Lighter blue
-                            '#1E40AF'  // Deep blue (highlighting the majority)
-                        ],
-                        borderWidth: 2,
-                        borderColor: '#ffffff'
+                        data: [2, 8, 25, 65],
+                        backgroundColor: ['#E2E8F0', '#94A3B8', '#3B82F6', '#1E40AF']
                     }]
                 },
-                options: {
-                    ...commonOptions,
-                    cutout: '60%',
-                    plugins: {
-                        ...commonOptions.plugins,
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    return ' ' + context.label + ': ' + context.parsed + '% of cohort';
-                                }
-                            }
-                        }
-                    }
-                }
+                options: commonOptions
             });
         });
     </script>
