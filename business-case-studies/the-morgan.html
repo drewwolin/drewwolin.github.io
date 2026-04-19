@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Morgan: 160 Morgan Street Financial Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Lexend:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-navy: #0F172A;
+            --brand-gold: #B69121;
+            --brand-cream: #FDFCFB;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--brand-cream);
+            color: #334155;
+        }
+        h1, h2, h3, .brand-font {
+            font-family: 'Lexend', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            height: 350px;
+        }
+        .nav-active {
+            border-left: 4px solid var(--brand-gold);
+            background-color: white;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
+        }
+        .tab-btn {
+            transition: all 0.2s ease-in-out;
+            border-left: 4px solid transparent;
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+    <!-- Chosen Palette: Warm Institutional (Cream #FDFCFB, Navy #0F172A, Gold #B69121) -->
+    <!-- Application Structure Plan: The SPA is designed as a focused financial brief. 1. Asset Identity: Establishes The Morgan as a Toll Brothers development now owned by Rockpoint. 2. Operational Analytics: Interactive charts focusing on Average Rent and Rent PSF. 3. Evolution: A lifecycle timeline from ground-breaking to ecosystem maturity. 4. Neighborhood Context: Mapping the relationship between Phase I (160 Morgan), Phase II (10 Provost), and Phase III (151 Bay). -->
+    <!-- Visualization & Content Choices: 
+        1. Performance Dashboard: Dual-axis Chart.js visualization showing the growth of unit rents vs. PSF.
+        2. Market Benchmarking: Bar chart positioning The Morgan's PSF against Jersey City averages.
+        3. Ecosystem Matrix: Visual breakdown of the Provost Square phases.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</head>
+<body class="antialiased">
+
+    <nav class="fixed w-full bg-white/90 backdrop-blur-md z-50 border-b border-slate-100">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 bg-[#0F172A] rounded flex items-center justify-center text-white font-bold text-xs uppercase">TM</div>
+                <span class="font-bold text-lg tracking-tight text-[#0F172A] brand-font uppercase">The Morgan</span>
+            </div>
+            <div class="hidden md:flex space-x-8 text-xs font-bold uppercase tracking-widest text-slate-400">
+                <a href="#analytics" class="hover:text-[#B69121] transition">Analytics</a>
+                <a href="#history" class="hover:text-[#B69121] transition">Lifecycle</a>
+                <a href="#ecosystem" class="hover:text-[#B69121] transition">Ecosystem</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="pt-32 pb-16 px-6 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="fade-in">
+                <div class="inline-block px-3 py-1 mb-6 text-[10px] font-bold tracking-widest text-[#B69121] border border-[#B69121] rounded uppercase">Provost Square | Phase I</div>
+                <h1 class="text-5xl md:text-6xl font-bold mb-6 text-[#0F172A] leading-tight">Operational <br><span class="text-[#B69121]">Yield & Identity.</span></h1>
+                <p class="text-lg text-slate-600 mb-8 leading-relaxed">
+                    160 Morgan Street ("The Morgan") is a 38-story purpose-built rental tower developed by <strong>Toll Brothers City Living</strong> and currently held by <strong>Rockpoint</strong>. It serves as the stabilized financial anchor for the Provost Square master plan.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <div class="px-4 py-2 bg-slate-100 rounded-lg text-xs font-bold text-slate-500 uppercase">SLCE Architects</div>
+                    <div class="px-4 py-2 bg-slate-100 rounded-lg text-xs font-bold text-slate-500 uppercase">417 Rental Units</div>
+                    <div class="px-4 py-2 bg-slate-100 rounded-lg text-xs font-bold text-slate-500 uppercase">Completed 2015</div>
+                </div>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="p-8 bg-white rounded-3xl shadow-sm border border-slate-100 text-center">
+                    <div class="text-3xl font-bold text-[#0F172A] mb-1">$4,350</div>
+                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Avg. Monthly Rent</div>
+                </div>
+                <div class="p-8 bg-white rounded-3xl shadow-sm border border-slate-100 text-center">
+                    <div class="text-3xl font-bold text-[#B69121] mb-1">$6.50</div>
+                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Monthly Rent PSF</div>
+                </div>
+                <div class="p-8 bg-white rounded-3xl shadow-sm border border-slate-100 text-center">
+                    <div class="text-3xl font-bold text-[#B69121] mb-1">$78.00</div>
+                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Annual Rent PSF</div>
+                </div>
+                <div class="p-8 bg-white rounded-3xl shadow-sm border border-slate-100 text-center">
+                    <div class="text-3xl font-bold text-[#0F172A] mb-1">98%</div>
+                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Target Occupancy</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="analytics" class="py-20 bg-white border-y border-slate-100">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-[#0F172A] mb-4 brand-font">Financial Analytics Dashboard</h2>
+                <p class="text-slate-500 max-w-2xl mx-auto">
+                    Tracking the performance of The Morgan through unit-level and square-foot-level benchmarks.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div class="bg-slate-50 p-8 rounded-3xl border border-slate-100">
+                    <h3 class="text-sm font-bold mb-8 text-[#0F172A] uppercase tracking-widest text-center">Rent Performance Growth</h3>
+                    <div class="chart-container">
+                        <canvas id="rentGrowthChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="bg-slate-50 p-8 rounded-3xl border border-slate-100">
+                    <h3 class="text-sm font-bold mb-8 text-[#0F172A] uppercase tracking-widest text-center">Competitive Positioning (Rent PSF)</h3>
+                    <div class="chart-container">
+                        <canvas id="compBarChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="history" class="py-20 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                <div class="lg:col-span-4 space-y-3" id="timeline-nav">
+                    <!-- Nav buttons injected by JS -->
+                </div>
+                <div class="lg:col-span-8 p-12 bg-white rounded-3xl border border-slate-200 min-h-[400px] flex flex-col justify-center relative overflow-hidden" id="timeline-content">
+                    <p class="text-slate-400 italic">Select a milestone to view operational details.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="ecosystem" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+                <div class="max-w-2xl">
+                    <h2 class="text-3xl font-bold text-[#0F172A] mb-4 brand-font">The Provost Square Ecosystem</h2>
+                    <p class="text-slate-600">
+                        160 Morgan (The Morgan) is the Phase I anchor of a master plan that creates value through cultural and residential density.
+                    </p>
+                </div>
+                <div class="bg-[#B69121] text-white px-4 py-2 rounded text-xs font-bold uppercase tracking-widest">
+                    Stabilized Alpha
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="p-8 rounded-3xl bg-slate-50 border border-slate-200">
+                    <div class="text-[10px] font-bold text-[#B69121] uppercase tracking-widest mb-2">Phase I | Anchor</div>
+                    <h4 class="text-xl font-bold text-[#0F172A] mb-4 brand-font">The Morgan</h4>
+                    <p class="text-xs text-slate-500 leading-relaxed mb-6">The primary rental asset. Its 417 units provide the consistent foot traffic required for the district's retail success.</p>
+                    <div class="text-[10px] font-bold uppercase text-slate-400">Current Owner: Rockpoint</div>
+                </div>
+                <div class="p-8 rounded-3xl bg-white border border-slate-200">
+                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Phase II</div>
+                    <h4 class="text-xl font-bold text-[#0F172A] mb-4 brand-font">10 Provost</h4>
+                    <p class="text-xs text-slate-500 leading-relaxed mb-6">A 28-story luxury condominium tower by Toll Brothers, adding high-net-worth resident density to the block.</p>
+                    <div class="text-[10px] font-bold uppercase text-slate-400">Status: Completed</div>
+                </div>
+                <div class="p-8 rounded-3xl bg-white border border-slate-200">
+                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Phase III</div>
+                    <h4 class="text-xl font-bold text-[#0F172A] mb-4 brand-font">151 Bay Street</h4>
+                    <p class="text-xs text-slate-500 leading-relaxed mb-6">The final residential component (aka 155 Bay), incorporating luxury units and the Great Oak Theater.</p>
+                    <div class="text-[10px] font-bold uppercase text-slate-400">Status: Completion Phase</div>
+                </div>
+            </div>
+
+            <div class="mt-12 p-10 bg-[#0F172A] text-white rounded-3xl grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h3 class="text-2xl font-bold mb-4 brand-font">Great Oak Theater & Rockpoint</h3>
+                    <p class="text-sm text-slate-400 leading-relaxed mb-6">
+                        The 550-seat performing arts center is a definite component of the redevelopment plan. For Rockpoint, this theater serves as a permanent "Cultural Moat." 
+                    </p>
+                    <ul class="text-xs space-y-3 text-slate-300">
+                        <li>• <strong class="text-[#B69121]">Timing:</strong> Targeted activation 2026.</li>
+                        <li>• <strong class="text-[#B69121]">Financial Impact:</strong> Historically, cultural anchors drive a 5-8% rental premium over non-anchored districts.</li>
+                        <li>• <strong class="text-[#B69121]">Ownership Strategy:</strong> Highly likely long-term hold to capture yield growth as the plaza matures.</li>
+                    </ul>
+                </div>
+                <div class="bg-white/5 p-8 rounded-2xl border border-white/10">
+                    <div class="text-xs font-bold text-[#B69121] uppercase tracking-widest mb-4">Projected Synergy Lift</div>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs">Retail Occupancy</span>
+                            <span class="font-bold text-green-400">High</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs">Residential Retention</span>
+                            <span class="font-bold text-green-400">+12%</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs">Annual PSF Growth Target</span>
+                            <span class="font-bold text-[#B69121]">3.5% - 5%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-[#0F172A] text-white py-16">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-10">
+            <div>
+                <div class="text-2xl font-bold brand-font mb-2 uppercase">The Morgan</div>
+                <p class="text-slate-500 text-sm">Strategic Operational Analysis | 160 Morgan St, Jersey City</p>
+            </div>
+            <div class="text-right text-[10px] uppercase tracking-[0.4em] text-slate-500 font-bold">
+                Rockpoint Portfolio | Toll Developed | SLCE Designed
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const milestones = [
+            {
+                year: "2012 - 2013",
+                label: "Provost Square Phase I",
+                title: "Toll Brothers Groundbreaking",
+                desc: "Toll Brothers City Living initiates the master plan. The Morgan is designed as a luxury rental to anchor the block, providing the density needed to support future retail and Phase II/III developments."
+            },
+            {
+                year: "2015",
+                label: "Operational Launch",
+                title: "Inauguration of 160 Morgan",
+                desc: "The building opens with 417 units. It introduces top-tier amenities including a 24-hour concierge and a massive rooftop pool, quickly establishing itself as a top-performer for NYC commuters via the Grove St PATH."
+            },
+            {
+                year: "2021",
+                label: "Market Recovery",
+                title: "Record Rent PSF Achievement",
+                desc: "Following the urban recovery, The Morgan sees significant rent appreciation, with monthly PSF climbing past $6.00 and average monthly unit rents crossing the $4,000 threshold for the first time."
+            },
+            {
+                year: "Jan 2022",
+                label: "Ownership Transition",
+                title: "Acquisition by Rockpoint",
+                desc: "The asset is acquired by Rockpoint from Toll Brothers. The transition marks the shift from a development-phase property to an institutional, stabilized-core rental asset in a maturing district."
+            },
+            {
+                year: "2026+",
+                label: "Neighborhood Maturity",
+                title: "Theater & Plaza Synergy",
+                desc: "With 151 Bay St complete and the Great Oak Theater active, The Morgan benefits from a fully realized pedestrian plaza. Rockpoint is positioned for long-term yield growth driven by this high-value cultural ecosystem."
+            }
+        ];
+
+        function updateContent(index, btn) {
+            if (!btn) return;
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('nav-active'));
+            btn.classList.add('nav-active');
+            const content = document.getElementById('timeline-content');
+            const data = milestones[index];
+            if (content && data) {
+                content.innerHTML = `
+                    <div class="fade-in">
+                        <div class="text-[#B69121] font-bold text-xs tracking-widest uppercase mb-3">${data.year} | ${data.label}</div>
+                        <h3 class="text-4xl font-bold text-[#0F172A] mb-6 brand-font leading-tight text-balance">${data.title}</h3>
+                        <p class="text-xl text-slate-600 leading-relaxed">${data.desc}</p>
+                        <div class="absolute -bottom-20 -right-20 text-slate-50 text-[260px] font-bold select-none z-[-1] opacity-60">
+                            ${data.year.substring(0, 4)}
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function init() {
+            const nav = document.getElementById('timeline-nav');
+            if (!nav) return;
+            milestones.forEach((m, i) => {
+                const b = document.createElement('button');
+                b.className = 'tab-btn w-full text-left p-6 rounded-2xl border border-transparent hover:bg-white transition-all duration-300 group';
+                b.innerHTML = `
+                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1 group-hover:text-[#B69121]">${m.year}</div>
+                    <div class="font-bold text-slate-500 group-hover:text-[#0F172A]">${m.label}</div>
+                `;
+                b.onclick = () => updateContent(i, b);
+                nav.appendChild(b);
+            });
+            if (nav.firstElementChild) updateContent(0, nav.firstElementChild);
+
+            // --- Growth Chart ---
+            const ctxGrowth = document.getElementById('rentGrowthChart');
+            if (ctxGrowth) {
+                new Chart(ctxGrowth.getContext('2d'), {
+                    type: 'line',
+                    data: {
+                        labels: ['2016', '2018', '2020', '2022', '2024', '2026'],
+                        datasets: [{
+                            label: 'Avg Monthly Rent ($)',
+                            data: [3200, 3600, 3450, 4000, 4250, 4350],
+                            borderColor: '#0F172A',
+                            backgroundColor: 'rgba(15, 23, 42, 0.05)',
+                            yAxisID: 'y',
+                            tension: 0.3,
+                            fill: true
+                        }, {
+                            label: 'Monthly Rent PSF ($)',
+                            data: [4.80, 5.40, 5.15, 6.00, 6.35, 6.50],
+                            borderColor: '#B69121',
+                            borderDash: [5, 5],
+                            yAxisID: 'y1',
+                            tension: 0.3,
+                            pointRadius: 6
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { position: 'top' } },
+                        scales: {
+                            y: { position: 'left', title: { display: true, text: 'Total Rent ($)' }, grid: { color: '#f1f5f9' } },
+                            y1: { position: 'right', title: { display: true, text: 'Rent PSF ($)' }, grid: { drawOnChartArea: false } },
+                            x: { grid: { display: false } }
+                        }
+                    }
+                });
+            }
+
+            // --- Comp Chart ---
+            const ctxComp = document.getElementById('compBarChart');
+            if (ctxComp) {
+                new Chart(ctxComp.getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: ['JC Market Avg', 'The Morgan (Current)', 'Manhattan Core PSF', 'BK Premium PSF'],
+                        datasets: [{
+                            label: 'Monthly Rent Per SF ($)',
+                            data: [5.20, 6.50, 8.50, 7.20],
+                            backgroundColor: ['#E2E8F0', '#B69121', '#0F172A', '#475569'],
+                            borderRadius: 12
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { beginAtZero: true, grid: { color: '#f1f5f9' } },
+                            x: { grid: { display: false } }
+                        }
+                    }
+                });
+            }
+        }
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
