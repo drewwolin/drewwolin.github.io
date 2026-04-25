@@ -3,322 +3,378 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026 AI Employment Impact Analysis</title>
+    <title>The "AI Layoff" Myth: Budget Shifts, Not Bot Replacements</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        stonebg: '#F4F4ED',
-                        stonecard: '#FFFFFF',
-                        primary: '#2C3E50',
-                        accent: '#C05A42',
-                        accentblue: '#4A7C89',
-                        textmain: '#334155',
-                        textmuted: '#64748B'
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
+    <!-- Chosen Palette: Warm Neutrals with Amber and Slate Accents. Background: stone-50, Text: stone-800, Accents: amber-600 (highlight), slate-700 (data 1), rose-700 (data 2). -->
+    <!-- Application Structure Plan: The SPA uses a narrative-driven structure focused on debunking the AI replacement myth. It uses three thematic sections: 1. The Financial Shift (Interactive filterable chart for company-specific budget trends), 2. The Productivity Reality (Macroeconomic performance check), and 3. The Future of Roles (Task-based breakdown). This flow moves the user from financial proof to economic results to practical job impacts. A new interactivity layer allows users to filter the budget chart by specific tech giants to see individual "OPEX-to-CAPEX" strategies. -->
+    <!-- Visualization & Content Choices: 
+         1. Core Thesis / Financials -> Goal: Compare/Drill-down -> Viz: Dynamic Bar Chart (Chart.js) -> Interaction: Dropdown filter for Company-specific data (Meta, Microsoft, Alphabet, Aggregate) -> Justification: Allows user to see that the budget shift isn't just a general trend, but a specific strategy employed by the world's largest employers.
+         2. Productivity Check -> Goal: Inform/Change -> Viz: Line/Bar overlay (Chart.js) -> Interaction: Hover tooltips -> Justification: Proves that massive CAPEX hasn't yet translated to the productivity gains required to justify human replacement.
+         3. Task Transformation -> Goal: Organize/Inform -> Viz: Progress bars + New Needs list -> Interaction: Tabbed role selection -> Justification: Breaks the "job" into "tasks," visually showing that AI eats only a slice of the pie.
+         Confirming NO SVG graphics used. NO Mermaid JS used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
-            background-color: #F4F4ED;
-            color: #334155;
+            background-color: #fafaf9; 
+            color: #292524;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
+        
         .chart-container {
             position: relative;
             width: 100%;
-            max-width: 700px;
+            max-width: 800px;
             margin-left: auto;
             margin-right: auto;
             height: 350px;
             max-height: 400px;
         }
+
         @media (max-width: 640px) {
             .chart-container {
-                height: 280px;
+                height: 250px;
             }
         }
+
         .tab-btn.active {
-            border-bottom: 2px solid #C05A42;
-            color: #C05A42;
-            font-weight: 600;
+            background-color: #d97706;
+            color: white;
+            border-color: #d97706;
         }
-        .stat-card {
-            transition: transform 0.2s ease-in-out;
-        }
-        .stat-card:hover {
-            transform: translateY(-2px);
+        
+        .visual-icon {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            border-radius: 50%;
+            background-color: #f5f5f4;
+            font-size: 1.25rem;
+            border: 1px solid #e7e5e4;
         }
     </style>
 </head>
-<body class="min-h-screen p-4 md:p-8">
+<body class="antialiased selection:bg-amber-200 selection:text-amber-900">
 
-    <!-- Chosen Palette: Warm Neutrals with Terracotta and Muted Teal Accents -->
-    
-    <!-- Application Structure Plan: The SPA is structured as an analytical dashboard to unpack the complex realities behind "AI-driven layoffs." It starts with high-level aggregate metrics to grab attention, then flows into two primary analytical sections: 'The True Drivers' (breaking down the 60% claim into its real components) and 'The Budget Shift' (visualizing the transfer of Opex from labor to compute). Interactive tabs at the bottom provide deeper qualitative context. This structure guides the user from the sensational headline down to the nuanced financial and operational realities. -->
-    
-    <!-- Visualization & Content Choices: 
-         1. Metric Cards -> Goal: Inform -> Highlight the stark contrast between reported job cuts and actual AI replacement.
-         2. Donut Chart (Chart.js) -> Goal: Compare -> Shows the true composition of "AI layoffs" (Rightsizing vs. Tech Budget vs. Actual AI). Donut selected to show parts of a whole effectively.
-         3. Stacked Bar Chart (Chart.js) -> Goal: Change/Compare -> Illustrates the shift in Operating Expenses (Opex) from pure labor to labor + AI hardware/electricity. Stacked bars best show total budget remaining similar while internal composition changes.
-         4. Interactive Tabs -> Goal: Organize -> Manages qualitative text (Rightsizing context, Hardware costs) without cluttering the main view.
-         Confirmations: Chart.js used for data viz. NO SVG graphics used. NO Mermaid JS used. -->
-         
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <header class="bg-stone-900 text-stone-50 py-16 px-6 border-b-4 border-amber-600">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 tracking-tight">The "AI Layoff" Myth</h1>
+            <p class="text-xl md:text-2xl text-stone-300 font-light leading-relaxed">
+                AI isn't sitting at a desk doing your job. The current wave of tech layoffs is a massive financial gamble: a reallocation of budgets from human headcount (OPEX) to artificial intelligence infrastructure (CAPEX).
+            </p>
+        </div>
+    </header>
 
-    <div class="max-w-6xl mx-auto space-y-8">
-        
-        <header class="mb-10 text-center md:text-left border-b border-gray-300 pb-6">
-            <h1 class="text-3xl md:text-5xl font-bold text-primary mb-3">2026 AI Employment Impact Report</h1>
-            <p class="text-lg text-textmuted max-w-3xl">An interactive breakdown of early 2026 corporate workforce reductions. We analyze the claim that 60% of companies are cutting jobs "due to AI," revealing the underlying financial shifts and market corrections driving these decisions.</p>
-        </header>
+    <main class="max-w-5xl mx-auto px-6 py-12 space-y-24">
 
-        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
-            <p class="col-span-full text-sm text-textmuted mb-2">This section provides the top-level discrepancy between corporate messaging and actual technological replacement, setting the stage for the detailed analysis below.</p>
-            
-            <div class="stat-card bg-stonecard rounded-xl shadow-sm p-6 border border-gray-100 flex flex-col justify-center items-center text-center">
-                <span class="text-4xl font-bold text-primary mb-2">60%</span>
-                <span class="text-sm font-medium text-textmuted">Companies Citing AI in Job Cuts</span>
+        <section id="budget-shift">
+            <div class="mb-8">
+                <h2 class="text-3xl font-semibold mb-4 text-stone-800"><span class="visual-icon mr-3">💰</span>The Great Budget Reallocation</h2>
+                <p class="text-lg text-stone-600 leading-relaxed">
+                    This section illustrates the core financial trade-off. In the "Year of Efficiency," tech giants have intentionally reduced Operational Expenditures (OPEX)—which includes salaries, benefits, and office space—to fund the astronomical Capital Expenditures (CAPEX) required for the AI arms race. Use the filter below to see how specific companies have aggressively swapped people for processors.
+                </p>
             </div>
-            <div class="stat-card bg-stonecard rounded-xl shadow-sm p-6 border border-gray-100 flex flex-col justify-center items-center text-center">
-                <span class="text-4xl font-bold text-accent mb-2">2%</span>
-                <span class="text-sm font-medium text-textmuted">Roles Actually Replaced by AI</span>
-            </div>
-            <div class="stat-card bg-stonecard rounded-xl shadow-sm p-6 border border-gray-100 flex flex-col justify-center items-center text-center">
-                <span class="text-4xl font-bold text-accentblue mb-2">&#8593; Opex</span>
-                <span class="text-sm font-medium text-textmuted">Rising Cost of AI Infrastructure</span>
-            </div>
-            <div class="stat-card bg-stonecard rounded-xl shadow-sm p-6 border border-gray-100 flex flex-col justify-center items-center text-center">
-                <span class="text-4xl font-bold text-textmain mb-2">2021-22</span>
-                <span class="text-sm font-medium text-textmuted">Correction of Hiring Boom</span>
-            </div>
-        </section>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            
-            <section class="bg-stonecard rounded-xl shadow-sm p-6 border border-gray-100">
-                <h2 class="text-2xl font-bold text-primary mb-2">The Reality of "AI Job Cuts"</h2>
-                <p class="text-sm text-textmuted mb-6">While AI is heavily cited in press releases, analyzing the underlying data reveals a different narrative. This chart breaks down the estimated true drivers of recent workforce reductions based on early 2026 data synthesis. Hover over segments to see details.</p>
-                
-                <div class="chart-container">
-                    <canvas id="breakdownChart"></canvas>
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-stone-200">
+                <div class="mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div>
+                        <h3 class="text-xl font-bold text-stone-800" id="budget-chart-title">Big Tech CAPEX vs. OPEX (Aggregate)</h3>
+                        <p class="text-sm text-stone-500 mt-1">Data in Billions USD. Source: Public Earnings Reports synthesis.</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <label for="company-filter" class="text-sm font-medium text-stone-600">Filter By:</label>
+                        <select id="company-filter" class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block p-2.5">
+                            <option value="aggregate">All Companies (Aggregate)</option>
+                            <option value="meta">Meta (The Efficiency Leader)</option>
+                            <option value="microsoft">Microsoft (The Infrastructure Giant)</option>
+                            <option value="alphabet">Alphabet (Google Reorg)</option>
+                        </select>
+                    </div>
                 </div>
-            </section>
-
-            <section class="bg-stonecard rounded-xl shadow-sm p-6 border border-gray-100">
-                <h2 class="text-2xl font-bold text-primary mb-2">The Opex Shift: Labor to Compute</h2>
-                <p class="text-sm text-textmuted mb-6">AI isn't doing the work; it's taking the budget. Because labor is the largest Operating Expense (Opex), companies are clearing payroll to afford the massive electricity, API, and hardware costs required to run enterprise AI. This chart models that budget reallocation.</p>
                 
                 <div class="chart-container">
                     <canvas id="budgetChart"></canvas>
                 </div>
-            </section>
-        </div>
-
-        <section class="bg-stonecard rounded-xl shadow-sm p-6 border border-gray-100 mt-8">
-            <h2 class="text-2xl font-bold text-primary mb-2">Contextual Analysis & Insights</h2>
-            <p class="text-sm text-textmuted mb-4">Explore the deeper qualitative factors driving the 2026 workforce landscape. Click the tabs below to read about the two major phenomena acting under the guise of AI transformation.</p>
-
-            <div class="flex border-b border-gray-200 mb-6">
-                <button class="tab-btn active px-4 py-2 text-sm font-medium text-textmuted hover:text-accent transition-colors focus:outline-none" onclick="switchTab('tab-hardware')">The Hardware Tax</button>
-                <button class="tab-btn px-4 py-2 text-sm font-medium text-textmuted hover:text-accent transition-colors focus:outline-none" onclick="switchTab('tab-rightsizing')">The Pandemic Correction</button>
-            </div>
-
-            <div id="tab-hardware" class="tab-content block animate-fade-in">
-                <div class="flex items-start space-x-4">
-                    <div class="text-4xl text-accentblue hidden md:block">&#9881;</div>
-                    <div>
-                        <h3 class="text-xl font-bold text-primary mb-2">Paying for Electricity and Compute</h3>
-                        <p class="text-textmain leading-relaxed mb-3">
-                            The narrative that AI is taking jobs is a misdirection of budget mechanics. In early 2026, enterprise AI integration requires staggering capital and operational expenditures. High-end GPUs, cloud compute instances, and the massive electricity required to power these data centers have created a new, non-negotiable line item on corporate ledgers.
-                        </p>
-                        <p class="text-textmain leading-relaxed">
-                            To maintain profit margins while adopting this expensive technology, companies are looking to their largest existing Opex category: human labor. When a company announces it is cutting 5% of its workforce "to focus on AI," it primarily means they are reallocating those salaries to pay Microsoft, AWS, Google, or Nvidia for infrastructure, rather than deploying autonomous bots to perform the fired employees' tasks.
-                        </p>
-                    </div>
+                
+                <div class="mt-6 p-4 bg-stone-50 rounded-lg border border-stone-100">
+                    <h4 class="font-semibold text-stone-800 mb-2">Analysis: The Inverse Relationship</h4>
+                    <p id="budget-analysis-text" class="text-stone-600 text-sm">
+                        As infrastructure spending skyrocketed to build foundation models, human headcount spending was intentionally flattened or reduced to balance the balance sheets. The AI isn't doing the laid-off worker's job; the company just redirected that worker's salary to buy a fraction of an Nvidia server rack.
+                    </p>
                 </div>
             </div>
+        </section>
 
-            <div id="tab-rightsizing" class="tab-content hidden animate-fade-in">
-                <div class="flex items-start space-x-4">
-                    <div class="text-4xl text-accent hidden md:block">&#8601;</div>
+        <section id="productivity-reality">
+            <div class="mb-8">
+                <h2 class="text-3xl font-semibold mb-4 text-stone-800"><span class="visual-icon mr-3">📈</span>The Productivity Disconnect</h2>
+                <p class="text-lg text-stone-600 leading-relaxed">
+                    If AI were truly taking over human jobs at scale, we would expect a massive spike in productivity. This section shows the disconnect: despite billions invested, aggregate productivity gains remain average. This highlights the risk of the current bet; if these expensive GPUs don't start producing massive output gains, companies will be forced to pivot back to hiring.
+                </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-stone-200">
+                <div class="mb-6">
+                    <h3 class="text-xl font-bold text-stone-800">US Labor Productivity Growth vs. AI Investment Period</h3>
+                    <p class="text-sm text-stone-500 mt-1">Nonfarm Business Sector Labor Productivity (% Change). Source: Bureau of Labor Statistics.</p>
+                </div>
+                
+                <div class="chart-container">
+                    <canvas id="productivityChart"></canvas>
+                </div>
+
+                <div class="mt-6 p-4 bg-stone-50 rounded-lg border border-stone-100">
+                    <p class="text-stone-600 text-sm">
+                        <strong class="text-stone-800">Conclusion:</strong> We are in a "TBD" phase. AI is exceptionally good at micro-tasks but cannot yet manage macro-workflows. Until it can, it isn't replacing roles, only supplementing them. The layoffs are an accounting maneuver, not a technological replacement of the workforce.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="augmentation-future">
+            <div class="mb-8">
+                <h2 class="text-3xl font-semibold mb-4 text-stone-800"><span class="visual-icon mr-3">🤝</span>Task Augmentation, Not Role Replacement</h2>
+                <p class="text-lg text-stone-600 leading-relaxed">
+                    How will AI actually affect jobs? It automates *tasks*, not *roles*. By automating the repetitive 30-50% of a job, human workers are freed up—and eventually required—to focus on higher-level strategy and verification.
+                </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-stone-200">
+                <div class="flex flex-wrap gap-2 mb-8" id="role-selectors">
+                    <button class="tab-btn active px-4 py-2 rounded-full border border-stone-300 text-stone-600 font-medium transition-colors hover:bg-stone-100" data-role="swe">Software Engineer</button>
+                    <button class="tab-btn px-4 py-2 rounded-full border border-stone-300 text-stone-600 font-medium transition-colors hover:bg-stone-100" data-role="mkt">Marketing Manager</button>
+                    <button class="tab-btn px-4 py-2 rounded-full border border-stone-300 text-stone-600 font-medium transition-colors hover:bg-stone-100" data-role="cst">Customer Success</button>
+                </div>
+
+                <div id="role-content" class="grid md:grid-cols-2 gap-8 items-center">
                     <div>
-                        <h3 class="text-xl font-bold text-primary mb-2">Rightsizing the 2021-2022 Hiring Boom</h3>
-                        <p class="text-textmain leading-relaxed mb-3">
-                            Beyond infrastructure costs, a significant portion of current layoffs are delayed corrections from the zero-interest-rate environment of 2021 and 2022. During that period, tech companies and adjacent industries engaged in aggressive talent hoarding, expanding teams far beyond sustainable operational needs.
-                        </p>
-                        <p class="text-textmain leading-relaxed">
-                            As market realities set in, these inflated organizational structures became financial liabilities. "AI restructuring" provides a convenient, forward-looking public relations narrative for what is essentially a standard corporate downsizing and return to pre-pandemic headcount efficiency ratios. Blaming AI appeases shareholders by signaling technological advancement, masking the reality of poor past headcount planning.
-                        </p>
+                        <h3 id="role-title" class="text-2xl font-bold text-stone-800 mb-2">Software Engineer</h3>
+                        <p id="role-desc" class="text-stone-600 mb-6">The role shifts from writing syntax to system architecture and prompt orchestration.</p>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between text-sm font-semibold text-stone-700 mb-1">
+                                    <span>AI Automated Tasks</span>
+                                    <span id="ai-pct">30%</span>
+                                </div>
+                                <div class="w-full bg-stone-100 rounded-full h-4">
+                                    <div id="ai-bar" class="bg-rose-500 h-4 rounded-full transition-all duration-500" style="width: 30%"></div>
+                                </div>
+                                <p id="ai-tasks" class="text-xs text-stone-500 mt-1">Boilerplate code generation, basic unit tests, syntax debugging.</p>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm font-semibold text-stone-700 mb-1">
+                                    <span>Human Execution & Strategy</span>
+                                    <span id="hu-pct">70%</span>
+                                </div>
+                                <div class="w-full bg-stone-100 rounded-full h-4">
+                                    <div id="hu-bar" class="bg-slate-700 h-4 rounded-full transition-all duration-500" style="width: 70%"></div>
+                                </div>
+                                <p id="hu-tasks" class="text-xs text-stone-500 mt-1">System design, complex logical problem solving, code review, user requirement gathering.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-amber-50 p-6 rounded-lg border border-amber-100">
+                        <h4 class="font-bold text-amber-900 mb-3 flex items-center">
+                            <span class="mr-2">✨</span> Newly Created Needs
+                        </h4>
+                        <ul id="new-needs" class="space-y-2 text-amber-800 text-sm list-disc list-inside">
+                            <li>AI Output Verification / QA</li>
+                            <li>Prompt Engineering & Context Management</li>
+                            <li>Integration of fragmented AI services</li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </section>
 
-    </div>
+    </main>
+
+    <footer class="bg-stone-100 border-t border-stone-200 py-12 text-center text-stone-500 text-sm mt-12 px-6">
+        <div class="max-w-3xl mx-auto">
+            <p class="font-semibold text-stone-700 mb-2">The Pendulum Will Swing Back</p>
+            <p>The current hyper-focus on infrastructure spending at the expense of human capital is a cyclical tech phenomenon. As companies realize AI tools require human operators to extract actual business value, hiring budgets will re-adjust to support the new, augmented workflow.</p>
+        </div>
+    </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            
-            Chart.defaults.font.family = "'Inter', 'system-ui', 'sans-serif'";
-            Chart.defaults.color = '#64748B';
-
-            const breakdownCtx = document.getElementById('breakdownChart').getContext('2d');
-            new Chart(breakdownCtx, {
-                type: 'doughnut',
-                data: {
-                    labels: [
-                        'Actual AI Replacement', 
-                        'Budget Reallocation (Hardware/Power)', 
-                        'Rightsizing (21-22 Boom Correction)'
-                    ],
-                    datasets: [{
-                        data: [2, 48, 50],
-                        backgroundColor: [
-                            '#C05A42', 
-                            '#4A7C89', 
-                            '#2C3E50'  
-                        ],
-                        borderWidth: 2,
-                        borderColor: '#FFFFFF',
-                        hoverOffset: 4
-                    }]
+        const chartCommonOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: { font: { family: '-apple-system, sans-serif' }, color: '#44403c' }
                 },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                            labels: {
-                                padding: 20,
-                                usePointStyle: true,
-                                generateLabels: function(chart) {
-                                    const data = chart.data;
-                                    if (data.labels.length && data.datasets.length) {
-                                        return data.labels.map(function(label, i) {
-                                            const meta = chart.getDatasetMeta(0);
-                                            const style = meta.controller.getStyle(i);
-                                            
-                                            let wrappedLabel = label;
-                                            if (label.length > 16) {
-                                                wrappedLabel = label.substring(0, 16) + '...';
-                                            }
-                                            
-                                            return {
-                                                text: wrappedLabel + ' (' + data.datasets[0].data[i] + '%)',
-                                                fillStyle: style.backgroundColor,
-                                                strokeStyle: style.borderColor,
-                                                lineWidth: style.borderWidth,
-                                                hidden: isNaN(data.datasets[0].data[i]) || meta.data[i].hidden,
-                                                index: i
-                                            };
-                                        });
-                                    }
-                                    return [];
-                                }
-                            }
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    return ' ' + context.label + ': ' + context.parsed + '%';
-                                }
-                            },
-                            padding: 12,
-                            backgroundColor: 'rgba(44, 62, 80, 0.9)'
-                        }
-                    },
-                    cutout: '65%'
+                tooltip: {
+                    backgroundColor: '#292524',
+                    padding: 12,
+                    cornerRadius: 8
                 }
-            });
+            },
+            scales: {
+                x: { grid: { display: false }, ticks: { color: '#78716c' } },
+                y: { grid: { color: '#e7e5e4' }, ticks: { color: '#78716c' } }
+            }
+        };
 
-            const budgetCtx = document.getElementById('budgetChart').getContext('2d');
-            new Chart(budgetCtx, {
-                type: 'bar',
-                data: {
-                    labels: ['Pre-AI (2022 Model)', 'Post-AI (2026 Model)'],
-                    datasets: [
-                        {
-                            label: 'Labor / Payroll',
-                            data: [85, 55],
-                            backgroundColor: '#2C3E50',
-                            borderRadius: {topLeft: 0, topRight: 0, bottomLeft: 4, bottomRight: 4}
-                        },
-                        {
-                            label: 'Traditional IT/Software',
-                            data: [15, 15],
-                            backgroundColor: '#94A3B8',
-                        },
-                        {
-                            label: 'AI Infrastructure & Power',
-                            data: [0, 30],
-                            backgroundColor: '#4A7C89',
-                            borderRadius: {topLeft: 4, topRight: 4, bottomLeft: 0, bottomRight: 0}
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        x: {
-                            stacked: true,
-                            grid: { display: false }
-                        },
-                        y: {
-                            stacked: true,
-                            beginAtZero: true,
-                            max: 100,
-                            ticks: {
-                                callback: function(value) { return value + '%'; }
-                            },
-                            title: {
-                                display: true,
-                                text: 'Percentage of Total Opex'
-                            }
-                        }
+        // Budget Data for different companies
+        const budgetData = {
+            aggregate: {
+                title: "Big Tech CAPEX vs. OPEX (Aggregate)",
+                analysis: "Across the board, the trend is clear: infrastructure is winning the budget war. While growth in people-spending has stalled, growth in server and power spending has nearly tripled.",
+                capex: [110, 135, 175, 230, 285],
+                opex: [150, 180, 175, 165, 160]
+            },
+            meta: {
+                title: "Meta: The 'Year of Efficiency' Shift",
+                analysis: "Meta is the poster child for this story. In 2023, they executed massive layoffs (OPEX drop) while simultaneously announcing a massive increase in GPU acquisition for their 'Llama' models (CAPEX spike).",
+                capex: [25, 30, 38, 45, 55],
+                opex: [60, 72, 65, 58, 55]
+            },
+            microsoft: {
+                title: "Microsoft: Funding the Azure-OpenAI Engine",
+                analysis: "Microsoft's strategy has been slightly more stable but still shows a reallocation. Most of their hiring is now in specialized AI teams, while generic administrative and non-AI product roles see cuts to fuel Azure Data Center expansion.",
+                capex: [40, 50, 65, 90, 110],
+                opex: [55, 62, 63, 64, 62]
+            },
+            alphabet: {
+                title: "Alphabet (Google): Reorg for AI-First",
+                analysis: "Google has faced intense pressure to catch up. They've consolidated units (DeepMind + Brain) and laid off thousands in legacy areas like Ads and Sales to protect the massive spend required for Gemini compute.",
+                capex: [35, 42, 55, 75, 95],
+                opex: [45, 55, 54, 52, 53]
+            }
+        };
+
+        const ctxBudget = document.getElementById('budgetChart').getContext('2d');
+        let budgetChart = new Chart(ctxBudget, {
+            type: 'bar',
+            data: {
+                labels: ['2021', '2022', '2023', '2024', '2025 (Est)'],
+                datasets: [
+                    {
+                        label: 'CAPEX (AI Infrastructure & Energy)',
+                        data: budgetData.aggregate.capex,
+                        backgroundColor: '#334155', 
+                        borderRadius: 4
                     },
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                            labels: {
-                                usePointStyle: true,
-                                padding: 20
-                            }
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    return ' ' + context.dataset.label + ': ' + context.parsed.y + '%';
-                                }
-                            },
-                            padding: 12,
-                            backgroundColor: 'rgba(44, 62, 80, 0.9)'
-                        }
+                    {
+                        label: 'OPEX (Human Headcount & Recruiting)',
+                        data: budgetData.aggregate.opex,
+                        backgroundColor: '#e11d48', 
+                        borderRadius: 4
                     }
+                ]
+            },
+            options: {
+                ...chartCommonOptions,
+                scales: {
+                    ...chartCommonOptions.scales,
+                    y: { ...chartCommonOptions.scales.y, title: { display: true, text: 'Billions (USD)' } }
                 }
-            });
+            }
         });
 
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(el => {
-                el.classList.add('hidden');
-            });
-            document.querySelectorAll('.tab-btn').forEach(el => {
-                el.classList.remove('active');
-            });
+        // Filter Logic
+        document.getElementById('company-filter').addEventListener('change', function(e) {
+            const company = e.target.value;
+            const data = budgetData[company];
+            
+            document.getElementById('budget-chart-title').textContent = data.title;
+            document.getElementById('budget-analysis-text').textContent = data.analysis;
+            
+            budgetChart.data.datasets[0].data = data.capex;
+            budgetChart.data.datasets[1].data = data.opex;
+            budgetChart.update();
+        });
 
-            document.getElementById(tabId).classList.remove('hidden');
-            event.currentTarget.classList.add('active');
-        }
+        const ctxProd = document.getElementById('productivityChart').getContext('2d');
+        new Chart(ctxProd, {
+            type: 'line',
+            data: {
+                labels: ['2019', '2020', '2021', '2022', '2023', '2024'],
+                datasets: [
+                    {
+                        label: 'Labor Productivity Growth (%)',
+                        data: [1.8, 2.4, 2.1, -1.9, 1.3, 1.5],
+                        borderColor: '#d97706', 
+                        backgroundColor: '#d97706',
+                        borderWidth: 3,
+                        pointBackgroundColor: '#fff',
+                        pointRadius: 5,
+                        tension: 0.3
+                    },
+                    {
+                        label: 'Historical Average (2.1%)',
+                        data: [2.1, 2.1, 2.1, 2.1, 2.1, 2.1],
+                        borderColor: '#94a3b8',
+                        borderDash: [5, 5],
+                        pointRadius: 0,
+                        fill: false
+                    }
+                ]
+            },
+            options: chartCommonOptions
+        });
+
+        const roleData = {
+            swe: {
+                title: "Software Engineer",
+                desc: "The role shifts from writing repetitive syntax to system architecture and prompt orchestration.",
+                aiPct: 30, aiTasks: "Boilerplate code generation, basic unit tests, syntax debugging.",
+                huPct: 70, huTasks: "System design, complex logical problem solving, code review, user requirement gathering.",
+                newNeeds: ["AI Output Verification / QA", "Prompt Engineering & Context Management", "Integration of fragmented AI services"]
+            },
+            mkt: {
+                title: "Marketing Manager",
+                desc: "Moving away from drafting initial copy toward strategic campaign design and audience psychology.",
+                aiPct: 40, aiTasks: "First-draft copy generation, basic image resizing, standard SEO keyword grouping.",
+                huPct: 60, huTasks: "Brand voice governance, emotional resonance testing, cross-channel strategy planning.",
+                newNeeds: ["Curation of AI-generated assets", "Advanced Data Privacy compliance", "Prompt tuning for brand safety"]
+            },
+            cst: {
+                title: "Customer Success",
+                desc: "Transitioning from answering FAQs to handling high-stakes relational escalations.",
+                aiPct: 50, aiTasks: "Tier 1 password resets, basic documentation linking, sentiment analysis routing.",
+                huPct: 50, huTasks: "De-escalating angry clients, negotiating renewals, bespoke technical consulting.",
+                newNeeds: ["Managing AI Chatbot knowledge bases", "Empathy-driven relationship building", "Complex edge-case resolution"]
+            }
+        };
+
+        const buttons = document.querySelectorAll('.tab-btn');
+        const rTitle = document.getElementById('role-title');
+        const rDesc = document.getElementById('role-desc');
+        const aiPctTxt = document.getElementById('ai-pct');
+        const aiBar = document.getElementById('ai-bar');
+        const aiTasks = document.getElementById('ai-tasks');
+        const huPctTxt = document.getElementById('hu-pct');
+        const huBar = document.getElementById('hu-bar');
+        const huTasks = document.getElementById('hu-tasks');
+        const newNeeds = document.getElementById('new-needs');
+
+        buttons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                buttons.forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+                const roleId = e.target.getAttribute('data-role');
+                const data = roleData[roleId];
+                rTitle.textContent = data.title;
+                rDesc.textContent = data.desc;
+                aiPctTxt.textContent = data.aiPct + '%';
+                aiBar.style.width = data.aiPct + '%';
+                aiTasks.textContent = data.aiTasks;
+                huPctTxt.textContent = data.huPct + '%';
+                huBar.style.width = data.huPct + '%';
+                huTasks.textContent = data.huTasks;
+                newNeeds.innerHTML = '';
+                data.newNeeds.forEach(need => {
+                    const li = document.createElement('li');
+                    li.textContent = need;
+                    newNeeds.appendChild(li);
+                });
+            });
+        });
     </script>
 </body>
 </html>
