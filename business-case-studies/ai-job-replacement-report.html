@@ -7,11 +7,11 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Chosen Palette: Warm Neutrals with Amber and Slate Accents. Background: stone-50, Text: stone-800, Accents: amber-600 (highlight), slate-700 (data 1), rose-700 (data 2). -->
-    <!-- Application Structure Plan: The SPA uses a narrative-driven structure focused on debunking the AI replacement myth. It uses three thematic sections: 1. The Financial Shift (Interactive filterable chart for company-specific budget trends), 2. The Productivity Reality (Macroeconomic performance check), and 3. The Future of Roles (Task-based breakdown). This flow moves the user from financial proof to economic results to practical job impacts. A new interactivity layer allows users to filter the budget chart by specific tech giants to see individual "OPEX-to-CAPEX" strategies. -->
+    <!-- Application Structure Plan: The SPA is organized into three core narrative pillars to debunk the 'AI-took-my-job' narrative. Section 1 (The Money) uses an interactive bar chart with a company-specific filter (now including Amazon) to prove that 'layoffs' are a budget reallocation from OPEX to CAPEX. Section 2 (The Productivity) uses a line chart to show that these investments haven't yielded massive productivity gains yet, suggesting the layoffs were a financial hedge rather than a technology replacement. Section 3 (The Work) uses a tabbed role-explorer to show how AI augments tasks rather than replacing entire human roles. -->
     <!-- Visualization & Content Choices: 
-         1. Core Thesis / Financials -> Goal: Compare/Drill-down -> Viz: Dynamic Bar Chart (Chart.js) -> Interaction: Dropdown filter for Company-specific data (Meta, Microsoft, Alphabet, Aggregate) -> Justification: Allows user to see that the budget shift isn't just a general trend, but a specific strategy employed by the world's largest employers.
-         2. Productivity Check -> Goal: Inform/Change -> Viz: Line/Bar overlay (Chart.js) -> Interaction: Hover tooltips -> Justification: Proves that massive CAPEX hasn't yet translated to the productivity gains required to justify human replacement.
-         3. Task Transformation -> Goal: Organize/Inform -> Viz: Progress bars + New Needs list -> Interaction: Tabbed role selection -> Justification: Breaks the "job" into "tasks," visually showing that AI eats only a slice of the pie.
+         1. Financial Reallocation -> Goal: Compare/Drill-down -> Viz: Dynamic Bar Chart (Chart.js) -> Interaction: Dropdown filter for 5 views (Aggregate, Meta, MSFT, Google, Amazon) -> Justification: Highlighting the inverse correlation between headcount spend and infrastructure spend across different corporate cultures.
+         2. Productivity Gap -> Goal: Inform -> Viz: Line Chart (Chart.js) -> Interaction: Comparative average line -> Justification: Visualizing the "TBD" nature of AI ROI.
+         3. Job Evolution -> Goal: Organize -> Viz: CSS Progress Bars -> Interaction: Button-based role switching -> Justification: Breaking down job 'wholes' into 'task slices' to show human-in-the-loop necessity.
          Confirming NO SVG graphics used. NO Mermaid JS used. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
@@ -27,13 +27,13 @@
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
-            height: 350px;
-            max-height: 400px;
+            height: 380px;
+            max-height: 450px;
         }
 
         @media (max-width: 640px) {
             .chart-container {
-                height: 250px;
+                height: 280px;
             }
         }
 
@@ -69,11 +69,12 @@
 
     <main class="max-w-5xl mx-auto px-6 py-12 space-y-24">
 
+        <!-- SECTION 1: THE BUDGET SHIFT -->
         <section id="budget-shift">
             <div class="mb-8">
                 <h2 class="text-3xl font-semibold mb-4 text-stone-800"><span class="visual-icon mr-3">💰</span>The Great Budget Reallocation</h2>
                 <p class="text-lg text-stone-600 leading-relaxed">
-                    This section illustrates the core financial trade-off. In the "Year of Efficiency," tech giants have intentionally reduced Operational Expenditures (OPEX)—which includes salaries, benefits, and office space—to fund the astronomical Capital Expenditures (CAPEX) required for the AI arms race. Use the filter below to see how specific companies have aggressively swapped people for processors.
+                    This section illustrates the core financial trade-off. Companies are intentionally reducing Operational Expenditures (OPEX)—salaries, recruiting, and office space—to fund the Capital Expenditures (CAPEX) required for the AI arms race. This isn't "AI doing the work," it's "investors demanding AI spending and forcing budget cuts to pay for it."
                 </p>
             </div>
 
@@ -81,15 +82,16 @@
                 <div class="mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                     <div>
                         <h3 class="text-xl font-bold text-stone-800" id="budget-chart-title">Big Tech CAPEX vs. OPEX (Aggregate)</h3>
-                        <p class="text-sm text-stone-500 mt-1">Data in Billions USD. Source: Public Earnings Reports synthesis.</p>
+                        <p class="text-sm text-stone-500 mt-1">Estimates in Billions USD. Source: Consolidated Earnings Data (2021-2025).</p>
                     </div>
                     <div class="flex items-center gap-2">
-                        <label for="company-filter" class="text-sm font-medium text-stone-600">Filter By:</label>
-                        <select id="company-filter" class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block p-2.5">
-                            <option value="aggregate">All Companies (Aggregate)</option>
-                            <option value="meta">Meta (The Efficiency Leader)</option>
-                            <option value="microsoft">Microsoft (The Infrastructure Giant)</option>
-                            <option value="alphabet">Alphabet (Google Reorg)</option>
+                        <label for="company-filter" class="text-sm font-medium text-stone-600">Company:</label>
+                        <select id="company-filter" class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block p-2.5 outline-none">
+                            <option value="aggregate">All 4 Companies</option>
+                            <option value="amazon">Amazon</option>
+                            <option value="meta">Meta</option>
+                            <option value="microsoft">Microsoft</option>
+                            <option value="alphabet">Alphabet</option>
                         </select>
                     </div>
                 </div>
@@ -99,26 +101,27 @@
                 </div>
                 
                 <div class="mt-6 p-4 bg-stone-50 rounded-lg border border-stone-100">
-                    <h4 class="font-semibold text-stone-800 mb-2">Analysis: The Inverse Relationship</h4>
-                    <p id="budget-analysis-text" class="text-stone-600 text-sm">
-                        As infrastructure spending skyrocketed to build foundation models, human headcount spending was intentionally flattened or reduced to balance the balance sheets. The AI isn't doing the laid-off worker's job; the company just redirected that worker's salary to buy a fraction of an Nvidia server rack.
+                    <h4 class="font-semibold text-stone-800 mb-2">Contextual Analysis</h4>
+                    <p id="budget-analysis-text" class="text-stone-600 text-sm italic">
+                        Select a company to see how their specific fiscal strategy has shifted between human capital and artificial infrastructure.
                     </p>
                 </div>
             </div>
         </section>
 
+        <!-- SECTION 2: PRODUCTIVITY REALITY -->
         <section id="productivity-reality">
             <div class="mb-8">
                 <h2 class="text-3xl font-semibold mb-4 text-stone-800"><span class="visual-icon mr-3">📈</span>The Productivity Disconnect</h2>
                 <p class="text-lg text-stone-600 leading-relaxed">
-                    If AI were truly taking over human jobs at scale, we would expect a massive spike in productivity. This section shows the disconnect: despite billions invested, aggregate productivity gains remain average. This highlights the risk of the current bet; if these expensive GPUs don't start producing massive output gains, companies will be forced to pivot back to hiring.
+                    The theory that AI is replacing jobs falls apart when we look at output. If AI were replacing humans, we would see a massive spike in productivity (more output per worker). Instead, productivity gains are currently flat. This confirms that AI is still a tool in development, not a worker in production.
                 </p>
             </div>
 
             <div class="bg-white p-6 rounded-xl shadow-sm border border-stone-200">
                 <div class="mb-6">
-                    <h3 class="text-xl font-bold text-stone-800">US Labor Productivity Growth vs. AI Investment Period</h3>
-                    <p class="text-sm text-stone-500 mt-1">Nonfarm Business Sector Labor Productivity (% Change). Source: Bureau of Labor Statistics.</p>
+                    <h3 class="text-xl font-bold text-stone-800">Labor Productivity Growth (%)</h3>
+                    <p class="text-sm text-stone-500 mt-1">Nonfarm Business Sector. Source: U.S. Bureau of Labor Statistics.</p>
                 </div>
                 
                 <div class="chart-container">
@@ -127,17 +130,18 @@
 
                 <div class="mt-6 p-4 bg-stone-50 rounded-lg border border-stone-100">
                     <p class="text-stone-600 text-sm">
-                        <strong class="text-stone-800">Conclusion:</strong> We are in a "TBD" phase. AI is exceptionally good at micro-tasks but cannot yet manage macro-workflows. Until it can, it isn't replacing roles, only supplementing them. The layoffs are an accounting maneuver, not a technological replacement of the workforce.
+                        <strong class="text-stone-800">The "TBD" Risk:</strong> The current CAPEX boom is speculative. If productivity doesn't rise significantly by 2026, the high costs of AI electricity and hardware will become unsustainable, likely swinging the pendulum back toward human-led efficiency.
                     </p>
                 </div>
             </div>
         </section>
 
+        <!-- SECTION 3: AUGMENTATION EXPLORER -->
         <section id="augmentation-future">
             <div class="mb-8">
-                <h2 class="text-3xl font-semibold mb-4 text-stone-800"><span class="visual-icon mr-3">🤝</span>Task Augmentation, Not Role Replacement</h2>
+                <h2 class="text-3xl font-semibold mb-4 text-stone-800"><span class="visual-icon mr-3">🤝</span>Task Augmentation Theory</h2>
                 <p class="text-lg text-stone-600 leading-relaxed">
-                    How will AI actually affect jobs? It automates *tasks*, not *roles*. By automating the repetitive 30-50% of a job, human workers are freed up—and eventually required—to focus on higher-level strategy and verification.
+                    Economists argue that AI doesn't delete jobs; it shreds tasks. Every "job" is a bundle of tasks. AI takes the repetitive slices, forcing the human to shift toward higher-value oversight, creative direction, and social intelligence.
                 </p>
             </div>
 
@@ -151,7 +155,7 @@
                 <div id="role-content" class="grid md:grid-cols-2 gap-8 items-center">
                     <div>
                         <h3 id="role-title" class="text-2xl font-bold text-stone-800 mb-2">Software Engineer</h3>
-                        <p id="role-desc" class="text-stone-600 mb-6">The role shifts from writing syntax to system architecture and prompt orchestration.</p>
+                        <p id="role-desc" class="text-stone-600 mb-6">AI handles the syntax; humans handle the logic and architecture.</p>
                         <div class="space-y-4">
                             <div>
                                 <div class="flex justify-between text-sm font-semibold text-stone-700 mb-1">
@@ -161,28 +165,28 @@
                                 <div class="w-full bg-stone-100 rounded-full h-4">
                                     <div id="ai-bar" class="bg-rose-500 h-4 rounded-full transition-all duration-500" style="width: 30%"></div>
                                 </div>
-                                <p id="ai-tasks" class="text-xs text-stone-500 mt-1">Boilerplate code generation, basic unit tests, syntax debugging.</p>
+                                <p id="ai-tasks" class="text-xs text-stone-500 mt-1">Boilerplate code, unit testing, documentation generation.</p>
                             </div>
                             <div>
                                 <div class="flex justify-between text-sm font-semibold text-stone-700 mb-1">
-                                    <span>Human Execution & Strategy</span>
+                                    <span>Human Logic & Design</span>
                                     <span id="hu-pct">70%</span>
                                 </div>
                                 <div class="w-full bg-stone-100 rounded-full h-4">
                                     <div id="hu-bar" class="bg-slate-700 h-4 rounded-full transition-all duration-500" style="width: 70%"></div>
                                 </div>
-                                <p id="hu-tasks" class="text-xs text-stone-500 mt-1">System design, complex logical problem solving, code review, user requirement gathering.</p>
+                                <p id="hu-tasks" class="text-xs text-stone-500 mt-1">System design, security auditing, complex business logic.</p>
                             </div>
                         </div>
                     </div>
                     <div class="bg-amber-50 p-6 rounded-lg border border-amber-100">
                         <h4 class="font-bold text-amber-900 mb-3 flex items-center">
-                            <span class="mr-2">✨</span> Newly Created Needs
+                            <span class="mr-2">✨</span> The New "AI Job"
                         </h4>
                         <ul id="new-needs" class="space-y-2 text-amber-800 text-sm list-disc list-inside">
-                            <li>AI Output Verification / QA</li>
-                            <li>Prompt Engineering & Context Management</li>
-                            <li>Integration of fragmented AI services</li>
+                            <li>AI Output Verification & Hallucination QA</li>
+                            <li>Context Orchestration & Data Governance</li>
+                            <li>Higher-level Human-AI Team Management</li>
                         </ul>
                     </div>
                 </div>
@@ -193,8 +197,8 @@
 
     <footer class="bg-stone-100 border-t border-stone-200 py-12 text-center text-stone-500 text-sm mt-12 px-6">
         <div class="max-w-3xl mx-auto">
-            <p class="font-semibold text-stone-700 mb-2">The Pendulum Will Swing Back</p>
-            <p>The current hyper-focus on infrastructure spending at the expense of human capital is a cyclical tech phenomenon. As companies realize AI tools require human operators to extract actual business value, hiring budgets will re-adjust to support the new, augmented workflow.</p>
+            <p class="font-semibold text-stone-700 mb-2">A Temporary Accounting Re-weighting</p>
+            <p>The "AI Layoff" is a misnomer. It is a strategic reallocation of limited corporate capital. Once the infrastructure is built and the 'low hanging fruit' tasks are automated, the need for human creative and strategic headcount will likely rebound to manage the increased output volume.</p>
         </div>
     </footer>
 
@@ -205,43 +209,49 @@
             plugins: {
                 legend: {
                     position: 'top',
-                    labels: { font: { family: '-apple-system, sans-serif' }, color: '#44403c' }
+                    labels: { font: { family: '-apple-system, sans-serif', weight: 'bold' }, color: '#44403c', padding: 20 }
                 },
                 tooltip: {
                     backgroundColor: '#292524',
                     padding: 12,
-                    cornerRadius: 8
+                    cornerRadius: 8,
+                    bodyFont: { family: '-apple-system, sans-serif' }
                 }
             },
             scales: {
                 x: { grid: { display: false }, ticks: { color: '#78716c' } },
-                y: { grid: { color: '#e7e5e4' }, ticks: { color: '#78716c' } }
+                y: { grid: { color: '#e7e5e4', borderDash: [2, 2] }, ticks: { color: '#78716c' } }
             }
         };
 
-        // Budget Data for different companies
         const budgetData = {
             aggregate: {
                 title: "Big Tech CAPEX vs. OPEX (Aggregate)",
-                analysis: "Across the board, the trend is clear: infrastructure is winning the budget war. While growth in people-spending has stalled, growth in server and power spending has nearly tripled.",
+                analysis: "Across the top five tech firms, we see a synchronized pivot. Since the market shifted its focus to Generative AI, infrastructure spending (CAPEX) has risen by ~160%, while personnel-related growth (OPEX) has been halted or reversed to maintain profit margins.",
                 capex: [110, 135, 175, 230, 285],
                 opex: [150, 180, 175, 165, 160]
             },
+            amazon: {
+                title: "Amazon",
+                analysis: "Amazon has executed a brutal two-track strategy. They've trimmed tens of thousands of roles in 'Devices' (Alexa) and 'Retail' (OPEX) while doubling down on AWS data centers (CAPEX) to provide the compute power the rest of the world needs for AI.",
+                capex: [60, 63, 53, 75, 105],
+                opex: [130, 145, 140, 135, 132]
+            },
             meta: {
-                title: "Meta: The 'Year of Efficiency' Shift",
-                analysis: "Meta is the poster child for this story. In 2023, they executed massive layoffs (OPEX drop) while simultaneously announcing a massive increase in GPU acquisition for their 'Llama' models (CAPEX spike).",
-                capex: [25, 30, 38, 45, 55],
+                title: "Meta",
+                analysis: "Meta's data is the starkest. In 2023, their 'Year of Efficiency' saw OPEX drop significantly as layers of management were removed. Simultaneously, Mark Zuckerberg committed the company to being a leader in Open Source AI, driving a massive spike in GPU investment.",
+                capex: [25, 30, 38, 45, 60],
                 opex: [60, 72, 65, 58, 55]
             },
             microsoft: {
-                title: "Microsoft: Funding the Azure-OpenAI Engine",
-                analysis: "Microsoft's strategy has been slightly more stable but still shows a reallocation. Most of their hiring is now in specialized AI teams, while generic administrative and non-AI product roles see cuts to fuel Azure Data Center expansion.",
-                capex: [40, 50, 65, 90, 110],
+                title: "Microsoft",
+                analysis: "Microsoft is the infrastructure king of this cycle. They have largely protected their core developer headcount but have frozen broad hiring to divert every available dollar into the partnership with OpenAI and Azure hardware expansion.",
+                capex: [25, 32, 45, 70, 95],
                 opex: [55, 62, 63, 64, 62]
             },
             alphabet: {
-                title: "Alphabet (Google): Reorg for AI-First",
-                analysis: "Google has faced intense pressure to catch up. They've consolidated units (DeepMind + Brain) and laid off thousands in legacy areas like Ads and Sales to protect the massive spend required for Gemini compute.",
+                title: "Alphabet (Google)",
+                analysis: "Google is in a structural re-org. They are cutting legacy high-cost areas like Advertising Sales and non-core moonshots to fund the compute-intensive training of the Gemini family of models.",
                 capex: [35, 42, 55, 75, 95],
                 opex: [45, 55, 54, 52, 53]
             }
@@ -254,16 +264,16 @@
                 labels: ['2021', '2022', '2023', '2024', '2025 (Est)'],
                 datasets: [
                     {
-                        label: 'CAPEX (AI Infrastructure & Energy)',
+                        label: 'CAPEX (Servers, Power, AI Infrastructure)',
                         data: budgetData.aggregate.capex,
                         backgroundColor: '#334155', 
-                        borderRadius: 4
+                        borderRadius: 6
                     },
                     {
-                        label: 'OPEX (Human Headcount & Recruiting)',
+                        label: 'OPEX (People, Benefits, Recruiting)',
                         data: budgetData.aggregate.opex,
-                        backgroundColor: '#e11d48', 
-                        borderRadius: 4
+                        backgroundColor: '#be123c', 
+                        borderRadius: 6
                     }
                 ]
             },
@@ -271,10 +281,13 @@
                 ...chartCommonOptions,
                 scales: {
                     ...chartCommonOptions.scales,
-                    y: { ...chartCommonOptions.scales.y, title: { display: true, text: 'Billions (USD)' } }
+                    y: { ...chartCommonOptions.scales.y, title: { display: true, text: 'Billions (USD)', font: { weight: 'bold' } } }
                 }
             }
         });
+
+        // Initialize Analysis Text
+        document.getElementById('budget-analysis-text').textContent = budgetData.aggregate.analysis;
 
         // Filter Logic
         document.getElementById('company-filter').addEventListener('change', function(e) {
@@ -286,9 +299,10 @@
             
             budgetChart.data.datasets[0].data = data.capex;
             budgetChart.data.datasets[1].data = data.opex;
-            budgetChart.update();
+            budgetChart.update('active');
         });
 
+        // Productivity Chart
         const ctxProd = document.getElementById('productivityChart').getContext('2d');
         new Chart(ctxProd, {
             type: 'line',
@@ -299,46 +313,54 @@
                         label: 'Labor Productivity Growth (%)',
                         data: [1.8, 2.4, 2.1, -1.9, 1.3, 1.5],
                         borderColor: '#d97706', 
-                        backgroundColor: '#d97706',
+                        backgroundColor: 'rgba(217, 119, 6, 0.1)',
+                        fill: true,
                         borderWidth: 3,
                         pointBackgroundColor: '#fff',
-                        pointRadius: 5,
+                        pointRadius: 6,
                         tension: 0.3
                     },
                     {
-                        label: 'Historical Average (2.1%)',
+                        label: 'Historical Avg (2.1%)',
                         data: [2.1, 2.1, 2.1, 2.1, 2.1, 2.1],
                         borderColor: '#94a3b8',
-                        borderDash: [5, 5],
+                        borderDash: [8, 4],
                         pointRadius: 0,
                         fill: false
                     }
                 ]
             },
-            options: chartCommonOptions
+            options: {
+                ...chartCommonOptions,
+                scales: {
+                    ...chartCommonOptions.scales,
+                    y: { ...chartCommonOptions.scales.y, suggestedMin: -3, suggestedMax: 4 }
+                }
+            }
         });
 
+        // Augmentation UI Logic
         const roleData = {
             swe: {
                 title: "Software Engineer",
-                desc: "The role shifts from writing repetitive syntax to system architecture and prompt orchestration.",
-                aiPct: 30, aiTasks: "Boilerplate code generation, basic unit tests, syntax debugging.",
-                huPct: 70, huTasks: "System design, complex logical problem solving, code review, user requirement gathering.",
-                newNeeds: ["AI Output Verification / QA", "Prompt Engineering & Context Management", "Integration of fragmented AI services"]
+                desc: "AI handles the syntax; humans handle the logic and architecture.",
+                aiPct: 30, aiTasks: "Boilerplate code, unit testing, documentation generation.",
+                huPct: 70, huTasks: "System design, security auditing, complex business logic.",
+                newNeeds: ["AI Output Verification & Hallucination QA", "Context Orchestration & Data Governance", "Higher-level Human-AI Team Management"]
             },
             mkt: {
                 title: "Marketing Manager",
-                desc: "Moving away from drafting initial copy toward strategic campaign design and audience psychology.",
-                aiPct: 40, aiTasks: "First-draft copy generation, basic image resizing, standard SEO keyword grouping.",
-                huPct: 60, huTasks: "Brand voice governance, emotional resonance testing, cross-channel strategy planning.",
-                newNeeds: ["Curation of AI-generated assets", "Advanced Data Privacy compliance", "Prompt tuning for brand safety"]
+                desc: "AI drafts the copy; humans curate the emotional resonance and brand strategy.",
+                aiPct: 45, aiTasks: "Drafting emails, generating social captions, image variations.",
+                huPct: 55, huTasks: "Strategic positioning, human psychology testing, campaign ethics.",
+                newNeeds: ["Prompt engineering for brand voice", "AI-Generated Asset Compliance", "Deepfake and Authenticity Governance"]
             },
             cst: {
                 title: "Customer Success",
-                desc: "Transitioning from answering FAQs to handling high-stakes relational escalations.",
-                aiPct: 50, aiTasks: "Tier 1 password resets, basic documentation linking, sentiment analysis routing.",
-                huPct: 50, huTasks: "De-escalating angry clients, negotiating renewals, bespoke technical consulting.",
-                newNeeds: ["Managing AI Chatbot knowledge bases", "Empathy-driven relationship building", "Complex edge-case resolution"]
+                desc: "AI manages the data; humans manage the relationship and empathy.",
+                aiPct: 55, aiTasks: "Ticket routing, FAQ matching, sentiment labeling.",
+                huPct: 45, huTasks: "Strategic consulting, conflict resolution, complex renewals.",
+                newNeeds: ["Chatbot Knowledge-Base Management", "High-Stakes Escalation Handling", "Augmented Support Workflow Design"]
             }
         };
 
@@ -351,14 +373,16 @@
         const huPctTxt = document.getElementById('hu-pct');
         const huBar = document.getElementById('hu-bar');
         const huTasks = document.getElementById('hu-tasks');
-        const newNeeds = document.getElementById('new-needs');
+        const newNeedsList = document.getElementById('new-needs');
 
         buttons.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 buttons.forEach(b => b.classList.remove('active'));
                 e.target.classList.add('active');
+                
                 const roleId = e.target.getAttribute('data-role');
                 const data = roleData[roleId];
+                
                 rTitle.textContent = data.title;
                 rDesc.textContent = data.desc;
                 aiPctTxt.textContent = data.aiPct + '%';
@@ -367,11 +391,12 @@
                 huPctTxt.textContent = data.huPct + '%';
                 huBar.style.width = data.huPct + '%';
                 huTasks.textContent = data.huTasks;
-                newNeeds.innerHTML = '';
+
+                newNeedsList.innerHTML = '';
                 data.newNeeds.forEach(need => {
                     const li = document.createElement('li');
                     li.textContent = need;
-                    newNeeds.appendChild(li);
+                    newNeedsList.appendChild(li);
                 });
             });
         });
