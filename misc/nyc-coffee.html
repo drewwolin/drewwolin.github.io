@@ -1,0 +1,578 @@
+import React, { useState, useEffect, useMemo } from 'react';
+import { 
+  Coffee, 
+  MapPin, 
+  Dna, 
+  Thermometer, 
+  Droplets, 
+  ChevronRight, 
+  Info, 
+  BarChart3, 
+  Waves,
+  Search,
+  ExternalLink,
+  ChevronLeft
+} from 'lucide-react';
+
+// --- Data Constants ---
+const VARIETIES = [
+  { 
+    id: 'gesha', 
+    name: 'Gesha (Geisha)', 
+    origin: 'Ethiopia/Panama', 
+    profile: 'Jasmine, Bergamot, Peach', 
+    notes: 'Exceedingly floral and tea-like. High difficulty to grow, record auction prices ($13k+/lb).',
+    color: 'bg-indigo-100 border-indigo-500 text-indigo-900',
+    icon: '🌸',
+    roast: 'Light',
+    method: 'Chemex'
+  },
+  { 
+    id: 'bourbon', 
+    name: 'Bourbon', 
+    origin: 'Réunion Island', 
+    profile: 'Caramel, Red Fruit, Chocolate', 
+    notes: 'Foundational variety. Rounded sweetness and medium body. High susceptibility to rust.',
+    color: 'bg-amber-100 border-amber-500 text-amber-900',
+    icon: '🍫',
+    roast: 'Medium',
+    method: 'French Press'
+  },
+  { 
+    id: 'caturra', 
+    name: 'Caturra', 
+    origin: 'Brazil', 
+    profile: 'Citrus, Chocolate, Bright', 
+    notes: 'Dwarf mutation of Bourbon. High yield, common in Colombia and Central America.',
+    color: 'bg-orange-100 border-orange-500 text-orange-900',
+    icon: '🍋',
+    roast: 'Light-Medium',
+    method: 'Aeropress'
+  },
+  { 
+    id: 'pacamara', 
+    name: 'Pacamara', 
+    origin: 'El Salvador', 
+    profile: 'Stone Fruit, Cacao, Savory', 
+    notes: 'Cross between Pacas and Maragogipe. Competition darling with massive beans.',
+    color: 'bg-rose-100 border-rose-500 text-rose-900',
+    icon: '🍑',
+    roast: 'Light-Medium',
+    method: 'Chemex'
+  },
+  { 
+    id: 's795', 
+    name: 'S795 (Jember)', 
+    origin: 'India/Indonesia', 
+    profile: 'Maple Syrup, Dark Berries', 
+    notes: 'Unique genetics including Liberica DNA. Full body, low acidity, rust-resistant.',
+    color: 'bg-emerald-100 border-emerald-500 text-emerald-900',
+    icon: '🍯',
+    roast: 'Medium',
+    method: 'Espresso'
+  },
+  { 
+    id: 'robusta', 
+    name: 'Fine Robusta', 
+    origin: 'Central Africa', 
+    profile: 'Cocoa, Nuts, Whiskey', 
+    notes: 'Fine Robusta standards (>80 points). High caffeine, incredible crema for espresso.',
+    color: 'bg-stone-200 border-stone-600 text-stone-900',
+    icon: '🥃',
+    roast: 'Medium-Dark',
+    method: 'Moka Pot'
+  },
+  { 
+    id: 'eugenioides', 
+    name: 'C. Eugenioides', 
+    origin: 'East Africa', 
+    profile: 'Marshmallow, Toasted Cereal', 
+    notes: 'Rare parent of Arabica. Naturally low caffeine, extremely sweet, no bitterness.',
+    color: 'bg-sky-100 border-sky-500 text-sky-900',
+    icon: '☁️',
+    roast: 'Light',
+    method: 'Aeropress (1:13 ratio)'
+  }
+];
+
+const NYC_SHOPS = [
+  { name: 'Sey Coffee', neighborhood: 'Bushwick, BK', specialty: 'Precision Light Roasts', bio: 'Internationally renowned for clarity and sourcing rare microlots.' },
+  { name: 'Devoción', neighborhood: 'Williamsburg / Flatiron', specialty: 'Fresh Colombian', bio: 'Farm-to-cup within 10 days of roasting. Iconic botanical cafes.' },
+  { name: 'Partners Coffee', neighborhood: 'Williamsburg / LIC', specialty: 'Brooklyn Roast', bio: 'Utilizes Bourbon and Castillo to create chocolatey, toffee-sweet daily drinkers.' },
+  { name: 'Blue Bottle', neighborhood: 'Various (NYC)', specialty: 'Bella Donovan Blend', bio: 'Known for using natural-processed Ethiopian heirlooms for jammy raspberry notes.' },
+  { name: 'Modcup', neighborhood: 'Jersey City, NJ', specialty: 'Experimental Process', bio: 'Famous for high-end varieties and boundary-pushing fermentation techniques across the river.' },
+  { name: 'Roast\'d', neighborhood: 'Jersey City, NJ', specialty: 'Fresh Micro-Batch', bio: 'Focuses on in-house roasting and educating the local community on varietal differences.' },
+  { name: 'Coffee Project NY', neighborhood: 'LIC / Chelsea', specialty: 'Deconstructed Lattes', bio: 'Pioneers in coffee education and innovative sensory experiences.' },
+  { name: 'Arcane Estate', neighborhood: 'UES / Midtown', specialty: 'Estate-Grown Luxury', bio: 'A destination for high-altitude single-estate lots and refined, botanical-inspired brewing.' }
+];
+
+// --- Components ---
+
+const Sidebar = ({ activeSection, setActiveSection }) => {
+  const menuItems = [
+    { id: 'atlas', label: 'Varietal Vault', icon: Coffee },
+    { id: 'nyc', label: 'Gotham Guide', icon: MapPin },
+    { id: 'lab', label: 'Taxonomy Lab', icon: Dna },
+    { id: 'stats', label: 'The Market', icon: BarChart3 },
+    { id: 'brew', label: 'Brew Studio', icon: Waves },
+  ];
+
+  return (
+    <div className="w-20 lg:w-64 bg-stone-900 text-stone-100 h-screen flex flex-col transition-all duration-300 flex-shrink-0">
+      <div className="p-6 border-b border-stone-800 flex items-center gap-3 overflow-hidden">
+        <div className="p-2 bg-amber-600 rounded-lg shrink-0">
+          <Coffee size={24} />
+        </div>
+        <h1 className="text-xl font-bold hidden lg:block tracking-tight text-amber-100">GOTHAM GRIND</h1>
+      </div>
+      
+      <nav className="flex-1 mt-6 px-2 space-y-1">
+        {menuItems.map((item) => (
+          <button
+            key={item.id}
+            onClick={() => setActiveSection(item.id)}
+            className={`w-full flex items-center p-4 lg:px-4 lg:py-3 rounded-xl transition-all ${
+              activeSection === item.id 
+                ? 'bg-amber-600/20 text-amber-500' 
+                : 'text-stone-400 hover:bg-stone-800 hover:text-stone-100'
+            }`}
+          >
+            <item.icon className="shrink-0" size={20} />
+            <span className="ml-3 font-medium hidden lg:block">{item.label}</span>
+          </button>
+        ))}
+      </nav>
+
+      <div className="p-4 border-t border-stone-800 hidden lg:block">
+        <div className="bg-stone-800 rounded-lg p-4 text-xs text-stone-400">
+          <p className="font-semibold text-stone-300 mb-1">NYC Coffee Stats 2026</p>
+          <p>Avg Specialty Price: $31.52/lb</p>
+          <p>Top Shop: Sey Coffee (Bushwick)</p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const VarietalVault = () => {
+  const [selected, setSelected] = useState(VARIETIES[0]);
+
+  return (
+    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+      <header>
+        <h2 className="text-3xl font-bold text-stone-900">The Varietal Vault</h2>
+        <p className="text-stone-500 mt-2">Exploring the genetic diversity that shapes the global specialty market.</p>
+      </header>
+
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <div className="lg:col-span-4 space-y-3">
+          {VARIETIES.map((v) => (
+            <button
+              key={v.id}
+              onClick={() => setSelected(v)}
+              className={`w-full text-left p-4 rounded-xl border-2 transition-all flex items-center justify-between group ${
+                selected.id === v.id ? v.color : 'bg-white border-stone-100 hover:border-stone-200'
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                <span className="text-2xl">{v.icon}</span>
+                <div>
+                  <div className="font-bold">{v.name}</div>
+                  <div className="text-xs opacity-70">{v.origin}</div>
+                </div>
+              </div>
+              <ChevronRight className={`transition-transform ${selected.id === v.id ? 'translate-x-1' : 'group-hover:translate-x-1 opacity-20 group-hover:opacity-100'}`} size={16} />
+            </button>
+          ))}
+        </div>
+
+        <div className="lg:col-span-8">
+          <div className="bg-white rounded-2xl border border-stone-200 shadow-sm overflow-hidden h-full">
+            <div className={`h-32 ${selected.color.split(' ')[0]} flex items-center justify-center relative`}>
+                <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-black via-transparent to-transparent"></div>
+                <span className="text-6xl relative z-10">{selected.icon}</span>
+            </div>
+            <div className="p-8 space-y-6">
+              <div className="flex justify-between items-start">
+                <div>
+                  <h3 className="text-2xl font-bold text-stone-900">{selected.name}</h3>
+                  <span className="px-2 py-1 bg-stone-100 rounded text-xs font-mono text-stone-500 uppercase tracking-widest">{selected.origin}</span>
+                </div>
+                <div className="text-right">
+                  <div className="text-xs text-stone-400 uppercase font-bold tracking-tighter">Ideal Roast</div>
+                  <div className="font-semibold text-amber-700">{selected.roast}</div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="p-4 bg-stone-50 rounded-xl border border-stone-100">
+                  <div className="flex items-center gap-2 text-stone-400 mb-2">
+                    <Waves size={16} />
+                    <span className="text-xs font-bold uppercase">Flavor Profile</span>
+                  </div>
+                  <p className="text-stone-800 font-medium">{selected.profile}</p>
+                </div>
+                <div className="p-4 bg-stone-50 rounded-xl border border-stone-100">
+                  <div className="flex items-center gap-2 text-stone-400 mb-2">
+                    <Coffee size={16} />
+                    <span className="text-xs font-bold uppercase">Brew Method</span>
+                  </div>
+                  <p className="text-stone-800 font-medium">{selected.method}</p>
+                </div>
+              </div>
+
+              <div>
+                <h4 className="text-xs font-bold uppercase text-stone-400 mb-2">Botanical & Market Notes</h4>
+                <p className="text-stone-600 leading-relaxed bg-amber-50/50 p-4 rounded-lg border-l-4 border-amber-500">
+                  {selected.notes}
+                </p>
+              </div>
+
+              <div className="pt-4 border-t border-stone-100 flex items-center gap-2 text-xs text-stone-400 italic">
+                <Info size={14} />
+                Source: Coffee Research Index 2026
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const GothamGuide = () => {
+  return (
+    <div className="space-y-8 animate-in fade-in duration-700">
+      <header>
+        <h2 className="text-3xl font-bold text-stone-900">Gotham Coffee Guide</h2>
+        <p className="text-stone-500 mt-2">A curated selection of the finest roaster-retailers in the Tri-State specialty scene.</p>
+      </header>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+        {NYC_SHOPS.map((shop) => (
+          <div key={shop.name} className="group bg-white rounded-2xl border border-stone-200 p-6 hover:shadow-xl hover:border-amber-500/50 transition-all cursor-pointer">
+            <div className="flex justify-between items-start mb-4">
+              <div className="p-3 bg-stone-100 rounded-xl group-hover:bg-amber-600 group-hover:text-white transition-colors">
+                <MapPin size={24} />
+              </div>
+              <ExternalLink size={16} className="text-stone-300 group-hover:text-stone-500" />
+            </div>
+            <h3 className="font-bold text-xl text-stone-900 mb-1">{shop.name}</h3>
+            <div className="text-amber-600 text-xs font-bold uppercase tracking-wider mb-3">{shop.neighborhood}</div>
+            <div className="space-y-3">
+              <div className="p-2 bg-stone-50 rounded border border-stone-100 text-xs">
+                <span className="font-bold text-stone-500">Specialty:</span> {shop.specialty}
+              </div>
+              <p className="text-sm text-stone-500 leading-relaxed">{shop.bio}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="bg-stone-900 rounded-3xl p-8 text-white relative overflow-hidden">
+        <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-amber-600 opacity-10 blur-3xl rounded-full translate-x-1/2"></div>
+        <div className="relative z-10 flex flex-col md:flex-row items-center gap-8">
+          <div className="flex-1">
+            <h3 className="text-2xl font-bold mb-4">The 2026 Jersey City Expansion</h3>
+            <p className="text-stone-400 mb-6 leading-relaxed">
+              Jersey City has emerged as a major hub for specialty roasting. With modcup's experimental fermentation lots and Roast'd's focus on micro-batch education, the "Sixth Borough" is now a required stop for any serious coffee enthusiast.
+            </p>
+            <button className="px-6 py-3 bg-amber-600 hover:bg-amber-700 rounded-xl font-bold transition-all flex items-center gap-2">
+              Explore the Full Map <ChevronRight size={18} />
+            </button>
+          </div>
+          <div className="w-full md:w-64 h-48 bg-stone-800 rounded-2xl border border-stone-700 flex flex-col items-center justify-center gap-4 text-stone-400">
+            <MapPin size={48} className="text-amber-600" />
+            <span className="text-sm font-mono">Interactive Map Coming Soon</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const TaxonomyLab = () => {
+  return (
+    <div className="space-y-8 animate-in fade-in duration-700">
+      <header>
+        <h2 className="text-3xl font-bold text-stone-900">The Taxonomy Lab</h2>
+        <p className="text-stone-500 mt-2">Visualizing the genetic complexity of the genus Coffea.</p>
+      </header>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="bg-white border border-stone-200 rounded-3xl p-8 relative">
+          <div className="mb-6 flex items-center gap-3">
+            <div className="w-10 h-10 bg-indigo-600 rounded-full flex items-center justify-center text-white font-bold">2n</div>
+            <div>
+              <h3 className="font-bold text-xl">The Diploid Roots</h3>
+              <p className="text-sm text-stone-400">22 Chromosomes</p>
+            </div>
+          </div>
+          <p className="text-stone-600 mb-8">
+            Most coffee species, including Robusta and Eugenioides, are diploid. They are hardy but often lack the complex genetic palette required for the multifaceted acidity found in high-end specialty lots.
+          </p>
+          <div className="flex justify-around items-end h-32 gap-4">
+            <div className="w-16 bg-indigo-100 border-t-4 border-indigo-500 rounded-t-lg h-2/3 flex flex-col items-center justify-center p-2 text-center">
+              <span className="text-xs font-bold text-indigo-900">Robusta</span>
+            </div>
+            <div className="w-16 bg-sky-100 border-t-4 border-sky-500 rounded-t-lg h-1/2 flex flex-col items-center justify-center p-2 text-center">
+              <span className="text-xs font-bold text-sky-900">Eugenioides</span>
+            </div>
+            <div className="w-16 bg-stone-100 border-t-4 border-stone-500 rounded-t-lg h-full flex flex-col items-center justify-center p-2 text-center">
+              <span className="text-xs font-bold text-stone-900">Liberica</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white border border-stone-200 rounded-3xl p-8">
+          <div className="mb-6 flex items-center gap-3">
+            <div className="w-10 h-10 bg-amber-600 rounded-full flex items-center justify-center text-white font-bold">4n</div>
+            <div>
+              <h3 className="font-bold text-xl">The Tetraploid Masterpiece</h3>
+              <p className="text-sm text-stone-400">44 Chromosomes</p>
+            </div>
+          </div>
+          <p className="text-stone-600 mb-8">
+            *Coffea arabica* is a unique natural hybrid. By combining the genetics of *C. eugenioides* and *C. canephora*, it created the complex chemical potential that defines specialty coffee flavor.
+          </p>
+          <div className="relative py-12 flex justify-center">
+             <div className="absolute inset-0 flex items-center justify-center opacity-10">
+                <Dna size={120} className="animate-pulse" />
+             </div>
+             <div className="flex flex-col items-center gap-4 relative z-10">
+                <div className="flex gap-4">
+                   <div className="px-4 py-2 bg-indigo-50 border border-indigo-200 rounded-full text-xs font-bold text-indigo-700">C. Canephora</div>
+                   <span className="text-stone-300 font-bold">+</span>
+                   <div className="px-4 py-2 bg-sky-50 border border-sky-200 rounded-full text-xs font-bold text-sky-700">C. Eugenioides</div>
+                </div>
+                <div className="h-8 w-px bg-stone-200"></div>
+                <div className="p-6 bg-amber-600 text-white rounded-2xl shadow-xl font-bold tracking-widest text-center">
+                  COFFEA ARABICA
+                  <div className="text-[10px] opacity-80 mt-1 font-mono">ENZYMATIC COMPLEXITY REACHED</div>
+                </div>
+             </div>
+          </div>
+        </div>
+      </div>
+      
+      <div className="bg-amber-50 border border-amber-200 rounded-2xl p-6 flex gap-4 items-start">
+        <Info className="text-amber-600 shrink-0 mt-1" size={20} />
+        <div>
+          <h4 className="font-bold text-amber-900 mb-1">Did you know?</h4>
+          <p className="text-sm text-amber-800 leading-relaxed">
+            The F1 hybrid revolution (like Starmaya) is the first major shift in coffee breeding since the 1890s. These "Elite Hybrids" combine wild landrace flavor with modern agricultural resilience, making 87+ point coffee accessible to smallholders who can't grow fragile heirlooms like Gesha.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const MarketStats = () => {
+  return (
+    <div className="space-y-8 animate-in fade-in duration-700">
+      <header>
+        <h2 className="text-3xl font-bold text-stone-900">Market Realities 2026</h2>
+        <p className="text-stone-500 mt-2">Tracking the decoupling of specialty retail from global commodity prices.</p>
+      </header>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="bg-white border border-stone-200 p-6 rounded-2xl">
+          <div className="text-stone-400 text-xs font-bold uppercase mb-1">Avg Specialty Price</div>
+          <div className="text-4xl font-black text-stone-900">$31.52</div>
+          <div className="text-stone-400 text-xs mt-1">Per pound (North America)</div>
+        </div>
+        <div className="bg-white border border-stone-200 p-6 rounded-2xl">
+          <div className="text-stone-400 text-xs font-bold uppercase mb-1">Highest Bid (Gesha)</div>
+          <div className="text-4xl font-black text-amber-600">$13,705</div>
+          <div className="text-stone-400 text-xs mt-1">Per pound (Hacienda La Esmeralda)</div>
+        </div>
+        <div className="bg-white border border-stone-200 p-6 rounded-2xl">
+          <div className="text-stone-400 text-xs font-bold uppercase mb-1">Commodity Gap</div>
+          <div className="text-4xl font-black text-rose-600">10.8x</div>
+          <div className="text-stone-400 text-xs mt-1">Specialty vs. ICO Composite</div>
+        </div>
+      </div>
+
+      <div className="bg-white border border-stone-200 rounded-3xl p-8 overflow-hidden relative">
+        <h3 className="font-bold text-xl mb-6">Price Trend Index (Q1-Q4 2025)</h3>
+        <div className="h-64 w-full flex items-end gap-2 px-4 border-b border-stone-100">
+          {[22, 28, 35, 45, 60, 55, 48, 52, 65, 75, 82, 85].map((h, i) => (
+            <div key={i} className="flex-1 bg-amber-600/10 hover:bg-amber-600 transition-all group relative rounded-t" style={{ height: `${h}%` }}>
+               <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-stone-900 text-white text-[10px] p-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                  Month {i+1}: ${ (20 + (h/3)).toFixed(2) }
+               </div>
+            </div>
+          ))}
+        </div>
+        <div className="flex justify-between mt-4 text-[10px] font-bold text-stone-400 uppercase tracking-widest">
+           <span>Jan 2025</span>
+           <span>Jun 2025</span>
+           <span>Dec 2025</span>
+        </div>
+        <p className="mt-8 text-sm text-stone-500 italic leading-relaxed">
+           While global commodity prices (ICO Composite) fluctuates with weather and political instability, specialty coffee remains insulated by a value-add "quality premium" that consumers are increasingly willing to pay for rare cultivars.
+        </p>
+      </div>
+    </div>
+  );
+};
+
+const BrewStudio = () => {
+  const [coffeeAmount, setCoffeeAmount] = useState(20);
+  const [selectedVariety, setSelectedVariety] = useState(VARIETIES[0]);
+  const [ratio, setRatio] = useState(16);
+
+  useEffect(() => {
+    if (selectedVariety.id === 'eugenioides') setRatio(13);
+    else if (selectedVariety.id === 'robusta') setRatio(15);
+    else setRatio(16);
+  }, [selectedVariety]);
+
+  const waterAmount = useMemo(() => coffeeAmount * ratio, [coffeeAmount, ratio]);
+
+  return (
+    <div className="space-y-8 animate-in fade-in duration-700">
+      <header>
+        <h2 className="text-3xl font-bold text-stone-900">Brew Studio</h2>
+        <p className="text-stone-500 mt-2">Fine-tuning the extraction for specific botanical density.</p>
+      </header>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="bg-white border border-stone-200 rounded-3xl p-8 space-y-8">
+          <div>
+            <label className="block text-xs font-bold text-stone-400 uppercase mb-4 tracking-widest">1. Select Target Variety</label>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+              {VARIETIES.map((v) => (
+                <button
+                  key={v.id}
+                  onClick={() => setSelectedVariety(v)}
+                  className={`p-3 rounded-xl border-2 text-sm font-medium transition-all ${
+                    selectedVariety.id === v.id ? 'border-amber-600 bg-amber-50 text-amber-900' : 'border-stone-100 text-stone-500 hover:border-stone-200'
+                  }`}
+                >
+                  {v.name.split(' ')[0]}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div>
+             <div className="flex justify-between items-center mb-4">
+                <label className="text-xs font-bold text-stone-400 uppercase tracking-widest">2. Dose Weight (g)</label>
+                <span className="text-xl font-black text-amber-600">{coffeeAmount}g</span>
+             </div>
+             <input 
+              type="range" 
+              min="10" 
+              max="50" 
+              value={coffeeAmount} 
+              onChange={(e) => setCoffeeAmount(Number(e.target.value))}
+              className="w-full h-2 bg-stone-100 rounded-lg appearance-none cursor-pointer accent-amber-600"
+             />
+          </div>
+
+          <div className="p-6 bg-stone-900 rounded-2xl text-white flex justify-between items-center">
+             <div>
+                <div className="text-[10px] font-bold text-stone-500 uppercase tracking-widest">Total Water Required</div>
+                <div className="text-3xl font-black">{waterAmount}g</div>
+             </div>
+             <div className="text-right">
+                <div className="text-[10px] font-bold text-stone-500 uppercase tracking-widest">Target Ratio</div>
+                <div className="text-xl font-mono text-amber-500">1:{ratio}</div>
+             </div>
+          </div>
+        </div>
+
+        <div className="space-y-6">
+          <div className="bg-amber-600 rounded-3xl p-8 text-white shadow-xl">
+             <h3 className="font-bold text-xl mb-4 flex items-center gap-2">
+               <Thermometer size={20} /> Pro Tip: Thermal Dynamics
+             </h3>
+             <p className="text-amber-50 leading-relaxed mb-6">
+               For high-altitude {selectedVariety.id === 'gesha' ? 'Gesha' : 'Arabicas'}, the beans are denser. Start your pour with water at 208°F (98°C) to ensure enough energy enters the bean structure for full enzymatic development.
+             </p>
+             <div className="flex gap-4">
+                <div className="flex-1 p-3 bg-white/10 rounded-xl">
+                   <div className="text-[10px] font-bold opacity-60 uppercase">Bloom</div>
+                   <div className="font-mono">{coffeeAmount * 2}g / 45s</div>
+                </div>
+                <div className="flex-1 p-3 bg-white/10 rounded-xl">
+                   <div className="text-[10px] font-bold opacity-60 uppercase">Target TDS</div>
+                   <div className="font-mono">1.35% - 1.45%</div>
+                </div>
+             </div>
+          </div>
+
+          <div className="bg-white border border-stone-200 rounded-3xl p-8">
+             <div className="flex items-center gap-3 mb-4">
+                <Droplets className="text-sky-500" />
+                <h3 className="font-bold text-xl">The Water Constraint</h3>
+             </div>
+             <p className="text-sm text-stone-600 leading-relaxed">
+               NYC tap water is remarkably soft, but for rare coffees like {selectedVariety.name}, consider adding magnesium and calcium minerals to reach 80 TDS. This specific mineralization shifts the profile from "sharp" to "creamy," especially in heirloom varietals.
+             </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default function App() {
+  const [activeSection, setActiveSection] = useState('atlas');
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 1200);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="h-screen w-full bg-stone-900 flex flex-col items-center justify-center text-white">
+        <div className="p-6 bg-amber-600 rounded-3xl animate-bounce mb-8">
+          <Coffee size={48} />
+        </div>
+        <div className="text-amber-500 font-mono tracking-[0.2em] text-sm uppercase animate-pulse">Initializing Gotham Grind...</div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex h-screen bg-stone-50 font-sans text-stone-900 overflow-hidden">
+      <Sidebar activeSection={activeSection} setActiveSection={setActiveSection} />
+      
+      <main className="flex-1 overflow-y-auto">
+        <div className="max-w-6xl mx-auto p-6 lg:p-12">
+          {activeSection === 'atlas' && <VarietalVault />}
+          {activeSection === 'nyc' && <GothamGuide />}
+          {activeSection === 'lab' && <TaxonomyLab />}
+          {activeSection === 'stats' && <MarketStats />}
+          {activeSection === 'brew' && <BrewStudio />}
+          
+          <footer className="mt-20 pt-12 border-t border-stone-200 flex flex-col md:flex-row justify-between gap-6 pb-12">
+            <div>
+              <h4 className="font-black text-stone-300 tracking-widest text-xl mb-4">GOTHAM GRIND</h4>
+              <p className="text-stone-400 text-sm max-w-xs">
+                A digital companion for the NYC specialty enthusiast. Exploring the intersection of botany, business, and brewing.
+              </p>
+            </div>
+            <div className="grid grid-cols-2 gap-8 text-xs font-bold text-stone-400 uppercase tracking-widest">
+              <div className="space-y-3">
+                <div className="text-stone-300">Sections</div>
+                <div className="hover:text-amber-600 cursor-pointer" onClick={() => setActiveSection('atlas')}>Vault</div>
+                <div className="hover:text-amber-600 cursor-pointer" onClick={() => setActiveSection('nyc')}>Guide</div>
+              </div>
+              <div className="space-y-3">
+                <div className="text-stone-300">Data</div>
+                <div>SCA 2026</div>
+                <div>WCR Catalog</div>
+              </div>
+            </div>
+          </footer>
+        </div>
+      </main>
+    </div>
+  );
+}
