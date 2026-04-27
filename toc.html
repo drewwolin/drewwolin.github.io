@@ -1,124 +1,68 @@
----
-layout: null
----
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Directory - drewwolin.github.io</title>
+    <title>Table of Contents - drewwolin.github.io</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background: #f4f7f6;
-            color: #2c3e50;
+            line-height: 1.6;
+            color: #333;
             max-width: 800px;
             margin: 40px auto;
             padding: 0 20px;
         }
-        h1 { text-align: center; margin-bottom: 30px; font-weight: 800; }
-        
-        details {
-            background: #fff;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            border: 1px solid #e1e8ed;
-        }
-        summary {
-            padding: 15px 20px;
-            font-weight: 700;
-            cursor: pointer;
-            list-style: none;
-            display: flex;
-            justify-content: space-between;
-            background: #fff;
-            border-radius: 8px;
-        }
-        summary:hover { background: #f9f9f9; }
-        summary::after { content: "▼"; font-size: 0.8em; color: #bdc3c7; }
-        details[open] summary::after { content: "▲"; }
-        
-        ul { list-style: none; padding: 0; margin: 0; border-top: 1px solid #f1f1f1; }
-        li { border-bottom: 1px solid #f9f9f9; }
-        li a {
-            display: block;
-            padding: 12px 25px;
-            text-decoration: none;
-            color: #3498db;
-            font-weight: 500;
-            transition: 0.2s;
-        }
-        li a:hover {
-            background: #f0f7fd;
-            padding-left: 30px;
-        }
-        .ext { font-size: 0.7em; color: #bdc3c7; margin-left: 10px; }
-        footer { text-align: center; margin-top: 50px; color: #95a5a6; font-size: 0.85em; }
+        h1 { border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        h2 { margin-top: 30px; color: #555; }
+        ul { list-style-type: none; padding-left: 0; }
+        li { margin-bottom: 8px; }
+        a { color: #0066cc; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .dir-path { font-size: 0.9em; color: #888; margin-left: 5px; }
     </style>
 </head>
 <body>
+    <h1>Table of Contents</h1>
+    
+    <h2>Main Pages</h2>
+    <ul>
+        <li><a href="index.html">Index</a></li>
+        <li><a href="ai-ak.html">AI AK</a></li>
+        <li><a href="grandpa-computer.html">Grandpa's Computer</a></li>
+        <li><a href="hip-rehab.html">Hip Rehab</a></li>
+        <li><a href="joey-marinara.html">Joey Marinara</a></li>
+        <li><a href="knicks-minutes.html">Knicks Minutes</a></li>
+        <li><a href="morgan-summer-social-club.html">Morgan Summer Social Club</a></li>
+        <li><a href="rafs-cats.html">Raf's Cats</a></li>
+        <li><a href="rainy-city.html">Rainy City</a></li>
+        <li><a href="updates.html">Updates</a></li>
+    </ul>
 
-    <h1>Site Directory</h1>
+    <h2>Business Case Studies</h2>
+    <ul>
+        <li><a href="business-case-studies/adp.html">ADP</a></li>
+        <li><a href="business-case-studies/ai-job-replacement-report.html">AI Job Replacement Report</a></li>
+        <li><a href="business-case-studies/human.html">Human</a></li>
+        <li><a href="business-case-studies/samsung-ads.html">Samsung Ads</a></li>
+        <li><a href="business-case-studies/the-morgan.html">The Morgan</a></li>
+    </ul>
 
-    <!-- Section: Root / Main Pages -->
-    <details open>
-        <summary>Main Pages</summary>
-        <ul>
-            {% for file in site.static_files %}
-                {% if file.extname == ".html" or file.extname == ".md" %}
-                    {% if file.dir == "/" %}
-                        {% unless file.name contains "toc" or file.name contains "404" %}
-                            <li>
-                                <a href="{{ file.path | relative_url }}">
-                                    {{ file.name | replace: ".html", "" | replace: ".md", "" | replace: "-", " " | capitalize }}
-                                    <span class="ext">{{ file.extname }}</span>
-                                </a>
-                            </li>
-                        {% endunless %}
-                    {% endif %}
-                {% endif %}
-            {% endfor %}
-            {% for page in site.pages %}
-                {% if page.dir == "/" %}
-                    {% unless page.url contains "toc" or page.url contains "404" %}
-                        <li>
-                            <a href="{{ page.url | relative_url }}">
-                                {{ page.name | replace: ".html", "" | replace: "-", " " | capitalize }}
-                                <span class="ext">.html</span>
-                            </a>
-                        </li>
-                    {% endunless %}
-                {% endif %}
-            {% endfor %}
-        </ul>
-    </details>
+    <h2>Miscellaneous</h2>
+    <ul>
+        <li><a href="misc/coffee-1.html">Coffee 1</a></li>
+        <li><a href="misc/coffee-research.md">Coffee Research (Markdown)</a></li>
+        <li><a href="misc/nyc-coffee.html">NYC Coffee</a></li>
+    </ul>
 
-    <!-- Section: Subfolders -->
-    {% assign folders = "/business-case-studies/,/misc/,/nyu/" | split: "," %}
-    {% for folder in folders %}
-        <details>
-            <summary>{{ folder | replace: "/", "" | replace: "-", " " | capitalize }}</summary>
-            <ul>
-                {% for file in site.static_files %}
-                    {% if file.dir == folder %}
-                        {% if file.extname == ".html" or file.extname == ".md" %}
-                            <li>
-                                <a href="{{ file.path | relative_url }}">
-                                    {{ file.name | replace: ".html", "" | replace: ".md", "" | replace: "-", " " | capitalize }}
-                                    <span class="ext">{{ file.extname }}</span>
-                                </a>
-                            </li>
-                        {% endif %}
-                    {% endif %}
-                {% endfor %}
-            </ul>
-        </details>
-    {% endfor %}
+    <h2>NYU</h2>
+    <ul>
+        <li><a href="nyu/aug-2026-onsite.html">Aug 2026 Onsite</a></li>
+        <li><a href="nyu/aug-2026-onsite-test.html">Aug 2026 Onsite Test</a></li>
+    </ul>
 
     <footer>
-        <p>Built with Jekyll • {{ "now" | date: "%B %d, %Y" }}</p>
+        <p style="margin-top: 50px; font-size: 0.8em; color: #aaa;">Generated on April 27, 2026</p>
     </footer>
-
 </body>
 </html>
