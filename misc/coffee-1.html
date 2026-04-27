@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Coffee Codex: A Journey Through Bean Varietals</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- Palette: Energetic & Playful (Navy, Teal, Bright Orange, Gold, Light Gray) -->
+<!-- NO SVG or Mermaid JS were used in this output. -->
+<!-- Plan Summary: Introduction to the complex world of coffee biology. Section 1 covers the macro division (Arabica vs Robusta). Section 2 details specific prominent varietals (Typica, Bourbon, Pacas, Gesha). Section 3 visualizes relative pricing to highlight the premium market. Section 4 maps flavor profiles using a radar chart. Section 5 provides an actionable brewing and roasting matrix using HTML/Tailwind styling. -->
+<!-- Visualization Choices: 
+1. Market Share -> Compare/Composition -> Donut Chart (Chart.js) -> Best for visualizing a part-to-whole relationship of the two main species. NO SVG.
+2. Varietal Economics -> Compare/Rank -> Horizontal Bar Chart (Chart.js) -> Best for highlighting extreme disparities in cost per pound. NO SVG.
+3. Flavor Profiles -> Relationships -> Radar Chart (Chart.js) -> Ideal for multivariate comparison across sensory metrics. NO SVG.
+-->
+<style>
+body { background-color: #F3F4F6; color: #1F2937; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+.chart-container { position: relative; width: 100%; max-width: 700px; margin-left: auto; margin-right: auto; height: 350px; max-height: 400px; }
+@media (min-width: 768px) { .chart-container { height: 400px; } }
+.card { background-color: #FFFFFF; border-radius: 0.5rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); padding: 1.5rem; margin-bottom: 1.5rem; }
+.text-navy { color: #1E3A8A; }
+.bg-navy { background-color: #1E3A8A; }
+.text-teal { color: #0D9488; }
+.bg-teal { background-color: #0D9488; }
+.text-orange { color: #EA580C; }
+.bg-orange { background-color: #EA580C; }
+.text-gold { color: #EAB308; }
+.bg-gold { background-color: #EAB308; }
+</style>
+</head>
+<body class="antialiased">
+
+<header class="bg-navy text-white py-12 px-6 shadow-lg mb-8">
+    <div class="max-w-5xl mx-auto">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4 tracking-tight">The Coffee Codex</h1>
+        <p class="text-xl md:text-2xl text-gray-300 max-w-3xl">An analytical journey through the taxonomy, economics, and sensory profiles of the world's most vital coffee varietals, from rugged Robusta to the elusive Gesha.</p>
+    </div>
+</header>
+
+<main class="max-w-6xl mx-auto px-4 md:px-6 pb-16">
+
+    <section class="mb-12">
+        <h2 class="text-3xl font-bold text-navy mb-4 border-b-2 border-teal pb-2">1. The Macro Divide: Arabica vs. Robusta</h2>
+        <p class="text-lg mb-6 leading-relaxed">The global coffee trade rests almost entirely on the shoulders of two species: Coffea Arabica and Coffea Canephora (commonly known as Robusta). While Arabica is heralded for its complex, nuanced flavor and commands a higher market price, Robusta offers extreme agricultural resilience, higher crop yields, and nearly double the caffeine content, serving as the robust backbone of instant coffees and traditional espresso blends.</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="card flex flex-col justify-center">
+                <h3 class="text-xl font-semibold mb-3 text-center text-teal">Global Production Market Share</h3>
+                <p class="text-sm text-gray-600 mb-4 text-center">Despite requiring higher altitudes and exhibiting greater susceptibility to disease, Arabica dominates global production due to overwhelming consumer preference for its sweeter, less astringent profile.</p>
+                <div class="chart-container">
+                    <canvas id="marketShareChart"></canvas>
+                </div>
+            </div>
+            <div class="card flex flex-col justify-center">
+                <h3 class="text-xl font-semibold mb-3 text-teal">Species Characteristics</h3>
+                <ul class="space-y-4">
+                    <li class="flex items-start">
+                        <span class="text-2xl mr-3">⛰️</span>
+                        <div>
+                            <strong class="text-navy">Growing Altitude:</strong>
+                            <p class="text-gray-700">Arabica thrives at 600-2000m. Robusta is grown at sea level up to 800m.</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-2xl mr-3">⚡</span>
+                        <div>
+                            <strong class="text-navy">Caffeine Content:</strong>
+                            <p class="text-gray-700">Robusta packs a punch at ~2.7% caffeine by weight, acting as a natural pesticide. Arabica sits at ~1.5%.</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-2xl mr-3">🧬</span>
+                        <div>
+                            <strong class="text-navy">Chromosomes:</strong>
+                            <p class="text-gray-700">Arabica has 44 chromosomes (tetraploid), allowing for self-pollination. Robusta has 22 (diploid) and requires cross-pollination.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="mb-12">
+        <h2 class="text-3xl font-bold text-navy mb-4 border-b-2 border-teal pb-2">2. The Arabica Family Tree: Key Varietals</h2>
+        <p class="text-lg mb-6 leading-relaxed">Within the Arabica species lies a vast family tree of varietals and cultivars. Much like wine grapes, the specific genetic lineage of a coffee plant drastically alters its yield, disease resistance, and ultimate flavor profile in the cup. This biological diversity is the foundation of the specialty coffee industry.</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="bg-white border-t-4 border-teal p-5 shadow-sm rounded-b-lg">
+                <h4 class="font-bold text-lg mb-2">Typica</h4>
+                <p class="text-sm text-gray-700 mb-2"><strong>History:</strong> The genetic grandfather of most Arabica. Taken from Yemen to Java, then globally.</p>
+                <p class="text-sm text-gray-700 mb-2"><strong>Profile:</strong> Very clean, sweet, and highly valued for quality.</p>
+                <p class="text-sm text-gray-700"><strong>Drawback:</strong> Exceptionally low yield and highly susceptible to leaf rust.</p>
+            </div>
+            
+            <div class="bg-white border-t-4 border-navy p-5 shadow-sm rounded-b-lg">
+                <h4 class="font-bold text-lg mb-2">Bourbon</h4>
+                <p class="text-sm text-gray-700 mb-2"><strong>History:</strong> A natural mutation of Typica that occurred on the island of Bourbon (now Réunion).</p>
+                <p class="text-sm text-gray-700 mb-2"><strong>Profile:</strong> Known for profound sweetness, dense body, and complex acidity.</p>
+                <p class="text-sm text-gray-700"><strong>Drawback:</strong> Produces 20-30% more than Typica, but still relatively low yielding.</p>
+            </div>
+
+            <div class="bg-white border-t-4 border-orange p-5 shadow-sm rounded-b-lg">
+                <h4 class="font-bold text-lg mb-2">Pacas</h4>
+                <p class="text-sm text-gray-700 mb-2"><strong>History:</strong> Discovered in 1949 in El Salvador. A natural, single-gene mutation of Bourbon.</p>
+                <p class="text-sm text-gray-700 mb-2"><strong>Profile:</strong> Sweet, slightly spicy, with floral notes. Great cup quality.</p>
+                <p class="text-sm text-gray-700"><strong>Advantage:</strong> The plant is much shorter (dwarfism), allowing for denser planting and higher yields.</p>
+            </div>
+
+            <div class="bg-white border-t-4 border-gold p-5 shadow-sm rounded-b-lg">
+                <h4 class="font-bold text-lg mb-2">Gesha (Geisha)</h4>
+                <p class="text-sm text-gray-700 mb-2"><strong>History:</strong> Wild Ethiopian origin, brought to Panama in the 1960s. Shot to fame in 2004.</p>
+                <p class="text-sm text-gray-700 mb-2"><strong>Profile:</strong> Unmistakable. Intensely floral (jasmine), bergamot, tea-like, with delicate fruit notes.</p>
+                <p class="text-sm text-gray-700"><strong>Drawback:</strong> Very fragile roots, requires high altitude, exceptionally low yield.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="mb-12">
+        <h2 class="text-3xl font-bold text-navy mb-4 border-b-2 border-teal pb-2">3. Varietal Economics & Market Value</h2>
+        <p class="text-lg mb-6 leading-relaxed">The physical characteristics and sensory qualities of these plants directly dictate their market economics. While Robusta serves as a high-volume commodity, varietals like Gesha have created a hyper-premium echelon in the specialty coffee market, sometimes fetching thousands of dollars per pound at exclusive auctions due to intense global demand and extremely limited supply.</p>
+
+        <div class="card">
+            <h3 class="text-xl font-semibold mb-3 text-center text-teal">Estimated Average Cost Per Pound (Specialty Market USD)</h3>
+            <p class="text-sm text-gray-600 mb-4 text-center">This chart illustrates the dramatic price stratification based on genetic varietal and resulting cup quality. Note the exponential leap for Gesha.</p>
+            <div class="chart-container">
+                <canvas id="priceChart"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <section class="mb-12">
+        <h2 class="text-3xl font-bold text-navy mb-4 border-b-2 border-teal pb-2">4. Sensory Taxonomy: Flavor Profiles</h2>
+        <p class="text-lg mb-6 leading-relaxed">Coffee contains over 1,000 distinct chemical compounds responsible for its flavor and aroma. The genetic makeup of the varietal provides the baseline for this sensory experience. Using industry-standard cupping metrics, we can quantify and compare the distinct flavor constellations of different beans.</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div class="card">
+                <div class="chart-container" style="height: 400px;">
+                    <canvas id="flavorRadarChart"></canvas>
+                </div>
+            </div>
+            <div>
+                <h3 class="text-2xl font-bold text-navy mb-4">Decoding the Radar</h3>
+                <ul class="space-y-4">
+                    <li class="bg-gray-50 p-4 rounded-md border-l-4 border-orange">
+                        <strong class="text-lg">Robusta:</strong> Dominates in body and bitterness. Lacks complex acidity or floral notes. Yields a heavy, earthy, woody, and intensely robust cup.
+                    </li>
+                    <li class="bg-gray-50 p-4 rounded-md border-l-4 border-navy">
+                        <strong class="text-lg">Bourbon:</strong> The balanced gold standard. Exhibits a beautifully rounded profile with pronounced sweetness, medium body, and pleasant, balanced acidity.
+                    </li>
+                    <li class="bg-gray-50 p-4 rounded-md border-l-4 border-gold">
+                        <strong class="text-lg">Gesha:</strong> Pushes the boundaries of the chart in florality and acidity. It is exceptionally delicate, lacking heavy body or bitterness, presenting more like an intricate jasmine tea than traditional coffee.
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="text-3xl font-bold text-navy mb-4 border-b-2 border-teal pb-2">5. The Perfect Extraction: Processing & Brewing</h2>
+        <p class="text-lg mb-6 leading-relaxed">A coffee's genetic potential is only realized through proper roasting and brewing. Matching the extraction method to the varietal's inherent characteristics is crucial. Delicate floral coffees require gentle methods, while dense, heavy beans can withstand intense pressure.</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="card flex flex-col h-full">
+                <div class="text-4xl mb-3 text-center">☕</div>
+                <h3 class="text-xl font-bold text-center text-navy mb-2">Robusta Blends</h3>
+                <div class="mb-4">
+                    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Medium-Dark Roast</span>
+                </div>
+                <p class="text-sm text-gray-700 mb-4 flex-grow">Best utilized to add crema, body, and caffeine to espresso blends. Can withstand dark roasting which mutes its natural rubbery/earthy notes.</p>
+                <div class="mt-auto pt-4 border-t border-gray-200">
+                    <strong class="text-teal">Ideal Brew:</strong> Espresso Machine, Moka Pot
+                </div>
+            </div>
+
+            <div class="card flex flex-col h-full">
+                <div class="text-4xl mb-3 text-center">⚗️</div>
+                <h3 class="text-xl font-bold text-center text-navy mb-2">Bourbon / Pacas</h3>
+                <div class="mb-4">
+                    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Light to Medium Roast</span>
+                </div>
+                <p class="text-sm text-gray-700 mb-4 flex-grow">Highly versatile. A light-medium roast preserves their inherent sweetness and complex fruit acidity while providing enough body for milk-based drinks or clean black cups.</p>
+                <div class="mt-auto pt-4 border-t border-gray-200">
+                    <strong class="text-teal">Ideal Brew:</strong> Pour Over (V60, Chemex), Aeropress
+                </div>
+            </div>
+
+            <div class="card flex flex-col h-full">
+                <div class="text-4xl mb-3 text-center">🔬</div>
+                <h3 class="text-xl font-bold text-center text-navy mb-2">Gesha / Delicate Varietals</h3>
+                <div class="mb-4">
+                    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Very Light Roast</span>
+                </div>
+                <p class="text-sm text-gray-700 mb-4 flex-grow">Must be roasted very light (cinnamon roast) to prevent destroying the volatile aromatic compounds responsible for its signature jasmine and bergamot florality.</p>
+                <div class="mt-auto pt-4 border-t border-gray-200">
+                    <strong class="text-teal">Ideal Brew:</strong> Filter Pour Over (Thin filter paper), Siphon
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<script>
+const colors = {
+    navy: '#1E3A8A',
+    teal: '#0D9488',
+    orange: '#EA580C',
+    gold: '#EAB308',
+    gray: '#E5E7EB',
+    text: '#1F2937'
+};
+
+function wrapLabel(label, maxChars = 16) {
+    if (label.length <= maxChars) return label;
+    const words = label.split(' ');
+    const lines = [];
+    let currentLine = words[0];
+    for (let i = 1; i < words.length; i++) {
+        if (currentLine.length + words[i].length + 1 <= maxChars) {
+            currentLine += ' ' + words[i];
+        } else {
+            lines.push(currentLine);
+            currentLine = words[i];
+        }
+    }
+    lines.push(currentLine);
+    return lines;
+}
+
+const tooltipConfig = {
+    tooltip: {
+        callbacks: {
+            title: function(tooltipItems) {
+                const item = tooltipItems[0];
+                let label = item.chart.data.labels[item.dataIndex];
+                if (Array.isArray(label)) {
+                    return label.join(' ');
+                } else {
+                    return label;
+                }
+            }
+        }
+    }
+};
+
+const marketShareLabels = ['Arabica (High Altitude, Sweeter)', 'Robusta (Low Altitude, Bitter)'].map(l => wrapLabel(l));
+const ctxMarket = document.getElementById('marketShareChart').getContext('2d');
+new Chart(ctxMarket, {
+    type: 'doughnut',
+    data: {
+        labels: marketShareLabels,
+        datasets: [{
+            data: [70, 30],
+            backgroundColor: [colors.teal, colors.orange],
+            borderWidth: 2,
+            borderColor: '#FFFFFF'
+        }]
+    },
+    options: {
+        maintainAspectRatio: false,
+        plugins: {
+            ...tooltipConfig,
+            legend: { position: 'bottom' }
+        },
+        cutout: '65%'
+    }
+});
+
+const priceLabels = ['Commodity Robusta', 'Standard Typica', 'Premium Bourbon', 'Specialty Pacas', 'Auction Gesha'].map(l => wrapLabel(l));
+const ctxPrice = document.getElementById('priceChart').getContext('2d');
+new Chart(ctxPrice, {
+    type: 'bar',
+    data: {
+        labels: priceLabels,
+        datasets: [{
+            label: 'Cost per lb (USD)',
+            data: [2, 4, 8, 15, 120],
+            backgroundColor: [colors.orange, colors.gray, colors.navy, colors.teal, colors.gold],
+            borderRadius: 4
+        }]
+    },
+    options: {
+        indexAxis: 'y',
+        maintainAspectRatio: false,
+        plugins: {
+            ...tooltipConfig,
+            legend: { display: false }
+        },
+        scales: {
+            x: {
+                beginAtZero: true,
+                title: { display: true, text: 'USD / lb' }
+            }
+        }
+    }
+});
+
+const radarLabels = ['Sweetness', 'Acidity', 'Body', 'Bitterness', 'Florality'].map(l => wrapLabel(l));
+const ctxRadar = document.getElementById('flavorRadarChart').getContext('2d');
+new Chart(ctxRadar, {
+    type: 'radar',
+    data: {
+        labels: radarLabels,
+        datasets: [
+            {
+                label: 'Robusta',
+                data: [2, 2, 9, 9, 1],
+                backgroundColor: 'rgba(234, 88, 12, 0.2)',
+                borderColor: colors.orange,
+                pointBackgroundColor: colors.orange,
+                borderWidth: 2
+            },
+            {
+                label: 'Bourbon (Arabica)',
+                data: [8, 7, 7, 3, 5],
+                backgroundColor: 'rgba(30, 58, 138, 0.2)',
+                borderColor: colors.navy,
+                pointBackgroundColor: colors.navy,
+                borderWidth: 2
+            },
+            {
+                label: 'Gesha (Arabica)',
+                data: [9, 9, 4, 1, 10],
+                backgroundColor: 'rgba(234, 179, 8, 0.2)',
+                borderColor: colors.gold,
+                pointBackgroundColor: colors.gold,
+                borderWidth: 2
+            }
+        ]
+    },
+    options: {
+        maintainAspectRatio: false,
+        plugins: {
+            ...tooltipConfig,
+            legend: { position: 'bottom' }
+        },
+        scales: {
+            r: {
+                angleLines: { color: 'rgba(0, 0, 0, 0.1)' },
+                grid: { color: 'rgba(0, 0, 0, 0.1)' },
+                pointLabels: {
+                    font: { size: 12 },
+                    color: colors.text
+                },
+                ticks: { display: false, min: 0, max: 10 }
+            }
+        }
+    }
+});
+</script>
+</body>
+</html>
