@@ -6,212 +6,138 @@ layout: null
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Directory - {{ site.title | default: "drewwolin.github.io" }}</title>
+    <title>Site Directory - drewwolin.github.io</title>
     <style>
         :root {
-            --primary-color: #2563eb;
-            --primary-hover: #1d4ed8;
-            --bg-color: #f8fafc;
-            --card-bg: #ffffff;
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --border-color: #e2e8f0;
+            --primary: #2563eb;
+            --text: #1e293b;
+            --muted: #64748b;
+            --bg: #f8fafc;
+            --border: #e2e8f0;
         }
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.5;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 40px 20px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+            line-height: 1.6;
         }
-        header {
-            margin-bottom: 40px;
-            text-align: center;
-        }
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 10px;
-            letter-spacing: -0.025em;
-            color: var(--text-main);
-        }
-        .subtitle {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-        }
-        .container {
-            display: grid;
-            gap: 20px;
-        }
+        header { text-align: center; margin-bottom: 40px; }
+        h1 { margin-bottom: 8px; font-weight: 800; }
+        .subtitle { color: var(--muted); }
+        
         details {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 12px;
             overflow: hidden;
-            transition: all 0.2s ease;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        }
-        details[open] {
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
-            transform: translateY(-2px);
         }
         summary {
-            padding: 18px 24px;
-            font-weight: 700;
-            font-size: 1.15rem;
+            padding: 12px 20px;
+            font-weight: 600;
             cursor: pointer;
-            list-style: none;
+            background: #fff;
+            user-select: none;
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            user-select: none;
-            background-color: var(--card-bg);
         }
-        summary::-webkit-details-marker { display: none; }
-        summary::after {
-            content: '+';
-            font-size: 1.5rem;
-            transition: transform 0.3s ease;
-            color: var(--text-muted);
-            font-weight: 300;
-        }
-        details[open] summary::after {
-            content: '−';
-            transform: rotate(180deg);
-        }
-        summary:hover {
-            background-color: #f1f5f9;
-        }
-        .content-list {
-            padding: 0;
-            border-top: 1px solid var(--border-color);
-            background-color: #fff;
-        }
-        ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        li {
-            border-bottom: 1px solid #f1f5f9;
-        }
-        li:last-child {
-            border-bottom: none;
-        }
+        summary:hover { background: #f1f5f9; }
+        
+        ul { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--border); }
+        li { border-bottom: 1px solid #f1f5f9; }
+        li:last-child { border-bottom: none; }
+        
         li a {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            padding: 14px 32px;
-            color: var(--text-main);
+            padding: 10px 24px;
             text-decoration: none;
-            transition: all 0.2s ease;
+            color: var(--text);
             font-weight: 500;
         }
         li a:hover {
-            background-color: #f0f7ff;
-            color: var(--primary-color);
-            padding-left: 40px;
+            background: #eff6ff;
+            color: var(--primary);
         }
-        .file-ext {
+        .ext {
             font-size: 0.7rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            font-weight: 600;
+            color: var(--muted);
             background: #f1f5f9;
-            padding: 2px 8px;
-            border-radius: 20px;
-            letter-spacing: 0.05em;
+            padding: 2px 6px;
+            border-radius: 4px;
+            text-transform: uppercase;
         }
-        footer {
-            margin-top: 60px;
-            text-align: center;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            padding-bottom: 40px;
-        }
-        .tagline {
-            display: inline-block;
-            background: #dbeafe;
-            color: var(--primary-color);
-            padding: 4px 12px;
-            border-radius: 9999px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 16px;
-        }
+        footer { text-align: center; margin-top: 40px; color: var(--muted); font-size: 0.8rem; }
     </style>
 </head>
 <body>
+
     <header>
-        <span class="tagline">Auto-updating Map</span>
         <h1>Site Directory</h1>
-        <p class="subtitle">Navigate through research, case studies, and projects</p>
+        <p class="subtitle">Dynamic navigation for drewwolin.github.io</p>
     </header>
 
-    <div class="container">
-        {% assign all_items = site.pages | concat: site.static_files %}
-        
-        <!-- Filter and sort logic -->
-        {% assign html_md_files = "" | split: "," %}
-        {% for item in all_items %}
-            {% if item.path contains ".html" or item.path contains ".md" %}
-                {% unless item.path contains "toc.html" or item.path contains "404" or item.path contains "README" or item.path contains "node_modules" %}
-                    {% assign html_md_files = html_md_files | push: item %}
-                {% endunless %}
-            {% endif %}
-        {% endfor %}
-
-        <!-- Main Pages Section -->
-        <details open>
-            <summary>Core Pages</summary>
-            <div class="content-list">
-                <ul>
-                    {% for file in html_md_files %}
-                        {% assign parts = file.path | split: "/" %}
-                        <!-- Check if file is in root -->
-                        {% if parts.size == 1 %}
+    <!-- Section: Root Pages -->
+    <details open>
+        <summary>Main Pages</summary>
+        <ul>
+            {% for file in site.static_files %}
+                {% if file.extname == ".html" or file.extname == ".md" %}
+                    {% unless file.path contains "/" %}
+                        {% unless file.path contains "toc.html" or file.path contains "404" %}
                             <li>
                                 <a href="{{ file.url | relative_url }}">
-                                    <span>{{ file.name | replace: ".html", "" | replace: ".md", "" | replace: "-", " " | split: " " | map: "capitalize" | join: " " }}</span>
-                                    <span class="file-ext">{% if file.path contains ".md" %}MD{% else %}HTML{% endif %}</span>
+                                    <span>{{ file.name | replace: ".html", "" | replace: ".md", "" | replace: "-", " " | capitalize }}</span>
+                                    <span class="ext">{{ file.extname | replace: ".", "" }}</span>
+                                </a>
+                            </li>
+                        {% endunless %}
+                    {% endunless %}
+                {% endif %}
+            {% endfor %}
+            {% for page in site.pages %}
+                {% if page.url == "/" or page.dir == "/" %}
+                    {% unless page.url contains "toc" or page.url contains "404" %}
+                        <li>
+                            <a href="{{ page.url | relative_url }}">
+                                <span>{{ page.name | default: page.url | replace: "/", "" | replace: ".html", "" | replace: "-", " " | capitalize }}</span>
+                                <span class="ext">HTML</span>
+                            </a>
+                        </li>
+                    {% endunless %}
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </details>
+
+    <!-- Section: Folders -->
+    {% assign folders = "business-case-studies,misc,nyu" | split: "," %}
+    {% for folder in folders %}
+        <details>
+            <summary>{{ folder | replace: "-", " " | capitalize }}</summary>
+            <ul>
+                {% for file in site.static_files %}
+                    {% if file.path contains folder %}
+                        {% if file.extname == ".html" or file.extname == ".md" %}
+                            <li>
+                                <a href="{{ file.url | relative_url }}">
+                                    <span>{{ file.name | replace: ".html", "" | replace: ".md", "" | replace: "-", " " | capitalize }}</span>
+                                    <span class="ext">{{ file.extname | replace: ".", "" }}</span>
                                 </a>
                             </li>
                         {% endif %}
-                    {% endfor %}
-                </ul>
-            </div>
+                    {% endif %}
+                {% endfor %}
+            </ul>
         </details>
-
-        <!-- Folder Groups -->
-        {% assign folders = "business-case-studies,misc,nyu" | split: "," %}
-        {% for folder in folders %}
-            <details>
-                <summary>{{ folder | replace: "-", " " | split: " " | map: "capitalize" | join: " " }}</summary>
-                <div class="content-list">
-                    <ul>
-                        {% for file in html_md_files %}
-                            {% assign folder_prefix = folder | append: "/" %}
-                            {% if file.path contains folder_prefix %}
-                                <li>
-                                    <a href="{{ file.url | relative_url }}">
-                                        <span>{{ file.name | replace: ".html", "" | replace: ".md", "" | replace: "-", " " | split: " " | map: "capitalize" | join: " " }}</span>
-                                        <span class="file-ext">{% if file.path contains ".md" %}MD{% else %}HTML{% endif %}</span>
-                                    </a>
-                                </li>
-                            {% endif %}
-                        {% endfor %}
-                    </ul>
-                </div>
-            </details>
-        {% endfor %}
-    </div>
+    {% endfor %}
 
     <footer>
-        <p>Generated by Jekyll on {{ "now" | date: "%B %d, %Y" }}</p>
-        <p style="font-size: 0.75rem; margin-top: 8px; opacity: 0.6;">&copy; {{ "now" | date: "%Y" }} Drew Wolin</p>
+        <p>Built with Jekyll • {{ "now" | date: "%B %d, %Y" }}</p>
     </footer>
+
 </body>
 </html>
