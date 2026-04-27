@@ -6,105 +6,86 @@ layout: null
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Site Directory - drewwolin.github.io</title>
+    <title>Directory - drewwolin.github.io</title>
     <style>
-        :root {
-            --primary: #2563eb;
-            --text: #1e293b;
-            --muted: #64748b;
-            --bg: #f8fafc;
-            --border: #e2e8f0;
-        }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
+            background: #f4f7f6;
+            color: #2c3e50;
             max-width: 800px;
             margin: 40px auto;
             padding: 0 20px;
-            line-height: 1.6;
         }
-        header { text-align: center; margin-bottom: 40px; }
-        h1 { margin-bottom: 8px; font-weight: 800; }
-        .subtitle { color: var(--muted); }
+        h1 { text-align: center; margin-bottom: 30px; font-weight: 800; }
         
         details {
             background: #fff;
-            border: 1px solid var(--border);
             border-radius: 8px;
-            margin-bottom: 12px;
-            overflow: hidden;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border: 1px solid #e1e8ed;
         }
         summary {
-            padding: 12px 20px;
-            font-weight: 600;
+            padding: 15px 20px;
+            font-weight: 700;
             cursor: pointer;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
             background: #fff;
-            user-select: none;
-            display: flex;
-            justify-content: space-between;
+            border-radius: 8px;
         }
-        summary:hover { background: #f1f5f9; }
+        summary:hover { background: #f9f9f9; }
+        summary::after { content: "▼"; font-size: 0.8em; color: #bdc3c7; }
+        details[open] summary::after { content: "▲"; }
         
-        ul { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--border); }
-        li { border-bottom: 1px solid #f1f5f9; }
-        li:last-child { border-bottom: none; }
-        
+        ul { list-style: none; padding: 0; margin: 0; border-top: 1px solid #f1f1f1; }
+        li { border-bottom: 1px solid #f9f9f9; }
         li a {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 24px;
+            display: block;
+            padding: 12px 25px;
             text-decoration: none;
-            color: var(--text);
+            color: #3498db;
             font-weight: 500;
+            transition: 0.2s;
         }
         li a:hover {
-            background: #eff6ff;
-            color: var(--primary);
+            background: #f0f7fd;
+            padding-left: 30px;
         }
-        .ext {
-            font-size: 0.7rem;
-            color: var(--muted);
-            background: #f1f5f9;
-            padding: 2px 6px;
-            border-radius: 4px;
-            text-transform: uppercase;
-        }
-        footer { text-align: center; margin-top: 40px; color: var(--muted); font-size: 0.8rem; }
+        .ext { font-size: 0.7em; color: #bdc3c7; margin-left: 10px; }
+        footer { text-align: center; margin-top: 50px; color: #95a5a6; font-size: 0.85em; }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Site Directory</h1>
-        <p class="subtitle">Dynamic navigation for drewwolin.github.io</p>
-    </header>
+    <h1>Site Directory</h1>
 
-    <!-- Section: Root Pages -->
+    <!-- Section: Root / Main Pages -->
     <details open>
         <summary>Main Pages</summary>
         <ul>
             {% for file in site.static_files %}
                 {% if file.extname == ".html" or file.extname == ".md" %}
-                    {% unless file.path contains "/" %}
-                        {% unless file.path contains "toc.html" or file.path contains "404" %}
+                    {% if file.dir == "/" %}
+                        {% unless file.name contains "toc" or file.name contains "404" %}
                             <li>
-                                <a href="{{ file.url | relative_url }}">
-                                    <span>{{ file.name | replace: ".html", "" | replace: ".md", "" | replace: "-", " " | capitalize }}</span>
-                                    <span class="ext">{{ file.extname | replace: ".", "" }}</span>
+                                <a href="{{ file.path | relative_url }}">
+                                    {{ file.name | replace: ".html", "" | replace: ".md", "" | replace: "-", " " | capitalize }}
+                                    <span class="ext">{{ file.extname }}</span>
                                 </a>
                             </li>
                         {% endunless %}
-                    {% endunless %}
+                    {% endif %}
                 {% endif %}
             {% endfor %}
             {% for page in site.pages %}
-                {% if page.url == "/" or page.dir == "/" %}
+                {% if page.dir == "/" %}
                     {% unless page.url contains "toc" or page.url contains "404" %}
                         <li>
                             <a href="{{ page.url | relative_url }}">
-                                <span>{{ page.name | default: page.url | replace: "/", "" | replace: ".html", "" | replace: "-", " " | capitalize }}</span>
-                                <span class="ext">HTML</span>
+                                {{ page.name | replace: ".html", "" | replace: "-", " " | capitalize }}
+                                <span class="ext">.html</span>
                             </a>
                         </li>
                     {% endunless %}
@@ -113,19 +94,19 @@ layout: null
         </ul>
     </details>
 
-    <!-- Section: Folders -->
-    {% assign folders = "business-case-studies,misc,nyu" | split: "," %}
+    <!-- Section: Subfolders -->
+    {% assign folders = "/business-case-studies/,/misc/,/nyu/" | split: "," %}
     {% for folder in folders %}
         <details>
-            <summary>{{ folder | replace: "-", " " | capitalize }}</summary>
+            <summary>{{ folder | replace: "/", "" | replace: "-", " " | capitalize }}</summary>
             <ul>
                 {% for file in site.static_files %}
-                    {% if file.path contains folder %}
+                    {% if file.dir == folder %}
                         {% if file.extname == ".html" or file.extname == ".md" %}
                             <li>
-                                <a href="{{ file.url | relative_url }}">
-                                    <span>{{ file.name | replace: ".html", "" | replace: ".md", "" | replace: "-", " " | capitalize }}</span>
-                                    <span class="ext">{{ file.extname | replace: ".", "" }}</span>
+                                <a href="{{ file.path | relative_url }}">
+                                    {{ file.name | replace: ".html", "" | replace: ".md", "" | replace: "-", " " | capitalize }}
+                                    <span class="ext">{{ file.extname }}</span>
                                 </a>
                             </li>
                         {% endif %}
