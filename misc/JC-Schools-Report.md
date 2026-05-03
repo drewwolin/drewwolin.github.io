@@ -1,17 +1,5 @@
-Curated Briefing from "NotebookLM"
-Exported on: 5/3/2026, 11:25:02 AM
 
----
-
-### User
-
-Give me a very structured research paper starting very zoomed out and then getting more detailed. I will output this to a Markdown Doc or Google Doc. First, give a general overview of choices: Public (Magnet, Charter, Basic) vs Private (Jesuit, Other). Talk about fees (Tuition or Free) Talk about how to get in (Based on address, lottery, testing, etc.) Talk about what parents typically consider for selecting a school. Flag explicitly the deadlines we need to consider for a boy born on in early-summer 2024 for prek3, prek4, and k-5. Also make a note about middle school and high cshool. Give options (fromt he Google Sheet) for each. Then talk about feeder schools and give at least 6 example scenarios for a boy raised prek3 through high school living at 160 Morgan. Give tangible, specific examples, including any tests needed, deadlines, tuition costs, social groups (stay with the same kids or have to start a new social gorup). Give 2 examples for an academically gifted kid, 2 examples for an average kid, and 2 examples for a kid who is not thriving in the classroom. Also give examples of extra curriculars focused on fencing, basketball, and/or baseball.
-
----
-
-### Model
-
-Jersey City Educational Pathways: A Comprehensive Guide
+# Jersey City Educational Pathways: A Comprehensive Guide
 
 I. General Overview of Choices
 
