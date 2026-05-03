@@ -3,446 +3,449 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jersey City Male Student Academic Roadmap</title>
-    
-    <!-- Tailwind CSS -->
+    <title>Jersey City Educational Guide</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
-    <!-- Leaflet CSS & JS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-    <!-- Chosen Palette: Deep Navy, Metallic Gold, Slate Grey, Soft White -->
-    <!-- Application Structure Plan: 
-         1. Executive Brief: Context for 160 Morgan St (Downtown JC).
-         2. Analytical Dashboard: Visualizes tuition scales and school types.
-         3. Interactive Map: Stabilized Leaflet map focused on Downtown and Journal Square clusters.
-         4. Accordion Admissions Matrix: Grouped by Grade Category. 
-            - Exclusively Co-ed or All-Boys.
-            - St. Ann and Koinonia removed.
-            - High School expanded by default.
-    -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'edu-navy': '#0f172a',
-                        'edu-gold': '#b45309',
-                        'edu-slate': '#475569',
-                        'edu-ivory': '#f8fafc',
-                    }
-                }
-            }
-        }
-    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background-color: #f8fafc; }
-        .chart-container { position: relative; width: 100%; max-width: 550px; margin: 0 auto; height: 320px; }
-        #map-container { position: relative; width: 100%; height: 500px; border-radius: 1rem; overflow: hidden; border: 1px solid #e2e8f0; background: #f1f5f9; }
-        #map { height: 100%; width: 100%; z-index: 10; }
-        .table-container::-webkit-scrollbar { height: 8px; }
-        .table-container::-webkit-scrollbar-track { background: #f1f5f9; }
-        .table-container::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-        .accordion-item { transition: all 0.2s ease-in-out; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(229, 231, 235, 0.5);
+        }
+        .path-step::after {
+            content: "→";
+            margin: 0 10px;
+            color: #94a3b8;
+        }
+        .path-step:last-child::after { content: ""; }
+        
+        input[type=range] {
+            accent-color: #2563eb;
+        }
     </style>
 </head>
-<body class="text-slate-900 antialiased">
+<body class="bg-slate-50 text-slate-900">
 
-    <!-- Header -->
-    <header class="bg-edu-navy text-white py-12 px-6 border-b-8 border-edu-gold">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
-            <div class="text-center md:text-left">
-                <h1 class="text-3xl md:text-5xl font-black tracking-tight mb-2 uppercase">Academic Roadmap</h1>
-                <p class="text-blue-200 text-lg font-medium">Strategic Planning for Male Students at 160 Morgan St</p>
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-school text-blue-600 text-2xl"></i>
+                    <span class="font-bold text-xl tracking-tight">JC Schools Guide</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#overview" class="text-slate-600 hover:text-blue-600 font-medium transition">Overview</a>
+                    <a href="#paths" class="text-slate-600 hover:text-blue-600 font-medium transition">Example Paths</a>
+                    <a href="#directory" class="text-slate-600 hover:text-blue-600 font-medium transition">School Directory</a>
+                </div>
             </div>
-            <div class="bg-edu-gold px-8 py-4 rounded-2xl shadow-2xl text-center min-w-[200px]">
-                <span class="block text-[10px] font-black text-amber-100 uppercase tracking-widest mb-1">Residential Zone</span>
-                <span class="text-xl font-bold">Downtown JC</span>
-            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative bg-blue-700 py-20 px-4 overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <svg class="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <path d="M0 100 C 20 0 50 0 100 100 Z" fill="white"></path>
+            </svg>
+        </div>
+        <div class="max-w-5xl mx-auto text-center relative z-10">
+            <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-6">Navigating Jersey City Education</h1>
+            <p class="text-xl text-blue-50 font-light opacity-90 max-w-2xl mx-auto leading-relaxed">
+                A comprehensive guide to all 21 public magnets, charters, and private institutions for families located near Downtown Jersey City.
+            </p>
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-6 py-12 space-y-16">
+    <main class="max-w-7xl mx-auto px-4 py-12 space-y-24">
 
-        <!-- Executive Summary -->
-        <section class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
-            <div class="md:col-span-2 bg-white p-8 rounded-3xl shadow-sm border border-slate-200">
-                <h2 class="text-2xl font-bold text-edu-navy mb-4 flex items-center gap-3">
-                    <span class="w-2 h-8 bg-edu-gold rounded-full"></span> Analysis Overview
-                </h2>
-                <p class="text-slate-600 leading-relaxed mb-4">
-                    This fact-check focuses on the local Jersey City educational ecosystem. Per refined requirements, all-girls institutions and suburban classical academies (St. Ann / Koinonia) have been removed to prioritize institutions within a reasonable commute of 160 Morgan Street.
-                </p>
-                <div class="p-4 bg-blue-50 border-l-4 border-edu-navy rounded text-sm text-slate-700">
-                    <strong>Fact Check:</strong> PS 16 is the high-performing zoned option for this address. For middle school, Academy I represents the elite public magnet pathway, while St. Peter's Prep is the premier private Jesuit pathway for male students.
-                </div>
+        <!-- Section: Overview -->
+        <section id="overview" class="scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">Educational Landscape</h2>
+                <div class="h-1 w-20 bg-blue-600 mx-auto rounded-full"></div>
             </div>
-            <div class="bg-edu-navy p-8 rounded-3xl text-white shadow-xl flex flex-col justify-center">
-                <h3 class="text-xs font-bold text-edu-gold uppercase tracking-[0.2em] mb-6">Database Filters</h3>
-                <ul class="space-y-3">
-                    <li class="flex items-center gap-3 text-sm"><span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span> Co-educational</li>
-                    <li class="flex items-center gap-3 text-sm"><span class="w-1.5 h-1.5 bg-blue-400 rounded-full"></span> All-Boys (St. Peter's Prep)</li>
-                    <li class="flex items-center gap-3 text-sm"><span class="w-1.5 h-1.5 bg-red-400 rounded-full"></span> No All-Girls Schools</li>
-                    <li class="flex items-center gap-3 text-sm"><span class="w-1.5 h-1.5 bg-amber-400 rounded-full"></span> Local JC Only</li>
-                </ul>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Public -->
+                <div class="glass-card p-8 rounded-2xl shadow-sm hover:shadow-md transition">
+                    <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-city text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Public & Charter</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">Free schools funded by taxpayers. Includes neighborhood schools, magnets, and lottery-based charters.</p>
+                    <ul class="text-sm space-y-2 text-slate-700">
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> No Tuition Cost</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Magnet Testing / Lotteries</li>
+                    </ul>
+                </div>
+                <!-- Magnets -->
+                <div class="glass-card p-8 rounded-2xl shadow-sm hover:shadow-md transition border-blue-100 border-2">
+                    <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-star text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Public Magnets</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">Highly selective, free schools. Admissions based on PSAT/OLSAT scores and academic record.</p>
+                    <ul class="text-sm space-y-2 text-slate-700">
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Top-Ranked in NJ</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Selective Admissions</li>
+                    </ul>
+                </div>
+                <!-- Private -->
+                <div class="glass-card p-8 rounded-2xl shadow-sm hover:shadow-md transition">
+                    <div class="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-landmark text-emerald-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Private & Independent</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">Tuition-based institutions including Montessori, IB tracks, and Catholic/Jesuit traditions.</p>
+                    <ul class="text-sm space-y-2 text-slate-700">
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Rolling / Jan Deadlines</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> $15k - $30k+ Tuition</li>
+                    </ul>
+                </div>
             </div>
         </section>
 
-        <!-- Charts Dashboard -->
-        <section class="grid grid-cols-1 lg:grid-cols-2 gap-10">
-            <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200">
-                <h3 class="text-center text-xs font-black text-slate-400 uppercase tracking-widest mb-10">Financial Landscape (Tuition)</h3>
-                <div class="chart-container">
-                    <canvas id="typeChart"></canvas>
+        <!-- Section: Example Paths -->
+        <section id="paths" class="scroll-mt-20">
+            <div class="bg-slate-900 rounded-3xl p-8 md:p-12 text-white">
+                <div class="mb-12">
+                    <h2 class="text-3xl font-bold mb-4">Example Educational Pathways</h2>
+                    <p class="text-slate-400">Strategic scenarios for a student starting near 160 Morgan St.</p>
                 </div>
-            </div>
-            <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200">
-                <h3 class="text-center text-xs font-black text-slate-400 uppercase tracking-widest mb-10">Institutional Ranking Tiers</h3>
-                <div class="chart-container">
-                    <canvas id="tierChart"></canvas>
+
+                <div class="grid lg:grid-cols-2 gap-8" id="path-container">
+                    <!-- Cards will be injected by JS -->
                 </div>
             </div>
         </section>
 
-        <!-- Interactive Map -->
-        <section>
-            <div class="flex items-center justify-between mb-6">
-                <h2 class="text-2xl font-bold text-edu-navy uppercase tracking-tight">Geographic Hubs</h2>
-                <div class="text-[10px] font-bold text-slate-400 uppercase bg-slate-100 px-3 py-1 rounded-full">Map: Localized JC View</div>
+        <!-- Section: School Directory -->
+        <section id="directory" class="scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">Complete Directory (21 Schools)</h2>
+                <p class="text-slate-500">Filter by institution type, target grade, and academic tier.</p>
             </div>
-            <div id="map-container">
-                <div id="map"></div>
+
+            <div class="glass-card rounded-2xl overflow-hidden shadow-xl mb-8">
+                <!-- Filters UI -->
+                <div class="p-6 border-b border-slate-100 bg-white grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-end">
+                    <!-- Search -->
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">Search</label>
+                        <div class="relative">
+                            <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                            <input type="text" id="schoolSearch" placeholder="Search by name..." 
+                                   class="w-full pl-11 pr-4 py-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 focus:outline-none transition text-sm">
+                        </div>
+                    </div>
+
+                    <!-- Type Filter -->
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">Institution Type</label>
+                        <div class="flex bg-slate-100 p-1 rounded-xl">
+                            <button onclick="setFilterType('All')" id="btn-All" class="flex-1 py-1.5 text-xs font-bold rounded-lg transition bg-blue-600 text-white shadow-sm">All</button>
+                            <button onclick="setFilterType('Public')" id="btn-Public" class="flex-1 py-1.5 text-xs font-bold rounded-lg transition text-slate-600 hover:text-blue-600">Public</button>
+                            <button onclick="setFilterType('Private')" id="btn-Private" class="flex-1 py-1.5 text-xs font-bold rounded-lg transition text-slate-600 hover:text-blue-600">Private</button>
+                        </div>
+                    </div>
+
+                    <!-- Tier Filter -->
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">Academic Tiers</label>
+                        <div class="flex gap-4 items-center h-[42px]">
+                            <label class="flex items-center gap-2 cursor-pointer text-xs font-bold text-slate-600 hover:text-blue-600 transition">
+                                <input type="checkbox" checked onchange="toggleTier('Tier 1')" class="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500">
+                                T1
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer text-xs font-bold text-slate-600 hover:text-blue-600 transition">
+                                <input type="checkbox" checked onchange="toggleTier('Tier 2')" class="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500">
+                                T2
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer text-xs font-bold text-slate-600 hover:text-blue-600 transition">
+                                <input type="checkbox" checked onchange="toggleTier('Tier 3')" class="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500">
+                                T3
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Grade Slider -->
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-center">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">Target Grade</label>
+                            <span id="gradeDisplay" class="text-[10px] font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded">Any Grade</span>
+                        </div>
+                        <input type="range" id="gradeSlider" min="-1" max="14" value="-1" step="1" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer">
+                        <div class="flex justify-between text-[10px] text-slate-400 font-bold px-1">
+                            <span>ALL</span>
+                            <span>PK3</span>
+                            <span>K</span>
+                            <span>5</span>
+                            <span>8</span>
+                            <span>12</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse" id="schoolTable">
+                        <thead>
+                            <tr class="bg-slate-50 border-b border-slate-200">
+                                <th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">School Name</th>
+                                <th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Type</th>
+                                <th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Grades</th>
+                                <th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Dist (mi)</th>
+                                <th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Prestige / Tier</th>
+                                <th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">PK3 Deadline</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100" id="tableBody">
+                            <!-- Rows injected by JS -->
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <p class="text-center text-xs text-slate-400 mt-4 italic">Interactive markers for all verified co-ed and all-boys schools.</p>
         </section>
 
-        <!-- Accordion Database -->
-        <section class="space-y-6">
-            <div class="flex flex-col md:flex-row justify-between items-end gap-4">
-                <div>
-                    <h2 class="text-2xl font-bold text-edu-navy uppercase tracking-tight">Admissions Database</h2>
-                    <p class="text-slate-500 text-sm">Categorized by grade level. High School expanded by default.</p>
-                </div>
-                <div class="flex gap-2">
-                    <button onclick="toggleAll(true)" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 text-[10px] font-black uppercase rounded-lg transition-all">Expand All</button>
-                    <button onclick="toggleAll(false)" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 text-[10px] font-black uppercase rounded-lg transition-all">Collapse All</button>
-                </div>
+       <!-- Section: Detailed Reports -->
+        <section id="reports" class="scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">Detailed Reports</h2>
+                <div class="h-1 w-20 bg-blue-600 mx-auto rounded-full mb-6"></div>
+                <p class="text-slate-500 max-w-2xl mx-auto">Access the full documentation and original source materials for in-depth analysis of the Jersey City school system.</p>
             </div>
 
-            <div id="accordion" class="space-y-4">
-                <!-- Javascript Injects Sections Here -->
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Overview Doc -->
+                <a href="https://docs.google.com/document/d/1Pg4JlSolTQ3NW0oVzGiTbQkTHMQ8nuJ7wkMliTqglOo/edit?tab=t.0" target="_blank" class="glass-card p-6 rounded-2xl hover:border-blue-300 hover:shadow-lg transition group">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-800">System Overview</h3>
+                    </div>
+                    <p class="text-sm text-slate-500 mb-4">A high-level report on school types, fees, and general admissions pathways.</p>
+                    <span class="text-blue-600 text-xs font-bold flex items-center gap-1 group-hover:gap-2 transition-all">
+                        View Document <i class="fas fa-external-link-alt text-[10px]"></i>
+                    </span>
+                </a>
+
+                <!-- Paths Doc -->
+                <a href="https://docs.google.com/document/d/1tm1bLFAhvp6BGO1oBwkT8cHbYra517wAAk8AEMt-gnQ/edit?tab=t.0" target="_blank" class="glass-card p-6 rounded-2xl hover:border-blue-300 hover:shadow-lg transition group">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-10 h-10 bg-indigo-50 rounded-lg flex items-center justify-center text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition">
+                            <i class="fas fa-route"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-800">Example Paths</h3>
+                    </div>
+                    <p class="text-sm text-slate-500 mb-4">Six example scenarios for student progression through the JC system.</p>
+                    <span class="text-indigo-600 text-xs font-bold flex items-center gap-1 group-hover:gap-2 transition-all">
+                        View Document <i class="fas fa-external-link-alt text-[10px]"></i>
+                    </span>
+                </a>
+
+                <!-- Spreadsheet -->
+                <a href="https://docs.google.com/spreadsheets/d/1ZJOS0Xre16xaaWT58LhgJOzFLkCDiEN5Y0SSMMkHolE/edit?gid=1927364476#gid=1927364476" target="_blank" class="glass-card p-6 rounded-2xl hover:border-green-300 hover:shadow-lg transition group">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-10 h-10 bg-emerald-50 rounded-lg flex items-center justify-center text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white transition">
+                            <i class="fas fa-table"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-800">Spreadsheet List</h3>
+                    </div>
+                    <p class="text-sm text-slate-500 mb-4">Complete raw data list with distances, deadlines, and specific school information.</p>
+                    <span class="text-emerald-600 text-xs font-bold flex items-center gap-1 group-hover:gap-2 transition-all">
+                        View Spreadsheet <i class="fas fa-external-link-alt text-[10px]"></i>
+                    </span>
+                </a>
             </div>
         </section>
 
     </main>
 
-    <footer class="bg-edu-navy text-slate-500 py-16 text-center mt-20 border-t-4 border-edu-gold">
-        <div class="max-w-7xl mx-auto px-6">
-            <p class="text-sm mb-2 font-bold text-slate-400">Jersey City School Research Fact-Check 2026</p>
-            <p class="text-[10px] uppercase tracking-[0.4em]">Confidential Analysis for 160 Morgan Street Residents</p>
+    <footer class="bg-slate-100 py-12 mt-20">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-slate-500 text-sm">This information has been fact checked. But small inaccuracies may still exist. Let Drew know about any questions or inconsistencies.<br><br>© 2024 Jersey City School Information Guide. Content derived from current district catalogs and admissions guidelines.</p>
         </div>
     </footer>
 
     <script>
-        // Core Fact-Checked Dataset (Local JC Only, No Girls, All Boys included)
         const schoolData = [
+            { name: "McNair Academic HS", dist: "0.5", grades: "9–12", gMin: 9, gMax: 12, type: "Public Magnet", category: "Public", tier: "Tier 1: #1 Ranked Public HS in NJ", pk3: "—", address: "123 Coles St" },
+            { name: "Academy I Middle School", dist: "3.5", grades: "6–8", gMin: 6, gMax: 8, type: "Public Magnet", category: "Public", tier: "Tier 1: Competitive Public Magnet", pk3: "—", address: "209 Bergen Ave" },
+            { name: "Infinity Institute", dist: "0.7", grades: "6–12", gMin: 6, gMax: 12, type: "Public Magnet", category: "Public", tier: "Tier 1: Elite Public Magnet", pk3: "—", address: "222 Mercer Street" },
+            { name: "PS 16 (Bradford)", dist: "0.4", grades: "PK–5", gMin: -2, gMax: 5, type: "Public", category: "Public", tier: "Tier 1: Top Rated Public Elementary", pk3: "March 2027", address: "96 Sussex St" },
+            { name: "Saint Peter's Prep", dist: "0.4", grades: "9–12", gMin: 9, gMax: 12, type: "Jesuit (Private)", category: "Private", tier: "Tier 1: Premier Jesuit Boys School", pk3: "—", address: "144 Grand St" },
+            { name: "High Tech HS", dist: "5.2", grades: "9–12", gMin: 9, gMax: 12, type: "Public Magnet", category: "Public", tier: "Tier 1: Elite County Magnet", pk3: "—", address: "Secaucus" },
+            { name: "The Hudson School", dist: "2.4", grades: "PK–12", gMin: -2, gMax: 12, type: "Private", category: "Private", tier: "Tier 1: Selective Private", pk3: "Jan 2027", address: "Hoboken" },
+            { name: "OLC School", dist: "0.3", grades: "PK–8", gMin: -2, gMax: 8, type: "Private (Catholic)", category: "Private", tier: "Tier 1: Premier Catholic School", pk3: "Dec 15, 2026", address: "248 Marin Blvd" },
+            { name: "Waterfront Montessori", dist: "0.5", grades: "PK–8", gMin: -2, gMax: 8, type: "Private", category: "Private", tier: "Tier 1: Top Private Montessori", pk3: "Rolling", address: "150 Warren St" },
+            { name: "Hamilton Park Mont.", dist: "0.8", grades: "PK–8", gMin: -2, gMax: 8, type: "Private", category: "Private", tier: "Tier 1: Highly Competitive Private", pk3: "Rolling", address: "1 McWilliams Pl" },
+            { name: "Accelerated Enr. (AEP)", dist: "—", grades: "6–8", gMin: 6, gMax: 8, type: "Public Magnet", category: "Public", tier: "Tier 1: Gifted/Talented Track", pk3: "—", address: "District-Wide" },
+            { name: "County Prep HS", dist: "1.2", grades: "9–12", gMin: 9, gMax: 12, type: "Public Magnet", category: "Public", tier: "Tier 2: Respected County Magnet", pk3: "—", address: "525 Montgomery St" },
+            { name: "Primary Prep", dist: "1.7", grades: "PK–8", gMin: -2, gMax: 8, type: "Private", category: "Private", tier: "Tier 2: Respected Private", pk3: "March 1, 2027", address: "41 Tuers Ave" },
+            { name: "Danforth Ave ECC", dist: "4.0", grades: "PK", gMin: -2, gMax: -1, type: "Public", category: "Public", tier: "Tier 3: Standard: Public Early Childhood", pk3: "March 2027", address: "160 Danforth Ave" },
+            { name: "Hudson Montessori", dist: "0.7", grades: "PK–8", gMin: -2, gMax: 8, type: "Private", category: "Private", tier: "Tier 1: Niche A Rated (Top 20%)", pk3: "Feb 15, 2027", address: "10 Regent St" },
+            { name: "Learning Ladders IB", dist: "0.1", grades: "PK–5", gMin: -2, gMax: 5, type: "Private", category: "Private", tier: "Tier 1: Exclusive IB Track", pk3: "Rolling", address: "33 Hudson St" },
+            { name: "Soaring Heights", dist: "1.5", grades: "K–8", gMin: 0, gMax: 8, type: "Charter", category: "Public", tier: "Tier 2: Established Charter", pk3: "—", address: "1 Romar Ave" },
+            { name: "Ethical Community (TECCS)", dist: "3.2", grades: "K–8", gMin: 0, gMax: 8, type: "Charter", category: "Public", tier: "Tier 2: Respected Charter", pk3: "—", address: "95 Liberty Ave" },
+            { name: "MS 4 (Conwell Middle)", dist: "1.1", grades: "6–8", gMin: 6, gMax: 8, type: "Public Magnet", category: "Public", tier: "Tier 1: AEP Middle School", pk3: "—", address: "107 Bright St" },
+            { name: "PS 3 (Conwell Elem)", dist: "1.1", grades: "PK–5", gMin: -2, gMax: 5, type: "Public", category: "Public", tier: "Tier 1: Strong Feeder School", pk3: "March 2027", address: "111 Bright St" },
+            { name: "Explore Middle School", dist: "1.5", grades: "6–8", gMin: 6, gMax: 8, type: "Public Magnet", category: "Public", tier: "Tier 1: Project-Based Magnet", pk3: "—", address: "180 9th St" }
+        ];
+
+        const paths = [
             {
-                category: "Pre-K",
-                name: "Cornelia F. Bradford (PS 16) - Pre-K",
-                admissions: "Zoning & Lottery (Age 3/4 Entry)",
-                type: "Public",
-                tier: "Top Tier",
-                gender: "Co-ed",
-                tuition: "$0",
-                religion: "None",
-                specialities: "Early Childhood focus, Social-Emotional Development",
-                location: "96 Sussex St, Jersey City, NJ 07302",
-                lat: 40.7142, lng: -74.0368
+                title: "The Ultimate Public Magnet",
+                path: ["Danforth ECC", "PS 16", "Academy I (AEP)", "McNair Academic"],
+                details: "Academically gifted track. Focuses on testing placement (OLSAT 5th, PSAT 8th). Completely free.",
+                cost: "Free",
+                icon: "fa-rocket text-yellow-400"
             },
             {
-                category: "Primary",
-                name: "Cornelia F. Bradford School (PS 16)",
-                admissions: "Zoned (Direct enrollment for 160 Morgan St)",
-                type: "Public",
-                tier: "Top Tier",
-                gender: "Co-ed",
-                tuition: "$0",
-                religion: "None",
-                specialities: "Gifted & Talented cluster, Downtown community focus",
-                location: "96 Sussex St, Jersey City, NJ 07302",
-                lat: 40.7142, lng: -74.0368
+                title: "The Private-to-Public Elite",
+                path: ["Hamilton Park Montessori", "Infinity Institute"],
+                details: "Early Montessori foundation with a transition to a high-prestige selective public high school.",
+                cost: "Private K-8, Public HS",
+                icon: "fa-graduation-cap text-blue-400"
             },
             {
-                category: "Primary",
-                name: "Our Lady of Czestochowa (OLC)",
-                admissions: "Application, Developmental Assessment",
-                type: "Private",
-                tier: "Top Tier",
-                gender: "Co-ed",
-                tuition: "$12,200",
-                religion: "Catholic",
-                specialities: "Blue Ribbon Institution, Strong Catholic Foundation",
-                location: "248 Luis Marin Blvd, Jersey City, NJ 07302",
-                lat: 40.7153, lng: -74.0416
+                title: "Traditional Catholic Prep",
+                path: ["OLC School", "Saint Peter's Prep"],
+                details: "A values-based K-12 track centered in Downtown JC. Selective admissions and Jesuit traditions.",
+                cost: "~$24k+ / yr",
+                icon: "fa-cross text-red-400"
             },
             {
-                category: "Middle",
-                name: "Academy I Middle School",
-                admissions: "Magnet Entrance Exam (Grade 5 application window)",
-                type: "Public",
-                tier: "Top Tier (Magnet)",
-                gender: "Co-ed",
-                tuition: "$0",
-                religion: "None",
-                specialities: "STEM Acceleration, High placement into McNair",
-                location: "209 Bergen Ave, Jersey City, NJ 07305",
-                lat: 40.7075, lng: -74.0844
-            },
-            {
-                category: "Middle",
-                name: "Frank R. Conwell Middle School (MS 4)",
-                admissions: "Zoned / Magnet Selection",
-                type: "Public",
-                tier: "Mid-Upper Tier",
-                gender: "Co-ed",
-                tuition: "$0",
-                religion: "None",
-                specialities: "Core academic rigor, Downtown location",
-                location: "107 Bright St, Jersey City, NJ 07302",
-                lat: 40.7176, lng: -74.0478
-            },
-            {
-                category: "High school",
-                name: "Dr. Ronald E. McNair Academic",
-                admissions: "PSAT/District Exam, GPA, Attendance Review",
-                type: "Public",
-                tier: "Elite Tier (#1 in NJ)",
-                gender: "Co-ed",
-                tuition: "$0",
-                religion: "None",
-                specialities: "AP Curriculum, 100% College Placement rate",
-                location: "123 Coles St, Jersey City, NJ 07302",
-                lat: 40.7255, lng: -74.0456
-            },
-            {
-                category: "High school",
-                name: "Saint Peter's Preparatory School",
-                admissions: "HSPT (High School Placement Test), Review",
-                type: "Private",
-                tier: "Elite Tier (Parochial)",
-                gender: "All Boys",
-                tuition: "$23,850",
-                religion: "Catholic (Jesuit)",
-                specialities: "Leadership focus, Men for Others, Athletic excellence",
-                location: "144 Grand St, Jersey City, NJ 07302",
-                lat: 40.7161, lng: -74.0396
-            },
-            {
-                category: "High school",
-                name: "Hudson Catholic Regional High School",
-                admissions: "HSPT & Transcript Review",
-                type: "Private",
-                tier: "Mid-Upper Tier",
-                gender: "Co-ed",
-                tuition: "$13,500",
-                religion: "Catholic",
-                specialities: "Lasallian values, Structured disciplinary environment",
-                location: "790 Bergen Ave, Jersey City, NJ 07306",
-                lat: 40.7230, lng: -74.0660
+                title: "Hands-On Portfolio Track",
+                path: ["PS 16", "Explore Middle", "Innovation HS"],
+                details: "Ideal for project-based learners. Bypasses standardized testing for vocational and problem-solving tracks.",
+                cost: "Free",
+                icon: "fa-palette text-purple-400"
             }
         ];
 
-        const categories = ["Pre-K", "Primary", "Middle", "High school"];
-        const state = {
-            "Pre-K": false,
-            "Primary": false,
-            "Middle": false,
-            "High school": true
-        };
+        let currentFilterType = "All";
+        let currentSearch = "";
+        let currentGrade = -3; // -3 means ALL grades
+        let selectedTiers = ["Tier 1", "Tier 2", "Tier 3"];
 
-        function renderAccordion() {
-            const container = document.getElementById('accordion');
-            container.innerHTML = '';
-
-            categories.forEach(cat => {
-                const isExpanded = state[cat];
-                const schools = schoolData.filter(s => s.category === cat);
-                
-                const section = document.createElement('div');
-                section.className = "bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden accordion-item";
-
-                // Header
-                const header = document.createElement('div');
-                header.className = `flex items-center justify-between px-8 py-5 cursor-pointer transition-all ${isExpanded ? 'bg-edu-navy text-white' : 'bg-white hover:bg-slate-50'}`;
-                header.onclick = () => {
-                    state[cat] = !state[cat];
-                    renderAccordion();
-                };
-
-                header.innerHTML = `
-                    <div class="flex items-center gap-4">
-                        <span class="text-xs font-black uppercase tracking-widest">${cat}</span>
-                        <span class="text-[10px] px-2 py-0.5 rounded-full ${isExpanded ? 'bg-white/20' : 'bg-slate-100 text-slate-400'}">${schools.length} verified</span>
+        function renderPaths() {
+            const container = document.getElementById('path-container');
+            container.innerHTML = paths.map(p => `
+                <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="mt-1"><i class="fas ${p.icon} text-xl"></i></div>
+                        <div>
+                            <h3 class="text-xl font-bold">${p.title}</h3>
+                            <p class="text-blue-400 text-xs font-bold uppercase tracking-widest mt-1">${p.cost}</p>
+                        </div>
                     </div>
-                    <div class="text-xl font-bold">${isExpanded ? '−' : '+'}</div>
-                `;
-
-                // Table Content
-                const content = document.createElement('div');
-                content.className = isExpanded ? 'block' : 'hidden';
-                
-                if (isExpanded) {
-                    let tableHtml = `
-                        <div class="overflow-x-auto table-container">
-                            <table class="min-w-full text-[11px] text-left">
-                                <thead class="bg-slate-50 text-slate-400 font-bold uppercase tracking-tighter">
-                                    <tr>
-                                        <th class="px-8 py-3">School & Gender</th>
-                                        <th class="px-8 py-3">25-26 Tuition</th>
-                                        <th class="px-8 py-3">Admissions</th>
-                                        <th class="px-8 py-3">Type/Tier</th>
-                                        <th class="px-8 py-3">Specialities</th>
-                                        <th class="px-8 py-3">Map</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="divide-y divide-slate-100">
-                    `;
-
-                    schools.forEach(s => {
-                        const genderStyle = s.gender === 'All Boys' ? 'text-edu-gold font-bold' : 'text-slate-400';
-                        tableHtml += `
-                            <tr class="hover:bg-slate-50/50">
-                                <td class="px-8 py-5">
-                                    <div class="font-bold text-sm text-edu-navy">${s.name}</div>
-                                    <div class="${genderStyle} uppercase text-[9px]">${s.gender}</div>
-                                </td>
-                                <td class="px-8 py-5 font-mono font-bold ${s.tuition === '$0' ? 'text-emerald-600' : 'text-slate-600'}">${s.tuition}</td>
-                                <td class="px-8 py-5 text-slate-500">${s.admissions}</td>
-                                <td class="px-8 py-5 font-bold uppercase text-[10px]">
-                                    ${s.type}<br><span class="text-edu-gold font-medium">${s.tier}</span>
-                                </td>
-                                <td class="px-8 py-5 text-slate-400">${s.specialities}</td>
-                                <td class="px-8 py-5">
-                                    <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(s.name + ' ' + s.location)}" target="_blank" class="text-blue-500 hover:underline font-bold">📍 VIEW</a>
-                                </td>
-                            </tr>
-                        `;
-                    });
-
-                    tableHtml += `</tbody></table></div>`;
-                    content.innerHTML = tableHtml;
-                }
-
-                section.appendChild(header);
-                section.appendChild(content);
-                container.appendChild(section);
-            });
+                    <div class="flex flex-wrap items-center gap-y-2 mb-4 text-sm font-medium">
+                        ${p.path.map((step, i) => `
+                            <span class="${i === p.path.length - 1 ? 'text-blue-400' : 'text-slate-300'} path-step">${step}</span>
+                        `).join('')}
+                    </div>
+                    <p class="text-slate-400 text-sm leading-relaxed">${p.details}</p>
+                </div>
+            `).join('');
         }
 
-        function toggleAll(expand) {
-            categories.forEach(cat => state[cat] = expand);
-            renderAccordion();
-        }
-
-        // Stabilized Map Initialization
-        let map;
-        function initMap() {
-            if (map) map.remove();
+        function renderTable() {
+            const tbody = document.getElementById('tableBody');
             
-            map = L.map('map', {
-                scrollWheelZoom: false,
-                attributionControl: false
+            const filtered = schoolData.filter(s => {
+                const matchesType = currentFilterType === "All" || s.category === currentFilterType;
+                const matchesSearch = s.name.toLowerCase().includes(currentSearch.toLowerCase());
+                const matchesTier = selectedTiers.some(t => s.tier.startsWith(t));
+                
+                let matchesGrade = true;
+                if (currentGrade > -3) {
+                    matchesGrade = (currentGrade >= s.gMin && currentGrade <= s.gMax);
+                }
+
+                return matchesType && matchesSearch && matchesGrade && matchesTier;
             });
 
-            L.tileLayer('https://{s}.tile.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png').addTo(map);
-
-            const markers = L.featureGroup();
-
-            // Home Base
-            const homeIcon = L.divIcon({
-                className: 'home-marker',
-                html: `<div style="background:#0f172a;width:24px;height:24px;border-radius:50%;border:4px solid #fff;box-shadow:0 0 10px rgba(0,0,0,0.3);"></div>`,
-                iconSize: [24, 24], iconAnchor: [12, 12]
-            });
-            L.marker([40.7208, -74.0381], {icon: homeIcon}).addTo(markers).bindPopup("<b>160 Morgan St</b> (Residential Base)");
-
-            // School Markers
-            schoolData.forEach(s => {
-                const color = s.type === 'Private' ? '#b45309' : '#64748b';
-                const size = s.gender === 'All Boys' ? 18 : 12;
-                const schoolIcon = L.divIcon({
-                    className: 'school-marker',
-                    html: `<div style="background:${color};width:${size}px;height:${size}px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 5px rgba(0,0,0,0.2);"></div>`,
-                    iconSize: [size, size], iconAnchor: [size/2, size/2]
-                });
-                L.marker([s.lat, s.lng], {icon: schoolIcon}).addTo(markers).bindPopup(`<b>${s.name}</b><br>${s.gender}`);
-            });
-
-            markers.addTo(map);
-            map.fitBounds(markers.getBounds(), { padding: [50, 50] });
+            tbody.innerHTML = filtered.map(s => `
+                <tr class="hover:bg-slate-50/80 transition">
+                    <td class="px-6 py-4">
+                        <div class="font-semibold text-slate-800">${s.name}</div>
+                        <div class="text-[10px] text-slate-400">${s.address}</div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <span class="px-2 py-1 text-[10px] font-bold uppercase rounded-full ${getTypeStyles(s.type)}">
+                            ${s.type}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 text-sm text-slate-600">${s.grades}</td>
+                    <td class="px-6 py-4 text-sm text-slate-600 font-mono">${s.dist}</td>
+                    <td class="px-6 py-4 text-[11px] text-slate-500 max-w-[200px] leading-tight">${s.tier}</td>
+                    <td class="px-6 py-4 text-sm font-medium text-blue-600">${s.pk3}</td>
+                </tr>
+            `).join('');
+            
+            if (filtered.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="p-12 text-center text-slate-400 italic">No schools found matching those criteria.</td></tr>`;
+            }
         }
 
-        // Analytics Initialization
-        function initCharts() {
-            const types = { 'Free (Public)': 0, 'Parochial (<$15k)': 0, 'Elite (>$20k)': 0 };
-            const tiers = { 'Elite/Top': 0, 'Mid-Upper': 0 };
+        function getTypeStyles(type) {
+            if (type.includes('Magnet')) return 'bg-purple-100 text-purple-700';
+            if (type.includes('Private')) return 'bg-emerald-100 text-emerald-700';
+            if (type === 'Charter') return 'bg-amber-100 text-amber-700';
+            return 'bg-blue-100 text-blue-700';
+        }
 
-            schoolData.forEach(s => {
-                const tuitionVal = parseInt(s.tuition.replace(/[^0-9]/g, ''));
-                if (s.type === 'Public') types['Free (Public)']++;
-                else if (tuitionVal > 20000) types['Elite (>$20k)']++;
-                else types['Parochial (<$15k)']++;
-
-                if (s.tier.includes('Elite') || s.tier.includes('Top')) tiers['Elite/Top']++;
-                else tiers['Mid-Upper']++;
-            });
-
-            new Chart(document.getElementById('typeChart'), {
-                type: 'doughnut',
-                data: {
-                    labels: Object.keys(types),
-                    datasets: [{
-                        data: Object.values(types),
-                        backgroundColor: ['#64748b', '#d97706', '#b45309'],
-                        borderWidth: 0,
-                        hoverOffset: 20
-                    }]
-                },
-                options: { maintainAspectRatio: false, cutout: '70%', plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10, weight: 'bold' } } } } }
-            });
-
-            new Chart(document.getElementById('tierChart'), {
-                type: 'bar',
-                data: {
-                    labels: Object.keys(tiers),
-                    datasets: [{
-                        label: 'Institutions',
-                        data: Object.values(tiers),
-                        backgroundColor: '#0f172a',
-                        borderRadius: 10
-                    }]
-                },
-                options: { 
-                    maintainAspectRatio: false, 
-                    plugins: { legend: { display: false } },
-                    scales: { y: { beginAtZero: true, ticks: { stepSize: 1 }, grid: { display: false } }, x: { grid: { display: false } } }
+        function setFilterType(type) {
+            currentFilterType = type;
+            ["All", "Public", "Private"].forEach(t => {
+                const btn = document.getElementById(`btn-${t}`);
+                if (t === type) {
+                    btn.classList.add('bg-blue-600', 'text-white', 'shadow-sm');
+                    btn.classList.remove('text-slate-600');
+                } else {
+                    btn.classList.remove('bg-blue-600', 'text-white', 'shadow-sm');
+                    btn.classList.add('text-slate-600');
                 }
             });
+            renderTable();
         }
 
-        // Load Application
-        window.onload = () => {
-            renderAccordion();
-            initCharts();
-            // Use setTimeout to ensure Leaflet has a fully rendered container to calculate dimensions
-            setTimeout(initMap, 200);
-        };
+        function toggleTier(tier) {
+            if (selectedTiers.includes(tier)) {
+                selectedTiers = selectedTiers.filter(t => t !== tier);
+            } else {
+                selectedTiers.push(tier);
+            }
+            renderTable();
+        }
+
+        const gradeLabels = ["PK3", "PK4", "K", "1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th", "11th", "12th"];
+        
+        document.getElementById('gradeSlider').addEventListener('input', (e) => {
+            const val = parseInt(e.target.value);
+            const display = document.getElementById('gradeDisplay');
+            
+            if (val === -1) {
+                currentGrade = -3;
+                display.innerText = "Any Grade";
+            } else {
+                currentGrade = val - 2; 
+                display.innerText = gradeLabels[val];
+            }
+            renderTable();
+        });
+
+        document.getElementById('schoolSearch').addEventListener('input', (e) => {
+            currentSearch = e.target.value;
+            renderTable();
+        });
+
+        renderPaths();
+        renderTable();
     </script>
 </body>
 </html>
