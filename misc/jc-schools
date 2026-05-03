@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strategic Educational Analysis: Jersey City</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Leaflet CSS & JS for Interactive Map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+
+    <!-- Chosen Palette: Navy Blue, Slate, Warm Ivory, Gold Accents -->
+    <!-- Application Structure Plan: 
+         1. Header & Executive Summary: Establishes context (160 Morgan St, male student, traditional/conservative path).
+         2. Analytical Dashboard (Charts): Visualizes the distribution of schools by Tier and Type to provide an immediate overview of the landscape.
+         3. Interactive Map (Geographic Context): Plots the fact-checked schools relative to the 160 Morgan St address to assess proximity and walkability.
+         4. Comprehensive Fact-Checked Database (Table): The core requirement. A sortable, filterable table containing all required columns (Grade, Name, Admissions, etc.) for detailed analysis.
+         This structure moves the user from high-level context -> geographic reality -> granular data. -->
+    <!-- Visualization & Content Choices: 
+         - Goal: Show school breakdown -> Viz: Chart.js Doughnut -> Justification: Easily shows Public vs Private and Tier distributions. NO SVG.
+         - Goal: Show locations -> Viz: Leaflet JS Map -> Justification: Fulfills the "Google Map list" requirement interactively without needing an external image. NO SVG.
+         - Goal: Detailed Fact-Check -> Viz: HTML/Tailwind Table -> Justification: Best for reading complex, multi-column qualitative and quantitative data. NO SVG. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'edu-navy': '#1e3a8a',
+                        'edu-slate': '#475569',
+                        'edu-ivory': '#f8fafc',
+                        'edu-gold': '#d97706',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f8fafc; }
+        .chart-container { position: relative; width: 100%; max-width: 500px; margin: 0 auto; height: 300px; }
+        #map { height: 400px; width: 100%; border-radius: 0.5rem; z-index: 10; }
+        /* Custom scrollbar for table */
+        .table-container::-webkit-scrollbar { height: 8px; }
+        .table-container::-webkit-scrollbar-track { background: #f1f5f9; }
+        .table-container::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .table-container::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="text-slate-800 antialiased">
+
+    <!-- Header Section -->
+    <header class="bg-edu-navy text-white py-10 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h1 class="text-3xl md:text-4xl font-bold mb-2">Strategic Educational Analysis</h1>
+            <p class="text-lg text-blue-200">Fact-Checked Multi-Tiered Academic Planning for Residents of 160 Morgan Street, Jersey City</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+
+        <!-- Executive Summary -->
+        <section class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+            <h2 class="text-2xl font-semibold text-edu-navy mb-4">Executive Summary & Context</h2>
+            <p class="mb-4">
+                Based on the provided research document, this portal presents a fact-checked analysis of educational pathways for a family residing at <strong>160 Morgan Street (Provost Square)</strong> seeking a traditional, rigorous academic path for a male student. 
+            </p>
+            <p>
+                Jersey City utilizes strict age-based cutoffs (October 1st) for public and elite private institutions. This application maps out the transition points from primary to high school, verifying admissions criteria, ranking tiers, and geographical proximity to elite public magnets and conservative/classical private institutions.
+            </p>
+        </section>
+
+        <!-- Dashboard / Charts -->
+        <section>
+            <h2 class="text-2xl font-semibold text-edu-navy mb-4">Landscape Overview</h2>
+            <p class="text-slate-600 mb-6">A breakdown of the verified schools categorized by funding type and academic ranking tier within the immediate sphere of consideration.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                <div>
+                    <h3 class="text-center font-medium text-slate-700 mb-2">Public vs. Private Distribution</h3>
+                    <div class="chart-container">
+                        <canvas id="typeChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-center font-medium text-slate-700 mb-2">Institutions by Ranking Tier</h3>
+                    <div class="chart-container">
+                        <canvas id="tierChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Map Section -->
+        <section>
+            <h2 class="text-2xl font-semibold text-edu-navy mb-4">Geographic Distribution</h2>
+            <p class="text-slate-600 mb-6">Interactive map replacing a static Google Maps screenshot. The blue marker indicates the residential base at 160 Morgan Street. Click on markers to view school details.</p>
+            
+            <div class="bg-white p-2 rounded-xl shadow-sm border border-slate-200">
+                <div id="map"></div>
+            </div>
+            <p class="text-sm text-slate-500 mt-2 italic">*Note: Koinonia Academy and St. Ann Classical Academy are located outside JC but are included per the research scope.*</p>
+        </section>
+
+        <!-- The Core Database (Table) -->
+        <section>
+            <div class="flex justify-between items-end mb-4">
+                <div>
+                    <h2 class="text-2xl font-semibold text-edu-navy">Verified School Database</h2>
+                    <p class="text-slate-600">Comprehensive fact-checked matrix of target institutions.</p>
+                </div>
+                <div class="flex space-x-2">
+                    <select id="gradeFilter" class="bg-white border border-slate-300 text-slate-700 py-2 px-3 rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-edu-navy">
+                        <option value="All">All Grades</option>
+                        <option value="Pre-K">Pre-K</option>
+                        <option value="Primary">Primary</option>
+                        <option value="Middle">Middle</option>
+                        <option value="High school">High school</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="overflow-x-auto table-container">
+                    <table class="min-w-full text-sm text-left">
+                        <thead class="text-xs text-white uppercase bg-edu-slate">
+                            <tr>
+                                <th scope="col" class="px-4 py-3 whitespace-nowrap">Grade Category</th>
+                                <th scope="col" class="px-4 py-3 min-w-[200px]">School Name</th>
+                                <th scope="col" class="px-4 py-3 min-w-[150px]">Admissions</th>
+                                <th scope="col" class="px-4 py-3 whitespace-nowrap">Public / Private</th>
+                                <th scope="col" class="px-4 py-3 whitespace-nowrap">Ranking Tier</th>
+                                <th scope="col" class="px-4 py-3 whitespace-nowrap">Religious Affiliation</th>
+                                <th scope="col" class="px-4 py-3 min-w-[200px]">Specialities</th>
+                                <th scope="col" class="px-4 py-3 min-w-[250px]">Location</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody" class="divide-y divide-slate-200">
+                            <!-- Rows populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-800 text-slate-400 py-6 text-center mt-12">
+        <p class="text-sm">Information compiled and fact-checked from the "Jersey City School Research Project" document.</p>
+    </footer>
+
+    <!-- Application Logic -->
+    <script>
+        // Data Storage
+        const schoolData = [
+            {
+                grade: "High school",
+                name: "Saint Peter's Preparatory School",
+                admissions: "Testing (HSPT), Transcripts, Interview",
+                type: "Private",
+                tier: "Top Tier",
+                religion: "Catholic (Jesuit)",
+                specialities: "All-boys, Classical influence, Elite Athletics, Discipline",
+                location: "144 Grand St, Jersey City, NJ 07302 (Downtown)",
+                lat: 40.7161, lng: -74.0396
+            },
+            {
+                grade: "High school",
+                name: "Dr. Ronald E. McNair Academic High School",
+                admissions: "Testing (PSAT), Grades, Teacher Recs",
+                type: "Public",
+                tier: "Top Tier",
+                religion: "None",
+                specialities: "Magnet program, AP focus, #1 Public High School in NJ",
+                location: "123 Coles St, Jersey City, NJ 07302",
+                lat: 40.7255, lng: -74.0456
+            },
+            {
+                grade: "High school",
+                name: "Hudson Catholic Regional High School",
+                admissions: "Testing (HSPT), Application",
+                type: "Private",
+                tier: "Mid-Upper Tier",
+                religion: "Catholic",
+                specialities: "Co-ed, Strong basketball program, LaSalle prep",
+                location: "790 Bergen Ave, Jersey City, NJ 07306",
+                lat: 40.7230, lng: -74.0660
+            },
+            {
+                grade: "Pre-K, Primary, Middle",
+                name: "Our Lady of Czestochowa (OLC) School",
+                admissions: "Application, Waitlists, Interview",
+                type: "Private",
+                tier: "Top Tier",
+                religion: "Catholic",
+                specialities: "Blue Ribbon School, Strong Downtown Community",
+                location: "248 Luis Marin Blvd, Jersey City, NJ 07302 (Downtown)",
+                lat: 40.7153, lng: -74.0416
+            },
+            {
+                grade: "Pre-K, Primary",
+                name: "Cornelia F. Bradford School (PS 16)",
+                admissions: "Zoning (Serves 160 Morgan St area)",
+                type: "Public",
+                tier: "Top Tier (Public)",
+                religion: "None",
+                specialities: "Highly rated gifted & talented programs, walkability",
+                location: "96 Sussex St, Jersey City, NJ 07302",
+                lat: 40.7142, lng: -74.0368
+            },
+            {
+                grade: "Middle",
+                name: "Academy I Middle School",
+                admissions: "Testing, Grades (Magnet)",
+                type: "Public",
+                tier: "Top Tier",
+                religion: "None",
+                specialities: "Gifted/Talented Middle School Magnet",
+                location: "209 Bergen Ave, Jersey City, NJ 07305",
+                lat: 40.7075, lng: -74.0844
+            },
+            {
+                grade: "Pre-K, Primary, Middle, High school",
+                name: "Koinonia Academy",
+                admissions: "Application, Interview",
+                type: "Private",
+                tier: "Mid Tier",
+                religion: "Catholic",
+                specialities: "Traditional conservative, classical orthodox instruction",
+                location: "1040 Plainfield Ave, Plainfield, NJ 07060 (Outside JC)",
+                lat: 40.6030, lng: -74.4010
+            },
+            {
+                grade: "Pre-K, Primary, Middle",
+                name: "St. Ann Classical Academy",
+                admissions: "Application",
+                type: "Private",
+                tier: "Mid Tier",
+                religion: "Catholic",
+                specialities: "Strict Classical education methodology",
+                location: "40 2nd Ave, Raritan, NJ 08869 (Outside JC)",
+                lat: 40.5700, lng: -74.6300
+            }
+        ];
+
+        // State Management
+        let currentFilter = "All";
+
+        // Initialize Application
+        document.addEventListener('DOMContentLoaded', () => {
+            renderTable(schoolData);
+            initCharts();
+            initMap();
+
+            // Event Listeners
+            document.getElementById('gradeFilter').addEventListener('change', (e) => {
+                currentFilter = e.target.value;
+                filterData();
+            });
+        });
+
+        // Functional Navigation / Table Rendering
+        function renderTable(data) {
+            const tbody = document.getElementById('tableBody');
+            tbody.innerHTML = ''; // Clear existing
+
+            data.forEach((school, index) => {
+                const tr = document.createElement('tr');
+                tr.className = index % 2 === 0 ? 'bg-white hover:bg-slate-50' : 'bg-slate-50 hover:bg-slate-100';
+                
+                // Helper to color-code tiers
+                let tierBadge = `<span class="bg-slate-200 text-slate-800 py-1 px-2 rounded-full text-xs font-semibold">${school.tier}</span>`;
+                if(school.tier.includes("Top")) {
+                    tierBadge = `<span class="bg-green-100 text-green-800 py-1 px-2 rounded-full text-xs font-semibold">${school.tier}</span>`;
+                }
+
+                tr.innerHTML = `
+                    <td class="px-4 py-4">${school.grade}</td>
+                    <td class="px-4 py-4 font-semibold text-edu-navy">${school.name}</td>
+                    <td class="px-4 py-4">${school.admissions}</td>
+                    <td class="px-4 py-4">${school.type}</td>
+                    <td class="px-4 py-4">${tierBadge}</td>
+                    <td class="px-4 py-4">${school.religion}</td>
+                    <td class="px-4 py-4">${school.specialities}</td>
+                    <td class="px-4 py-4"><a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(school.name + ' ' + school.location)}" target="_blank" class="text-blue-600 hover:underline">📍 ${school.location}</a></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function filterData() {
+            let filtered = schoolData;
+            if (currentFilter !== "All") {
+                filtered = schoolData.filter(s => s.grade.includes(currentFilter));
+            }
+            renderTable(filtered);
+        }
+
+        // Initialize Map (Leaflet)
+        function initMap() {
+            // Center map on 160 Morgan St, Jersey City
+            const map = L.map('map').setView([40.7208, -74.0381], 12);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap contributors'
+            }).addTo(map);
+
+            // Home Base Marker
+            const homeIcon = L.divIcon({
+                className: 'custom-div-icon',
+                html: "<div style='background-color:#1e3a8a;width:20px;height:20px;border-radius:50%;border:3px solid white;box-shadow:0 0 5px rgba(0,0,0,0.5);'></div>",
+                iconSize: [20, 20],
+                iconAnchor: [10, 10]
+            });
+            
+            L.marker([40.7208, -74.0381], {icon: homeIcon}).addTo(map)
+                .bindPopup('<b>160 Morgan Street</b><br>Provost Square (Home Base)')
+                .openPopup();
+
+            // School Markers
+            schoolData.forEach(school => {
+                const color = school.type === 'Private' ? '#d97706' : '#475569'; // Gold for private, Slate for public
+                const schoolIcon = L.divIcon({
+                    className: 'custom-div-icon',
+                    html: `<div style='background-color:${color};width:16px;height:16px;border-radius:50%;border:2px solid white;'></div>`,
+                    iconSize: [16, 16],
+                    iconAnchor: [8, 8]
+                });
+
+                L.marker([school.lat, school.lng], {icon: schoolIcon}).addTo(map)
+                    .bindPopup(`<b>${school.name}</b><br>${school.tier} | ${school.type}`);
+            });
+        }
+
+        // Initialize Charts (Chart.js)
+        function initCharts() {
+            // Data aggregations
+            const typeCounts = { 'Public': 0, 'Private': 0 };
+            const tierCounts = { 'Top Tier': 0, 'Mid-Upper Tier': 0, 'Mid Tier': 0, 'Top Tier (Public)': 0 };
+
+            schoolData.forEach(s => {
+                typeCounts[s.type]++;
+                if(tierCounts[s.tier] !== undefined) {
+                    tierCounts[s.tier]++;
+                } else {
+                    tierCounts[s.tier] = 1;
+                }
+            });
+
+            // Type Chart
+            const ctxType = document.getElementById('typeChart').getContext('2d');
+            new Chart(ctxType, {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(typeCounts),
+                    datasets: [{
+                        data: Object.values(typeCounts),
+                        backgroundColor: ['#475569', '#d97706'], // Slate for Public, Gold for Private
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    }
+                }
+            });
+
+            // Tier Chart
+            const ctxTier = document.getElementById('tierChart').getContext('2d');
+            
+            // Consolidate 'Top Tier (Public)' into 'Top Tier' for cleaner charting
+            const cleanTiers = {
+                'Top Tier': tierCounts['Top Tier'] + tierCounts['Top Tier (Public)'],
+                'Mid-Upper Tier': tierCounts['Mid-Upper Tier'],
+                'Mid Tier': tierCounts['Mid Tier']
+            };
+
+            new Chart(ctxTier, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(cleanTiers),
+                    datasets: [{
+                        label: 'Number of Schools',
+                        data: Object.values(cleanTiers),
+                        backgroundColor: '#1e3a8a', // Navy
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true, ticks: { stepSize: 1 } }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
