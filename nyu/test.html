@@ -17,6 +17,15 @@
       --border: #dfe6e9;
     }
 
+/* Specific Shapes */
+    .shape-entity { border: 1.5px solid var(--primary); background: var(--bg-alt); width: 60px; height: 30px; display: flex; align-items: center; justify-content: center; font-size: 7pt; font-weight: bold; }
+    .shape-weak-entity { border: 3px double var(--primary); background: var(--bg-alt); width: 60px; height: 30px; display: flex; align-items: center; justify-content: center; font-size: 7pt; font-weight: bold; }
+    .shape-attribute { border: 1.5px solid var(--accent); border-radius: 50%; width: 60px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 7pt; }
+    .shape-pk { border: 1.5px solid var(--accent); border-radius: 50%; width: 60px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 7pt; text-decoration: underline; font-weight: bold; }
+    .shape-rel { width: 30px; height: 30px; border: 1.5px solid var(--accent); transform: rotate(45deg); display: flex; align-items: center; justify-content: center; }
+    .shape-rel span { transform: rotate(-45deg); font-size: 6pt; font-weight: bold; }
+
+
     * {
       margin: 0;
       padding: 0;
@@ -1151,6 +1160,46 @@
 <h1>ER Modeling &amp; SQL Quick Reference</h1>
 <div class="subtitle">Databases for Business Analytics<br>NYU Stern School of Business</div>
 </div>
+
+
+    <!-- SECTION 1: SHAPES & SYMBOLS -->
+    <div class="section grid-full">
+      <div class="section-header">📐 ER Diagram Basics: Shapes &amp; Symbols</div>
+      <div class="section-body">
+        <div class="grid" style="grid-template-columns: 1.2fr 1fr; gap: 20px;">
+          <div class="def-list">
+            <div class="def-item">
+              <div class="def-term-shape"><div class="shape-entity">ENTITY</div></div>
+              <div class="def-desc"><strong>Strong Entity:</strong> An independent object (e.g., Student). Becomes a table.</div>
+            </div>
+            <div class="def-item">
+              <div class="def-term-shape"><div class="shape-weak-entity">WEAK</div></div>
+              <div class="def-desc"><strong>Weak Entity:</strong> Depends on an owner (e.g., OrderLine). Requires Composite PK.</div>
+            </div>
+            <div class="def-item">
+              <div class="def-term-shape"><div class="shape-attribute">Name</div></div>
+              <div class="def-desc"><strong>Attribute:</strong> A property of an entity. Becomes a table column.</div>
+            </div>
+            <div class="def-item">
+              <div class="def-term-shape"><div class="shape-pk">ID</div></div>
+              <div class="def-desc"><strong>Primary Key (PK):</strong> Unique identifier. Underlined in diagrams.</div>
+            </div>
+          </div>
+          <div class="def-list">
+            <div class="def-item">
+              <div class="def-term-shape"><div class="shape-rel"><span>Verb</span></div></div>
+              <div class="def-desc"><strong>Relationship:</strong> Association between entities. Diamonds in Chen notation.</div>
+            </div>
+            <div class="def-item">
+              <div class="def-term-shape" style="font-size: 16pt; color: var(--accent);">🔗</div>
+              <div class="def-desc"><strong>Foreign Key (FK):</strong> Attribute referencing a PK in another table. Links entities.</div>
+            </div>
+            <div class="tip">Notation icons represent <strong>Conceptual</strong> models, while FKs/Tables represent the <strong>Physical</strong> database.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
 <div class="grid"><!-- ER Diagram Basics -->
 <div class="section">
 <div class="section-header"><span class="icon">📊</span> ER Diagram Basics</div>
