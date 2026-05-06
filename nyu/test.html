@@ -1,0 +1,1421 @@
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ER Modeling &amp; SQL Quick Reference | Databases for Business Analytics</title>
+  <style>
+    :root {
+      --primary: #1a1a2e;
+      --accent: #4a47a3;
+      --accent-light: #6c63ff;
+      --highlight: #f39c12;
+      --success: #27ae60;
+      --danger: #e74c3c;
+      --bg: #ffffff;
+      --bg-alt: #f8f9fa;
+      --text: #2d3436;
+      --text-muted: #636e72;
+      --border: #dfe6e9;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      font-size: 9.5pt;
+      line-height: 1.4;
+      color: var(--text);
+      background: var(--bg);
+      padding: 0.4in;
+    }
+
+    @media print {
+      body {
+        padding: 0;
+        font-size: 9pt;
+      }
+      .page-break {
+        page-break-before: always;
+      }
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-bottom: 3px solid var(--primary);
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+    }
+
+    .header h1 {
+      font-size: 18pt;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: -0.5px;
+    }
+
+    .header .subtitle {
+      font-size: 9pt;
+      color: var(--text-muted);
+      text-align: right;
+    }
+
+    /* Grid Layout */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .grid-full {
+      grid-column: 1 / -1;
+    }
+
+    /* Section Styling */
+    .section {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .section-header {
+      background: var(--primary);
+      color: white;
+      padding: 6px 10px;
+      font-weight: 600;
+      font-size: 10pt;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .section-header .icon {
+      font-size: 12pt;
+    }
+
+    .section-body {
+      padding: 10px;
+    }
+
+    /* Subsection */
+    .subsection {
+      margin-bottom: 10px;
+    }
+
+    .subsection:last-child {
+      margin-bottom: 0;
+    }
+
+    .subsection-title {
+      font-weight: 600;
+      font-size: 9pt;
+      color: var(--accent);
+      margin-bottom: 4px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 2px;
+    }
+
+    /* Definition Lists */
+    .def-list {
+      display: grid;
+      gap: 4px;
+    }
+
+    .def-item {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 8px;
+      align-items: baseline;
+    }
+
+    .def-term {
+      font-weight: 600;
+      color: var(--primary);
+      font-size: 8.5pt;
+    }
+
+    .def-desc {
+      color: var(--text);
+      font-size: 8.5pt;
+    }
+
+    /* Crow's Foot Table */
+    .crows-foot-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 8.5pt;
+    }
+
+    .crows-foot-table th {
+      background: var(--bg-alt);
+      padding: 5px 8px;
+      text-align: left;
+      font-weight: 600;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .crows-foot-table td {
+      padding: 5px 8px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+
+    .crows-foot-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .symbol {
+      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+      font-size: 14pt;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .symbol-img {
+      width: 50px;
+      height: 24px;
+    }
+
+    /* Code Blocks */
+    code {
+      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+      font-size: 8pt;
+      background: var(--bg-alt);
+      padding: 1px 4px;
+      border-radius: 3px;
+      color: var(--accent);
+    }
+
+    pre {
+      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+      font-size: 8pt;
+      background: var(--primary);
+      color: #f8f8f2;
+      padding: 8px 10px;
+      border-radius: 4px;
+      overflow-x: auto;
+      line-height: 1.5;
+    }
+
+    pre .keyword {
+      color: #ff79c6;
+    }
+
+    pre .type {
+      color: #8be9fd;
+    }
+
+    pre .string {
+      color: #f1fa8c;
+    }
+
+    pre .comment {
+      color: #6272a4;
+    }
+
+    pre .highlight {
+      background: rgba(255, 184, 108, 0.3);
+      padding: 0 2px;
+      border-radius: 2px;
+    }
+
+    /* Steps */
+    .steps {
+      display: grid;
+      gap: 6px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 24px 1fr;
+      gap: 8px;
+      align-items: start;
+    }
+
+    .step-num {
+      width: 24px;
+      height: 24px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 10pt;
+      flex-shrink: 0;
+    }
+
+    .step-content {
+      font-size: 8.5pt;
+      padding-top: 3px;
+    }
+
+    .step-content strong {
+      color: var(--primary);
+    }
+
+    /* Anomaly Cards */
+    .anomaly-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .anomaly-card {
+      background: var(--bg-alt);
+      border-radius: 4px;
+      padding: 8px;
+      border-left: 3px solid var(--danger);
+    }
+
+    .anomaly-card h4 {
+      font-size: 8.5pt;
+      color: var(--danger);
+      margin-bottom: 4px;
+    }
+
+    .anomaly-card p {
+      font-size: 8pt;
+      color: var(--text-muted);
+    }
+
+    /* Tips */
+    .tip {
+      background: #fff9e6;
+      border: 1px solid #f39c12;
+      border-radius: 4px;
+      padding: 6px 8px;
+      font-size: 8pt;
+      margin-top: 8px;
+    }
+
+    .tip::before {
+      content: "💡 ";
+    }
+
+    /* Data Types Table */
+    .types-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 8pt;
+    }
+
+    .types-table th {
+      background: var(--bg-alt);
+      padding: 4px 6px;
+      text-align: left;
+      font-weight: 600;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .types-table td {
+      padding: 4px 6px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .types-table code {
+      font-size: 7.5pt;
+    }
+
+    /* Cardinality Examples */
+    .card-examples {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .card-example {
+      background: var(--bg-alt);
+      border-radius: 4px;
+      padding: 8px;
+      text-align: center;
+    }
+
+    .card-example .type {
+      font-weight: 700;
+      color: var(--accent);
+      font-size: 9pt;
+      margin-bottom: 4px;
+    }
+
+    .card-example .diagram {
+      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+      font-size: 10pt;
+      color: var(--primary);
+      margin: 4px 0;
+    }
+
+    .card-example .example {
+      font-size: 7.5pt;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: 12px;
+      padding-top: 8px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      font-size: 7.5pt;
+      color: var(--text-muted);
+    }
+
+    /* SVG Symbols */
+    .crow-svg {
+      display: inline-block;
+      vertical-align: middle;
+    }
+  </style>
+<script>window.addEventListener('message', function(event) { 
+					if( !event.data ) {
+						return;
+					}
+
+					let params;
+					try {
+						params = JSON.parse( event.data );
+					}
+					catch {
+						return;
+					}
+					if( !params.subject || params.subject !== 'lti.frameResize' ) {
+						return;
+					}
+
+					const MAX_FRAME_HEIGHT = 10000;
+					if( !params.height || params.height < 1 || params.height > MAX_FRAME_HEIGHT ) {
+						console.warn( 'Invalid height value received, aborting' );
+						return;
+					}
+					const el = document.getElementsByTagName( 'iframe' );
+					for ( let i=0; i < el.length; i++ ) {
+						if( el[i].contentWindow === event.source ) {
+							el[i].style.height = params.height + 'px';
+
+							console.info( 'Setting iFrame height to ' + params.height );
+
+							if( el[i].getAttribute('lockwidth') !== 'true'){
+								el[i].style.width = '100%';
+								console.info( 'Setting iFrame width to 100%' );
+							}
+						}
+					}
+				});</script><script src="https://s.brightspace.com/lib/bsi/2026.4.226/unbundled/embeds.js" type="module"></script><script>document.addEventListener('DOMContentLoaded', function() {
+					window.D2L.EmbedRenderer.renderEmbeds(document.body);
+				});</script><script src="https://s.brightspace.com/lib/bsi/2026.4.226/unbundled/mathjax.js" type="module"></script><script>document.addEventListener('DOMContentLoaded', function() {
+					if (document.querySelector('math, .d2l-element, .d2l-cplus-layout') || /\$\$|\\\(|\\\[|\\begin{|\\ref{|\\eqref{/.test(document.body.innerHTML)) {
+						document.querySelectorAll('mspace[linebreak="newline"]').forEach(elm => {
+							elm.setAttribute('style', 'display: block; height: 0.5rem;');
+						});
+
+						document.querySelectorAll('math mmultiscripts > none').forEach(elm => {
+							const mrow = document.createElementNS('http://www.w3.org/1998/Math/MathML', 'mrow');
+							elm.replaceWith(mrow);
+						});
+
+						window.D2L.MathJax.loadMathJax({
+							outputScale: 1.5,
+							renderLatex: true,
+							enableMML3Support: false
+						});
+					}
+				});</script><script src="https://s.brightspace.com/lib/bsi/2026.4.226/unbundled/prism.js" type="module"></script><script>document.addEventListener('DOMContentLoaded', function() {
+					document.querySelectorAll('.d2l-code').forEach(code => {
+						window.D2L.Prism.formatCodeElement(code, true);
+					});
+				});</script><script src="https://s.brightspace.com/lib/bsi/2026.4.226/unbundled/creator.js" type="module"></script><script>document.addEventListener('DOMContentLoaded', async () => {
+					const activities = [];
+					const practices = [];
+					const allPractices = document.querySelectorAll('.d2l-practice');
+					const elements = document.querySelectorAll('.d2l-element');
+					let layouts = [...document.querySelectorAll('.d2l-cplus-layout')];
+					const tables = document.querySelectorAll('table');
+					const contentStylerStyleLinks = document.querySelectorAll('head > link[href="https://templates.lcs.brightspace.com/lib/assets/css/styles.min.css"]');
+					const contentStylerOverides = document.querySelectorAll('head > link[href^="/d2l/le/contentstyler/"][data-override="override"]');
+
+					layouts = layouts.filter((layout) => layout.closest('.d2l-element.mceNonEditable') === null);
+
+					for (const practice of allPractices) {
+						const activityContainer = practice.hasAttribute('data-d2l-activity-href');
+						if (activityContainer) {
+							activities.push(practice);
+						}
+						else {
+							practices.push(practice);
+						}
+					}
+
+					if (layouts.length > 0) {
+						window.D2L.Creator.convertLayouts(layouts);
+					}
+					if (elements.length > 0) {
+						window.D2L.Creator.convertElements(elements, 578624, '/content/enforced/578624-SU26_TECH-GB_2147_DST_L1_crse/');
+					}
+					if (activities.length > 0) {
+						window.D2L.Creator.convertPracticeActivities(activities, 578624, '/content/enforced/578624-SU26_TECH-GB_2147_DST_L1_crse/');
+					}
+					if (practices.length > 0) {
+						window.D2L.Creator.convertPractices(practices, 578624, '/content/enforced/578624-SU26_TECH-GB_2147_DST_L1_crse/');
+					}
+					if (contentStylerStyleLinks.length > 0 && contentStylerOverides.length > 0 && tables.length > 0) {
+						window.D2L.Creator.wrapTables(tables);
+					}
+				});</script><script>function lti_launch( vars, target ) {
+					var query = '';
+					var new_tab = false;
+
+					for(var key in vars) {
+						if(query.length == 0) {
+							query += '?' + key + '=' + encodeURIComponent(vars[key]);
+						}
+						else {
+							query += '&' + key + '=' + encodeURIComponent(vars[key]);
+						}
+					}
+
+					var url = '/d2l/customization/pearsonlti/578624/Launch' + query;(target == '_blank') ? window.open( url, '_blank' ) : location.replace( url );}</script><style id="d2l-colors">
+		html {
+			/* basic grays (lightest to darkest) */
+			--d2l-color-regolith: #f9fbff;
+			--d2l-color-sylvite: #f1f5fb;
+			--d2l-color-gypsum: #e3e9f1;
+			--d2l-color-mica: #cdd5dc;
+			--d2l-color-corundum: #b1b9be;
+			--d2l-color-chromite: #90989d;
+			--d2l-color-galena: #6e7477;
+			--d2l-color-tungsten: #494c4e;
+			--d2l-color-ferrite: #202122;
+
+			/* zircon */
+			--d2l-color-zircon-plus-2: #e0feff;
+			--d2l-color-zircon-plus-1: #00d2ed;
+			--d2l-color-zircon: #008eab;
+			--d2l-color-zircon-minus-1: #035670;
+
+			/* celestine */
+			--d2l-color-celestine-plus-2: #e8f8ff;
+			--d2l-color-celestine-plus-1: #29a6ff;
+			--d2l-color-celestine: #006fbf;
+			--d2l-color-celestine-minus-1: #004489;
+
+			/* amethyst */
+			--d2l-color-amethyst-plus-2: #f2f0ff;
+			--d2l-color-amethyst-plus-1: #8982ff;
+			--d2l-color-amethyst: #6038ff;
+			--d2l-color-amethyst-minus-1: #4500db;
+
+			/* fluorite */
+			--d2l-color-fluorite-plus-2: #f9ebff;
+			--d2l-color-fluorite-plus-1: #ce68fa;
+			--d2l-color-fluorite: #9d1fd4;
+			--d2l-color-fluorite-minus-1: #6900a0;
+
+			/* tourmaline */
+			--d2l-color-tourmaline-plus-2: #ffebf6;
+			--d2l-color-tourmaline-plus-1: #fd4e9d;
+			--d2l-color-tourmaline: #d40067;
+			--d2l-color-tourmaline-minus-1: #990056;
+
+			/* cinnabar */
+			--d2l-color-cinnabar-plus-2: #ffede8;
+			--d2l-color-cinnabar-plus-1: #ff575a;
+			--d2l-color-cinnabar: #cd2026;
+			--d2l-color-cinnabar-minus-1: #990006;
+
+			/* carnelian */
+			--d2l-color-carnelian-plus-1: #fff3e0;
+			--d2l-color-carnelian: #e87511;
+			--d2l-color-carnelian-minus-1: #ba4700;
+			--d2l-color-carnelian-minus-2: #7d2600;
+
+			/* citrine */
+			--d2l-color-citrine-plus-1: #fff9d6;
+			--d2l-color-citrine: #ffba59;
+			--d2l-color-citrine-minus-1: #c47400;
+			--d2l-color-citrine-minus-2: #7a4300;
+
+			/* peridot */
+			--d2l-color-peridot-plus-1: #efffd9;
+			--d2l-color-peridot: #8ad934;
+			--d2l-color-peridot-minus-1: #4a8f00;
+			--d2l-color-peridot-minus-2: #2f5e00;
+
+			/* olivine */
+			--d2l-color-olivine-plus-1: #e7ffe3;
+			--d2l-color-olivine: #46a661;
+			--d2l-color-olivine-minus-1: #027a21;
+			--d2l-color-olivine-minus-2: #005614;
+
+			/* malachite */
+			--d2l-color-malachite-plus-1: #e3fff5;
+			--d2l-color-malachite: #2de2c0;
+			--d2l-color-malachite-minus-1: #00a490;
+			--d2l-color-malachite-minus-2: #00635e;
+
+			/* primary accent */
+			--d2l-color-primary-accent-action: var(--d2l-color-celestine);
+			--d2l-color-primary-accent-indicator: var(--d2l-color-carnelian);
+
+			/* feedback */
+			--d2l-color-feedback-error: var(--d2l-color-cinnabar);
+			--d2l-color-feedback-warning: var(--d2l-color-carnelian);
+			--d2l-color-feedback-success: var(--d2l-color-olivine);
+			--d2l-color-feedback-action: var(--d2l-color-celestine);
+		}
+
+		/* semantic palette */
+		html {
+			
+		--d2l-sem-background-color-base: #ffffff;
+		--d2l-sem-background-color-elevated: var(--d2l-sem-background-color-base);
+		--d2l-sem-background-color-floating: var(--d2l-sem-background-color-base);
+		--d2l-sem-background-color-interactive-faint-default: var(--d2l-color-regolith);
+		--d2l-sem-background-color-interactive-faint-hover: var(--d2l-color-sylvite);
+		--d2l-sem-background-color-interactive-highlighted: var(--d2l-sem-brand-color-highlight);
+		--d2l-sem-background-color-interactive-primary-default: var(--d2l-sem-brand-color-primary-default);
+		--d2l-sem-background-color-interactive-primary-hover: var(--d2l-sem-brand-color-primary-hover);
+		--d2l-sem-background-color-interactive-secondary-default: var(--d2l-color-gypsum);
+		--d2l-sem-background-color-interactive-secondary-hover: var(--d2l-color-mica);
+		--d2l-sem-background-color-interactive-tertiary-default: #ffffff;
+		--d2l-sem-background-color-interactive-tertiary-hover: var(--d2l-sem-background-color-interactive-secondary-default);
+		--d2l-sem-background-color-interactive-translucent-default: #000000;
+		--d2l-sem-background-color-interactive-translucent-hover: var(--d2l-sem-brand-color-primary-default);
+		--d2l-sem-background-color-sunken: #f6f7f8;
+		--d2l-sem-border-color-emphasized: var(--d2l-color-galena);
+		--d2l-sem-border-color-focus: var(--d2l-color-celestine);
+		--d2l-sem-border-color-standard: var(--d2l-color-mica);
+		--d2l-sem-border-color-subtle: var(--d2l-color-gypsum);
+		--d2l-sem-brand-color-highlight: var(--d2l-color-celestine-plus-2);
+		--d2l-sem-brand-color-primary-default: var(--d2l-color-celestine);
+		--d2l-sem-brand-color-primary-hover: var(--d2l-color-celestine-minus-1);
+		--d2l-sem-icon-color-faint: var(--d2l-sem-border-color-standard);
+		--d2l-sem-icon-color-inverted: #ffffff;
+		--d2l-sem-icon-color-standard: var(--d2l-color-tungsten);
+		--d2l-sem-status-color-default: var(--d2l-color-celestine);
+		--d2l-sem-status-color-error: var(--d2l-color-cinnabar);
+		--d2l-sem-status-color-success-text: var(--d2l-color-olivine-minus-1);
+		--d2l-sem-status-color-success: var(--d2l-color-olivine);
+		--d2l-sem-status-color-warning-text: var(--d2l-color-carnelian-minus-1);
+		--d2l-sem-status-color-warning: var(--d2l-color-carnelian);
+		--d2l-sem-text-color-interactive-default: var(--d2l-sem-brand-color-primary-default);
+		--d2l-sem-text-color-interactive-hover: var(--d2l-sem-brand-color-primary-hover);
+		--d2l-sem-text-color-static-faint: var(--d2l-color-galena);
+		--d2l-sem-text-color-static-inverted: #ffffff;
+		--d2l-sem-text-color-static-standard: var(--d2l-color-ferrite);
+		--d2l-sem-text-color-static-subtle: var(--d2l-color-tungsten);
+
+		--d2l-sem-opacity-disabled-control: 0.5;
+		--d2l-sem-opacity-disabled-link: 0.74;
+		--d2l-sem-opacity-disabled-linkicon: 0.64;
+
+		--d2l-sem-shadow-attached-color: rgba(0, 0, 0, 0.03);
+		--d2l-sem-shadow-attached-offset-x: 0;
+		--d2l-sem-shadow-attached-offset-y: 2px;
+		--d2l-sem-shadow-attached-blur: 4px;
+		--d2l-sem-shadow-attached-spread: 0;
+		--d2l-sem-shadow-attached: var(--d2l-shadow-attached-offset-x) var(--d2l-shadow-attached-offset-y) var(--d2l-shadow-attached-blur) var(--d2l-shadow-attached-spread) var(--d2l-shadow-attached-color);
+		--d2l-sem-shadow-floating-color: rgba(0, 0, 0, 0.15);
+		--d2l-sem-shadow-floating-offset-x: 0;
+		--d2l-sem-shadow-floating-offset-y: 2px;
+		--d2l-sem-shadow-floating-blur: 12px;
+		--d2l-sem-shadow-floating-spread: 0;
+		--d2l-sem-shadow-floating: var(--d2l-shadow-floating-offset-x) var(--d2l-shadow-floating-offset-y) var(--d2l-shadow-floating-blur) var(--d2l-shadow-floating-spread) var(--d2l-shadow-floating-color);
+		--d2l-sem-shadow-inset-color: rgba(177, 185, 190, 0.2); /* corundum */
+		--d2l-sem-shadow-inset-offset-x: 0;
+		--d2l-sem-shadow-inset-offset-y: 2px;
+		--d2l-sem-shadow-inset-blur: 0;
+		--d2l-sem-shadow-inset-spread: 0;
+		--d2l-sem-shadow-inset: inset var(--d2l-shadow-inset-offset-x) var(--d2l-shadow-inset-offset-y) var(--d2l-shadow-inset-blur) var(--d2l-shadow-inset-spread) var(--d2l-shadow-inset-color);
+	
+		}
+		html[data-color-mode="dark"] {
+			
+		--d2l-sem-background-color-base: #161718;
+		--d2l-sem-background-color-elevated: var(--d2l-color-ferrite);
+		--d2l-sem-background-color-floating: var(--d2l-color-ferrite);
+		--d2l-sem-background-color-interactive-faint-default: var(--d2l-color-ferrite);
+		--d2l-sem-background-color-interactive-faint-hover: #303335;
+		--d2l-sem-background-color-interactive-highlighted: var(--d2l-sem-brand-color-highlight);
+		--d2l-sem-background-color-interactive-primary-default: var(--d2l-sem-brand-color-primary-default);
+		--d2l-sem-background-color-interactive-primary-hover: var(--d2l-sem-brand-color-primary-hover);
+		--d2l-sem-background-color-interactive-secondary-default: #303335;
+		--d2l-sem-background-color-interactive-secondary-hover: var(--d2l-color-ferrite);
+		--d2l-sem-background-color-interactive-tertiary-default: #000000;
+		--d2l-sem-background-color-interactive-tertiary-hover: var(--d2l-sem-background-color-interactive-secondary-default);
+		--d2l-sem-background-color-interactive-translucent-default: #000000;
+		--d2l-sem-background-color-interactive-translucent-hover: var(--d2l-sem-brand-color-primary-default);
+		--d2l-sem-background-color-sunken: #000000;
+		--d2l-sem-border-color-emphasized: var(--d2l-color-galena);
+		--d2l-sem-border-color-focus: var(--d2l-color-celestine-plus-1);
+		--d2l-sem-border-color-standard: var(--d2l-color-tungsten);
+		--d2l-sem-border-color-subtle: #303335;
+		--d2l-sem-brand-color-highlight: #161718;
+		--d2l-sem-brand-color-primary-default: var(--d2l-color-celestine-plus-1);
+		--d2l-sem-brand-color-primary-hover: var(--d2l-color-celestine);
+		--d2l-sem-icon-color-faint: var(--d2l-sem-border-color-standard);
+		--d2l-sem-icon-color-inverted: #ffffff;
+		--d2l-sem-icon-color-standard: var(--d2l-color-corundum);
+		--d2l-sem-status-color-default: var(--d2l-sem-brand-color-primary-default);
+		--d2l-sem-status-color-error: var(--d2l-color-cinnabar-plus-1);
+		--d2l-sem-status-color-success-text: #ffffff;
+		--d2l-sem-status-color-success: var(--d2l-color-olivine);
+		--d2l-sem-status-color-warning-text: var(--d2l-color-carnelian);
+		--d2l-sem-status-color-warning: var(--d2l-color-carnelian);
+		--d2l-sem-text-color-interactive-default: var(--d2l-sem-brand-color-primary-default);
+		--d2l-sem-text-color-interactive-hover: var(--d2l-sem-brand-color-primary-hover);
+		--d2l-sem-text-color-static-faint: var(--d2l-color-galena);
+		--d2l-sem-text-color-static-inverted: #161718;
+		--d2l-sem-text-color-static-standard: var(--d2l-color-mica);
+		--d2l-sem-text-color-static-subtle: var(--d2l-color-chromite);
+
+		--d2l-sem-opacity-disabled-control: 0.5;
+		--d2l-sem-opacity-disabled-link: 0.74;
+		--d2l-sem-opacity-disabled-linkicon: 0.64;
+
+		--d2l-sem-shadow-attached-color: rgba(0, 0, 0, 0.03);
+		--d2l-sem-shadow-attached-offset-x: 0;
+		--d2l-sem-shadow-attached-offset-y: 2px;
+		--d2l-sem-shadow-attached-blur: 4px;
+		--d2l-sem-shadow-attached-spread: 0;
+		--d2l-sem-shadow-attached: var(--d2l-shadow-attached-offset-x) var(--d2l-shadow-attached-offset-y) var(--d2l-shadow-attached-blur) var(--d2l-shadow-attached-spread) var(--d2l-shadow-attached-color);
+		--d2l-sem-shadow-floating-color: rgba(0, 0, 0, 0.85);
+		--d2l-sem-shadow-floating-offset-x: 0;
+		--d2l-sem-shadow-floating-offset-y: 2px;
+		--d2l-sem-shadow-floating-blur: 12px;
+		--d2l-sem-shadow-floating-spread: 0;
+		--d2l-sem-shadow-floating: var(--d2l-shadow-floating-offset-x) var(--d2l-shadow-floating-offset-y) var(--d2l-shadow-floating-blur) var(--d2l-shadow-floating-spread) var(--d2l-shadow-floating-color);
+		--d2l-sem-shadow-inset-color: rgba(177, 185, 190, 0.2); /* corundum */
+		--d2l-sem-shadow-inset-offset-x: 0;
+		--d2l-sem-shadow-inset-offset-y: 2px;
+		--d2l-sem-shadow-inset-blur: 0;
+		--d2l-sem-shadow-inset-spread: 0;
+		--d2l-sem-shadow-inset: inset var(--d2l-shadow-inset-offset-x) var(--d2l-shadow-inset-offset-y) var(--d2l-shadow-inset-blur) var(--d2l-shadow-inset-spread) var(--d2l-shadow-inset-color);
+	
+		}
+		@media (prefers-color-scheme: dark) {
+			html[data-color-mode="os"] {
+				
+		--d2l-sem-background-color-base: #161718;
+		--d2l-sem-background-color-elevated: var(--d2l-color-ferrite);
+		--d2l-sem-background-color-floating: var(--d2l-color-ferrite);
+		--d2l-sem-background-color-interactive-faint-default: var(--d2l-color-ferrite);
+		--d2l-sem-background-color-interactive-faint-hover: #303335;
+		--d2l-sem-background-color-interactive-highlighted: var(--d2l-sem-brand-color-highlight);
+		--d2l-sem-background-color-interactive-primary-default: var(--d2l-sem-brand-color-primary-default);
+		--d2l-sem-background-color-interactive-primary-hover: var(--d2l-sem-brand-color-primary-hover);
+		--d2l-sem-background-color-interactive-secondary-default: #303335;
+		--d2l-sem-background-color-interactive-secondary-hover: var(--d2l-color-ferrite);
+		--d2l-sem-background-color-interactive-tertiary-default: #000000;
+		--d2l-sem-background-color-interactive-tertiary-hover: var(--d2l-sem-background-color-interactive-secondary-default);
+		--d2l-sem-background-color-interactive-translucent-default: #000000;
+		--d2l-sem-background-color-interactive-translucent-hover: var(--d2l-sem-brand-color-primary-default);
+		--d2l-sem-background-color-sunken: #000000;
+		--d2l-sem-border-color-emphasized: var(--d2l-color-galena);
+		--d2l-sem-border-color-focus: var(--d2l-color-celestine-plus-1);
+		--d2l-sem-border-color-standard: var(--d2l-color-tungsten);
+		--d2l-sem-border-color-subtle: #303335;
+		--d2l-sem-brand-color-highlight: #161718;
+		--d2l-sem-brand-color-primary-default: var(--d2l-color-celestine-plus-1);
+		--d2l-sem-brand-color-primary-hover: var(--d2l-color-celestine);
+		--d2l-sem-icon-color-faint: var(--d2l-sem-border-color-standard);
+		--d2l-sem-icon-color-inverted: #ffffff;
+		--d2l-sem-icon-color-standard: var(--d2l-color-corundum);
+		--d2l-sem-status-color-default: var(--d2l-sem-brand-color-primary-default);
+		--d2l-sem-status-color-error: var(--d2l-color-cinnabar-plus-1);
+		--d2l-sem-status-color-success-text: #ffffff;
+		--d2l-sem-status-color-success: var(--d2l-color-olivine);
+		--d2l-sem-status-color-warning-text: var(--d2l-color-carnelian);
+		--d2l-sem-status-color-warning: var(--d2l-color-carnelian);
+		--d2l-sem-text-color-interactive-default: var(--d2l-sem-brand-color-primary-default);
+		--d2l-sem-text-color-interactive-hover: var(--d2l-sem-brand-color-primary-hover);
+		--d2l-sem-text-color-static-faint: var(--d2l-color-galena);
+		--d2l-sem-text-color-static-inverted: #161718;
+		--d2l-sem-text-color-static-standard: var(--d2l-color-mica);
+		--d2l-sem-text-color-static-subtle: var(--d2l-color-chromite);
+
+		--d2l-sem-opacity-disabled-control: 0.5;
+		--d2l-sem-opacity-disabled-link: 0.74;
+		--d2l-sem-opacity-disabled-linkicon: 0.64;
+
+		--d2l-sem-shadow-attached-color: rgba(0, 0, 0, 0.03);
+		--d2l-sem-shadow-attached-offset-x: 0;
+		--d2l-sem-shadow-attached-offset-y: 2px;
+		--d2l-sem-shadow-attached-blur: 4px;
+		--d2l-sem-shadow-attached-spread: 0;
+		--d2l-sem-shadow-attached: var(--d2l-shadow-attached-offset-x) var(--d2l-shadow-attached-offset-y) var(--d2l-shadow-attached-blur) var(--d2l-shadow-attached-spread) var(--d2l-shadow-attached-color);
+		--d2l-sem-shadow-floating-color: rgba(0, 0, 0, 0.85);
+		--d2l-sem-shadow-floating-offset-x: 0;
+		--d2l-sem-shadow-floating-offset-y: 2px;
+		--d2l-sem-shadow-floating-blur: 12px;
+		--d2l-sem-shadow-floating-spread: 0;
+		--d2l-sem-shadow-floating: var(--d2l-shadow-floating-offset-x) var(--d2l-shadow-floating-offset-y) var(--d2l-shadow-floating-blur) var(--d2l-shadow-floating-spread) var(--d2l-shadow-floating-color);
+		--d2l-sem-shadow-inset-color: rgba(177, 185, 190, 0.2); /* corundum */
+		--d2l-sem-shadow-inset-offset-x: 0;
+		--d2l-sem-shadow-inset-offset-y: 2px;
+		--d2l-sem-shadow-inset-blur: 0;
+		--d2l-sem-shadow-inset-spread: 0;
+		--d2l-sem-shadow-inset: inset var(--d2l-shadow-inset-offset-x) var(--d2l-shadow-inset-offset-y) var(--d2l-shadow-inset-blur) var(--d2l-shadow-inset-spread) var(--d2l-shadow-inset-color);
+	
+			}
+		}
+	</style><style id="d2l-typography-font-face">
+		
+	@font-face {
+	font-family: 'Lato';
+	font-style: normal;
+	font-weight: 400;
+	src:
+		url(https://s.brightspace.com/lib/fonts/0.6.4/assets/Lato-400.woff2) format('woff2'),
+		url(https://s.brightspace.com/lib/fonts/0.6.4/assets/Lato-400.woff) format('woff');
+}
+@font-face {
+	font-family: 'Lato';
+	font-style: normal;
+	font-weight: 700;
+	src:
+		url(https://s.brightspace.com/lib/fonts/0.6.4/assets/Lato-700.woff2) format('woff2'),
+		url(https://s.brightspace.com/lib/fonts/0.6.4/assets/Lato-700.woff) format('woff');
+}
+@font-face {
+	font-family: 'Noto Sans Thai';
+	font-style: normal;
+	font-weight: 400;
+	src:
+		url(https://s.brightspace.com/lib/fonts/0.6.4/assets/NotoSansThai-Regular.woff2) format('woff2'),
+		url(https://s.brightspace.com/lib/fonts/0.6.4/assets/NotoSansThai-Regular.woff) format('woff');
+}
+@font-face {
+	font-family: 'Noto Sans Thai';
+	font-style: normal;
+	font-weight: 700;
+	src:
+		url(https://s.brightspace.com/lib/fonts/0.6.4/assets/NotoSansThai-Bold.woff2) format('woff2'),
+		url(https://s.brightspace.com/lib/fonts/0.6.4/assets/NotoSansThai-Bold.woff) format('woff');
+}
+@font-face {
+	font-family: 'BC Sans';
+	font-style: normal;
+	font-weight: 300;
+	src:
+		url(https://s.brightspace.com/lib/fonts/0.6.4/assets/BCSans-Light.woff2) format('woff2'),
+		url(https://s.brightspace.com/lib/fonts/0.6.4/assets/BCSans-Light.woff) format('woff');
+}
+@font-face {
+	font-family: 'BC Sans';
+	font-style: normal;
+	font-weight: 400;
+	src:
+		url(https://s.brightspace.com/lib/fonts/0.6.4/assets/BCSans-Regular.woff2) format('woff2'),
+		url(https://s.brightspace.com/lib/fonts/0.6.4/assets/BCSans-Regular.woff) format('woff');
+}
+@font-face {
+	font-family: 'BC Sans';
+	font-style: normal;
+	font-weight: 700;
+	src:
+		url(https://s.brightspace.com/lib/fonts/0.6.4/assets/BCSans-Bold.woff2) format('woff2'),
+		url(https://s.brightspace.com/lib/fonts/0.6.4/assets/BCSans-Bold.woff) format('woff');
+}
+@font-face {
+	font-family: 'BC Sans';
+	font-style: italic;
+	font-weight: 300;
+	src:
+		url(https://s.brightspace.com/lib/fonts/0.6.4/assets/BCSans-LightItalic.woff2) format('woff2'),
+		url(https://s.brightspace.com/lib/fonts/0.6.4/assets/BCSans-LightItalic.woff) format('woff');
+}
+@font-face {
+	font-family: 'BC Sans';
+	font-style: italic;
+	font-weight: 400;
+	src:
+		url(https://s.brightspace.com/lib/fonts/0.6.4/assets/BCSans-Italic.woff2) format('woff2'),
+		url(https://s.brightspace.com/lib/fonts/0.6.4/assets/BCSans-Italic.woff) format('woff');
+}
+@font-face {
+	font-family: 'BC Sans';
+	font-style: italic;
+	font-weight: 700;
+	src:
+		url(https://s.brightspace.com/lib/fonts/0.6.4/assets/BCSans-BoldItalic.woff2) format('woff2'),
+		url(https://s.brightspace.com/lib/fonts/0.6.4/assets/BCSans-BoldItalic.woff) format('woff');
+}
+	html {
+		--d2l-cursor-resize-inline-end: e-resize;
+		--d2l-cursor-resize-inline-start: w-resize;
+		--d2l-document-direction: ltr;
+		--d2l-inline-end: right;
+		--d2l-inline-start: left;
+		--d2l-length-factor: 1;
+		--d2l-mirror-transform: none;
+	}
+	html[dir="rtl"] {
+		--d2l-cursor-resize-inline-end: w-resize;
+		--d2l-cursor-resize-inline-start: e-resize;
+		--d2l-document-direction: rtl;
+		--d2l-inline-end: left;
+		--d2l-inline-start: right;
+		--d2l-length-factor: -1;
+		--d2l-mirror-transform: scale(-1, 1);
+	}
+
+	.d2l-typography {
+		color: var(--d2l-color-ferrite);
+		display: block;
+		font-family: "Lato", "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+		letter-spacing: 0.01rem;
+	}
+	
+		.d2l-typography {
+			font-size: 0.95rem;
+			font-weight: 400;
+			line-height: 1.4rem;
+		}
+		@media (max-width: 615px) {
+			.d2l-typography {
+				font-size: 0.8rem;
+				line-height: 1.2rem;
+			}
+		}
+	
+	.d2l-typography p {
+		margin: 1rem 0;
+	}
+
+	.d2l-typography:lang(ar), .d2l-typography :lang(ar) {
+		font-family: "Segoe UI", "Geeza Pro", sans-serif;
+	}
+	.d2l-typography:lang(ja), .d2l-typography :lang(ja) {
+		font-family: "Hiragino Kaku Gothic Pro", "Meiyro", sans-serif;
+	}
+	.d2l-typography:lang(ko), .d2l-typography :lang(ko) {
+		font-family: "Apple SD Gothic Neo", Dotum, sans-serif;
+	}
+	.d2l-typography:lang(th), .d2l-typography :lang(th), .d2l-typography:lang(tha), .d2l-typography :lang(tha) {
+		font-family: "Noto Sans Thai", system-ui, Tahoma;
+	}
+	.d2l-typography:lang(zh), .d2l-typography :lang(zh) {
+		font-family: "Microsoft YaHei", "Hiragino Sans GB", sans-serif;
+	}
+
+		
+		.d2l-typography .d2l-body-standard {
+			font-size: 0.95rem;
+			font-weight: 400;
+			line-height: 1.4rem;
+		}
+		@media (max-width: 615px) {
+			.d2l-typography .d2l-body-standard {
+				font-size: 0.8rem;
+				line-height: 1.2rem;
+			}
+		}
+	
+		
+		.d2l-typography .d2l-body-compact {
+			font-size: 0.8rem;
+			font-weight: 400;
+			line-height: 1.2rem;
+		}
+		
+	
+		
+		.d2l-typography .d2l-body-small {
+			color: var(--d2l-color-tungsten);
+			font-size: 0.7rem;
+			font-weight: 400;
+			line-height: 0.9rem;
+			margin: auto;
+		}
+		
+	
+		
+		.d2l-typography .d2l-label-text {
+			font-size: 0.7rem;
+			font-weight: 700;
+			letter-spacing: 0.2px;
+			line-height: 0.9rem;
+		}
+		
+	
+		
+		.d2l-typography .d2l-heading-1 {
+			font-size: 2rem;
+			font-weight: 400;
+			line-height: 2.4rem;
+			margin: 1.5rem 0 1.5rem 0;
+		}
+		
+		@supports not selector(:focus-visible) {
+			
+		.d2l-typography .d2l-heading-1:focus {
+			border-radius: 0.3rem;
+			outline: 2px solid var(--d2l-focus-ring-color, var(--d2l-color-celestine));
+			outline-offset: var(--d2l-focus-ring-offset, 2px);
+		}
+		@media (prefers-contrast: more) {
+			.d2l-typography .d2l-heading-1:focus {
+				outline-color: Highlight;
+			}
+		}
+	
+		}
+		@supports selector(:focus-visible) {
+			
+		.d2l-typography .d2l-heading-1:focus-visible {
+			border-radius: 0.3rem;
+			outline: 2px solid var(--d2l-focus-ring-color, var(--d2l-color-celestine));
+			outline-offset: var(--d2l-focus-ring-offset, 2px);
+		}
+		@media (prefers-contrast: more) {
+			.d2l-typography .d2l-heading-1:focus-visible {
+				outline-color: Highlight;
+			}
+		}
+	
+		}
+	
+		@media (max-width: 615px) {
+			.d2l-typography .d2l-heading-1 {
+				font-size: 1.5rem;
+				line-height: 1.8rem;
+			}
+			
+		}
+	
+		
+		.d2l-typography .d2l-heading-2 {
+			font-size: 1.5rem;
+			font-weight: 400;
+			line-height: 1.8rem;
+			margin: 1.5rem 0 1.5rem 0;
+		}
+		
+		@supports not selector(:focus-visible) {
+			
+		.d2l-typography .d2l-heading-2:focus {
+			border-radius: 0.3rem;
+			outline: 2px solid var(--d2l-focus-ring-color, var(--d2l-color-celestine));
+			outline-offset: var(--d2l-focus-ring-offset, 2px);
+		}
+		@media (prefers-contrast: more) {
+			.d2l-typography .d2l-heading-2:focus {
+				outline-color: Highlight;
+			}
+		}
+	
+		}
+		@supports selector(:focus-visible) {
+			
+		.d2l-typography .d2l-heading-2:focus-visible {
+			border-radius: 0.3rem;
+			outline: 2px solid var(--d2l-focus-ring-color, var(--d2l-color-celestine));
+			outline-offset: var(--d2l-focus-ring-offset, 2px);
+		}
+		@media (prefers-contrast: more) {
+			.d2l-typography .d2l-heading-2:focus-visible {
+				outline-color: Highlight;
+			}
+		}
+	
+		}
+	
+		@media (max-width: 615px) {
+			.d2l-typography .d2l-heading-2 {
+				font-size: 1rem;
+				font-weight: 700;
+				line-height: 1.5rem;
+			}
+			
+		}
+	
+		
+		.d2l-typography .d2l-heading-3 {
+			font-size: 1rem;
+			font-weight: 700;
+			line-height: 1.5rem;
+			margin: 1.5rem 0 1.5rem 0;
+		}
+		
+		@supports not selector(:focus-visible) {
+			
+		.d2l-typography .d2l-heading-3:focus {
+			border-radius: 0.3rem;
+			outline: 2px solid var(--d2l-focus-ring-color, var(--d2l-color-celestine));
+			outline-offset: var(--d2l-focus-ring-offset, 2px);
+		}
+		@media (prefers-contrast: more) {
+			.d2l-typography .d2l-heading-3:focus {
+				outline-color: Highlight;
+			}
+		}
+	
+		}
+		@supports selector(:focus-visible) {
+			
+		.d2l-typography .d2l-heading-3:focus-visible {
+			border-radius: 0.3rem;
+			outline: 2px solid var(--d2l-focus-ring-color, var(--d2l-color-celestine));
+			outline-offset: var(--d2l-focus-ring-offset, 2px);
+		}
+		@media (prefers-contrast: more) {
+			.d2l-typography .d2l-heading-3:focus-visible {
+				outline-color: Highlight;
+			}
+		}
+	
+		}
+	
+		@media (max-width: 615px) {
+			.d2l-typography .d2l-heading-3 {
+				font-size: 0.8rem;
+				line-height: 1.2rem;
+			}
+			
+		}
+	
+		
+		.d2l-typography .d2l-heading-4 {
+			font-size: 0.8rem;
+			font-weight: 700;
+			line-height: 1.2rem;
+			margin: 1.5rem 0 1.5rem 0;
+		}
+		
+		@supports not selector(:focus-visible) {
+			
+		.d2l-typography .d2l-heading-4:focus {
+			border-radius: 0.3rem;
+			outline: 2px solid var(--d2l-focus-ring-color, var(--d2l-color-celestine));
+			outline-offset: var(--d2l-focus-ring-offset, 2px);
+		}
+		@media (prefers-contrast: more) {
+			.d2l-typography .d2l-heading-4:focus {
+				outline-color: Highlight;
+			}
+		}
+	
+		}
+		@supports selector(:focus-visible) {
+			
+		.d2l-typography .d2l-heading-4:focus-visible {
+			border-radius: 0.3rem;
+			outline: 2px solid var(--d2l-focus-ring-color, var(--d2l-color-celestine));
+			outline-offset: var(--d2l-focus-ring-offset, 2px);
+		}
+		@media (prefers-contrast: more) {
+			.d2l-typography .d2l-heading-4:focus-visible {
+				outline-color: Highlight;
+			}
+		}
+	
+		}
+	
+	
+		
+		.d2l-typography .d2l-blockquote {
+			font-size: 0.8rem;
+			font-weight: 400;
+			line-height: 1.4rem;
+			margin-block: 0;
+			margin-inline: 0 1.2rem;
+			padding-block: 0.5rem 0;
+			padding-inline: 1.2rem 0;
+			position: relative;
+		}
+		.d2l-typography .d2l-blockquote::before {
+			content: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTEiIGhlaWdodD0iMTEiIHZpZXdCb3g9IjAgMCAyMiAyMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+Cgk8ZGVmcz4KCQk8cGF0aCBpZD0iYSIgZD0iTTAgMGgyNHYyNEgweiIvPgoJPC9kZWZzPgoJPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTEgLTEpIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgoJCTxtYXNrIGlkPSJiIiBmaWxsPSIjZmZmIj48dXNlIHhsaW5rOmhyZWY9IiNhIi8+PC9tYXNrPgoJCTxwYXRoIGQ9Ik02IDIyLjY2N0E0LjY2NyA0LjY2NyAwIDAgMCAxMC42NjcgMThjMC0xLjIyNy0uNTU5LTIuNS0xLjMzNC0zLjMzM0M4LjQ4MSAxMy43NSA3LjM1IDEzLjMzMyA2IDEzLjMzM2MtLjQxMSAwIDEuMzMzLTYuNjY2IDMtOSAxLjY2Ny0yLjMzMyAxLjMzMy0zIC4zMzMtM0M4IDEuMzMzIDUuMjUzIDQuNTg2IDQgNy4yNTUgMS43NzMgMTIgMS4zMzMgMTUuMzkyIDEuMzMzIDE4QTQuNjY3IDQuNjY3IDAgMCAwIDYgMjIuNjY3em0xMiAwQTQuNjY3IDQuNjY3IDAgMCAwIDIyLjY2NyAxOGMwLTEuMjI3LS41NTktMi41LTEuMzM0LTMuMzMzLS44NTItLjkxNy0xLjk4My0xLjMzNC0zLjMzMy0xLjMzNC0uNDExIDAgMS4zMzMtNi42NjYgMy05IDEuNjY3LTIuMzMzIDEuMzMzLTMgLjMzMy0zLTEuMzMzIDAtNC4wOCAzLjI1My01LjMzMyA1LjkyMkMxMy43NzMgMTIgMTMuMzMzIDE1LjM5MiAxMy4zMzMgMThBNC42NjcgNC42NjcgMCAwIDAgMTggMjIuNjY3eiIgZmlsbD0iI0QzRDlFMyIgbWFzaz0idXJsKCNiKSIvPgoJPC9nPgo8L3N2Zz4=");
+			inset-block-start: 0;
+			inset-inline-start: 0;
+			position: absolute;
+			transform: var(--d2l-mirror-transform, none); /* stylelint-disable-line @stylistic/string-quotes, @stylistic/function-whitespace-after */
+		}
+		@media (max-width: 615px) {
+			.d2l-typography .d2l-blockquote {
+				line-height: 1.2rem;
+			}
+		}
+	
+	</style></head><body><div class="header">
+<h1>ER Modeling &amp; SQL Quick Reference</h1>
+<div class="subtitle">Databases for Business Analytics<br>NYU Stern School of Business</div>
+</div>
+<div class="grid"><!-- ER Diagram Basics -->
+<div class="section">
+<div class="section-header"><span class="icon">📊</span> ER Diagram Basics</div>
+<div class="section-body">
+<div class="def-list">
+<div class="def-item"><span class="def-term">Entity</span> <span class="def-desc">An abstract object (person, place, thing, event) represented as a <strong>rectangle</strong>. Becomes a table.</span></div>
+<div class="def-item"><span class="def-term">Attribute</span> <span class="def-desc">A property describing an entity, shown as an <strong>oval</strong>. Becomes a column. Has a domain (data type).</span></div>
+<div class="def-item"><span class="def-term">Primary Key (PK)</span> <span class="def-desc">Attribute(s) uniquely identifying each instance. <strong>Underlined</strong> in diagrams. Should be stable.</span></div>
+<div class="def-item"><span class="def-term">Relationship</span> <span class="def-desc">An association between entities, shown as a <strong>diamond</strong> on a connecting line. Named with a verb.</span></div>
+<div class="def-item"><span class="def-term">Foreign Key (FK)</span> <span class="def-desc">An attribute referencing another table's primary key. Implements relationships in the relational model.</span></div>
+</div>
+</div>
+</div>
+<!-- Crow's Foot Notation -->
+<div class="section">
+<div class="section-header"><span class="icon">🦶</span> Crow's Foot Notation</div>
+<div class="section-body">
+<table class="crows-foot-table">
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Min</th>
+<th>Max</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><svg xmlns="http://www.w3.org/2000/svg" class="crow-svg" width="50" height="20" viewBox="0 0 50 20">
+                  <line x1="0" y1="10" x2="35" y2="10" stroke="#4a47a3" stroke-width="2"></line>
+                  <line x1="35" y1="4" x2="35" y2="16" stroke="#4a47a3" stroke-width="2"></line>
+                  <line x1="42" y1="4" x2="42" y2="16" stroke="#4a47a3" stroke-width="2"></line>
+                </svg></td>
+<td>1</td>
+<td>1</td>
+<td><strong>Exactly one</strong> (mandatory)</td>
+</tr>
+<tr>
+<td><svg xmlns="http://www.w3.org/2000/svg" class="crow-svg" width="50" height="20" viewBox="0 0 50 20">
+                  <line x1="0" y1="10" x2="48" y2="10" stroke="#4a47a3" stroke-width="2"></line>
+                  <line x1="30" y1="4" x2="30" y2="16" stroke="#4a47a3" stroke-width="2"></line>
+                  <line x1="38" y1="10" x2="48" y2="4" stroke="#4a47a3" stroke-width="2"></line>
+                  <line x1="38" y1="10" x2="48" y2="16" stroke="#4a47a3" stroke-width="2"></line>
+                </svg></td>
+<td>1</td>
+<td>N</td>
+<td><strong>One or more</strong> (mandatory many)</td>
+</tr>
+<tr>
+<td><svg xmlns="http://www.w3.org/2000/svg" class="crow-svg" width="50" height="20" viewBox="0 0 50 20">
+                  <line x1="0" y1="10" x2="30" y2="10" stroke="#4a47a3" stroke-width="2"></line>
+                  <circle cx="35" cy="10" r="4" fill="none" stroke="#4a47a3" stroke-width="2"></circle>
+                  <line x1="42" y1="4" x2="42" y2="16" stroke="#4a47a3" stroke-width="2"></line>
+                </svg></td>
+<td>0</td>
+<td>1</td>
+<td><strong>Zero or one</strong> (optional)</td>
+</tr>
+<tr>
+<td><svg xmlns="http://www.w3.org/2000/svg" class="crow-svg" width="50" height="20" viewBox="0 0 50 20">
+                  <line x1="0" y1="10" x2="48" y2="10" stroke="#4a47a3" stroke-width="2"></line>
+                  <circle cx="30" cy="10" r="4" fill="none" stroke="#4a47a3" stroke-width="2"></circle>
+                  <line x1="38" y1="10" x2="48" y2="4" stroke="#4a47a3" stroke-width="2"></line>
+                  <line x1="38" y1="10" x2="48" y2="16" stroke="#4a47a3" stroke-width="2"></line>
+                </svg></td>
+<td>0</td>
+<td>N</td>
+<td><strong>Zero or more</strong> (optional many)</td>
+</tr>
+</tbody>
+</table>
+<div class="tip">Notation goes on the <em>opposite</em> side of the relationship. The symbol next to Entity B describes how many B's each A can have.</div>
+</div>
+</div>
+<!-- Cardinality Types -->
+<div class="section grid-full">
+<div class="section-header"><span class="icon">🔗</span> Relationship Cardinalities</div>
+<div class="section-body">
+<div class="card-examples">
+<div class="card-example">
+<div class="type">One-to-One (1:1)</div>
+<div class="diagram">A ──||────||── B</div>
+<div class="example">Student ↔ University Email</div>
+<div class="example" style="margin-top: 2px; font-style: normal; color: #636e72;">Each A has max 1 B; each B has max 1 A</div>
+</div>
+<div class="card-example">
+<div class="type">One-to-Many (1:N)</div>
+<div class="diagram">A ──||────○&lt;── B</div>
+<div class="example">Department → Professors</div>
+<div class="example" style="margin-top: 2px; font-style: normal; color: #636e72;">Each A has many B's; each B has max 1 A</div>
+</div>
+<div class="card-example">
+<div class="type">Many-to-Many (M:N)</div>
+<div class="diagram">A ──&gt;○────○&lt;── B</div>
+<div class="example">Students ↔ Courses</div>
+<div class="example" style="margin-top: 2px; font-style: normal; color: #636e72;">Each A has many B's; each B has many A's</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Why Databases? -->
+<div class="section">
+<div class="section-header"><span class="icon">⚠️</span> Why Databases? (Data Anomalies)</div>
+<div class="section-body">
+<div class="anomaly-grid">
+<div class="anomaly-card">
+<h4>Insertion</h4>
+<p>Can't add new data without unrelated "filler" data</p>
+</div>
+<div class="anomaly-card">
+<h4>Deletion</h4>
+<p>Deleting one fact accidentally removes unrelated data</p>
+</div>
+<div class="anomaly-card">
+<h4>Update</h4>
+<p>Same fact stored multiple times → inconsistency risk</p>
+</div>
+</div>
+<div class="tip" style="border-color: #27ae60; background: #e8f8f0;"><strong>Solution:</strong> Normalize data into separate tables with foreign keys. Each fact stored once.</div>
+</div>
+</div>
+<!-- ER to Relational -->
+<div class="section">
+<div class="section-header"><span class="icon">🔄</span> ER Diagram → Relational Schema</div>
+<div class="section-body">
+<div class="steps">
+<div class="step">
+<div class="step-num">0</div>
+<div class="step-content"><strong>Verify:</strong> All entities have PKs; all relationships have min/max cardinalities on both sides</div>
+</div>
+<div class="step">
+<div class="step-num">1</div>
+<div class="step-content"><strong>Entities → Tables:</strong> Each entity becomes a table; attributes become columns</div>
+</div>
+<div class="step">
+<div class="step-num">2</div>
+<div class="step-content"><strong>M:N → Bridge Table:</strong> Create new table with FKs to both entities (+ relationship attributes)</div>
+</div>
+<div class="step">
+<div class="step-num">3</div>
+<div class="step-content"><strong>1:N → Foreign Key:</strong> Add FK to the "many" side table pointing to the "one" side</div>
+</div>
+<div class="step">
+<div class="step-num">4</div>
+<div class="step-content"><strong>1:1 → FK or Merge:</strong> Add FK to either table, or merge tables if appropriate</div>
+</div>
+</div>
+</div>
+</div>
+<!-- SQL CREATE TABLE -->
+<div class="section">
+<div class="section-header"><span class="icon">💾</span> SQL: CREATE TABLE</div>
+<div class="section-body">
+<pre><span class="keyword">CREATE TABLE</span> Customer (
+  id <span class="type">INT</span>,
+  name <span class="type">VARCHAR</span>(100),
+  email <span class="type">VARCHAR</span>(255),
+  created_at <span class="type">DATE</span>,
+  <span class="keyword">PRIMARY KEY</span>(id)
+);</pre>
+<div class="subsection" style="margin-top: 10px;">
+<div class="subsection-title">Adding Foreign Keys</div>
+<pre><span class="keyword">CREATE TABLE</span> Order (
+  id <span class="type">INT</span>,
+  customer_id <span class="type">INT</span> <span class="highlight"><span class="keyword">NOT NULL</span></span>,  <span class="comment">-- mandatory</span>
+  amount <span class="type">FLOAT</span>,
+  <span class="keyword">PRIMARY KEY</span>(id),
+  <span class="keyword">FOREIGN KEY</span> (customer_id) 
+    <span class="keyword">REFERENCES</span> Customer(id)
+);</pre>
+</div>
+</div>
+</div>
+<!-- SQL Constraints -->
+<div class="section">
+<div class="section-header"><span class="icon">🔒</span> SQL: Enforcing Cardinality</div>
+<div class="section-body">
+<div class="def-list">
+<div class="def-item"><code>NOT NULL</code> <span class="def-desc">Enforces <strong>mandatory participation</strong> (min = 1). The FK cannot be empty.</span></div>
+<div class="def-item"><code>UNIQUE</code> <span class="def-desc">Enforces <strong>max = 1</strong>. Combined with FK, creates 1:1 relationship.</span></div>
+</div>
+<div class="subsection" style="margin-top: 10px;">
+<div class="subsection-title">Example: Enforcing 1:1</div>
+<pre><span class="keyword">CREATE TABLE</span> Rate (
+  id <span class="type">INT</span>,
+  customer_id <span class="type">INT</span> <span class="keyword">NOT NULL</span>,
+  price <span class="type">FLOAT</span>,
+  <span class="keyword">PRIMARY KEY</span>(id),
+  <span class="highlight"><span class="keyword">UNIQUE</span> (customer_id)</span>,
+  <span class="keyword">FOREIGN KEY</span> (customer_id) 
+    <span class="keyword">REFERENCES</span> Customer(id)
+);</pre>
+</div>
+</div>
+</div>
+<!-- Common Data Types -->
+<div class="section grid-full">
+<div class="section-header"><span class="icon">📝</span> Common SQL Data Types</div>
+<div class="section-body">
+<table class="types-table">
+<thead>
+<tr>
+<th>Type</th>
+<th>Use For</th>
+<th>Example</th>
+<th>Type</th>
+<th>Use For</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>INT</code></td>
+<td>Whole numbers, IDs</td>
+<td>42, 1000</td>
+<td><code>DATE</code></td>
+<td>Dates only</td>
+<td>'2024-01-15'</td>
+</tr>
+<tr>
+<td><code>FLOAT</code> / <code>DECIMAL</code></td>
+<td>Decimals, prices</td>
+<td>19.99, 3.14</td>
+<td><code>DATETIME</code></td>
+<td>Date + time</td>
+<td>'2024-01-15 14:30:00'</td>
+</tr>
+<tr>
+<td><code>VARCHAR(n)</code></td>
+<td>Variable-length text</td>
+<td>'Hello' (max n chars)</td>
+<td><code>BOOLEAN</code></td>
+<td>True/false flags</td>
+<td>TRUE, FALSE</td>
+</tr>
+<tr>
+<td><code>TEXT</code></td>
+<td>Long text, descriptions</td>
+<td>Full paragraphs</td>
+<td><code>ENUM(...)</code></td>
+<td>Fixed set of values</td>
+<td>ENUM('S','M','L','XL')</td>
+</tr>
+</tbody>
+</table>
+<div class="tip">Use <code>DECIMAL(10,2)</code> for money (exact precision). Use <code>VARCHAR</code> with appropriate limits rather than <code>TEXT</code> when possible.</div>
+</div>
+</div>
+<!-- INSERT Data -->
+<div class="section grid-full">
+<div class="section-header"><span class="icon">➕</span> SQL: Inserting Data</div>
+<div class="section-body" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+<div>
+<div class="subsection-title">Single Row</div>
+<pre><span class="keyword">INSERT INTO</span> Customer 
+<span class="keyword">VALUES</span> (1, <span class="string">'Alice'</span>, <span class="string">'alice@nyu.edu'</span>, <span class="string">'2024-01-15'</span>);</pre>
+</div>
+<div>
+<div class="subsection-title">Multiple Rows</div>
+<pre><span class="keyword">INSERT INTO</span> Customer <span class="keyword">VALUES</span>
+  (1, <span class="string">'Alice'</span>, <span class="string">'alice@nyu.edu'</span>, <span class="string">'2024-01-15'</span>),
+  (2, <span class="string">'Bob'</span>, <span class="string">'bob@stern.nyu.edu'</span>, <span class="string">'2024-01-16'</span>),
+  (3, <span class="string">'Carol'</span>, <span class="string">'carol@nyu.edu'</span>, <span class="string">'2024-01-17'</span>);</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="footer"><span>© NYU Stern School of Business | Databases for Business Analytics</span> <span>Page 1 of 1</span></div></body></html>
