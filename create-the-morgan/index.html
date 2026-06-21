@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEMENTO — Premium Custom Gear</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Playfair Display (Serif) & Plus Jakarta Sans (Sans-Serif) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons for premium minimalist icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#fdf8f5',
+                            100: '#fbeee6',
+                            200: '#f5d5c3',
+                            300: '#ebb296',
+                            400: '#df8965',
+                            500: '#d5683e',
+                            600: '#c5522b',
+                            700: '#a33f1f',
+                            800: '#83341c',
+                            900: '#6a2c1a',
+                        },
+                        stone: {
+                            50: '#FAF9F6', // Alabaster/Warm white
+                            100: '#F5F3EF',
+                            200: '#E6E1DA',
+                            800: '#2A2825',
+                            900: '#1C1A18',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #FAF9F6;
+        }
+        .header-glass {
+            background-color: rgba(250, 249, 246, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="text-stone-800 antialiased selection:bg-brand-100 selection:text-brand-800">
+
+    <!-- Toast Notification (Custom alert fallback) -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="bg-stone-900 text-stone-100 px-6 py-4 rounded-xl shadow-xl flex items-center gap-3 border border-stone-800">
+            <span id="toast-icon" class="text-brand-400">
+                <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+            </span>
+            <span id="toast-text" class="text-sm font-medium">Text successfully copied!</span>
+        </div>
+    </div>
+
+    <!-- Header / Navigation -->
+    <header class="fixed top-0 left-0 w-full z-40 header-glass border-b border-stone-200/60 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="#" class="font-serif text-2xl tracking-tight font-semibold text-stone-900">
+                MEMENTO<span class="text-brand-600">.</span>
+            </a>
+            
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-stone-600">
+                <a href="#how-it-works" class="hover:text-brand-600 transition-colors">How It Works</a>
+                <a href="#products" class="hover:text-brand-600 transition-colors">Products</a>
+                <a href="#configurator" class="hover:text-brand-600 transition-colors">Design Studio</a>
+                <a href="#faq" class="hover:text-brand-600 transition-colors">FAQs</a>
+            </nav>
+
+            <div class="hidden md:flex items-center gap-4">
+                <a href="mailto:yinzilibbs@gmail.com" class="text-sm font-medium hover:text-brand-600 transition-colors">yinzilibbs@gmail.com</a>
+                <a href="#configurator" class="bg-stone-900 hover:bg-stone-800 text-white text-xs uppercase tracking-widest px-5 py-3 rounded-full font-semibold transition-all duration-200 transform hover:scale-[1.02]">
+                    Start Order
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden p-2 text-stone-800 focus:outline-none" aria-label="Toggle menu">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Dropdown Nav -->
+        <div id="mobile-menu" class="hidden md:hidden bg-stone-50 border-b border-stone-200 px-6 py-6 transition-all duration-200">
+            <nav class="flex flex-col gap-4 text-base font-medium text-stone-700">
+                <a href="#how-it-works" class="mobile-nav-link hover:text-brand-600 py-2">How It Works</a>
+                <a href="#products" class="mobile-nav-link hover:text-brand-600 py-2">Products</a>
+                <a href="#configurator" class="mobile-nav-link hover:text-brand-600 py-2">Design Studio</a>
+                <a href="#faq" class="mobile-nav-link hover:text-brand-600 py-2">FAQs</a>
+                <hr class="border-stone-200 my-2">
+                <div class="flex flex-col gap-4 pt-2">
+                    <p class="text-xs text-stone-500">Submit photos to: <br><span class="font-semibold text-stone-800">yinzilibbs@gmail.com</span></p>
+                    <a href="#configurator" class="mobile-nav-link bg-stone-900 text-white text-center py-3 rounded-xl font-semibold hover:bg-stone-800 transition-all">
+                        Start Custom Order
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 md:pt-44 md:pb-32 overflow-hidden bg-gradient-to-b from-brand-50 to-stone-50">
+        <!-- Abstract Decorative Accents -->
+        <div class="absolute top-0 right-0 w-[45vw] h-[45vw] max-w-[600px] bg-brand-100/40 rounded-full blur-3xl -z-10"></div>
+        <div class="absolute bottom-10 left-10 w-72 h-72 bg-stone-200/50 rounded-full blur-2xl -z-10"></div>
+
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Hero Text -->
+                <div class="lg:col-span-7 text-center lg:text-left space-y-6">
+                    <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-100 text-brand-800 text-xs font-semibold tracking-wider uppercase">
+                        <i data-lucide="sparkles" class="w-3.5 h-3.5 text-brand-600"></i> Bespoke Photo Gifts
+                    </span>
+                    <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-[1.1] text-stone-900 font-normal">
+                        Upload your photo. <br>
+                        <span class="font-serif italic font-medium text-brand-700">Get custom gear.</span>
+                    </h1>
+                    <p class="text-stone-600 text-base sm:text-lg max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                        We transform your favorite memories, family portraits, and pet photos into beautifully minimalist custom phone cases, heavyweight tees, and organic cotton tote bags. Hand-crafted with premium quality.
+                    </p>
+                    <div class="pt-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                        <a href="#configurator" class="w-full sm:w-auto px-8 py-4 bg-brand-600 hover:bg-brand-700 text-white font-medium rounded-full shadow-lg shadow-brand-600/10 hover:shadow-brand-600/20 transition-all duration-200 flex items-center justify-center gap-2 group transform hover:scale-[1.01]">
+                            <span>Start Your Order</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1"></i>
+                        </a>
+                        <a href="#products" class="w-full sm:w-auto px-8 py-4 bg-white hover:bg-stone-100 border border-stone-200 text-stone-800 font-medium rounded-full transition-all duration-200 flex items-center justify-center gap-2">
+                            Explore Products
+                        </a>
+                    </div>
+
+                    <!-- Client Trust Badges -->
+                    <div class="pt-8 grid grid-cols-3 gap-4 max-w-md mx-auto lg:mx-0 border-t border-stone-200/80">
+                        <div>
+                            <p class="font-serif text-2xl font-bold text-stone-900">$25</p>
+                            <p class="text-xs text-stone-500 uppercase tracking-wider font-semibold">Flat Rate Pricing</p>
+                        </div>
+                        <div>
+                            <p class="font-serif text-2xl font-bold text-stone-900">HD</p>
+                            <p class="text-xs text-stone-500 uppercase tracking-wider font-semibold">Premium Finishes</p>
+                        </div>
+                        <div>
+                            <p class="font-serif text-2xl font-bold text-stone-900">100%</p>
+                            <p class="text-xs text-stone-500 uppercase tracking-wider font-semibold">Custom Tailored</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Interactive Visual (Mockups) -->
+                <div class="lg:col-span-5 relative flex justify-center">
+                    <div class="relative w-72 h-96 sm:w-80 sm:h-[420px] bg-white rounded-3xl p-6 shadow-2xl border border-stone-100 flex flex-col justify-between overflow-hidden">
+                        <!-- Floating Accent Tags -->
+                        <div class="absolute top-4 right-4 bg-brand-50 text-brand-700 text-[10px] uppercase font-bold tracking-widest px-2.5 py-1 rounded-full border border-brand-100">
+                            Bestseller
+                        </div>
+                        
+                        <!-- SVG Phone Case Illustration Frame -->
+                        <div class="flex-1 flex items-center justify-center py-6">
+                            <svg class="w-40 h-auto drop-shadow-xl" viewBox="0 0 100 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Phone Outer Rim -->
+                                <rect x="5" y="5" width="90" height="190" rx="18" fill="#1C1A18" />
+                                <!-- Phone Case Back Plate -->
+                                <rect x="8" y="8" width="84" height="184" rx="15" fill="#df8965" />
+                                <!-- Camera Bump -->
+                                <rect x="14" y="14" width="28" height="28" rx="6" fill="#1C1A18" />
+                                <circle cx="21" cy="21" r="4.5" fill="#2A2825" />
+                                <circle cx="35" cy="21" r="4.5" fill="#2A2825" />
+                                <circle cx="28" cy="35" r="3" fill="#2A2825" />
+                                <!-- Artistic Photo Graphic Overlay -->
+                                <g opacity="0.85">
+                                    <path d="M12 188L45 120L65 155L88 110L88 188H12Z" fill="#F5F3EF" />
+                                    <!-- Sun / Memory circle -->
+                                    <circle cx="70" cy="80" r="12" fill="#E6E1DA" />
+                                </g>
+                                <!-- Screen border highlights -->
+                                <rect x="7" y="7" width="86" height="186" rx="16" stroke="#FAF9F6" stroke-opacity="0.1" stroke-width="1.5" />
+                            </svg>
+                        </div>
+                        
+                        <!-- Mini Card Info -->
+                        <div class="border-t border-stone-100 pt-4 text-center">
+                            <p class="font-serif italic text-stone-900 text-lg">Custom Keepsake Case</p>
+                            <p class="text-xs text-stone-500 mt-1">Available for iPhone & Samsung</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="py-20 md:py-28 bg-stone-100 border-y border-stone-200/70">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+                <span class="text-xs font-bold tracking-widest text-brand-600 uppercase">Process Simplified</span>
+                <h2 class="font-serif text-3xl sm:text-4xl text-stone-900 font-normal">How It Works</h2>
+                <p class="text-stone-600">Three simple steps to bring your custom design to life. No complicated graphic design degrees or messy design interfaces needed.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+                <!-- Step 1 -->
+                <div class="bg-white p-8 rounded-2xl border border-stone-200/50 shadow-sm relative group hover:shadow-md transition-all">
+                    <div class="w-12 h-12 rounded-xl bg-brand-50 text-brand-700 flex items-center justify-center font-bold text-lg mb-6 group-hover:bg-brand-600 group-hover:text-white transition-all duration-300">
+                        1
+                    </div>
+                    <h3 class="font-serif text-xl text-stone-900 mb-3 font-medium">Configure Options</h3>
+                    <p class="text-stone-600 text-sm leading-relaxed">
+                        Scroll down to our <strong>Design Studio</strong>. Select your item type, choice of premium custom options, size, and styling preferences. 
+                    </p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="bg-white p-8 rounded-2xl border border-stone-200/50 shadow-sm relative group hover:shadow-md transition-all">
+                    <div class="w-12 h-12 rounded-xl bg-brand-50 text-brand-700 flex items-center justify-center font-bold text-lg mb-6 group-hover:bg-brand-600 group-hover:text-white transition-all duration-300">
+                        2
+                    </div>
+                    <h3 class="font-serif text-xl text-stone-900 mb-3 font-medium">Submit Intake Details</h3>
+                    <p class="text-stone-600 text-sm leading-relaxed">
+                        Use the companion card to copy your tailored specs, click the order button, and fill out our easy external <strong>Google Form</strong> in seconds.
+                    </p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="bg-white p-8 rounded-2xl border border-stone-200/50 shadow-sm relative group hover:shadow-md transition-all">
+                    <div class="w-12 h-12 rounded-xl bg-brand-50 text-brand-700 flex items-center justify-center font-bold text-lg mb-6 group-hover:bg-brand-600 group-hover:text-white transition-all duration-300">
+                        3
+                    </div>
+                    <h3 class="font-serif text-xl text-stone-900 mb-3 font-medium">Send Your Photos</h3>
+                    <p class="text-stone-600 text-sm leading-relaxed">
+                        Email your high-resolution photo file to <a href="mailto:yinzilibbs@gmail.com" class="text-brand-600 hover:underline font-semibold">yinzilibbs@gmail.com</a> to complete production lock!
+                    </p>
+                </div>
+            </div>
+
+            <!-- Email Notification Box -->
+            <div class="mt-12 bg-brand-50 border border-brand-200 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex items-center gap-4">
+                    <div class="p-3 bg-brand-100 rounded-xl text-brand-700 hidden sm:block">
+                        <i data-lucide="mail-check" class="w-6 h-6"></i>
+                    </div>
+                    <div class="space-y-1 text-center md:text-left">
+                        <p class="font-serif text-lg text-stone-900 font-medium">Ready to email photos?</p>
+                        <p class="text-sm text-stone-600">Please include your name in the email subject line to match your form details.</p>
+                    </div>
+                </div>
+                <a href="mailto:yinzilibbs@gmail.com" class="px-6 py-3 bg-stone-900 hover:bg-stone-800 text-white rounded-lg text-sm font-semibold tracking-wide transition-all duration-200 shrink-0">
+                    yinzilibbs@gmail.com
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Grid Section -->
+    <section id="products" class="py-20 md:py-28 bg-stone-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+                <span class="text-xs font-bold tracking-widest text-brand-600 uppercase">Premium Catalog</span>
+                <h2 class="font-serif text-3xl sm:text-4xl text-stone-900 font-normal">Custom Crafted Selection</h2>
+                <p class="text-stone-600">Each item is constructed from premium materials designed to make your personalized artwork jump off the physical surface.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Product 1: Phone Case -->
+                <div class="bg-white rounded-2xl border border-stone-200/60 overflow-hidden flex flex-col justify-between group hover:shadow-lg transition-all duration-300">
+                    <div class="p-8 pb-4 flex-1">
+                        <!-- Custom Static SVG Illustration -->
+                        <div class="h-48 flex items-center justify-center bg-stone-100 rounded-xl mb-6">
+                            <svg class="w-24 h-auto" viewBox="0 0 100 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="5" y="5" width="90" height="190" rx="18" fill="#1C1A18" />
+                                <rect x="8" y="8" width="84" height="184" rx="15" fill="#E6E1DA" />
+                                <rect x="14" y="14" width="28" height="28" rx="6" fill="#1C1A18" />
+                                <circle cx="21" cy="21" r="4.5" fill="#2A2825" />
+                                <circle cx="35" cy="21" r="4.5" fill="#2A2825" />
+                                <g opacity="0.6">
+                                    <path d="M12 188L45 130L65 160L88 120L88 188H12Z" fill="#a33f1f" />
+                                    <circle cx="70" cy="90" r="10" fill="#df8965" />
+                                </g>
+                            </svg>
+                        </div>
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-serif text-xl font-semibold text-stone-900">Custom Phone Case</h3>
+                            <span class="font-serif text-xl font-bold text-brand-700">$25</span>
+                        </div>
+                        <p class="text-stone-500 text-sm mb-4">Sleek, dual-layer armor protection with full wrap dye sublimation prints. Choose premium matte or glossy finishes.</p>
+                        
+                        <ul class="text-xs text-stone-600 space-y-2 mt-4 border-t border-stone-100 pt-4">
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-600"></i> Scratch-resistant surface</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-600"></i> Drop protection padding</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-600"></i> Supported: iPhone, Galaxy, Pixel</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <button onclick="selectProduct('phone-case')" class="w-full py-3 text-center bg-stone-100 hover:bg-brand-600 hover:text-white rounded-xl text-xs uppercase tracking-wider font-bold transition-all text-stone-800">
+                            Configure Design
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 2: T-Shirt -->
+                <div class="bg-white rounded-2xl border border-stone-200/60 overflow-hidden flex flex-col justify-between group hover:shadow-lg transition-all duration-300">
+                    <div class="p-8 pb-4 flex-1">
+                        <!-- Custom Static SVG Illustration -->
+                        <div class="h-48 flex items-center justify-center bg-stone-100 rounded-xl mb-6">
+                            <svg class="w-36 h-auto" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 25 L35 10 L45 20 L55 12 L65 12 L75 20 L85 10 L100 25 L92 45 L85 42 L85 110 L35 110 L35 42 L28 45 Z" fill="#2A2825" />
+                                <g opacity="0.3">
+                                    <circle cx="60" cy="55" r="16" fill="#FAF9F6" />
+                                    <path d="M50 55 L70 55" stroke="#FAF9F6" stroke-width="2" />
+                                </g>
+                            </svg>
+                        </div>
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-serif text-xl font-semibold text-stone-900">Heavyweight T-Shirt</h3>
+                            <span class="font-serif text-xl font-bold text-brand-700">$25</span>
+                        </div>
+                        <p class="text-stone-500 text-sm mb-4">Comfy fit luxury graphic tees. Spun from 100% premium ringspun cotton. Highly resistant to standard machine washing.</p>
+                        
+                        <ul class="text-xs text-stone-600 space-y-2 mt-4 border-t border-stone-100 pt-4">
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-600"></i> Double-stitched seams & crew neck</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-600"></i> 100% Breathable cotton stock</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-600"></i> Sizes ranging from XS to 3XL</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <button onclick="selectProduct('t-shirt')" class="w-full py-3 text-center bg-stone-100 hover:bg-brand-600 hover:text-white rounded-xl text-xs uppercase tracking-wider font-bold transition-all text-stone-800">
+                            Configure Design
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 3: Tote Bag -->
+                <div class="bg-white rounded-2xl border border-stone-200/60 overflow-hidden flex flex-col justify-between group hover:shadow-lg transition-all duration-300">
+                    <div class="p-8 pb-4 flex-1">
+                        <!-- Custom Static SVG Illustration -->
+                        <div class="h-48 flex items-center justify-center bg-stone-100 rounded-xl mb-6">
+                            <svg class="w-32 h-auto" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Tote Handles -->
+                                <path d="M40 40 C 40 10, 80 10, 80 40" stroke="#1C1A18" stroke-width="4" fill="none" />
+                                <!-- Tote Body -->
+                                <path d="M25 40 H95 L90 115 H30 Z" fill="#E6E1DA" stroke="#1C1A18" stroke-width="2" />
+                                <!-- Pattern on tote -->
+                                <g opacity="0.6">
+                                    <line x1="40" y1="55" x2="80" y2="95" stroke="#a33f1f" stroke-width="3" />
+                                    <line x1="80" y1="55" x2="40" y2="95" stroke="#a33f1f" stroke-width="3" />
+                                </g>
+                            </svg>
+                        </div>
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-serif text-xl font-semibold text-stone-900">Custom Tote Bag</h3>
+                            <span class="font-serif text-xl font-bold text-brand-700">$25</span>
+                        </div>
+                        <p class="text-stone-500 text-sm mb-4">Functional and durable organic cotton canvas totes. Cross-stitched heavy strap handles perfect for daily grocery runs.</p>
+                        
+                        <ul class="text-xs text-stone-600 space-y-2 mt-4 border-t border-stone-100 pt-4">
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-600"></i> Premium 12oz duck canvas structure</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-600"></i> Re-enforced bottom gusset</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-600"></i> Available in Classic & Large size</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <button onclick="selectProduct('tote-bag')" class="w-full py-3 text-center bg-stone-100 hover:bg-brand-600 hover:text-white rounded-xl text-xs uppercase tracking-wider font-bold transition-all text-stone-800">
+                            Configure Design
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Configurator / Design Studio Section -->
+    <section id="configurator" class="py-20 md:py-28 bg-stone-100 border-t border-stone-200">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+                <span class="text-xs font-bold tracking-widest text-brand-600 uppercase">Design Studio</span>
+                <h2 class="font-serif text-3xl sm:text-4xl text-stone-900 font-normal">Real-Time Customizer</h2>
+                <p class="text-stone-600">
+                    Draft your options below. Click the Copy button to capture your exact choice, then simply paste it straight into our intake form!
+                </p>
+            </div>
+
+            <!-- Customizer Interactive Layout -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                
+                <!-- Left: Form Controls (8 Columns on desktop) -->
+                <div class="lg:col-span-7 bg-white p-6 sm:p-8 rounded-2xl border border-stone-200 shadow-sm space-y-8">
+                    
+                    <!-- Form Header / Product Switcher -->
+                    <div>
+                        <label class="block text-xs uppercase font-bold tracking-wider text-stone-500 mb-3">
+                            Step 1: Select Your Product Core
+                        </label>
+                        <div class="grid grid-cols-3 gap-3">
+                            <button type="button" onclick="selectProduct('phone-case')" id="tab-phone-case" class="product-tab px-4 py-3 text-center border-2 rounded-xl flex flex-col items-center gap-2 transition-all">
+                                <i data-lucide="smartphone" class="w-5 h-5"></i>
+                                <span class="text-xs font-semibold">Phone Case</span>
+                            </button>
+                            <button type="button" onclick="selectProduct('t-shirt')" id="tab-t-shirt" class="product-tab px-4 py-3 text-center border-2 rounded-xl flex flex-col items-center gap-2 transition-all">
+                                <i data-lucide="shirt" class="w-5 h-5"></i>
+                                <span class="text-xs font-semibold">T-Shirt</span>
+                            </button>
+                            <button type="button" onclick="selectProduct('tote-bag')" id="tab-tote-bag" class="product-tab px-4 py-3 text-center border-2 rounded-xl flex flex-col items-center gap-2 transition-all">
+                                <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                                <span class="text-xs font-semibold">Tote Bag</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <hr class="border-stone-100">
+
+                    <!-- Step 2: Dynamic Custom Options (Toggled via JS) -->
+                    <div id="dynamic-options-container" class="space-y-6">
+                        <label class="block text-xs uppercase font-bold tracking-wider text-stone-500 mb-2">
+                            Step 2: Customize Specs
+                        </label>
+
+                        <!-- Conditional: Phone Case Options -->
+                        <div id="options-phone-case" class="product-options-group space-y-6">
+                            <!-- Model Selection -->
+                            <div>
+                                <label for="phone-model" class="block text-sm font-semibold text-stone-800 mb-2">Exact Phone Model</label>
+                                <select id="phone-model" onchange="updateSummary()" class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-stone-800 font-medium focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                                    <option value="iPhone 15 Pro Max">iPhone 15 Pro Max</option>
+                                    <option value="iPhone 15 Pro">iPhone 15 Pro</option>
+                                    <option value="iPhone 15">iPhone 15</option>
+                                    <option value="iPhone 14 / 13">iPhone 14 / 13</option>
+                                    <option value="Galaxy S24 Ultra">Galaxy S24 Ultra</option>
+                                    <option value="Galaxy S24">Galaxy S24</option>
+                                    <option value="Pixel 8 Pro">Pixel 8 Pro</option>
+                                    <option value="Pixel 8">Pixel 8</option>
+                                    <option value="Other model (Write in details)">Other Model (Specify Below)</option>
+                                </select>
+                            </div>
+
+                            <!-- Material finish -->
+                            <div>
+                                <label class="block text-sm font-semibold text-stone-800 mb-2">Material / Protective Finish</label>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <label class="border border-stone-200 rounded-xl p-3 flex items-center justify-between cursor-pointer hover:bg-stone-50">
+                                        <div class="flex items-center gap-2">
+                                            <input type="radio" name="phone-material" value="Matte Finish" checked onchange="updateSummary()" class="text-brand-600 focus:ring-brand-500">
+                                            <span class="text-sm font-medium">Sleek Matte</span>
+                                        </div>
+                                    </label>
+                                    <label class="border border-stone-200 rounded-xl p-3 flex items-center justify-between cursor-pointer hover:bg-stone-50">
+                                        <div class="flex items-center gap-2">
+                                            <input type="radio" name="phone-material" value="Glossy Finish" onchange="updateSummary()" class="text-brand-600 focus:ring-brand-500">
+                                            <span class="text-sm font-medium">Vibrant Glossy</span>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Phone Case Color -->
+                            <div>
+                                <label class="block text-sm font-semibold text-stone-800 mb-2">Case Colorway</label>
+                                <div class="flex flex-wrap gap-3">
+                                    <button type="button" onclick="setProductColor('#df8965', 'Terracotta')" class="color-dot w-10 h-10 rounded-full border-2 border-transparent transition-all" style="background-color: #df8965;" title="Terracotta"></button>
+                                    <button type="button" onclick="setProductColor('#2A2825', 'Charcoal')" class="color-dot w-10 h-10 rounded-full border-2 border-transparent transition-all" style="background-color: #2A2825;" title="Charcoal"></button>
+                                    <button type="button" onclick="setProductColor('#818c7c', 'Sage')" class="color-dot w-10 h-10 rounded-full border-2 border-transparent transition-all" style="background-color: #818c7c;" title="Sage"></button>
+                                    <button type="button" onclick="setProductColor('#d8c29d', 'Sand')" class="color-dot w-10 h-10 rounded-full border-2 border-transparent transition-all" style="background-color: #d8c29d;" title="Sand"></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Conditional: T-Shirt Options -->
+                        <div id="options-t-shirt" class="product-options-group space-y-6 hidden">
+                            <!-- Style selection -->
+                            <div>
+                                <label class="block text-sm font-semibold text-stone-800 mb-2">Shirt Fit Style</label>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <label class="border border-stone-200 rounded-xl p-3 flex items-center gap-2 cursor-pointer hover:bg-stone-50">
+                                        <input type="radio" name="tshirt-style" value="Unisex Fit" checked onchange="updateSummary()" class="text-brand-600">
+                                        <span class="text-sm font-medium">Unisex Classic</span>
+                                    </label>
+                                    <label class="border border-stone-200 rounded-xl p-3 flex items-center gap-2 cursor-pointer hover:bg-stone-50">
+                                        <input type="radio" name="tshirt-style" value="Women's Fitted" onchange="updateSummary()" class="text-brand-600">
+                                        <span class="text-sm font-medium">Women's Semi-Fitted</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Size selection -->
+                            <div>
+                                <label for="tshirt-size" class="block text-sm font-semibold text-stone-800 mb-2">Size Selection</label>
+                                <select id="tshirt-size" onchange="updateSummary()" class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-stone-800 font-medium focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                                    <option value="XS">XS</option>
+                                    <option value="S">S</option>
+                                    <option value="M" selected>M</option>
+                                    <option value="L">L</option>
+                                    <option value="XL">XL</option>
+                                    <option value="XXL">XXL</option>
+                                    <option value="XXXL">XXXL (+ $3.00)</option>
+                                </select>
+                            </div>
+
+                            <!-- T-Shirt Color -->
+                            <div>
+                                <label class="block text-sm font-semibold text-stone-800 mb-2">Garment Color</label>
+                                <div class="flex flex-wrap gap-3">
+                                    <button type="button" onclick="setProductColor('#FAF9F6', 'Soft White')" class="color-dot w-10 h-10 rounded-full border-2 border-stone-200 transition-all" style="background-color: #FAF9F6;" title="Soft White"></button>
+                                    <button type="button" onclick="setProductColor('#1C1A18', 'Chalk Black')" class="color-dot w-10 h-10 rounded-full border-2 border-transparent transition-all" style="background-color: #1C1A18;" title="Chalk Black"></button>
+                                    <button type="button" onclick="setProductColor('#4a5e54', 'Forest Green')" class="color-dot w-10 h-10 rounded-full border-2 border-transparent transition-all" style="background-color: #4a5e54;" title="Forest Green"></button>
+                                    <button type="button" onclick="setProductColor('#ebb296', 'Pale Apricot')" class="color-dot w-10 h-10 rounded-full border-2 border-transparent transition-all" style="background-color: #ebb296;" title="Pale Apricot"></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Conditional: Tote Bag Options -->
+                        <div id="options-tote-bag" class="product-options-group space-y-6 hidden">
+                            <!-- Size select -->
+                            <div>
+                                <label class="block text-sm font-semibold text-stone-800 mb-2">Tote Bag Size</label>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <label class="border border-stone-200 rounded-xl p-3 flex items-center gap-2 cursor-pointer hover:bg-stone-50">
+                                        <input type="radio" name="tote-size" value="Classic Standard (15 x 15 in)" checked onchange="updateSummary()" class="text-brand-600">
+                                        <span class="text-sm font-medium">Classic Standard</span>
+                                    </label>
+                                    <label class="border border-stone-200 rounded-xl p-3 flex items-center gap-2 cursor-pointer hover:bg-stone-50">
+                                        <input type="radio" name="tote-size" value="Large Oversized (18 x 15 in)" onchange="updateSummary()" class="text-brand-600">
+                                        <span class="text-sm font-medium">Large Oversized</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Tote Color -->
+                            <div>
+                                <label class="block text-sm font-semibold text-stone-800 mb-2">Canvas Raw Base</label>
+                                <div class="flex flex-wrap gap-3">
+                                    <button type="button" onclick="setProductColor('#eae2d5', 'Natural Oatmeal')" class="color-dot w-10 h-10 rounded-full border-2 border-transparent transition-all" style="background-color: #eae2d5;" title="Natural Oatmeal"></button>
+                                    <button type="button" onclick="setProductColor('#1C1A18', 'Classic Black')" class="color-dot w-10 h-10 rounded-full border-2 border-transparent transition-all" style="background-color: #1C1A18;" title="Classic Black"></button>
+                                    <button type="button" onclick="setProductColor('#d89582', 'Sienna Terracotta')" class="color-dot w-10 h-10 rounded-full border-2 border-transparent transition-all" style="background-color: #d89582;" title="Sienna Terracotta"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="border-stone-100">
+
+                    <!-- Personal Information Sub-Section (Previews Form Fields) -->
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-2 text-stone-500 mb-1">
+                            <i data-lucide="user-cog" class="w-4 h-4"></i>
+                            <span class="text-xs uppercase font-bold tracking-wider">Step 3: Contact Details (For Reference)</span>
+                        </div>
+                        <p class="text-xs text-stone-500">
+                            Enter your info below to visually pre-populate your order specifications clipboard block.
+                        </p>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label for="user-name" class="block text-xs font-semibold text-stone-700 mb-1">Full Name</label>
+                                <input type="text" id="user-name" oninput="updateSummary()" placeholder="Your Name" class="w-full px-4 py-2.5 bg-stone-50 border border-stone-200 rounded-lg text-sm focus:ring-1 focus:ring-brand-500 focus:outline-none">
+                            </div>
+                            <div>
+                                <label for="user-email" class="block text-xs font-semibold text-stone-700 mb-1">Email Address</label>
+                                <input type="email" id="user-email" oninput="updateSummary()" placeholder="you@example.com" class="w-full px-4 py-2.5 bg-stone-50 border border-stone-200 rounded-lg text-sm focus:ring-1 focus:ring-brand-500 focus:outline-none">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="user-phone" class="block text-xs font-semibold text-stone-700 mb-1">Phone Number</label>
+                            <input type="tel" id="user-phone" oninput="updateSummary()" placeholder="(555) 000-0000" class="w-full px-4 py-2.5 bg-stone-50 border border-stone-200 rounded-lg text-sm focus:ring-1 focus:ring-brand-500 focus:outline-none">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Visual Live Preview & Companion Order Card (5 Columns on desktop) -->
+                <div class="lg:col-span-5 space-y-6 lg:sticky lg:top-24">
+                    
+                    <!-- Real-Time SVG Visual Preview Box -->
+                    <div class="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm text-center">
+                        <p class="text-xs text-stone-400 uppercase tracking-widest font-semibold mb-4">Live Digital Preview</p>
+                        
+                        <div class="h-60 flex items-center justify-center bg-stone-50 rounded-xl border border-dashed border-stone-200 transition-colors">
+                            
+                            <!-- Case Dynamic SVG -->
+                            <div id="preview-art-case" class="preview-svg-container">
+                                <svg class="w-28 h-auto drop-shadow-lg" viewBox="0 0 100 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="5" y="5" width="90" height="190" rx="18" fill="#1C1A18" />
+                                    <!-- Dynamic Backing color changing on select -->
+                                    <rect id="svg-case-color" x="8" y="8" width="84" height="184" rx="15" fill="#df8965" class="transition-all duration-300" />
+                                    <rect x="14" y="14" width="28" height="28" rx="6" fill="#1C1A18" />
+                                    <circle cx="21" cy="21" r="4.5" fill="#2A2825" />
+                                    <circle cx="35" cy="21" r="4.5" fill="#2A2825" />
+                                    <circle cx="28" cy="35" r="3" fill="#2A2825" />
+                                    <!-- Simple Abstract Landscape Lineart -->
+                                    <g opacity="0.8">
+                                        <path d="M12 188L45 125L65 158L88 115L88 188H12Z" fill="#F5F3EF" />
+                                        <circle cx="70" cy="80" r="12" fill="#E6E1DA" />
+                                    </g>
+                                </svg>
+                            </div>
+
+                            <!-- Shirt Dynamic SVG -->
+                            <div id="preview-art-shirt" class="preview-svg-container hidden">
+                                <svg class="w-48 h-auto drop-shadow-md" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <!-- Dynamic Body color changing on select -->
+                                    <path id="svg-shirt-color" d="M20 25 L35 10 L45 20 L55 12 L65 12 L75 20 L85 10 L100 25 L92 45 L85 42 L85 110 L35 110 L35 42 L28 45 Z" fill="#FAF9F6" stroke="#2A2825" stroke-width="2.5" class="transition-all duration-300" />
+                                    <!-- Minimal mockup frame representing art placement -->
+                                    <g opacity="0.75">
+                                        <rect x="44" y="38" width="32" height="42" rx="3" fill="none" stroke="#2A2825" stroke-width="1" stroke-dasharray="2 2" />
+                                        <path d="M48 75L60 62L72 75H48Z" fill="#a33f1f" />
+                                        <circle cx="68" cy="48" r="4" fill="#df8965" />
+                                    </g>
+                                </svg>
+                            </div>
+
+                            <!-- Tote Dynamic SVG -->
+                            <div id="preview-art-tote" class="preview-svg-container hidden">
+                                <svg class="w-44 h-auto drop-shadow-md" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <!-- Tote Handles -->
+                                    <path d="M40 40 C 40 10, 80 10, 80 40" stroke="#1C1A18" stroke-width="4.5" fill="none" />
+                                    <!-- Dynamic Bag base changing on select -->
+                                    <path id="svg-tote-color" d="M25 40 H95 L90 115 H30 Z" fill="#eae2d5" stroke="#1C1A18" stroke-width="3" class="transition-all duration-300" />
+                                    <!-- Art Frame -->
+                                    <g opacity="0.8">
+                                        <circle cx="60" cy="72" r="18" fill="#a33f1f" />
+                                        <path d="M42 72C42 82, 78 82, 78 72" stroke="#FAF9F6" stroke-width="2" fill="none" />
+                                    </g>
+                                </svg>
+                            </div>
+
+                        </div>
+                        <p class="text-xs text-stone-500 mt-3 font-medium">Flat Rate: $25.00 USD</p>
+                    </div>
+
+                    <!-- Intake Companion Clipboard Card -->
+                    <div class="bg-stone-900 text-stone-100 p-6 rounded-2xl shadow-xl space-y-6 relative overflow-hidden">
+                        <!-- Tiny Ambient Glow -->
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-brand-500/10 rounded-full blur-2xl"></div>
+
+                        <div class="space-y-2">
+                            <h3 class="font-serif text-lg text-white font-medium flex items-center gap-2">
+                                <i data-lucide="clipboard-list" class="w-5 h-5 text-brand-400"></i>
+                                Companion Clipboard
+                            </h3>
+                            <p class="text-xs text-stone-400 leading-relaxed">
+                                We've organized your chosen parameters into a standard format. Copy this snippet to paste directly into our Google intake form field.
+                            </p>
+                        </div>
+
+                        <!-- Plaintext Specs Window -->
+                        <div class="bg-stone-800 rounded-xl p-4 border border-stone-700/50">
+                            <pre id="specs-summary-box" class="text-xs font-mono text-stone-300 overflow-x-auto whitespace-pre-wrap leading-relaxed">
+Product: Custom Phone Case
+Model: iPhone 15 Pro Max
+Material: Matte Finish
+Colorway: Terracotta
+Name: [Please enter]
+Email: [Please enter]
+Phone: [Please enter]
+Flat Price: $25.00
+                            </pre>
+                        </div>
+
+                        <div class="space-y-3">
+                            <!-- BUTTON: Copy Specifications -->
+                            <button type="button" id="copy-specs-btn" onclick="copySpecsText()" class="w-full py-3.5 bg-brand-600 hover:bg-brand-500 text-white font-semibold rounded-xl text-xs uppercase tracking-widest flex items-center justify-center gap-2 transition-all group">
+                                <i data-lucide="copy" class="w-4 h-4 transition-transform group-hover:scale-110"></i>
+                                <span id="copy-btn-text">Copy Specs & Open Form</span>
+                            </button>
+                            <p class="text-[10px] text-center text-stone-400">
+                                Clicking copies options to clipboard & launches external form instantly.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQs & Email Reminders -->
+    <section id="faq" class="py-20 md:py-28 bg-stone-50">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center space-y-4 mb-16">
+                <span class="text-xs font-bold tracking-widest text-brand-600 uppercase">Got Questions?</span>
+                <h2 class="font-serif text-3xl sm:text-4xl text-stone-900 font-normal">Common Questions</h2>
+                <p class="text-stone-600">All the essential details on custom specifications, resolution requests, and processing times.</p>
+            </div>
+
+            <div class="space-y-6">
+                <!-- FAQ Item 1 -->
+                <div class="bg-white rounded-xl border border-stone-200/60 p-6 shadow-sm">
+                    <h3 class="font-serif text-lg font-medium text-stone-900 mb-2">How do I submit my photo files?</h3>
+                    <p class="text-stone-600 text-sm leading-relaxed">
+                        Once you submit your specifications through our Google Form, simply send an email containing your high-resolution PNG or JPEG file to <a href="mailto:yinzilibbs@gmail.com" class="text-brand-600 hover:underline">yinzilibbs@gmail.com</a>. Please use your full name as the email subject so we can cross-reference it with your intake form immediately!
+                    </p>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="bg-white rounded-xl border border-stone-200/60 p-6 shadow-sm">
+                    <h3 class="font-serif text-lg font-medium text-stone-900 mb-2">What kind of photo works best?</h3>
+                    <p class="text-stone-600 text-sm leading-relaxed">
+                        High-resolution photos taken in natural daylight are highly recommended. Avoid blurry, low-light, or heavily compressed screenshots. High-contrast images with centered subjects produce incredibly rich prints on phone cases and canvas.
+                    </p>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="bg-white rounded-xl border border-stone-200/60 p-6 shadow-sm">
+                    <h3 class="font-serif text-lg font-medium text-stone-900 mb-2">Is the flat rate really $25? Are there shipping fees?</h3>
+                    <p class="text-stone-600 text-sm leading-relaxed">
+                        Yes! Every customizable product on our site is priced at a flat rate of $25. Standard local domestic shipping is included free of charge. Applicable tax rates are processed transparently directly within the final review stage.
+                    </p>
+                </div>
+
+                <!-- FAQ Item 4 -->
+                <div class="bg-white rounded-xl border border-stone-200/60 p-6 shadow-sm">
+                    <h3 class="font-serif text-lg font-medium text-stone-900 mb-2">Can I review mockups before final production?</h3>
+                    <p class="text-stone-600 text-sm leading-relaxed">
+                        Absolutely. Once we receive your image and complete the mock layout matching your configuration specs, we will email you a digital preview mockup for layout approval before physically curing the ink.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-stone-950 text-stone-300 pt-16 pb-8 border-t border-stone-900">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 pb-16 border-b border-stone-900">
+                <!-- Branding Info -->
+                <div class="md:col-span-5 space-y-4">
+                    <a href="#" class="font-serif text-2xl tracking-tight font-semibold text-white">
+                        MEMENTO<span class="text-brand-500">.</span>
+                    </a>
+                    <p class="text-sm text-stone-400 max-w-sm leading-relaxed">
+                        We translate emotional snapshots, artistic designs, and cherished portraiture into beautiful, handcrafted everyday gear.
+                    </p>
+                </div>
+
+                <!-- Quick Nav Links -->
+                <div class="md:col-span-3 space-y-4">
+                    <h4 class="text-xs uppercase tracking-wider font-bold text-stone-200">Boutique Directory</h4>
+                    <ul class="space-y-2 text-sm text-stone-400">
+                        <li><a href="#how-it-works" class="hover:text-white transition-colors">How It Works</a></li>
+                        <li><a href="#products" class="hover:text-white transition-colors">Products & Rates</a></li>
+                        <li><a href="#configurator" class="hover:text-white transition-colors">Design Customizer</a></li>
+                        <li><a href="#faq" class="hover:text-white transition-colors">Help / FAQ</a></li>
+                    </ul>
+                </div>
+
+                <!-- Business Contact Info -->
+                <div class="md:col-span-4 space-y-4">
+                    <h4 class="text-xs uppercase tracking-wider font-bold text-stone-200">Order Intake Liaison</h4>
+                    <ul class="space-y-3 text-sm text-stone-400">
+                        <li class="flex items-start gap-2">
+                            <i data-lucide="mail" class="w-4 h-4 text-brand-500 shrink-0 mt-0.5"></i>
+                            <div>
+                                <p class="text-stone-300">Intake Email</p>
+                                <a href="mailto:yinzilibbs@gmail.com" class="hover:text-white transition-colors text-xs font-semibold text-brand-400">yinzilibbs@gmail.com</a>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i data-lucide="info" class="w-4 h-4 text-brand-500 shrink-0 mt-0.5"></i>
+                            <div>
+                                <p class="text-stone-300">Processing Time</p>
+                                <p class="text-xs text-stone-500">2-3 Business Days for custom proofs.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Line -->
+            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-500">
+                <p>&copy; 2026 MEMENTO. All Rights Reserved. Crafted with love.</p>
+                <div class="flex items-center gap-4">
+                    <p>Designed for custom merchandise enthusiasts.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE JAVASCRIPT LOGIC -->
+    <script>
+        // ==========================================
+        // CONFIGURATION VARIABLES (ADJUST AS NEEDED)
+        // ==========================================
+        // Replace this with your actual external Google Forms URL:
+        const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfD_YOUR_GOOGLE_FORM_ID_HERE/viewform";
+
+        // State Tracking for Selected Specs
+        let activeProduct = 'phone-case'; 
+        let activeColorHex = '#df8965';
+        let activeColorName = 'Terracotta';
+
+        // Initialize Lucide Icons
+        window.onload = function() {
+            lucide.createIcons();
+            // Default select Phone Case tab
+            selectProduct('phone-case');
+        };
+
+        // Header scroll class toggle
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 10) {
+                header.classList.add('shadow-md', 'border-stone-200');
+            } else {
+                header.classList.remove('shadow-md', 'border-stone-200');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile nav when clicking a link
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Product selection helper
+        function selectProduct(productId) {
+            activeProduct = productId;
+
+            // Highlight chosen tab
+            document.querySelectorAll('.product-tab').forEach(tab => {
+                tab.classList.remove('border-brand-600', 'bg-brand-50', 'text-brand-800');
+                tab.classList.add('border-stone-200', 'bg-white', 'text-stone-600');
+            });
+
+            const targetTab = document.getElementById(`tab-${productId}`);
+            if (targetTab) {
+                targetTab.classList.remove('border-stone-200', 'bg-white', 'text-stone-600');
+                targetTab.classList.add('border-brand-600', 'bg-brand-50', 'text-brand-800');
+            }
+
+            // Show custom options corresponding to this product
+            document.querySelectorAll('.product-options-group').forEach(group => {
+                group.classList.add('hidden');
+            });
+            document.getElementById(`options-${productId}`).classList.remove('hidden');
+
+            // Show appropriate dynamic digital preview mockup
+            document.querySelectorAll('.preview-svg-container').forEach(svg => {
+                svg.classList.add('hidden');
+            });
+            document.getElementById(`preview-art-${productId}`).classList.remove('hidden');
+
+            // Reset default colors based on chosen product tab
+            if (productId === 'phone-case') {
+                setProductColor('#df8965', 'Terracotta');
+            } else if (productId === 't-shirt') {
+                setProductColor('#FAF9F6', 'Soft White');
+            } else if (productId === 'tote-bag') {
+                setProductColor('#eae2d5', 'Natural Oatmeal');
+            }
+
+            // Smooth scroll to studio to guide the user naturally if they clicked pricing grid button
+            const customizerSection = document.getElementById('configurator');
+            if (customizerSection && window.scrollY > customizerSection.offsetTop - 300) {
+                customizerSection.scrollIntoView({ behavior: 'smooth' });
+            }
+
+            updateSummary();
+        }
+
+        // Color Setter
+        function setProductColor(hex, colorName) {
+            activeColorHex = hex;
+            activeColorName = colorName;
+
+            // Visual feedback on selected color-dot border
+            document.querySelectorAll('.color-dot').forEach(dot => {
+                dot.classList.remove('border-stone-900', 'scale-110');
+                dot.classList.add('border-transparent');
+            });
+
+            // Find matching button dot and apply active ring
+            const activeDot = Array.from(document.querySelectorAll('.color-dot')).find(dot => {
+                return dot.getAttribute('title') === colorName;
+            });
+            if (activeDot) {
+                activeDot.classList.remove('border-transparent');
+                activeDot.classList.add('border-stone-900', 'scale-110');
+            }
+
+            // Apply hex changes instantly in real-time SVGs
+            if (activeProduct === 'phone-case') {
+                document.getElementById('svg-case-color').style.fill = hex;
+            } else if (activeProduct === 't-shirt') {
+                document.getElementById('svg-shirt-color').style.fill = hex;
+            } else if (activeProduct === 'tote-bag') {
+                document.getElementById('svg-tote-color').style.fill = hex;
+            }
+
+            updateSummary();
+        }
+
+        // Dynamic Text generation inside specifications container
+        function updateSummary() {
+            const summaryBox = document.getElementById('specs-summary-box');
+            let text = "";
+
+            // User Info
+            const name = document.getElementById('user-name').value.trim() || "[Please enter]";
+            const email = document.getElementById('user-email').value.trim() || "[Please enter]";
+            const phone = document.getElementById('user-phone').value.trim() || "[Please enter]";
+
+            if (activeProduct === 'phone-case') {
+                const model = document.getElementById('phone-model').value;
+                const materialEl = document.querySelector('input[name="phone-material"]:checked');
+                const material = materialEl ? materialEl.value : "Matte Finish";
+
+                text = `Product: Custom Phone Case\n`;
+                text += `Model: ${model}\n`;
+                text += `Material: ${material}\n`;
+                text += `Colorway: ${activeColorName}\n`;
+            } 
+            else if (activeProduct === 't-shirt') {
+                const styleEl = document.querySelector('input[name="tshirt-style"]:checked');
+                const style = styleEl ? styleEl.value : "Unisex Fit";
+                const size = document.getElementById('tshirt-size').value;
+
+                text = `Product: Custom Heavyweight T-Shirt\n`;
+                text += `Style: ${style}\n`;
+                text += `Size: ${size}\n`;
+                text += `Garment Color: ${activeColorName}\n`;
+            } 
+            else if (activeProduct === 'tote-bag') {
+                const toteSizeEl = document.querySelector('input[name="tote-size"]:checked');
+                const size = toteSizeEl ? toteSizeEl.value : "Classic Standard";
+
+                text = `Product: Custom Tote Bag\n`;
+                text += `Size: ${size}\n`;
+                text += `Canvas Color: ${activeColorName}\n`;
+            }
+
+            // Append Customer Details to summary
+            text += `Name: ${name}\n`;
+            text += `Email: ${email}\n`;
+            text += `Phone: ${phone}\n`;
+            text += `Flat Price: $25.00`;
+
+            summaryBox.textContent = text;
+        }
+
+        // Clipboard Copy Utility & Google Form Open Link Handshake
+        function copySpecsText() {
+            const specsText = document.getElementById('specs-summary-box').textContent;
+
+            // Fallback Clipboard API
+            const tempTextArea = document.createElement("textarea");
+            tempTextArea.value = specsText;
+            tempTextArea.style.position = "fixed";  // Avoid scrolling to bottom
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showToast("Specifications copied to clipboard! Opening Form...");
+                } else {
+                    showToast("Could not copy automatically. Please copy the text manually.");
+                }
+            } catch (err) {
+                showToast("Clipboard copy failed. Please select and copy text manually.");
+            }
+            
+            document.body.removeChild(tempTextArea);
+
+            // Open External Google Form link in new window/tab after subtle delay
+            setTimeout(() => {
+                window.open(GOOGLE_FORM_URL, '_blank');
+            }, 1000);
+        }
+
+        // Custom Toast Box trigger
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastText = document.getElementById('toast-text');
+            
+            toastText.textContent = message;
+            
+            // Bring into view
+            toast.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            // Push away after 4.5 seconds
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
+            }, 4500);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knicks 2026 Championship Hub</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        knicks: {
+                            blue: '#006BB6',
+                            orange: '#F58426',
+                            dark: '#0B111E',
+                            accent: '#1E293B'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbars */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0B111E;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1E293B;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #F58426;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-slate-950 text-white font-sans selection:bg-orange-500 selection:text-white relative overflow-x-hidden">
+
+    <!-- Celebration overlay canvas -->
+    <canvas id="confettiCanvas" class="fixed inset-0 z-50 pointer-events-none hidden"></canvas>
+
+    <!-- Decorative background glow gradients -->
+    <div class="absolute top-0 left-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute top-1/3 right-1/4 w-96 h-96 bg-orange-600/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-10 left-10 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl pointer-events-none"></div>
+
+    <!-- Header -->
+    <header class="relative border-b border-slate-800 bg-slate-900/50 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <div class="flex items-center gap-4">
+                <div class="bg-orange-500 p-2.5 rounded-xl shadow-lg shadow-orange-500/20">
+                    <svg class="w-8 h-8 text-white fill-current" viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L11 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
+                    </svg>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="bg-blue-600 text-[10px] font-bold tracking-widest uppercase px-2.5 py-0.5 rounded-full">2026 Champions</span>
+                        <span class="text-slate-400 text-xs font-medium">Ended 53-Year Drought</span>
+                    </div>
+                    <h1 class="text-2xl md:text-3xl font-black tracking-tight text-white mt-1">
+                        KNICKS <span class="text-orange-500">CHAMPIONSHIP</span> DOCK
+                    </h1>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <button
+                    onclick="triggerCelebration()"
+                    class="px-5 py-2.5 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 font-extrabold text-sm tracking-wide uppercase rounded-xl transition duration-300 shadow-lg shadow-orange-500/25 border border-orange-400/20 flex items-center gap-2"
+                >
+                    🎉 Celebrate Championship!
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+        
+        <!-- Championship Overview & MSG Soundboard -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+            <div class="lg:col-span-7 bg-gradient-to-br from-slate-900 to-slate-900/40 border border-slate-800 p-8 rounded-3xl flex flex-col justify-between relative overflow-hidden group">
+                <div class="absolute inset-0 bg-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                
+                <div class="space-y-4">
+                    <span class="text-orange-500 text-xs font-black uppercase tracking-widest block">HISTORIC CAMPAIGN RECAP</span>
+                    <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-tight">
+                        The Miracle of '26: How New York Reclaimed the Basketball World
+                    </h2>
+                    <p class="text-slate-300 leading-relaxed text-sm md:text-base">
+                        Behind the relentless grit of Head Coach Mike Brown, a transformational winter trade cycle, and the ascending legacy of Jalen Brunson, the New York Knicks captured their third NBA Championship. In a stunning 5-game clinic against Victor Wembanyama and the San Antonio Spurs, New York engineered legendary comebacks to solidify their names in the basketball pantheon.
+                    </p>
+                </div>
+
+                <!-- Quick stats grid -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 border-t border-slate-800/80 pt-6">
+                    <div class="p-3 bg-slate-950/50 rounded-xl border border-slate-800/50">
+                        <span class="text-slate-400 text-xs block mb-1">Series Result</span>
+                        <span class="text-xl font-bold text-orange-500">NYK Wins 4-1</span>
+                    </div>
+                    <div class="p-3 bg-slate-950/50 rounded-xl border border-slate-800/50">
+                        <span class="text-slate-400 text-xs block mb-1">Finals MVP</span>
+                        <span class="text-xl font-bold text-blue-400">J. Brunson</span>
+                    </div>
+                    <div class="p-3 bg-slate-950/50 rounded-xl border border-slate-800/50">
+                        <span class="text-slate-400 text-xs block mb-1">Max Comeback</span>
+                        <span class="text-xl font-bold text-emerald-400">29 Points</span>
+                    </div>
+                    <div class="p-3 bg-slate-950/50 rounded-xl border border-slate-800/50">
+                        <span class="text-slate-400 text-xs block mb-1">NBA Cup '25</span>
+                        <span class="text-xl font-bold text-yellow-500">Champion</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MSG Soundboard -->
+            <div class="lg:col-span-5 bg-gradient-to-br from-slate-900 to-slate-900/60 border border-slate-800 p-8 rounded-3xl flex flex-col justify-between">
+                <div class="space-y-4">
+                    <span class="text-blue-400 text-xs font-black uppercase tracking-widest block">AUTHENTIC EXPERIENCE</span>
+                    <h3 class="text-xl font-extrabold">Madison Square Garden Soundboard</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed">
+                        Experience the simulated stadium crowd noise and court audio synthesized directly inside your browser via the HTML5 Web Audio API. Touch or click the triggers below to generate acoustic stadium signals.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3 mt-6">
+                    <button onclick="playOrganCharge()" class="flex items-center gap-3 p-3.5 bg-slate-950 border border-slate-800 hover:border-orange-500/50 rounded-2xl text-left transition duration-200 group">
+                        <div class="bg-orange-500/10 group-hover:bg-orange-500 text-orange-500 group-hover:text-white p-2 rounded-lg transition duration-200">🎹</div>
+                        <div>
+                            <span class="text-xs text-slate-400 block">Organ</span>
+                            <span class="font-bold text-sm">Stadium Charge</span>
+                        </div>
+                    </button>
+
+                    <button onclick="playDefenseChant()" class="flex items-center gap-3 p-3.5 bg-slate-950 border border-slate-800 hover:border-blue-500/50 rounded-2xl text-left transition duration-200 group">
+                        <div class="bg-blue-500/10 group-hover:bg-blue-500 text-blue-500 group-hover:text-white p-2 rounded-lg transition duration-200">🥁</div>
+                        <div>
+                            <span class="text-xs text-slate-400 block">Synth Drum</span>
+                            <span class="font-bold text-sm">"DE-FENSE!"</span>
+                        </div>
+                    </button>
+
+                    <button onclick="playWhistle()" class="flex items-center gap-3 p-3.5 bg-slate-950 border border-slate-800 hover:border-slate-500/50 rounded-2xl text-left transition duration-200 group">
+                        <div class="bg-slate-800 group-hover:bg-slate-700 text-slate-300 p-2 rounded-lg">📣</div>
+                        <div>
+                            <span class="text-xs text-slate-400 block">Referee</span>
+                            <span class="font-bold text-sm">Whistle Blow</span>
+                        </div>
+                    </button>
+
+                    <button onclick="playBuzzer()" class="flex items-center gap-3 p-3.5 bg-slate-950 border border-slate-800 hover:border-red-500/50 rounded-2xl text-left transition duration-200 group">
+                        <div class="bg-red-500/10 group-hover:bg-red-500 text-red-500 group-hover:text-white p-2 rounded-lg transition duration-200">🚨</div>
+                        <div>
+                            <span class="text-xs text-slate-400 block">Horn</span>
+                            <span class="font-bold text-sm">Quarter Buzzer</span>
+                        </div>
+                    </button>
+                </div>
+                
+                <p class="text-[10px] text-slate-500 mt-4 text-center">
+                    Requires user interaction to play Web Audio synthetics on modern browsers.
+                </p>
+            </div>
+        </section>
+
+        <!-- Dynamic Game-by-Game Tab Module -->
+        <section class="bg-slate-900/40 border border-slate-800/80 rounded-3xl p-6 md:p-8 space-y-8 relative">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-800">
+                <div>
+                    <span class="text-orange-500 text-xs font-bold tracking-wider uppercase block">SERIES BREAKDOWN & MOMENTUM</span>
+                    <h3 class="text-2xl font-black mt-1">Interactive Game-By-Game Ledger</h3>
+                </div>
+                
+                <!-- Horizontal Tabs list -->
+                <div class="flex flex-wrap gap-2" id="tabs-container">
+                    <!-- Loaded dynamically via JS -->
+                </div>
+            </div>
+
+            <!-- Active Game Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <!-- Game copy descriptions -->
+                <div class="lg:col-span-4 space-y-6">
+                    <div class="space-y-2">
+                        <span id="game-venue" class="text-blue-400 text-xs font-extrabold tracking-widest block uppercase"></span>
+                        <h4 id="game-title" class="text-2xl font-extrabold text-white"></h4>
+                        <p id="game-tagline" class="text-sm text-slate-300 leading-relaxed"></p>
+                    </div>
+
+                    <!-- Core game results graphic -->
+                    <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                          <div class="bg-blue-600/10 p-2 rounded-xl text-xs font-black text-blue-400">NYK</div>
+                          <span id="score-nyk" class="text-2xl font-black tracking-tight"></span>
+                        </div>
+                        <div class="text-xs text-slate-500 font-bold uppercase tracking-wider">FINAL</div>
+                        <div class="flex items-center gap-3">
+                          <span id="score-sas" class="text-2xl font-black tracking-tight text-slate-400"></span>
+                          <div class="bg-slate-800 p-2 rounded-xl text-xs font-black text-slate-400">SAS</div>
+                        </div>
+                    </div>
+
+                    <!-- Specific box statistics metadata -->
+                    <div class="grid grid-cols-2 gap-3 text-xs">
+                        <div class="bg-slate-950/40 p-3 rounded-xl border border-slate-800">
+                          <span class="text-slate-400 block">Lead Changes</span>
+                          <span id="stat-lead-changes" class="text-lg font-bold text-white"></span>
+                        </div>
+                        <div class="bg-slate-950/40 p-3 rounded-xl border border-slate-800">
+                          <span class="text-slate-400 block">Times Tied</span>
+                          <span id="stat-times-tied" class="text-lg font-bold text-white"></span>
+                        </div>
+                        <div class="bg-slate-950/40 p-3 rounded-xl border border-slate-800 col-span-2">
+                          <span class="text-slate-400 block">Longest Scoring Run & Leads</span>
+                          <div id="stat-leads-info" class="text-xs font-semibold text-slate-300 mt-1"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Custom Interactive SVG Lead Tracker Graph -->
+                <div class="lg:col-span-8 space-y-4">
+                    <div class="flex justify-between items-center bg-slate-950/60 px-4 py-2.5 rounded-xl border border-slate-800">
+                        <span class="text-xs font-bold text-blue-400 flex items-center gap-1.5">
+                          <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span> Knicks Advantage
+                        </span>
+                        <span class="text-[11px] text-slate-400">Interactive Lead Tracker SVG</span>
+                        <span class="text-xs font-bold text-slate-500 flex items-center gap-1.5">
+                          <span class="w-2.5 h-2.5 rounded-full bg-slate-400"></span> Spurs Advantage
+                        </span>
+                    </div>
+
+                    <!-- Chart container -->
+                    <div class="relative bg-slate-950 p-6 rounded-3xl border border-slate-800 overflow-hidden">
+                        <svg id="leadTrackerSvg" viewBox="0 0 1000 400" class="w-full h-auto overflow-visible select-none"></svg>
+
+                        <!-- Live Tooltip Overlay -->
+                        <div id="chartTooltip" class="absolute hidden bg-slate-900 border border-slate-800 p-3 rounded-xl shadow-2xl space-y-1 z-10 pointer-events-none"></div>
+                    </div>
+
+                    <!-- Game highlight play timeline -->
+                    <div class="space-y-3">
+                        <span class="text-xs font-bold text-slate-400 block uppercase tracking-wider">Key Game Highlights</span>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3" id="highlights-container"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- The Game 4 Comeback Interactive Timeline Simulator -->
+        <section class="bg-gradient-to-r from-blue-950/50 via-slate-900/60 to-orange-950/20 border border-slate-800 rounded-3xl p-8 space-y-8">
+            <div class="text-center max-w-2xl mx-auto space-y-2">
+                <span class="bg-orange-500/10 text-orange-500 text-xs font-black px-3.5 py-1 rounded-full uppercase tracking-widest inline-block">
+                    HISTORIC COMEBACK ANATOMY
+                </span>
+                <h3 class="text-3xl font-black">The Game 4 '29-Point Miracle'</h3>
+                <p class="text-slate-300 text-sm leading-relaxed">
+                    Drag the interactive slider below to replay the physical and tactical shift that triggered the greatest comeback in NBA Finals history.
+                </p>
+            </div>
+
+            <div class="bg-slate-950 p-6 md:p-8 rounded-3xl border border-slate-800 space-y-8">
+                <!-- Interactive Slider Input -->
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center text-xs text-slate-400 font-bold">
+                        <span>Tip-off (Q1)</span>
+                        <span class="text-orange-500 uppercase font-black tracking-widest text-[10px]">Interactive scrub slider</span>
+                        <span>Final Buzzer (Q4)</span>
+                    </div>
+                    <input
+                        type="range"
+                        min="0"
+                        max="4"
+                        value="0"
+                        id="comebackSlider"
+                        class="w-full h-2.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-orange-500"
+                    />
+                    <div class="grid grid-cols-5 text-[10px] font-extrabold text-slate-500 text-center gap-1">
+                        <span>Q1 Start</span>
+                        <span>Q2 Trail</span>
+                        <span>Q3 Grit</span>
+                        <span>Q4 Charge</span>
+                        <span>Clinch</span>
+                    </div>
+                </div>
+
+                <!-- Dynamic data display -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch">
+                    <div class="md:col-span-4 bg-slate-900 border border-slate-800 p-5 rounded-2xl flex flex-col justify-between space-y-4">
+                        <div>
+                            <span class="text-slate-400 text-[10px] block font-black uppercase">Current Margin</span>
+                            <span id="comebackMargin" class="text-3xl font-black text-orange-500"></span>
+                        </div>
+                        <div>
+                            <span class="text-slate-400 text-[10px] block font-black uppercase">Knicks Win Probability</span>
+                            <span id="comebackProb" class="text-3xl font-black text-blue-400"></span>
+                        </div>
+                    </div>
+
+                    <div class="md:col-span-8 bg-slate-900/40 border border-slate-800 p-6 rounded-2xl flex flex-col justify-center space-y-3">
+                        <div class="flex items-center gap-3">
+                            <span id="comebackTitle" class="bg-orange-500 text-white text-xs font-black px-2.5 py-0.5 rounded"></span>
+                        </div>
+                        <p id="comebackText" class="text-slate-200 text-sm md:text-base font-medium leading-relaxed"></p>
+                        <div class="text-xs text-slate-400 flex items-center gap-2 mt-2">
+                            <span>💡</span>
+                            <span>The final margin ended up being <span class="text-blue-400 font-bold">107-106</span> for New York.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Jalen Brunson Tribute (The Finals MVP) -->
+        <section class="bg-slate-900/30 border border-slate-800 rounded-3xl p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-80 h-80 bg-orange-500/5 rounded-full blur-3xl pointer-events-none"></div>
+            
+            <div class="lg:col-span-5 space-y-6">
+                <div class="space-y-1">
+                    <span class="bg-blue-600/10 text-blue-400 text-xs font-black px-3 py-1 rounded uppercase tracking-widest inline-block">
+                        FINALS MVP SHOWCASE
+                    </span>
+                    <h3 class="text-3xl font-black">Jalen Brunson: The Legend of Game 5</h3>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        Jalen Brunson solidified his status as a basketball icon in New York. After a tough perimeter defensive battle in the first three games, Brunson exploded for a career-defining performance in the Game 5 clincher.
+                    </p>
+                </div>
+
+                <!-- Quote block -->
+                <div class="bg-slate-950 p-5 rounded-2xl border-l-4 border-orange-500 text-slate-300 relative">
+                    <p class="italic text-xs leading-relaxed">
+                        "Whenever someone counted us out, we found a way to come back and do something about it. This city, this team... we fought for every single inch of this floor."
+                    </p>
+                    <span class="text-[10px] text-slate-500 block font-bold mt-2 uppercase tracking-widest text-right">
+                        — Jalen Brunson (Post-game ABC Interview)
+                    </span>
+                </div>
+            </div>
+
+            <!-- Statistics highlight card -->
+            <div class="lg:col-span-7 bg-slate-950 border border-slate-800 p-6 md:p-8 rounded-3xl space-y-6">
+                <h4 class="text-xs font-black text-slate-400 uppercase tracking-widest">Game 5 Statistical Masterpiece</h4>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="bg-slate-900 p-4 rounded-2xl border border-slate-800 text-center">
+                        <span class="text-slate-400 text-[10px] block uppercase font-bold">Points</span>
+                        <span class="text-4xl font-black text-orange-500 mt-1 block">45</span>
+                        <span class="text-[9px] text-slate-500">Series High</span>
+                    </div>
+                    <div class="bg-slate-900 p-4 rounded-2xl border border-slate-800 text-center">
+                        <span class="text-slate-400 text-[10px] block uppercase font-bold">FG Made/Att</span>
+                        <span class="text-2xl font-black text-white mt-2 block">14-27</span>
+                        <span class="text-[9px] text-slate-500">51.8% efficiency</span>
+                    </div>
+                    <div class="bg-slate-900 p-4 rounded-2xl border border-slate-800 text-center">
+                        <span class="text-slate-400 text-[10px] block uppercase font-bold">Free Throws</span>
+                        <span class="text-2xl font-black text-white mt-2 block">13-15</span>
+                        <span class="text-[9px] text-slate-500">86.6% accuracy</span>
+                    </div>
+                    <div class="bg-slate-900 p-4 rounded-2xl border border-slate-800 text-center">
+                        <span class="text-slate-400 text-[10px] block uppercase font-bold">Clutch Floater</span>
+                        <span class="text-sm font-bold text-emerald-400 mt-3.5 block">65s Left</span>
+                        <span class="text-[9px] text-slate-500">Go-Ahead shot</span>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-800 text-xs text-slate-300 leading-relaxed">
+                    🛡️ <strong>The Jordan Comparison:</strong> Brunson's 45 points are tied for the third-most in an NBA Finals closeout game with Michael Jordan. Only Giannis Antetokounmpo (50) and Bob Pettit (50) have scored more on a title-clinching night.
+                </div>
+            </div>
+        </section>
+
+        <!-- New York Knicks Dynamic Roster Hub -->
+        <section class="space-y-6">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                <div>
+                    <span class="text-orange-500 text-xs font-bold tracking-wider uppercase block">THE HEROES OF THE ROTATION</span>
+                    <h3 class="text-2xl font-black">The Championship Roster Profiles</h3>
+                </div>
+                <p class="text-xs text-slate-400 max-w-md">
+                    A balanced starting unit supported by intense transition assets and defensive bench anchors that carried the load across the 5 games.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Player 1: Brunson -->
+                <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl hover:border-orange-500/40 transition duration-300 flex flex-col justify-between space-y-4">
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-start">
+                            <span class="text-[10px] font-black uppercase text-orange-500 bg-orange-500/10 px-2.5 py-0.5 rounded">Point Guard</span>
+                            <span class="text-slate-500 text-xs font-bold">#11</span>
+                        </div>
+                        <h4 class="text-xl font-bold">Jalen Brunson</h4>
+                        <p class="text-xs text-slate-400">
+                            The heart and soul of New York. Finals MVP, high-clutch scoring operator, lethal step-back technician.
+                        </p>
+                    </div>
+                    <div class="border-t border-slate-800 pt-3 flex justify-between text-xs text-slate-300">
+                        <span>Play Style: Floor General</span>
+                        <span class="font-bold text-orange-400">Finals MVP</span>
+                    </div>
+                </div>
+
+                <!-- Player 2: Karl-Anthony Towns -->
+                <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl hover:border-blue-500/40 transition duration-300 flex flex-col justify-between space-y-4">
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-start">
+                            <span class="text-[10px] font-black uppercase text-blue-400 bg-blue-500/10 px-2.5 py-0.5 rounded">Center</span>
+                            <span class="text-slate-500 text-xs font-bold">#32</span>
+                        </div>
+                        <h4 class="text-xl font-bold">Karl-Anthony Towns</h4>
+                        <p class="text-xs text-slate-400">
+                            Secured critical post defense matchups against Wembanyama while stretching the floor with high-volume long range shooting.
+                        </p>
+                    </div>
+                    <div class="border-t border-slate-800 pt-3 flex justify-between text-xs text-slate-300">
+                        <span>Play Style: Stretch Big</span>
+                        <span class="font-bold text-blue-400">Rim Protector</span>
+                    </div>
+                </div>
+
+                <!-- Player 3: OG Anunoby -->
+                <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl hover:border-slate-700 transition duration-300 flex flex-col justify-between space-y-4">
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-start">
+                            <span class="text-[10px] font-black uppercase text-slate-400 bg-slate-800 px-2.5 py-0.5 rounded">Power Forward</span>
+                            <span class="text-slate-500 text-xs font-bold">#8</span>
+                        </div>
+                        <h4 class="text-xl font-bold">OG Anunoby</h4>
+                        <p class="text-xs text-slate-400">
+                            The primary defensive weapon. Executed elite perimeter clamp work on Vassell and weak-side rim protection blocks.
+                        </p>
+                    </div>
+                    <div class="border-t border-slate-800 pt-3 flex justify-between text-xs text-slate-300">
+                        <span>Play Style: Two-Way Wing</span>
+                        <span class="font-bold text-slate-400">Lockdown Defender</span>
+                    </div>
+                </div>
+
+                <!-- Player 4: Josh Hart -->
+                <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl hover:border-slate-700 transition duration-300 flex flex-col justify-between space-y-4">
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-start">
+                            <span class="text-[10px] font-black uppercase text-slate-400 bg-slate-800 px-2.5 py-0.5 rounded">Small Forward</span>
+                            <span class="text-slate-500 text-xs font-bold">#3</span>
+                        </div>
+                        <h4 class="text-xl font-bold">Josh Hart</h4>
+                        <p class="text-xs text-slate-400">
+                            The ultimate hustle asset. Led the team in physical rebounds, offensive put-backs, and transition fastbreaks.
+                        </p>
+                    </div>
+                    <div class="border-t border-slate-800 pt-3 flex justify-between text-xs text-slate-300">
+                        <span>Play Style: Glue Guy</span>
+                        <span class="font-bold text-slate-400">Rebound Champion</span>
+                    </div>
+                </div>
+
+                <!-- Player 5: Mikal Bridges -->
+                <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl hover:border-slate-700 transition duration-300 flex flex-col justify-between space-y-4">
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-start">
+                            <span class="text-[10px] font-black uppercase text-slate-400 bg-slate-800 px-2.5 py-0.5 rounded">Shooting Guard</span>
+                            <span class="text-slate-500 text-xs font-bold">#25</span>
+                        </div>
+                        <h4 class="text-xl font-bold">Mikal Bridges</h4>
+                        <p class="text-xs text-slate-400">
+                            Delivered elite corner shooting volume and fast transition lane scoring options to ignite heavy runs.
+                        </p>
+                    </div>
+                    <div class="border-t border-slate-800 pt-3 flex justify-between text-xs text-slate-300">
+                        <span>Play Style: 3-and-D Specialist</span>
+                        <span class="font-bold text-slate-400">Transition Threat</span>
+                    </div>
+                </div>
+
+                <!-- Bench Mob Highlight -->
+                <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl hover:border-orange-500/20 transition duration-300 flex flex-col justify-between space-y-4">
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-start">
+                            <span class="text-[10px] font-black uppercase text-orange-500 bg-orange-500/10 px-2.5 py-0.5 rounded">Bench anchors</span>
+                            <span class="text-slate-500 text-xs font-bold">Rotation</span>
+                        </div>
+                        <h4 class="text-xl font-bold">The Bench Mob</h4>
+                        <p class="text-xs text-slate-400">
+                            Jose Alvarado, Jordan Clarkson, Mitchell Robinson, Landry Shamet, and Miles McBride. Kept defensive pressure sky-high.
+                        </p>
+                    </div>
+                    <div class="border-t border-slate-800 pt-3 flex justify-between text-xs text-slate-300">
+                        <span>Coached by: Mike Brown</span>
+                        <span class="font-bold text-orange-400">Defensive Press</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Head-to-Head Comparison Matrix -->
+        <section class="bg-slate-900/40 border border-slate-800 rounded-3xl p-8 space-y-6">
+            <div>
+                <span class="text-blue-400 text-xs font-bold tracking-wider uppercase block">TACTICAL MATRIX</span>
+                <h3 class="text-2xl font-black">Spurs vs Knicks Matchup Dynamic</h3>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div class="space-y-4 text-xs md:text-sm text-slate-300 leading-relaxed">
+                    <p>
+                        The 2026 Finals represented a profound tactical chess match. San Antonio featured generational defensive center <strong>Victor Wembanyama</strong> flanked by <strong>De'Aaron Fox</strong> and <strong>Devin Vassell</strong>. They utilized a deep physical zone to deny Jalen Brunson paint entries.
+                    </p>
+                    <p>
+                        In response, Knicks coach <strong>Mike Brown</strong> deployed Karl-Anthony Towns at the five to pull Wembanyama out of the restricted area. This spacing adjustment allowed Brunson, Bridges, and Hart to exploit drive-and-kick avenues, neutralizing the Spurs' towering interior size advantages.
+                    </p>
+                </div>
+
+                <!-- Graphical Head to Head Comparison -->
+                <div class="bg-slate-950 p-6 rounded-2xl border border-slate-800 space-y-4 text-xs">
+                    <h4 class="font-bold text-slate-400 uppercase tracking-widest">Team Series Averages (Estimated)</h4>
+                    
+                    <!-- Field Goal % -->
+                    <div class="space-y-1">
+                        <div class="flex justify-between text-[11px] font-bold">
+                            <span>New York Knicks (46.8%)</span>
+                            <span>Field Goal Efficiency</span>
+                            <span class="text-slate-400">San Antonio Spurs (45.2%)</span>
+                        </div>
+                        <div class="h-2 bg-slate-900 rounded-full flex overflow-hidden">
+                            <div class="h-full bg-blue-600" style="width: 51%"></div>
+                            <div class="h-full bg-slate-700" style="width: 49%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Transition Points -->
+                    <div class="space-y-1">
+                        <div class="flex justify-between text-[11px] font-bold">
+                            <span class="text-orange-500">22.4 pts</span>
+                            <span>Transition Fastbreak Points</span>
+                            <span class="text-slate-400">18.6 pts</span>
+                        </div>
+                        <div class="h-2 bg-slate-900 rounded-full flex overflow-hidden">
+                            <div class="h-full bg-orange-500" style="width: 55%"></div>
+                            <div class="h-full bg-slate-700" style="width: 45%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Total Assists -->
+                    <div class="space-y-1">
+                        <div class="flex justify-between text-[11px] font-bold">
+                            <span>24.8 ast</span>
+                            <span>Team Assists Average</span>
+                            <span class="text-slate-400">26.2 ast</span>
+                        </div>
+                        <div class="h-2 bg-slate-900 rounded-full flex overflow-hidden">
+                            <div class="h-full bg-blue-600" style="width: 48%"></div>
+                            <div class="h-full bg-slate-700" style="width: 52%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Points in Paint -->
+                    <div class="space-y-1">
+                        <div class="flex justify-between text-[11px] font-bold">
+                            <span>38.2 pts</span>
+                            <span>Points in the Paint</span>
+                            <span class="text-slate-400">46.4 pts</span>
+                        </div>
+                        <div class="h-2 bg-slate-900 rounded-full flex overflow-hidden">
+                            <div class="h-full bg-blue-600" style="width: 45%"></div>
+                            <div class="h-full bg-slate-700" style="width: 55%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Trivia Challenge -->
+        <section class="bg-slate-900/40 border border-slate-800 rounded-3xl p-8 space-y-6">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                <div>
+                    <span class="text-orange-500 text-xs font-bold tracking-wider uppercase block">TEST YOUR KNICKERBOCKER KNOWLEDGE</span>
+                    <h3 class="text-2xl font-black">Are You A True Knicks Champion Fan?</h3>
+                </div>
+                <button
+                    onclick="resetQuiz()"
+                    class="text-xs font-extrabold text-blue-400 hover:text-blue-300 uppercase tracking-wider transition"
+                >
+                    🔄 Reset Quiz
+                </button>
+            </div>
+
+            <div class="space-y-6" id="trivia-container">
+                <!-- Trivia questions loaded via JS -->
+            </div>
+
+            <div id="quiz-footer-actions">
+                <button
+                    onclick="submitQuiz()"
+                    id="submitQuizBtn"
+                    class="w-full py-4 bg-orange-500 hover:bg-orange-600 font-bold tracking-widest text-sm uppercase rounded-2xl transition duration-200 shadow-lg shadow-orange-500/20"
+                >
+                    Submit Answers & Check Score
+                </button>
+            </div>
+            
+            <div id="quiz-result-card" class="bg-slate-900 border border-slate-800 p-6 rounded-2xl text-center space-y-3 hidden">
+                <span id="quizScoreText" class="text-3xl font-black block"></span>
+                <p id="quizScoreFeedback" class="text-slate-300 text-xs"></p>
+                <button
+                  onclick="resetQuiz()"
+                  class="px-6 py-2 bg-slate-950 hover:bg-slate-900 border border-slate-800 rounded-xl text-xs font-bold transition duration-200"
+                >
+                  Try Again
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer credits -->
+    <footer class="border-t border-slate-800 bg-slate-950/60 py-8 text-center text-slate-500 text-xs mt-12 space-y-2">
+        <p>© 2026 New York Knicks Fan Archive. Built with athletic focus.</p>
+        <p class="text-[10px] text-slate-600">
+            Source Material: Knicks vs Spurs NBA Finals Recap, June 2026.
+        </p>
+    </footer>
+
+    <!-- Native Interactive Client Script -->
+    <script>
+        // Data modeled directly from the user files
+        const games = [
+            {
+                id: 1,
+                title: 'Game 1: The Tone Setter',
+                shortTitle: 'Game 1',
+                score: { nyk: 105, sas: 95 },
+                tagline: 'Trailing by 14 in the third quarter, New York roars back with a decisive 4th-quarter defensive lockdown.',
+                stats: {
+                    timesTied: 6,
+                    longestRun: 12,
+                    leadChanges: 10,
+                    nykLead: 10,
+                    sasLead: 14,
+                    venue: 'Frost Bank Center, San Antonio'
+                },
+                highlights: [
+                    { time: 'Q1 - 4:12', text: 'Mikal Bridges hits consecutive transition triples to spark an early 8-0 Knicks run.' },
+                    { time: 'Q2 - 8:50', text: 'Wembanyama swat triggers a 12-0 Spurs run; San Antonio takes control of the paint.' },
+                    { time: 'Q3 - 3:10', text: 'Spurs extend the lead to its peak of +14 with consecutive corner threes from Devin Vassell.' },
+                    { time: 'Q4 - 9:30', text: 'Knicks bench mob triggers an aggressive press. Jose Alvarado steals two straight inbound passes!' },
+                    { time: 'Q4 - 1:04', text: 'Jalen Brunson puts the game out of reach with a high-arching floater over Wembanyama.' }
+                ],
+                leadTrackerData: [
+                    { progress: 0, lead: 3, team: 'NYK' },
+                    { progress: 5, lead: 7, team: 'NYK' },
+                    { progress: 10, lead: 4, team: 'NYK' },
+                    { progress: 15, lead: -2, team: 'SAS' },
+                    { progress: 20, lead: -8, team: 'SAS' },
+                    { progress: 25, lead: -10, team: 'SAS' },
+                    { progress: 30, lead: -4, team: 'SAS' },
+                    { progress: 35, lead: -5, team: 'SAS' },
+                    { progress: 40, lead: -2, team: 'SAS' },
+                    { progress: 45, lead: -1, team: 'SAS' },
+                    { progress: 50, lead: 1, team: 'NYK' },
+                    { progress: 55, lead: -4, team: 'SAS' },
+                    { progress: 60, lead: -10, team: 'SAS' },
+                    { progress: 65, lead: -14, team: 'SAS' },
+                    { progress: 70, lead: -8, team: 'SAS' },
+                    { progress: 75, lead: -2, team: 'SAS' },
+                    { progress: 80, lead: 4, team: 'NYK' },
+                    { progress: 85, lead: 2, team: 'NYK' },
+                    { progress: 90, lead: 8, team: 'NYK' },
+                    { progress: 95, lead: 4, team: 'NYK' },
+                    { progress: 100, lead: 10, team: 'NYK' }
+                ]
+            },
+            {
+                id: 2,
+                title: 'Game 2: The Heart Stopper',
+                shortTitle: 'Game 2',
+                score: { nyk: 105, sas: 104 },
+                tagline: 'A battle of heavy runs. The Knicks hold off a furious late-game charge by the Spurs to win by a solitary point.',
+                stats: {
+                    timesTied: 3,
+                    longestRun: 14,
+                    leadChanges: 5,
+                    nykLead: 14,
+                    sasLead: 12,
+                    venue: 'Frost Bank Center, San Antonio'
+                },
+                highlights: [
+                    { time: 'Q1 - 6:00', text: 'Spurs exploit size match-ups inside, carving out a quick 10-point lead.' },
+                    { time: 'Q2 - 4:40', text: 'Victor Wembanyama posterizes Towns as SAS establishes their largest lead of +12.' },
+                    { time: 'Q3 - 10:15', text: 'A completely revitalized New York team starts the half with an astonishing 14-0 run.' },
+                    { time: 'Q4 - 5:20', text: 'Josh Hart drives through contact, making a tough and-one to push Knicks lead to +14.' },
+                    { time: 'Q4 - 0:08', text: 'De\'Aaron Fox scores rapidly to cut the lead to 1. Spurs miss the buzzer-beating tip-in.' }
+                ],
+                leadTrackerData: [
+                    { progress: 0, lead: -4, team: 'SAS' },
+                    { progress: 10, lead: -6, team: 'SAS' },
+                    { progress: 20, lead: -12, team: 'SAS' },
+                    { progress: 30, lead: -8, team: 'SAS' },
+                    { progress: 40, lead: -2, team: 'SAS' },
+                    { progress: 45, lead: 2, team: 'NYK' },
+                    { progress: 50, lead: 7, team: 'NYK' },
+                    { progress: 60, lead: 11, team: 'NYK' },
+                    { progress: 70, lead: 8, team: 'NYK' },
+                    { progress: 80, lead: 14, team: 'NYK' },
+                    { progress: 90, lead: 6, team: 'NYK' },
+                    { progress: 95, lead: 2, team: 'NYK' },
+                    { progress: 100, lead: 1, team: 'NYK' }
+                ]
+            },
+            {
+                id: 3,
+                title: 'Game 3: Spurs Strike Back',
+                shortTitle: 'Game 3',
+                score: { nyk: 111, sas: 115 },
+                tagline: 'San Antonio defends their home turf in Texas behind a high-scoring masterclass, capitalizing on transition buckets.',
+                stats: {
+                    timesTied: 4,
+                    longestRun: 8,
+                    leadChanges: 6,
+                    nykLead: 7,
+                    sasLead: 12,
+                    venue: 'Madison Square Garden, New York'
+                },
+                highlights: [
+                    { time: 'Q1 - 3:15', text: 'Devin Vassell connects on three consecutive off-the-dribble mid-rangers to force a Knicks timeout.' },
+                    { time: 'Q2 - 7:30', text: 'Spurs play absolute lock-down perimeter defense, ballooning their lead back to +12.' },
+                    { time: 'Q3 - 4:45', text: 'Karl-Anthony Towns scores 11 straight, hitting three long-range bombs to put the Knicks up by 7.' },
+                    { time: 'Q4 - 2:10', text: 'Stephon Castle executes an ankle-breaking crossover and dishes to Wembanyama for an emphatic dunk.' }
+                ],
+                leadTrackerData: [
+                    { progress: 0, lead: -5, team: 'SAS' },
+                    { progress: 10, lead: -10, team: 'SAS' },
+                    { progress: 20, lead: -12, team: 'SAS' },
+                    { progress: 30, lead: -8, team: 'SAS' },
+                    { progress: 40, lead: -4, team: 'SAS' },
+                    { progress: 50, lead: 2, team: 'NYK' },
+                    { progress: 55, lead: 7, team: 'NYK' },
+                    { progress: 60, lead: 3, team: 'NYK' },
+                    { progress: 70, lead: -4, team: 'SAS' },
+                    { progress: 85, lead: -6, team: 'SAS' },
+                    { progress: 100, lead: -4, team: 'SAS' }
+                ]
+            },
+            {
+                id: 4,
+                title: 'Game 4: The 29-Point Miracle Comeback',
+                shortTitle: 'Game 4',
+                score: { nyk: 107, sas: 106 },
+                tagline: 'The Greatest Comeback in NBA Finals History. Down by 29, Jalen Brunson and the Knicks pull off the impossible.',
+                stats: {
+                    timesTied: 2,
+                    longestRun: 13,
+                    leadChanges: 3,
+                    nykLead: 1,
+                    sasLead: 29,
+                    venue: 'Madison Square Garden, New York'
+                },
+                highlights: [
+                    { time: 'Q1 - 1:12', text: 'Spurs look absolutely unstoppable, shooting 85% from the field. Lead grows to 14 immediately.' },
+                    { time: 'Q2 - 2:00', text: 'Total absolute system collapse for New York. De\'Aaron Fox hits a transition lay-up to make it Spurs +29.' },
+                    { time: 'Q3 - 6:40', text: 'The comeback starts quietly. OG Anunoby records 3 blocks in 2 minutes, injecting life into MSG.' },
+                    { time: 'Q4 - 8:12', text: 'Brunson is absolute magic. A flurry of step-back mid-rangers slashes the margin down to single digits.' },
+                    { time: 'Q4 - 0:02', text: 'Brunson takes the screen, drives, spins, and makes a highly contested game-winner. Knicks first lead is the win!' }
+                ],
+                leadTrackerData: [
+                    { progress: 0, lead: -5, team: 'SAS' },
+                    { progress: 10, lead: -12, team: 'SAS' },
+                    { progress: 20, lead: -20, team: 'SAS' },
+                    { progress: 30, lead: -25, team: 'SAS' },
+                    { progress: 40, lead: -29, team: 'SAS' },
+                    { progress: 50, lead: -26, team: 'SAS' },
+                    { progress: 60, lead: -22, team: 'SAS' },
+                    { progress: 70, lead: -18, team: 'SAS' },
+                    { progress: 80, lead: -14, team: 'SAS' },
+                    { progress: 90, lead: -6, team: 'SAS' },
+                    { progress: 95, lead: -1, team: 'SAS' },
+                    { progress: 100, lead: 1, team: 'NYK' }
+                ]
+            },
+            {
+                id: 5,
+                title: 'Game 5: Glory in New York',
+                shortTitle: 'Game 5',
+                score: { nyk: 94, sas: 90 },
+                tagline: 'New York clinches their first championship in 53 years. Jalen Brunson puts on a heroic 45-point performance.',
+                stats: {
+                    timesTied: 5,
+                    longestRun: 10,
+                    leadChanges: 5,
+                    nykLead: 4,
+                    sasLead: 16,
+                    venue: 'Frost Bank Center, San Antonio'
+                },
+                highlights: [
+                    { time: 'Q1 - 8:40', text: 'Spurs defense clamps early. Wembanyama registers 3 blocks in the first quarter alone.' },
+                    { time: 'Q2 - 3:15', text: 'Spurs extend lead to +16 as Wembanyama dominates the rim, holding Knicks to 37 first-half points.' },
+                    { time: 'Q3 - 5:20', text: 'Brunson takes full control of the court, single-handedly outscoring the Spurs 18-10 in a personal hot streak.' },
+                    { time: 'Q4 - 8:00', text: 'Knicks trail by 10 points. Brunson commands the team to tighten down, initiating a lethal final push.' },
+                    { time: 'Q4 - 1:05', text: 'Brunson slices past Stephon Castle, hitting a spectacular go-ahead floater to put New York up for good.' }
+                ],
+                leadTrackerData: [
+                    { progress: 0, lead: -2, team: 'SAS' },
+                    { progress: 10, lead: -8, team: 'SAS' },
+                    { progress: 20, lead: -12, team: 'SAS' },
+                    { progress: 30, lead: -16, team: 'SAS' },
+                    { progress: 40, lead: -14, team: 'SAS' },
+                    { progress: 50, lead: -8, team: 'SAS' },
+                    { progress: 60, lead: -12, team: 'SAS' },
+                    { progress: 70, lead: -10, team: 'SAS' },
+                    { progress: 80, lead: -6, team: 'SAS' },
+                    { progress: 90, lead: 2, team: 'NYK' },
+                    { progress: 95, lead: 3, team: 'NYK' },
+                    { progress: 100, lead: 4, team: 'NYK' }
+                ]
+            }
+        ];
+
+        let activeGameIndex = 0;
+
+        // Sound Synthesis setup
+        let audioCtx = null;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        function playBuzzer() {
+            initAudio();
+            if (!audioCtx) return;
+
+            const osc1 = audioCtx.createOscillator();
+            const osc2 = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+
+            osc1.type = 'sawtooth';
+            osc2.type = 'square';
+            osc1.frequency.setValueAtTime(120, audioCtx.currentTime);
+            osc2.frequency.setValueAtTime(121, audioCtx.currentTime);
+
+            const filter = audioCtx.createBiquadFilter();
+            filter.type = 'lowpass';
+            filter.frequency.setValueAtTime(800, audioCtx.currentTime);
+
+            gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 1.2);
+
+            osc1.connect(filter);
+            osc2.connect(filter);
+            filter.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+
+            osc1.start();
+            osc2.start();
+            osc1.stop(audioCtx.currentTime + 1.2);
+            osc2.stop(audioCtx.currentTime + 1.2);
+        }
+
+        function playWhistle() {
+            initAudio();
+            if (!audioCtx) return;
+
+            const osc1 = audioCtx.createOscillator();
+            const osc2 = audioCtx.createOscillator();
+            const lfo = audioCtx.createOscillator();
+            const lfoGain = audioCtx.createGain();
+            const gainNode = audioCtx.createGain();
+
+            osc1.type = 'sine';
+            osc2.type = 'sine';
+            osc1.frequency.setValueAtTime(2000, audioCtx.currentTime);
+            osc2.frequency.setValueAtTime(2030, audioCtx.currentTime);
+
+            lfo.frequency.setValueAtTime(35, audioCtx.currentTime);
+            lfoGain.gain.setValueAtTime(30, audioCtx.currentTime);
+
+            gainNode.gain.setValueAtTime(0.2, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+
+            lfo.connect(lfoGain);
+            lfoGain.connect(osc1.frequency);
+            lfoGain.connect(osc2.frequency);
+
+            osc1.connect(gainNode);
+            osc2.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+
+            lfo.start();
+            osc1.start();
+            osc2.start();
+
+            lfo.stop(audioCtx.currentTime + 0.4);
+            osc1.stop(audioCtx.currentTime + 0.4);
+            osc2.stop(audioCtx.currentTime + 0.4);
+        }
+
+        function playOrganCharge() {
+            initAudio();
+            if (!audioCtx) return;
+            const now = audioCtx.currentTime;
+
+            const notes = [
+                { f: [261.63, 329.63, 392.00], d: 0.15, start: 0 },
+                { f: [293.66, 349.23, 440.00], d: 0.15, start: 0.18 },
+                { f: [329.63, 392.00, 493.88], d: 0.15, start: 0.36 },
+                { f: [349.23, 440.00, 523.25], d: 0.3, start: 0.54 },
+                { f: [392.00, 493.88, 587.33], d: 0.6, start: 0.9 }
+            ];
+
+            notes.forEach(note => {
+                note.f.forEach(freq => {
+                    const osc = audioCtx.createOscillator();
+                    const gainNode = audioCtx.createGain();
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(freq, now + note.start);
+
+                    gainNode.gain.setValueAtTime(0, now + note.start);
+                    gainNode.gain.linearRampToValueAtTime(0.08, now + note.start + 0.02);
+                    gainNode.gain.exponentialRampToValueAtTime(0.001, now + note.start + note.d);
+
+                    osc.connect(gainNode);
+                    gainNode.connect(audioCtx.destination);
+                    osc.start(now + note.start);
+                    osc.stop(now + note.start + note.d);
+                });
+            });
+        }
+
+        function playDefenseChant() {
+            initAudio();
+            if (!audioCtx) return;
+            const now = audioCtx.currentTime;
+
+            const beats = [0.0, 0.4, 0.8, 1.0, 1.4, 1.6, 1.8];
+            const frequencies = [110, 110, 180, 180, 150, 150, 150];
+
+            beats.forEach((time, index) => {
+                const osc = audioCtx.createOscillator();
+                const gainNode = audioCtx.createGain();
+                osc.type = index < 2 ? 'sawtooth' : 'triangle';
+                osc.frequency.setValueAtTime(frequencies[index], now + time);
+
+                const duration = index < 2 ? 0.25 : 0.12;
+                gainNode.gain.setValueAtTime(0, now + time);
+                gainNode.gain.linearRampToValueAtTime(0.12, now + time + 0.01);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, now + time + duration);
+
+                osc.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+                osc.start(now + time);
+                osc.stop(now + time + duration);
+            });
+        }
+
+        // Render Tabs
+        function renderTabs() {
+            const container = document.getElementById('tabs-container');
+            container.innerHTML = '';
+            games.forEach((g, index) => {
+                const btn = document.createElement('button');
+                btn.className = `px-4 py-2 text-xs font-bold rounded-xl transition duration-200 border ${
+                    activeGameIndex === index
+                        ? 'bg-orange-500 text-white border-orange-400 shadow-md shadow-orange-500/15'
+                        : 'bg-slate-950 text-slate-400 border-slate-800 hover:bg-slate-900'
+                }`;
+                btn.onclick = () => {
+                    activeGameIndex = index;
+                    playWhistle();
+                    renderActiveGame();
+                    renderTabs();
+                };
+                
+                const leadDiff = g.score.nyk > g.score.sas ? `NYK +${g.score.nyk - g.score.sas}` : `SAS +${g.score.sas - g.score.nyk}`;
+                btn.innerHTML = `${g.shortTitle} <span class="block text-[9px] opacity-80 font-normal">${leadDiff}</span>`;
+                container.appendChild(btn);
+            });
+        }
+
+        // Render Active Game Box Content
+        function renderActiveGame() {
+            const game = games[activeGameIndex];
+
+            document.getElementById('game-venue').innerText = game.stats.venue;
+            document.getElementById('game-title').innerText = game.title;
+            document.getElementById('game-tagline').innerText = game.tagline;
+
+            document.getElementById('score-nyk').innerText = game.score.nyk;
+            document.getElementById('score-sas').innerText = game.score.sas;
+
+            document.getElementById('stat-lead-changes').innerText = game.stats.leadChanges;
+            document.getElementById('stat-times-tied').innerText = game.stats.timesTied;
+            document.getElementById('stat-leads-info').innerHTML = `
+                Knicks Max Lead: <span class="text-blue-400 font-bold">+${game.stats.nykLead}</span> &nbsp;|&nbsp; 
+                Spurs Max Lead: <span class="text-red-400 font-bold">+${game.stats.sasLead}</span>
+                <span class="block text-[11px] text-orange-500 font-medium mt-1">Longest Run: ${game.stats.longestRun} straight points</span>
+            `;
+
+            // Highlights
+            const highlightsContainer = document.getElementById('highlights-container');
+            highlightsContainer.innerHTML = '';
+            game.highlights.forEach(h => {
+                const card = document.createElement('div');
+                card.className = "bg-slate-950/40 p-3.5 rounded-xl border border-slate-800 hover:border-slate-700 transition duration-200 flex items-start gap-3";
+                card.innerHTML = `
+                    <span class="bg-orange-500/10 text-orange-500 font-mono text-[10px] font-bold px-2 py-1 rounded-md whitespace-nowrap">
+                        ${h.time}
+                    </span>
+                    <p class="text-slate-300 text-xs leading-relaxed">${h.text}</p>
+                `;
+                highlightsContainer.appendChild(card);
+            });
+
+            renderSVGChart(game);
+        }
+
+        // Custom SVG Chart Builder
+        function renderSVGChart(game) {
+            const svg = document.getElementById('leadTrackerSvg');
+            svg.innerHTML = ''; // Reset SVG
+
+            // Background patterns
+            svg.innerHTML += `
+                <defs>
+                    <linearGradient id="nykGrad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#006BB6" stop-opacity="0.4" />
+                        <stop offset="100%" stop-color="#006BB6" stop-opacity="0.0" />
+                    </linearGradient>
+                    <linearGradient id="sasGrad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#1E293B" stop-opacity="0.0" />
+                        <stop offset="100%" stop-color="#111827" stop-opacity="0.5" />
+                    </linearGradient>
+                </defs>
+                
+                <!-- Grid Lines -->
+                <line x1="0" y1="50" x2="1000" y2="50" stroke="#334155" stroke-dasharray="4 4" stroke-width="1" />
+                <line x1="0" y1="125" x2="1000" y2="125" stroke="#334155" stroke-dasharray="4 4" stroke-width="1" />
+                <line x1="0" y1="200" x2="1000" y2="200" stroke="#475569" stroke-width="1.5" />
+                <line x1="0" y1="275" x2="1000" y2="275" stroke="#334155" stroke-dasharray="4 4" stroke-width="1" />
+                <line x1="0" y1="350" x2="1000" y2="350" stroke="#334155" stroke-dasharray="4 4" stroke-width="1" />
+
+                <!-- Vertical Dividers -->
+                <line x1="250" y1="0" x2="250" y2="400" stroke="#334155" stroke-dasharray="4 4" stroke-width="1" />
+                <line x1="500" y1="0" x2="500" y2="400" stroke="#334155" stroke-dasharray="4 4" stroke-width="1" />
+                <line x1="750" y1="0" x2="750" y2="400" stroke="#334155" stroke-dasharray="4 4" stroke-width="1" />
+
+                <!-- Labels -->
+                <text x="20" y="45" fill="#64748B" font-size="11" font-weight="bold">NYK +15</text>
+                <text x="20" y="365" fill="#64748B" font-size="11" font-weight="bold">SAS +15</text>
+
+                <text x="10" y="215" fill="#94A3B8" font-size="11" font-weight="extrabold">Q1</text>
+                <text x="260" y="215" fill="#94A3B8" font-size="11" font-weight="extrabold">Q2</text>
+                <text x="510" y="215" fill="#94A3B8" font-size="11" font-weight="extrabold">Q3</text>
+                <text x="760" y="215" fill="#94A3B8" font-size="11" font-weight="extrabold">Q4</text>
+            `;
+
+            const maxScale = Math.max(game.stats.nykLead, game.stats.sasLead);
+            const getCoords = (pt) => {
+                const x = (pt.progress / 100) * 1000;
+                const scaleFactor = 150 / maxScale;
+                const y = 200 - (pt.lead * scaleFactor);
+                return { x, y };
+            };
+
+            const points = game.leadTrackerData.map(getCoords);
+
+            // Construct fill shapes
+            let pathNykFill = "M 0 200 ";
+            let pathSasFill = "M 0 200 ";
+
+            points.forEach((p) => {
+                if (p.y <= 200) {
+                    pathNykFill += `L ${p.x} ${p.y} `;
+                } else {
+                    pathNykFill += `L ${p.x} 200 `;
+                }
+            });
+            pathNykFill += "L 1000 200 Z";
+
+            points.forEach((p) => {
+                if (p.y >= 200) {
+                    pathSasFill += `L ${p.x} ${p.y} `;
+                } else {
+                    pathSasFill += `L ${p.x} 200 `;
+                }
+            });
+            pathSasFill += "L 1000 200 Z";
+
+            // Add areas
+            svg.innerHTML += `<path d="${pathNykFill}" fill="url(#nykGrad)" />`;
+            svg.innerHTML += `<path d="${pathSasFill}" fill="url(#sasGrad)" />`;
+
+            // Draw line steps
+            points.forEach((p, idx) => {
+                if (idx === 0) return;
+                const prev = points[idx - 1];
+                const isNyk = p.y <= 200;
+                const rectColor = isNyk ? '#006BB6' : '#1E293B';
+                svg.innerHTML += `
+                    <rect 
+                        x="${prev.x}" 
+                        y="${isNyk ? p.y : 200}" 
+                        width="${p.x - prev.x}" 
+                        height="${Math.abs(p.y - 200)}" 
+                        fill="${rectColor}" 
+                        opacity="0.8"
+                        style="transition: all 0.3s;"
+                    />
+                `;
+            });
+
+            // Interactive nodes
+            points.forEach((p, idx) => {
+                const originalPt = game.leadTrackerData[idx];
+                const dotColor = originalPt.lead >= 0 ? '#F58426' : '#94A3B8';
+                
+                // Create SVG group element
+                const group = document.createElementNS("http://www.w3.org/2000/svg", "g");
+                group.setAttribute("class", "cursor-pointer group");
+                
+                // Event attributes for native JS tooltip tracking
+                group.addEventListener('mouseenter', () => showTooltip(originalPt, p));
+                group.addEventListener('mouseleave', hideTooltip);
+
+                group.innerHTML = `
+                    <circle cx="${p.x}" cy="${p.y}" r="8" fill="transparent" />
+                    <circle cx="${p.x}" cy="${p.y}" r="4" fill="${dotColor}" class="opacity-30 hover:opacity-100 transition-opacity" />
+                `;
+                svg.appendChild(group);
+            });
+        }
+
+        // Live tooltips
+        function showTooltip(point, coords) {
+            const tooltip = document.getElementById('chartTooltip');
+            tooltip.classList.remove('hidden');
+
+            const alignPct = Math.min(Math.max((point.progress / 100) * 85, 5), 75);
+            tooltip.style.left = `${alignPct}%`;
+            tooltip.style.top = point.lead >= 0 ? '15%' : '60%';
+
+            const quarterLabel = point.progress < 25 ? 'Q1' : point.progress < 50 ? 'Q2' : point.progress < 75 ? 'Q3' : 'Q4 Action';
+            const marginText = point.lead === 0 ? 'Game Tied' : point.lead > 0 ? `Knicks lead by ${point.lead}` : `Spurs lead by ${Math.abs(point.lead)}`;
+
+            tooltip.innerHTML = `
+                <span class="text-[10px] text-slate-400 block uppercase font-bold tracking-wider">
+                  Game Progress: ${point.progress}%
+                </span>
+                <span class="text-sm font-black text-white block">
+                  ${marginText}
+                </span>
+                <span class="text-[10px] text-orange-400 block font-medium">
+                  ${quarterLabel}
+                </span>
+            `;
+        }
+
+        function hideTooltip() {
+            document.getElementById('chartTooltip').classList.add('hidden');
+        }
+
+        // Game 4 Comeback Simulation
+        const game4ComebackMilestones = [
+            { title: 'Q1: Demoralizing Start', margin: 'Spurs +14', prob: '12%', text: 'San Antonio shoots an unbelievable 85% from the field right out of the gate.' },
+            { title: 'Q2: Rock Bottom', margin: 'Spurs +29', prob: '0.2%', text: 'Total system shock for Madison Square Garden. De\'Aaron Fox extends the lead to 29.' },
+            { title: 'Q3: Heavy Grit', margin: 'Spurs +18', prob: '4.5%', text: 'OG Anunoby blocks 3 straight shots, and Josh Hart triggers intense physical hustle.' },
+            { title: 'Q4: Nuclear Brunson', margin: 'Spurs +6', prob: '32%', text: 'Jalen Brunson goes on a solo step-back midrange rampage, slashing the lead down.' },
+            { title: '0.2s: The Climax', margin: 'Knicks +1', prob: '100%', text: 'Jalen Brunson spins past double team, hitting a floating shot to secure the victory!' }
+        ];
+
+        function renderComebackSimulation() {
+            const step = document.getElementById('comebackSlider').value;
+            const milestone = game4ComebackMilestones[step];
+
+            document.getElementById('comebackMargin').innerText = milestone.margin;
+            document.getElementById('comebackProb').innerText = milestone.prob;
+            document.getElementById('comebackTitle').innerText = milestone.title;
+            document.getElementById('comebackText').innerText = milestone.text;
+        }
+
+        document.getElementById('comebackSlider').addEventListener('input', () => {
+            renderComebackSimulation();
+            playWhistle();
+        });
+
+        // Trivia Implementation
+        const triviaQuestions = [
+            {
+                q: "How many points did Jalen Brunson score in the series-clincher Game 5?",
+                options: ["38 Points", "42 Points", "45 Points", "50 Points"],
+                correct: 2,
+                explain: "Brunson scored a series-high 45 points in the closeout win, shooting 14-for-27 from the field."
+            },
+            {
+                q: "What was the largest deficit overcome by the Knicks in Game 4?",
+                options: ["18 Points", "22 Points", "29 Points", "34 Points"],
+                correct: 2,
+                explain: "The Knicks successfully erased a 29-point Spurs lead in Game 4, establishing the largest comeback in NBA Finals history."
+            },
+            {
+                q: "Who was awarded the 2026 NBA Finals Most Valuable Player (MVP) award?",
+                options: ["Karl-Anthony Towns", "Jalen Brunson", "OG Anunoby", "Josh Hart"],
+                correct: 1,
+                explain: "Jalen Brunson was named Finals MVP after carrying the team and leading multiple historic comebacks."
+            },
+            {
+                q: "Prior to 2026, when was the last time the Knicks won the NBA Championship?",
+                options: ["1970", "1973", "1994", "1999"],
+                correct: 1,
+                explain: "The Knicks last won the championship in 1973, making this victory a historic end to a 53-year drought."
+            },
+            {
+                q: "Who did the Knicks defeat in the 2025 NBA Cup Finals earlier in the season?",
+                options: ["Boston Celtics", "Denver Nuggets", "San Antonio Spurs", "Los Angeles Lakers"],
+                correct: 2,
+                explain: "The Knicks won the 2025 NBA Cup by defeating the San Antonio Spurs 124-113 in Las Vegas, setting up this epic Finals rematch."
+            }
+        ];
+
+        let selectedAnswers = {};
+        let quizSubmitted = false;
+
+        function renderTrivia() {
+            const container = document.getElementById('trivia-container');
+            container.innerHTML = '';
+
+            triviaQuestions.forEach((item, idx) => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = "bg-slate-950 p-5 rounded-2xl border border-slate-800 space-y-4";
+                
+                let optionsHtml = '';
+                item.options.forEach((opt, optIdx) => {
+                    let btnStyle = "bg-slate-900/60 border border-slate-800 text-slate-300 hover:bg-slate-900";
+                    
+                    if (quizSubmitted) {
+                        if (optIdx === item.correct) {
+                            btnStyle = "bg-emerald-500/10 border-emerald-500 text-emerald-400 font-bold";
+                        } else if (selectedAnswers[idx] === optIdx) {
+                            btnStyle = "bg-red-500/10 border-red-500 text-red-400";
+                        } else {
+                            btnStyle = "bg-slate-900/30 border-slate-900 text-slate-600";
+                        }
+                    } else if (selectedAnswers[idx] === optIdx) {
+                        btnStyle = "bg-orange-500/10 border-orange-500 text-orange-400 font-bold";
+                    }
+
+                    const disabledAttr = quizSubmitted ? 'disabled' : '';
+                    optionsHtml += `
+                        <button
+                            ${disabledAttr}
+                            onclick="selectAnswer(${idx}, ${optIdx})"
+                            class="p-3.5 rounded-xl text-left text-xs transition duration-150 ${btnStyle}"
+                        >
+                            ${opt}
+                        </button>
+                    `;
+                });
+
+                let explanationHtml = '';
+                if (quizSubmitted) {
+                    explanationHtml = `
+                        <p class="text-[11px] text-slate-400 italic bg-slate-900/40 p-2.5 rounded-xl border border-slate-850">
+                            💡 <strong>Explanation: </strong> ${item.explain}
+                        </p>
+                    `;
+                }
+
+                itemDiv.innerHTML = `
+                    <h4 class="font-bold text-sm text-slate-100 flex items-start gap-2">
+                        <span class="bg-slate-900 text-slate-500 px-2 py-0.5 rounded text-xs">Q${idx+1}</span>
+                        ${item.q}
+                    </h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        ${optionsHtml}
+                    </div>
+                    ${explanationHtml}
+                `;
+                container.appendChild(itemDiv);
+            });
+
+            // Handle CTA state
+            const btn = document.getElementById('submitQuizBtn');
+            const hasChosenAll = Object.keys(selectedAnswers).length === triviaQuestions.length;
+            btn.disabled = !hasChosenAll || quizSubmitted;
+            
+            if (btn.disabled && !quizSubmitted) {
+                btn.className = "w-full py-4 bg-slate-800 text-slate-500 cursor-not-allowed font-bold tracking-widest text-sm uppercase rounded-2xl";
+            } else if (!quizSubmitted) {
+                btn.className = "w-full py-4 bg-orange-500 hover:bg-orange-600 font-bold tracking-widest text-sm uppercase rounded-2xl transition duration-200 shadow-lg shadow-orange-500/20";
+            } else {
+                btn.classList.add('hidden');
+            }
+        }
+
+        function selectAnswer(qIdx, optIdx) {
+            selectedAnswers[qIdx] = optIdx;
+            renderTrivia();
+        }
+
+        function submitQuiz() {
+            quizSubmitted = true;
+            let score = 0;
+            triviaQuestions.forEach((q, idx) => {
+                if (selectedAnswers[idx] === q.correct) {
+                    score++;
+                }
+            });
+
+            document.getElementById('quiz-result-card').classList.remove('hidden');
+            document.getElementById('quizScoreText').innerText = `${score} / ${triviaQuestions.length}`;
+            
+            let feedback = "Nice job! Learn more about the historic run by reviewing our ledger tabs above!";
+            if (score === triviaQuestions.length) {
+                feedback = "🌟 Incredible! You are an absolute legendary Knicks champion historian! Triggering celebrations!";
+                triggerCelebration();
+            }
+            document.getElementById('quizScoreFeedback').innerText = feedback;
+
+            renderTrivia();
+        }
+
+        function resetQuiz() {
+            selectedAnswers = {};
+            quizSubmitted = false;
+            document.getElementById('quiz-result-card').classList.add('hidden');
+            document.getElementById('submitQuizBtn').classList.remove('hidden');
+            renderTrivia();
+        }
+
+
+        // Particle Canvas System
+        let confettiInterval = null;
+        function triggerCelebration() {
+            const canvas = document.getElementById('confettiCanvas');
+            canvas.classList.remove('hidden');
+            const ctx = canvas.getContext('2d');
+            
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const colors = ['#006BB6', '#F58426', '#FFFFFF', '#1D2D44'];
+            const particles = Array.from({ length: 150 }, () => ({
+                x: Math.random() * canvas.width,
+                y: Math.random() * -canvas.height,
+                r: Math.random() * 6 + 4,
+                d: Math.random() * canvas.height,
+                color: colors[Math.floor(Math.random() * colors.length)],
+                tilt: Math.random() * 10 - 5,
+                tiltAngleIncremental: Math.random() * 0.07 + 0.02,
+                tiltAngle: 0
+            }));
+
+            playOrganCharge();
+
+            if (confettiInterval) clearInterval(confettiInterval);
+
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach((p, index) => {
+                    p.tiltAngle += p.tiltAngleIncremental;
+                    p.y += (Math.cos(p.d) + 3 + p.r / 2) / 2;
+                    p.x += Math.sin(p.tiltAngle);
+                    p.tilt = Math.sin(p.tiltAngle - index / 3) * 15;
+
+                    ctx.beginPath();
+                    ctx.lineWidth = p.r;
+                    ctx.strokeStyle = p.color;
+                    ctx.moveTo(p.x + p.tilt + p.r / 2, p.y);
+                    ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 2);
+                    ctx.stroke();
+
+                    if (p.y > canvas.height) {
+                        particles[index] = {
+                            ...p,
+                            x: Math.random() * canvas.width,
+                            y: -20,
+                            tilt: Math.random() * 10 - 5
+                        };
+                    }
+                });
+            }
+
+            const animTimer = setInterval(draw, 16);
+
+            setTimeout(() => {
+                clearInterval(animTimer);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                canvas.classList.add('hidden');
+            }, 7000);
+        }
+
+        // Initialize state on page load
+        window.addEventListener('resize', () => {
+            const canvas = document.getElementById('confettiCanvas');
+            if (canvas) {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+        });
+
+        window.onload = () => {
+            renderTabs();
+            renderActiveGame();
+            renderComebackSimulation();
+            renderTrivia();
+        };
+    </script>
+</body>
+</html>
