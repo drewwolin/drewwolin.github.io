@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NBA Contenders 2027</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              gold: '#FBBF24',
+              orange: '#F97316',
+              blue: '#2563EB',
+              dark: '#0B0F17',
+              card: '#151D2A',
+              border: '#243042'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    /* Custom scrollbar for horizontal scrolling tables on mobile */
+    ::-webkit-scrollbar {
+      height: 6px;
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #475569;
+    }
+    .badge-player-opt { background-color: #166534; color: #86efac; border: 1px solid #22c55e; }
+    .badge-team-opt { background-color: #991b1b; color: #fca5a5; border: 1px solid #ef4444; }
+    .badge-ufa { background-color: #1e40af; color: #93c5fd; border: 1px solid #3b82f6; }
+    .badge-rfa { background-color: #831843; color: #fbcfe8; border: 1px solid #ec4899; }
+    .badge-estimate { background-color: #6b21a8; color: #e9d5ff; border: 1px solid #a855f7; }
+  </style>
+</head>
+<body class="bg-[#0B0F17] text-slate-100 min-h-screen font-sans antialiased selection:bg-amber-500 selection:text-black">
+
+  <!-- Sticky Navigation Header with Quick Anchor Jumps -->
+  <header class="sticky top-0 z-50 bg-[#0B0F17]/95 backdrop-blur-md border-b border-slate-800 shadow-xl">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+      <div class="flex items-center space-x-3">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-500 to-orange-600 flex items-center justify-center text-lg shadow-lg shadow-orange-500/20">
+          🏀
+        </div>
+        <div>
+          <h1 class="text-base sm:text-lg font-black tracking-tight text-white flex items-center gap-2">
+            NBA Contenders <span class="text-amber-400 bg-amber-400/10 px-2 py-0.5 rounded text-xs tracking-wide">2027</span>
+          </h1>
+          <p class="text-[11px] text-slate-400 font-medium">2027 Depth and Salaries</p>
+        </div>
+      </div>
+
+      <!-- Jump Navigation Links (Sorted by Odds) -->
+      <nav class="flex items-center space-x-2 overflow-x-auto py-1 scrollbar-none text-xs font-semibold">
+        <a href="#odds" class="px-3 py-1.5 rounded-lg bg-amber-500 text-black hover:bg-amber-400 transition whitespace-nowrap border border-amber-400 flex items-center gap-1 shadow">
+          <i data-lucide="award" class="w-3.5 h-3.5"></i> Odds
+        </a>
+        <a href="#okc" class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 transition whitespace-nowrap border border-slate-700/70 flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-amber-400"></span> OKC (+260)
+        </a>
+        <a href="#spurs" class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 transition whitespace-nowrap border border-slate-700/70 flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-emerald-400"></span> Spurs (+260)
+        </a>
+        <a href="#knicks" class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 transition whitespace-nowrap border border-slate-700/70 flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-blue-500"></span> Knicks (+850)
+        </a>
+        <a href="#sixers" class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 transition whitespace-nowrap border border-slate-700/70 flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-red-500"></span> 76ers (+900)
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Scrollable Content Container -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-16 pb-24">
+
+    <!-- 1. CHAMPIONSHIP ODDS SECTION -->
+    <section id="odds" class="scroll-mt-20">
+      <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-[#131b2c] to-slate-950 border border-slate-800 p-6 sm:p-8 shadow-2xl">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-5 mb-6">
+          <div>
+            <h2 class="text-2xl sm:text-3xl font-black text-white tracking-tight">2027 NBA Champion Odds</h2>
+            <p class="text-xs sm:text-sm text-slate-400 mt-0.5">Odds last updated: <strong class="text-slate-200">Aug 30, 2026</strong></p>
+          </div>
+          <div class="flex items-center gap-2 bg-slate-800/80 px-3.5 py-1.5 rounded-xl border border-slate-700/60 self-start sm:self-auto">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span class="text-xs text-slate-300 font-medium">Thunder & Spurs Co-Favorites (+260)</span>
+          </div>
+        </div>
+
+        <!-- 4 Contender Odds Cards (Sorted: OKC -> Spurs -> Knicks -> 76ers) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          
+          <!-- OKC -->
+          <a href="#okc" class="group bg-slate-900/90 hover:bg-slate-800/90 transition border border-slate-800 hover:border-amber-400/50 rounded-xl p-3 flex items-center justify-between shadow">
+            <div class="flex items-center space-x-3">
+              <div class="w-8 h-8 rounded-lg bg-blue-900/50 flex items-center justify-center font-bold text-xs text-amber-400 border border-blue-700/50 flex-shrink-0">
+                OKC
+              </div>
+              <div>
+                <h3 class="font-bold text-white text-xs sm:text-sm group-hover:text-amber-400 transition leading-tight">Oklahoma City<br>Thunder</h3>
+                <span class="text-[10px] text-slate-400">Western Conference</span>
+              </div>
+            </div>
+            <span class="text-sm sm:text-base font-black text-emerald-400 bg-emerald-950/60 border border-emerald-800/60 px-2 py-0.5 rounded-lg shrink-0">+260</span>
+          </a>
+
+          <!-- Spurs -->
+          <a href="#spurs" class="group bg-slate-900/90 hover:bg-slate-800/90 transition border border-slate-800 hover:border-emerald-400/50 rounded-xl p-3 flex items-center justify-between shadow">
+            <div class="flex items-center space-x-3">
+              <div class="w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center font-bold text-xs text-white border border-slate-700 flex-shrink-0">
+                SAS
+              </div>
+              <div>
+                <h3 class="font-bold text-white text-xs sm:text-sm group-hover:text-amber-400 transition leading-tight">San Antonio<br>Spurs</h3>
+                <span class="text-[10px] text-slate-400">Western Conference</span>
+              </div>
+            </div>
+            <span class="text-sm sm:text-base font-black text-emerald-400 bg-emerald-950/60 border border-emerald-800/60 px-2 py-0.5 rounded-lg shrink-0">+260</span>
+          </a>
+
+          <!-- Knicks -->
+          <a href="#knicks" class="group bg-slate-900/90 hover:bg-slate-800/90 transition border border-slate-800 hover:border-blue-400/50 rounded-xl p-3 flex items-center justify-between shadow">
+            <div class="flex items-center space-x-3">
+              <div class="w-8 h-8 rounded-lg bg-orange-950/50 flex items-center justify-center font-bold text-xs text-orange-400 border border-orange-800/50 flex-shrink-0">
+                NYK
+              </div>
+              <div>
+                <h3 class="font-bold text-white text-xs sm:text-sm group-hover:text-amber-400 transition leading-tight">New York<br>Knicks</h3>
+                <span class="text-[10px] text-slate-400">Eastern Conference</span>
+              </div>
+            </div>
+            <span class="text-sm sm:text-base font-black text-amber-400 bg-amber-950/60 border border-amber-800/60 px-2 py-0.5 rounded-lg shrink-0">+850</span>
+          </a>
+
+          <!-- 76ers -->
+          <a href="#sixers" class="group bg-slate-900/90 hover:bg-slate-800/90 transition border border-slate-800 hover:border-red-400/50 rounded-xl p-3 flex items-center justify-between shadow">
+            <div class="flex items-center space-x-3">
+              <div class="w-8 h-8 rounded-lg bg-red-950/50 flex items-center justify-center font-bold text-xs text-red-400 border border-red-800/50 flex-shrink-0">
+                PHI
+              </div>
+              <div>
+                <h3 class="font-bold text-white text-xs sm:text-sm group-hover:text-amber-400 transition leading-tight">Philadelphia<br>76ers</h3>
+                <span class="text-[10px] text-slate-400">Eastern Conference</span>
+              </div>
+            </div>
+            <span class="text-sm sm:text-base font-black text-amber-400 bg-amber-950/60 border border-amber-800/60 px-2 py-0.5 rounded-lg shrink-0">+900</span>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. OKLAHOMA CITY THUNDER (Listed #1 by Odds: +260) -->
+    <section id="okc" class="scroll-mt-20 space-y-6">
+      <!-- Team Header Banner -->
+      <div class="rounded-3xl bg-gradient-to-r from-blue-950/40 via-slate-900 to-amber-950/30 border border-amber-600/50 p-5 sm:p-7 shadow-2xl relative overflow-hidden">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="flex items-center space-x-4">
+            <div class="w-14 h-14 rounded-2xl bg-slate-900 border border-slate-700 flex items-center justify-center text-2xl font-black text-amber-400 shadow-xl">
+              OKC
+            </div>
+            <div>
+              <h2 class="text-xl sm:text-3xl font-black text-white tracking-tight">Oklahoma City Thunder</h2>
+              <p class="text-xs sm:text-sm text-slate-400 mt-0.5 font-medium">Western Conference</p>
+            </div>
+          </div>
+
+          <div class="bg-slate-950/80 backdrop-blur px-3 py-1.5 rounded-xl border border-slate-800 self-start sm:self-auto text-right">
+            <div class="text-[10px] uppercase font-bold text-slate-400 leading-none">2027 Title Odds</div>
+            <div class="text-base sm:text-lg font-black text-emerald-400 mt-1 leading-tight">+260</div>
+          </div>
+        </div>
+
+        <!-- ANALYTICAL OUTLIER PROFILE -->
+        <div class="mt-5 p-4 sm:p-5 rounded-2xl bg-slate-950/80 border border-slate-700/70 shadow-inner">
+          <div class="flex items-center gap-2 text-amber-400 text-xs font-black uppercase tracking-wider mb-1">
+            <i data-lucide="activity" class="w-4 h-4"></i> Analytical Outlier Profile
+          </div>
+          <h4 class="text-base sm:text-lg font-black text-white tracking-tight mb-3">
+            Perimeter Pressure and Double-Digit Net Rating Dominance
+          </h4>
+          <ul class="space-y-2">
+            <li class="flex items-start gap-2.5 text-xs sm:text-sm text-slate-300">
+              <span class="text-base flex-shrink-0 leading-none pt-0.5">⬆️</span>
+              <div>
+                <strong class="text-emerald-300 font-bold">Defensive Rating (DRtg) Efficiency (Top Outlier):</strong>
+                <span class="text-slate-300 ml-1">107.7 DRtg (1st in NBA). Led by MVP SGA and perimeter anchor Alex Caruso, suppressing opposing eFG% across all zones.</span>
+              </div>
+            </li>
+            <li class="flex items-start gap-2.5 text-xs sm:text-sm text-slate-300">
+              <span class="text-base flex-shrink-0 leading-none pt-0.5">⬆️</span>
+              <div>
+                <strong class="text-emerald-300 font-bold">Net Rating & Point Differential (Top Outlier):</strong>
+                <span class="text-slate-300 ml-1">+11.05 Net Rating (1st in NBA). Historic double-digit net rating over 82 games built by converting defensive stops into fast-break efficiency.</span>
+              </div>
+            </li>
+            <li class="flex items-start gap-2.5 text-xs sm:text-sm text-slate-300">
+              <span class="text-base flex-shrink-0 leading-none pt-0.5">⬆️</span>
+              <div>
+                <strong class="text-emerald-300 font-bold">Forced Turnovers & Steal Rate (Top Outlier):</strong>
+                <span class="text-slate-300 ml-1">1st in NBA in turnover creation and steal rate. Ball pressure and deflection rates generate high-value transition scoring opportunities.</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Depth Chart -->
+      <div class="bg-slate-900/90 border border-slate-800 rounded-3xl p-4 sm:p-6 shadow-xl">
+        <div class="flex items-center space-x-2.5 pb-4 border-b border-slate-800">
+          <div class="p-2 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
+            <i data-lucide="layers" class="w-4 h-4"></i>
+          </div>
+          <div>
+            <h3 class="text-base sm:text-lg font-bold text-white">Oklahoma City Thunder Depth Chart</h3>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto mt-4">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="text-[11px] uppercase tracking-wider text-slate-400 bg-slate-950/60 border-y border-slate-800">
+                <th class="py-2.5 px-4 font-semibold">POS</th>
+                <th class="py-2.5 px-4 font-semibold text-amber-400">STARTER</th>
+                <th class="py-2.5 px-4 font-semibold">2ND</th>
+                <th class="py-2.5 px-4 font-semibold">3RD</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800/50 text-xs sm:text-sm">
+              <tr class="hover:bg-slate-800/40 transition">
+                <td class="py-3 px-4 font-black text-amber-400 uppercase">PG</td>
+                <td class="py-3 px-4 font-bold text-white">Shai Gilgeous-Alexander</td>
+                <td class="py-3 px-4 text-slate-300">Ajay Mitchell</td>
+                <td class="py-3 px-4 text-slate-400">Bennett Stirtz</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40 transition">
+                <td class="py-3 px-4 font-black text-amber-400 uppercase">SG</td>
+                <td class="py-3 px-4 font-bold text-white">Cason Wallace</td>
+                <td class="py-3 px-4 text-slate-300">Jared McCain</td>
+                <td class="py-3 px-4 text-slate-400">Ajay Mitchell</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40 transition">
+                <td class="py-3 px-4 font-black text-amber-400 uppercase">SF</td>
+                <td class="py-3 px-4 font-bold text-white">Jalen Williams</td>
+                <td class="py-3 px-4 text-slate-300">Cason Wallace</td>
+                <td class="py-3 px-4 text-slate-400">Alex Caruso</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40 transition">
+                <td class="py-3 px-4 font-black text-amber-400 uppercase">PF</td>
+                <td class="py-3 px-4 font-bold text-white">Chet Holmgren</td>
+                <td class="py-3 px-4 text-slate-300">Alex Caruso</td>
+                <td class="py-3 px-4 text-slate-400">Kenrich Williams</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40 transition">
+                <td class="py-3 px-4 font-black text-amber-400 uppercase">C</td>
+                <td class="py-3 px-4 font-bold text-white">Isaiah Hartenstein</td>
+                <td class="py-3 px-4 text-slate-300">Jaylin Williams</td>
+                <td class="py-3 px-4 text-slate-400">Aday Mara</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Salaries Table -->
+      <div class="bg-slate-900/90 border border-slate-800 rounded-3xl p-4 sm:p-6 shadow-xl">
+        <div class="flex items-center space-x-2.5 pb-4 border-b border-slate-800">
+          <div class="p-2 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+            <i data-lucide="wallet" class="w-4 h-4"></i>
+          </div>
+          <div>
+            <h3 class="text-base sm:text-lg font-bold text-white">Oklahoma City Thunder Active Salaries</h3>
+            <p class="text-xs text-slate-400">2026-27 and 2027-28 Financial commitments (% Cap)</p>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto mt-4">
+          <table class="w-full text-left border-collapse min-w-[550px]">
+            <thead>
+              <tr class="text-[11px] uppercase tracking-wider text-slate-400 bg-slate-950/60 border-y border-slate-800">
+                <th class="py-3 px-4 font-semibold">PLAYER (14)</th>
+                <th class="py-3 px-2 text-center font-semibold">POS</th>
+                <th class="py-3 px-2 text-center font-semibold">AGE</th>
+                <th class="py-3 px-4 text-right font-semibold text-slate-200">2026-27</th>
+                <th class="py-3 px-4 text-right font-semibold text-slate-200">2027-28</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800/60 text-xs sm:text-sm">
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white">Jalen Williams</td>
+                <td class="py-3 px-2 text-center text-slate-300">SF</td>
+                <td class="py-3 px-2 text-center text-slate-400">25</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$41,240,250</div><div class="text-[10px] text-slate-400">25.0% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-200 border border-slate-700 inline-block">$44,539,470</span><div class="text-[10px] text-slate-400 mt-0.5">25.6% cap</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white">Chet Holmgren</td>
+                <td class="py-3 px-2 text-center text-slate-300">C</td>
+                <td class="py-3 px-2 text-center text-slate-400">24</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$41,240,250</div><div class="text-[10px] text-slate-400">25.0% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-200 border border-slate-700 inline-block">$44,539,470</span><div class="text-[10px] text-slate-400 mt-0.5">25.6% cap</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white">Shai Gilgeous-Alexander</td>
+                <td class="py-3 px-2 text-center text-slate-300">PG</td>
+                <td class="py-3 px-2 text-center text-slate-400">28</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$40,806,150</div><div class="text-[10px] text-slate-400">24.7% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold badge-estimate inline-block">$60,637,500</span><div class="text-[10px] text-slate-400 mt-0.5">34.8% cap • Estimate</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white flex items-center gap-1.5">Isaiah Hartenstein <i data-lucide="lock" class="w-3 h-3 text-slate-400"></i></td>
+                <td class="py-3 px-2 text-center text-slate-300">C</td>
+                <td class="py-3 px-2 text-center text-slate-400">28</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$23,148,148</div><div class="text-[10px] text-slate-400">14.0% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-200 border border-slate-700 inline-block">$25,000,000</span><div class="text-[10px] text-slate-400 mt-0.5">14.4% cap</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white flex items-center gap-1.5">Alex Caruso <span class="text-[9px] font-semibold bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded border border-blue-500/30">Ext. Elig.</span></td>
+                <td class="py-3 px-2 text-center text-slate-300">SG</td>
+                <td class="py-3 px-2 text-center text-slate-400">32</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$19,550,160</div><div class="text-[10px] text-slate-400">11.9% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-200 border border-slate-700 inline-block">$20,998,320</span><div class="text-[10px] text-slate-400 mt-0.5">12.1% cap</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white flex items-center gap-1.5">Jaylin Williams <span class="text-[9px] font-semibold bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded border border-blue-500/30">Ext. Elig.</span></td>
+                <td class="py-3 px-2 text-center text-slate-300">C</td>
+                <td class="py-3 px-2 text-center text-slate-400">24</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$7,774,648</div><div class="text-[10px] text-slate-400">4.7% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold badge-team-opt inline-block">$7,774,648</span><div class="text-[10px] text-slate-400 mt-0.5">4.5% cap • Team Option</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white flex items-center gap-1.5">Cason Wallace <span class="text-[9px] font-semibold bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded border border-blue-500/30">Ext. Elig.</span></td>
+                <td class="py-3 px-2 text-center text-slate-300">PG</td>
+                <td class="py-3 px-2 text-center text-slate-400">23</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$7,420,806</div><div class="text-[10px] text-slate-400">4.5% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold badge-rfa inline-block">RFA / $22.3M</span><div class="text-[10px] text-slate-400 mt-0.5">12.8% cap • RFA</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white">Aday Mara</td>
+                <td class="py-3 px-2 text-center text-slate-300">C</td>
+                <td class="py-3 px-2 text-center text-slate-400">21</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$5,791,680</div><div class="text-[10px] text-slate-400">3.5% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-200 border border-slate-700 inline-block">$6,081,480</span><div class="text-[10px] text-slate-400 mt-0.5">3.5% cap</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white flex items-center gap-1.5">Nikola Topic <span class="text-[9px] font-semibold bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded border border-blue-500/30">Ext. Elig.</span></td>
+                <td class="py-3 px-2 text-center text-slate-300">PG</td>
+                <td class="py-3 px-2 text-center text-slate-400">21</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$5,429,760</div><div class="text-[10px] text-slate-400">3.3% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold badge-team-opt inline-block">$7,482,210</span><div class="text-[10px] text-slate-400 mt-0.5">4.3% cap • Team Option</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white flex items-center gap-1.5">Kenrich Williams <i data-lucide="lock" class="w-3 h-3 text-slate-400"></i></td>
+                <td class="py-3 px-2 text-center text-slate-300">PF</td>
+                <td class="py-3 px-2 text-center text-slate-400">32</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$5,000,000</div><div class="text-[10px] text-slate-400">3.0% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold badge-ufa inline-block">UFA / $9.5M</span><div class="text-[10px] text-slate-400 mt-0.5">5.5% cap • UFA</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white">Thomas Sorber</td>
+                <td class="py-3 px-2 text-center text-slate-300">C</td>
+                <td class="py-3 px-2 text-center text-slate-400">21</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$4,887,720</div><div class="text-[10px] text-slate-400">3.0% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold badge-team-opt inline-block">$5,120,400</span><div class="text-[10px] text-slate-400 mt-0.5">2.9% cap • Team Option</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white">Bennett Stirtz</td>
+                <td class="py-3 px-2 text-center text-slate-300">PG</td>
+                <td class="py-3 px-2 text-center text-slate-400">23</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$4,717,320</div><div class="text-[10px] text-slate-400">2.9% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-200 border border-slate-700 inline-block">$4,953,240</span><div class="text-[10px] text-slate-400 mt-0.5">2.8% cap</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white flex items-center gap-1.5">Jared McCain <span class="text-[9px] font-semibold bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded border border-blue-500/30">Ext. Elig.</span></td>
+                <td class="py-3 px-2 text-center text-slate-300">PG</td>
+                <td class="py-3 px-2 text-center text-slate-400">22</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$4,422,600</div><div class="text-[10px] text-slate-400">2.7% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold badge-team-opt inline-block">$6,784,268</span><div class="text-[10px] text-slate-400 mt-0.5">3.9% cap • Team Option</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white">Ajay Mitchell</td>
+                <td class="py-3 px-2 text-center text-slate-300">PG</td>
+                <td class="py-3 px-2 text-center text-slate-400">24</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$2,850,000</div><div class="text-[10px] text-slate-400">1.7% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold badge-team-opt inline-block">$2,850,000</span><div class="text-[10px] text-slate-400 mt-0.5">1.6% cap • Team Option</div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Salary Contract Legend & Status Indicators -->
+        <div class="mt-5 pt-4 border-t border-slate-800/80">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-[11px] text-slate-400">
+            <div class="font-bold text-slate-300 flex items-center gap-1.5 flex-shrink-0">
+              <i data-lucide="info" class="w-3.5 h-3.5 text-amber-400"></i> Contract Legend:
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:flex md:flex-wrap items-center gap-2">
+              <div class="flex items-center gap-1.5 px-2 py-1 bg-slate-950/70 rounded-lg border border-slate-800">
+                <span class="w-2.5 h-2.5 rounded badge-player-opt inline-block flex-shrink-0"></span>
+                <span>Player Option</span>
+              </div>
+              <div class="flex items-center gap-1.5 px-2 py-1 bg-slate-950/70 rounded-lg border border-slate-800">
+                <span class="w-2.5 h-2.5 rounded badge-team-opt inline-block flex-shrink-0"></span>
+                <span>Team Option</span>
+              </div>
+              <div class="flex items-center gap-1.5 px-2 py-1 bg-slate-950/70 rounded-lg border border-slate-800">
+                <span class="w-2.5 h-2.5 rounded badge-estimate inline-block flex-shrink-0"></span>
+                <span>Estimate / Max</span>
+              </div>
+              <div class="flex items-center gap-1.5 px-2 py-1 bg-slate-950/70 rounded-lg border border-slate-800">
+                <span class="w-2.5 h-2.5 rounded badge-ufa inline-block flex-shrink-0"></span>
+                <span>UFA (Free Agent)</span>
+              </div>
+              <div class="flex items-center gap-1.5 px-2 py-1 bg-slate-950/70 rounded-lg border border-slate-800">
+                <span class="w-2.5 h-2.5 rounded badge-rfa inline-block flex-shrink-0"></span>
+                <span>RFA</span>
+              </div>
+              <div class="flex items-center gap-1.5 px-2 py-1 bg-slate-950/70 rounded-lg border border-slate-800">
+                <i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400 flex-shrink-0"></i>
+                <span>Trade Restriction</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. SAN ANTONIO SPURS (Listed #2 by Odds: +260) -->
+    <section id="spurs" class="scroll-mt-20 space-y-6">
+      <!-- Team Header Banner -->
+      <div class="rounded-3xl bg-gradient-to-r from-slate-800/60 via-slate-900 to-emerald-950/20 border border-slate-700/60 p-5 sm:p-7 shadow-2xl relative overflow-hidden">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="flex items-center space-x-4">
+            <div class="w-14 h-14 rounded-2xl bg-slate-900 border border-slate-700 flex items-center justify-center text-2xl font-black text-white shadow-xl">
+              SAS
+            </div>
+            <div>
+              <h2 class="text-xl sm:text-3xl font-black text-white tracking-tight">San Antonio Spurs</h2>
+              <p class="text-xs sm:text-sm text-slate-400 mt-0.5 font-medium">Western Conference</p>
+            </div>
+          </div>
+
+          <div class="bg-slate-950/80 backdrop-blur px-3 py-1.5 rounded-xl border border-slate-800 self-start sm:self-auto text-right">
+            <div class="text-[10px] uppercase font-bold text-slate-400 leading-none">2027 Title Odds</div>
+            <div class="text-base sm:text-lg font-black text-emerald-400 mt-1 leading-tight">+260</div>
+          </div>
+        </div>
+
+        <!-- ANALYTICAL OUTLIER PROFILE -->
+        <div class="mt-5 p-4 sm:p-5 rounded-2xl bg-slate-950/80 border border-slate-700/70 shadow-inner">
+          <div class="flex items-center gap-2 text-amber-400 text-xs font-black uppercase tracking-wider mb-1">
+            <i data-lucide="activity" class="w-4 h-4"></i> Analytical Outlier Profile
+          </div>
+          <h4 class="text-base sm:text-lg font-black text-white tracking-tight mb-3">
+            Length-Driven Rim Protection and Unselfish Motion
+          </h4>
+          <ul class="space-y-2">
+            <li class="flex items-start gap-2.5 text-xs sm:text-sm text-slate-300">
+              <span class="text-base flex-shrink-0 leading-none pt-0.5">⬆️</span>
+              <div>
+                <strong class="text-emerald-300 font-bold">Interior Block Rate & Rim Intimidation (Top Outlier):</strong>
+                <span class="text-slate-300 ml-1">6.3+ BPG (Top 3 in NBA). Wembanyama (25.0 PPG, 11.5 RPG) anchors a historic paint wall, freeing perimeter defenders to aggressively pressure.</span>
+              </div>
+            </li>
+            <li class="flex items-start gap-2.5 text-xs sm:text-sm text-slate-300">
+              <span class="text-base flex-shrink-0 leading-none pt-0.5">⬆️</span>
+              <div>
+                <strong class="text-emerald-300 font-bold">Assist Percentage & Ball Distribution (Top Outlier):</strong>
+                <span class="text-slate-300 ml-1">Top 3 in NBA. Unselfish motion scheme guided by Stephon Castle (7.4 APG) and De’Aaron Fox (6.2 APG) eliminating scoring stagnations.</span>
+              </div>
+            </li>
+            <li class="flex items-start gap-2.5 text-xs sm:text-sm text-slate-300">
+              <span class="text-base flex-shrink-0 leading-none pt-0.5">⬆️</span>
+              <div>
+                <strong class="text-emerald-300 font-bold">Net Rating Transformation (Top Outlier):</strong>
+                <span class="text-slate-300 ml-1">+8.3 Net Rating (2nd Largest Jump in NBA). Skyrocketed from -2.8 to 62-20 record by entering top-7 in both ORtg and DRtg.</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Depth Chart -->
+      <div class="bg-slate-900/90 border border-slate-800 rounded-3xl p-4 sm:p-6 shadow-xl">
+        <div class="flex items-center space-x-2.5 pb-4 border-b border-slate-800">
+          <div class="p-2 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
+            <i data-lucide="layers" class="w-4 h-4"></i>
+          </div>
+          <div>
+            <h3 class="text-base sm:text-lg font-bold text-white">San Antonio Spurs Depth Chart</h3>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto mt-4">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="text-[11px] uppercase tracking-wider text-slate-400 bg-slate-950/60 border-y border-slate-800">
+                <th class="py-2.5 px-4 font-semibold">POS</th>
+                <th class="py-2.5 px-4 font-semibold text-amber-400">STARTER</th>
+                <th class="py-2.5 px-4 font-semibold">2ND</th>
+                <th class="py-2.5 px-4 font-semibold">3RD</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800/50 text-xs sm:text-sm">
+              <tr class="hover:bg-slate-800/40 transition">
+                <td class="py-3 px-4 font-black text-amber-400 uppercase">PG</td>
+                <td class="py-3 px-4 font-bold text-white">De'Aaron Fox</td>
+                <td class="py-3 px-4 text-slate-300">Dylan Harper</td>
+                <td class="py-3 px-4 text-slate-400">Jordan McLaughlin</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40 transition">
+                <td class="py-3 px-4 font-black text-amber-400 uppercase">SG</td>
+                <td class="py-3 px-4 font-bold text-white">Stephon Castle</td>
+                <td class="py-3 px-4 text-slate-300">Dylan Harper</td>
+                <td class="py-3 px-4 text-slate-400">Julian Champagnie</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40 transition">
+                <td class="py-3 px-4 font-black text-amber-400 uppercase">SF</td>
+                <td class="py-3 px-4 font-bold text-white">Devin Vassell</td>
+                <td class="py-3 px-4 text-slate-300">Carter Bryant</td>
+                <td class="py-3 px-4 text-slate-400">Keldon Johnson</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40 transition">
+                <td class="py-3 px-4 font-black text-amber-400 uppercase">PF</td>
+                <td class="py-3 px-4 font-bold text-white">Tobias Harris</td>
+                <td class="py-3 px-4 text-slate-300">Julian Champagnie</td>
+                <td class="py-3 px-4 text-slate-400">Keldon Johnson</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40 transition">
+                <td class="py-3 px-4 font-black text-amber-400 uppercase">C</td>
+                <td class="py-3 px-4 font-bold text-white">Victor Wembanyama</td>
+                <td class="py-3 px-4 text-slate-300">Luke Kornet</td>
+                <td class="py-3 px-4 text-slate-400">Tarris Reed Jr.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Salaries Table -->
+      <div class="bg-slate-900/90 border border-slate-800 rounded-3xl p-4 sm:p-6 shadow-xl">
+        <div class="flex items-center space-x-2.5 pb-4 border-b border-slate-800">
+          <div class="p-2 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+            <i data-lucide="wallet" class="w-4 h-4"></i>
+          </div>
+          <div>
+            <h3 class="text-base sm:text-lg font-bold text-white">San Antonio Spurs Active Salaries</h3>
+            <p class="text-xs text-slate-400">2026-27 and 2027-28 Financial commitments (% Cap)</p>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto mt-4">
+          <table class="w-full text-left border-collapse min-w-[550px]">
+            <thead>
+              <tr class="text-[11px] uppercase tracking-wider text-slate-400 bg-slate-950/60 border-y border-slate-800">
+                <th class="py-3 px-4 font-semibold">PLAYER (14)</th>
+                <th class="py-3 px-2 text-center font-semibold">POS</th>
+                <th class="py-3 px-2 text-center font-semibold">AGE</th>
+                <th class="py-3 px-4 text-right font-semibold text-slate-200">2026-27</th>
+                <th class="py-3 px-4 text-right font-semibold text-slate-200">2027-28</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800/60 text-xs sm:text-sm">
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white">De'Aaron Fox</td>
+                <td class="py-3 px-2 text-center text-slate-300">PG</td>
+                <td class="py-3 px-2 text-center text-slate-400">29</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$49,488,300</div><div class="text-[10px] text-slate-400">30.0% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-200 border border-slate-700 inline-block">$53,447,364</span><div class="text-[10px] text-slate-400 mt-0.5">30.7% cap</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white flex items-center gap-1.5">Devin Vassell <span class="text-[9px] font-semibold bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded border border-blue-500/30">Ext. Elig.</span></td>
+                <td class="py-3 px-2 text-center text-slate-300">SG</td>
+                <td class="py-3 px-2 text-center text-slate-400">26</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$27,500,000</div><div class="text-[10px] text-slate-400">16.7% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-200 border border-slate-700 inline-block">$25,108,696</span><div class="text-[10px] text-slate-400 mt-0.5">14.4% cap</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white flex items-center gap-1.5">Keldon Johnson <span class="text-[9px] font-semibold bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded border border-blue-500/30">Ext. Elig.</span></td>
+                <td class="py-3 px-2 text-center text-slate-300">SF</td>
+                <td class="py-3 px-2 text-center text-slate-400">27</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$18,000,000</div><div class="text-[10px] text-slate-400">10.9% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold badge-ufa inline-block">UFA / $26.3M</span><div class="text-[10px] text-slate-400 mt-0.5">15.1% cap • UFA</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white flex items-center gap-1.5">Victor Wembanyama <i data-lucide="lock" class="w-3 h-3 text-slate-400"></i><span class="text-[9px] font-semibold bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded border border-blue-500/30">Ext. Elig.</span></td>
+                <td class="py-3 px-2 text-center text-slate-300">C</td>
+                <td class="py-3 px-2 text-center text-slate-400">23</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$16,868,246</div><div class="text-[10px] text-slate-400">10.2% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold badge-estimate inline-block">$43,500,000</span><div class="text-[10px] text-slate-400 mt-0.5">25.0% cap • Estimate</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white flex items-center gap-1.5">Julian Champagnie <i data-lucide="lock" class="w-3 h-3 text-slate-400"></i></td>
+                <td class="py-3 px-2 text-center text-slate-300">SF</td>
+                <td class="py-3 px-2 text-center text-slate-400">25</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$15,350,000</div><div class="text-[10px] text-slate-400">9.3% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-200 border border-slate-700 inline-block">$15,000,000</span><div class="text-[10px] text-slate-400 mt-0.5">8.6% cap</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white flex items-center gap-1.5">Tobias Harris <i data-lucide="lock" class="w-3 h-3 text-slate-400"></i></td>
+                <td class="py-3 px-2 text-center text-slate-300">PF</td>
+                <td class="py-3 px-2 text-center text-slate-400">34</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$15,044,000</div><div class="text-[10px] text-slate-400">9.1% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-200 border border-slate-700 inline-block">$15,796,200</span><div class="text-[10px] text-slate-400 mt-0.5">9.1% cap</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white">Dylan Harper</td>
+                <td class="py-3 px-2 text-center text-slate-300">PG</td>
+                <td class="py-3 px-2 text-center text-slate-400">20</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$12,989,040</div><div class="text-[10px] text-slate-400">7.9% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold badge-team-opt inline-block">$13,607,760</span><div class="text-[10px] text-slate-400 mt-0.5">7.8% cap • Team Option</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white">Luke Kornet</td>
+                <td class="py-3 px-2 text-center text-slate-300">C</td>
+                <td class="py-3 px-2 text-center text-slate-400">31</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$10,450,000</div><div class="text-[10px] text-slate-400">6.3% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-200 border border-slate-700 inline-block">$9,900,000</span><div class="text-[10px] text-slate-400 mt-0.5">5.7% cap</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white flex items-center gap-1.5">Stephon Castle <span class="text-[9px] font-semibold bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded border border-blue-500/30">Ext. Elig.</span></td>
+                <td class="py-3 px-2 text-center text-slate-300">PG</td>
+                <td class="py-3 px-2 text-center text-slate-400">22</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$10,015,920</div><div class="text-[10px] text-slate-400">6.1% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold badge-team-opt inline-block">$12,670,139</span><div class="text-[10px] text-slate-400 mt-0.5">7.3% cap • Team Option</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white flex items-center gap-1.5">Harrison Barnes <i data-lucide="lock" class="w-3 h-3 text-slate-400"></i></td>
+                <td class="py-3 px-2 text-center text-slate-300">PF</td>
+                <td class="py-3 px-2 text-center text-slate-400">34</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$8,000,000</div><div class="text-[10px] text-slate-400">4.8% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold badge-ufa inline-block">UFA / $15.2M</span><div class="text-[10px] text-slate-400 mt-0.5">8.7% cap • UFA</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white">Carter Bryant</td>
+                <td class="py-3 px-2 text-center text-slate-300">PF</td>
+                <td class="py-3 px-2 text-center text-slate-400">21</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$5,145,360</div><div class="text-[10px] text-slate-400">3.1% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold badge-team-opt inline-block">$5,390,640</span><div class="text-[10px] text-slate-400 mt-0.5">3.1% cap • Team Option</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white">Jayden Quaintance</td>
+                <td class="py-3 px-2 text-center text-slate-300">C</td>
+                <td class="py-3 px-2 text-center text-slate-400">19</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$3,902,760</div><div class="text-[10px] text-slate-400">2.4% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-200 border border-slate-700 inline-block">$4,097,880</span><div class="text-[10px] text-slate-400 mt-0.5">2.4% cap</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white">Tarris Reed Jr.</td>
+                <td class="py-3 px-2 text-center text-slate-300">C</td>
+                <td class="py-3 px-2 text-center text-slate-400">23</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$3,076,920</div><div class="text-[10px] text-slate-400">1.9% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-200 border border-slate-700 inline-block">$3,230,520</span><div class="text-[10px] text-slate-400 mt-0.5">1.9% cap</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white flex items-center gap-1.5">Jordan McLaughlin <i data-lucide="lock" class="w-3 h-3 text-slate-400"></i></td>
+                <td class="py-3 px-2 text-center text-slate-300">PG</td>
+                <td class="py-3 px-2 text-center text-slate-400">30</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$2,449,421</div><div class="text-[10px] text-slate-400">1.5% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold badge-ufa inline-block">UFA / $2.6M</span><div class="text-[10px] text-slate-400 mt-0.5">1.5% cap • UFA</div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Salary Contract Legend & Status Indicators -->
+        <div class="mt-5 pt-4 border-t border-slate-800/80">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-[11px] text-slate-400">
+            <div class="font-bold text-slate-300 flex items-center gap-1.5 flex-shrink-0">
+              <i data-lucide="info" class="w-3.5 h-3.5 text-amber-400"></i> Contract Legend:
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:flex md:flex-wrap items-center gap-2">
+              <div class="flex items-center gap-1.5 px-2 py-1 bg-slate-950/70 rounded-lg border border-slate-800">
+                <span class="w-2.5 h-2.5 rounded badge-player-opt inline-block flex-shrink-0"></span>
+                <span>Player Option</span>
+              </div>
+              <div class="flex items-center gap-1.5 px-2 py-1 bg-slate-950/70 rounded-lg border border-slate-800">
+                <span class="w-2.5 h-2.5 rounded badge-team-opt inline-block flex-shrink-0"></span>
+                <span>Team Option</span>
+              </div>
+              <div class="flex items-center gap-1.5 px-2 py-1 bg-slate-950/70 rounded-lg border border-slate-800">
+                <span class="w-2.5 h-2.5 rounded badge-estimate inline-block flex-shrink-0"></span>
+                <span>Estimate / Max</span>
+              </div>
+              <div class="flex items-center gap-1.5 px-2 py-1 bg-slate-950/70 rounded-lg border border-slate-800">
+                <span class="w-2.5 h-2.5 rounded badge-ufa inline-block flex-shrink-0"></span>
+                <span>UFA (Free Agent)</span>
+              </div>
+              <div class="flex items-center gap-1.5 px-2 py-1 bg-slate-950/70 rounded-lg border border-slate-800">
+                <span class="w-2.5 h-2.5 rounded badge-rfa inline-block flex-shrink-0"></span>
+                <span>RFA</span>
+              </div>
+              <div class="flex items-center gap-1.5 px-2 py-1 bg-slate-950/70 rounded-lg border border-slate-800">
+                <i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400 flex-shrink-0"></i>
+                <span>Trade Restriction</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. NEW YORK KNICKS (Listed #3 by Odds: +850) -->
+    <section id="knicks" class="scroll-mt-20 space-y-6">
+      <!-- Team Header Banner -->
+      <div class="rounded-3xl bg-gradient-to-r from-blue-900/40 via-slate-900 to-orange-950/30 border border-blue-700/50 p-5 sm:p-7 shadow-2xl relative overflow-hidden">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="flex items-center space-x-4">
+            <div class="w-14 h-14 rounded-2xl bg-slate-900 border border-slate-700 flex items-center justify-center text-2xl font-black text-orange-400 shadow-xl">
+              NYK
+            </div>
+            <div>
+              <h2 class="text-xl sm:text-3xl font-black text-white tracking-tight">New York Knicks</h2>
+              <p class="text-xs sm:text-sm text-slate-400 mt-0.5 font-medium">Eastern Conference</p>
+            </div>
+          </div>
+
+          <div class="bg-slate-950/80 backdrop-blur px-3 py-1.5 rounded-xl border border-slate-800 self-start sm:self-auto text-right">
+            <div class="text-[10px] uppercase font-bold text-slate-400 leading-none">2027 Title Odds</div>
+            <div class="text-base sm:text-lg font-black text-amber-400 mt-1 leading-tight">+850</div>
+          </div>
+        </div>
+
+        <!-- ANALYTICAL OUTLIER PROFILE -->
+        <div class="mt-5 p-4 sm:p-5 rounded-2xl bg-slate-950/80 border border-slate-700/70 shadow-inner">
+          <div class="flex items-center gap-2 text-amber-400 text-xs font-black uppercase tracking-wider mb-1">
+            <i data-lucide="activity" class="w-4 h-4"></i> Analytical Outlier Profile
+          </div>
+          <h4 class="text-base sm:text-lg font-black text-white tracking-tight mb-3">
+            Controlled Halfcourt Execution and Second-Chance Dominance
+          </h4>
+          <ul class="space-y-2">
+            <li class="flex items-start gap-2.5 text-xs sm:text-sm text-slate-300">
+              <span class="text-base flex-shrink-0 leading-none pt-0.5">⬇️</span>
+              <div>
+                <strong class="text-amber-300 font-bold">Pace of Play (Bottom Outlier):</strong>
+                <span class="text-slate-300 ml-1">96.8 poss/48 min (27th in NBA). Deliberate tactical tempo maximizing Brunson-led halfcourt sets and eliminating opponent fast-break chances.</span>
+              </div>
+            </li>
+            <li class="flex items-start gap-2.5 text-xs sm:text-sm text-slate-300">
+              <span class="text-base flex-shrink-0 leading-none pt-0.5">⬆️</span>
+              <div>
+                <strong class="text-emerald-300 font-bold">Offensive Rebounding Rate (ORB%) (Top Outlier):</strong>
+                <span class="text-slate-300 ml-1">~27.0% ORB% (Top 3 in NBA). Towns and Robinson dominate the glass, converting missed shots into high-efficiency extra possessions.</span>
+              </div>
+            </li>
+            <li class="flex items-start gap-2.5 text-xs sm:text-sm text-slate-300">
+              <span class="text-base flex-shrink-0 leading-none pt-0.5">⬆️</span>
+              <div>
+                <strong class="text-emerald-300 font-bold">Turnover Percentage (TOV%) (Top Outlier):</strong>
+                <span class="text-slate-300 ml-1">11.5% TOV% (3rd Lowest in NBA). Elite ball security maximizing shot attempts per possession and protecting transition defense.</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Depth Chart -->
+      <div class="bg-slate-900/90 border border-slate-800 rounded-3xl p-4 sm:p-6 shadow-xl">
+        <div class="flex items-center space-x-2.5 pb-4 border-b border-slate-800">
+          <div class="p-2 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
+            <i data-lucide="layers" class="w-4 h-4"></i>
+          </div>
+          <div>
+            <h3 class="text-base sm:text-lg font-bold text-white">New York Knicks Depth Chart</h3>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto mt-4">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="text-[11px] uppercase tracking-wider text-slate-400 bg-slate-950/60 border-y border-slate-800">
+                <th class="py-2.5 px-4 font-semibold">POS</th>
+                <th class="py-2.5 px-4 font-semibold text-amber-400">STARTER</th>
+                <th class="py-2.5 px-4 font-semibold">2ND</th>
+                <th class="py-2.5 px-4 font-semibold">3RD</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800/50 text-xs sm:text-sm">
+              <tr class="hover:bg-slate-800/40 transition">
+                <td class="py-3 px-4 font-black text-amber-400 uppercase">PG</td>
+                <td class="py-3 px-4 font-bold text-white">Jalen Brunson</td>
+                <td class="py-3 px-4 text-slate-300">Miles McBride</td>
+                <td class="py-3 px-4 text-slate-400">Jose Alvarado</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40 transition">
+                <td class="py-3 px-4 font-black text-amber-400 uppercase">SG</td>
+                <td class="py-3 px-4 font-bold text-white">Josh Hart</td>
+                <td class="py-3 px-4 text-slate-300">Landry Shamet</td>
+                <td class="py-3 px-4 text-slate-400">Miles McBride</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40 transition">
+                <td class="py-3 px-4 font-black text-amber-400 uppercase">SF</td>
+                <td class="py-3 px-4 font-bold text-white">Mikal Bridges</td>
+                <td class="py-3 px-4 text-slate-300">Jordan Clarkson</td>
+                <td class="py-3 px-4 text-slate-400">Josh Hart</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40 transition">
+                <td class="py-3 px-4 font-black text-amber-400 uppercase">PF</td>
+                <td class="py-3 px-4 font-bold text-white">OG Anunoby</td>
+                <td class="py-3 px-4 text-slate-300">Karl-Anthony Towns</td>
+                <td class="py-3 px-4 text-slate-400">Mohamed Diawara</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40 transition">
+                <td class="py-3 px-4 font-black text-amber-400 uppercase">C</td>
+                <td class="py-3 px-4 font-bold text-white">Karl-Anthony Towns</td>
+                <td class="py-3 px-4 text-slate-300">Andre Drummond</td>
+                <td class="py-3 px-4 text-slate-400">Mohamed Diawara</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Salaries Table -->
+      <div class="bg-slate-900/90 border border-slate-800 rounded-3xl p-4 sm:p-6 shadow-xl">
+        <div class="flex items-center space-x-2.5 pb-4 border-b border-slate-800">
+          <div class="p-2 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+            <i data-lucide="wallet" class="w-4 h-4"></i>
+          </div>
+          <div>
+            <h3 class="text-base sm:text-lg font-bold text-white">New York Knicks Active Salaries</h3>
+            <p class="text-xs text-slate-400">2026-27 and 2027-28 Financial commitments (% Cap)</p>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto mt-4">
+          <table class="w-full text-left border-collapse min-w-[550px]">
+            <thead>
+              <tr class="text-[11px] uppercase tracking-wider text-slate-400 bg-slate-950/60 border-y border-slate-800">
+                <th class="py-3 px-4 font-semibold">PLAYER (13)</th>
+                <th class="py-3 px-2 text-center font-semibold">POS</th>
+                <th class="py-3 px-2 text-center font-semibold">AGE</th>
+                <th class="py-3 px-4 text-right font-semibold text-slate-200">2026-27</th>
+                <th class="py-3 px-4 text-right font-semibold text-slate-200">2027-28</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800/60 text-xs sm:text-sm">
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white flex items-center gap-1.5">Karl-Anthony Towns <span class="text-[9px] font-semibold bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded border border-blue-500/30">Ext. Elig.</span></td>
+                <td class="py-3 px-2 text-center text-slate-300">C</td>
+                <td class="py-3 px-2 text-center text-slate-400">31</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$57,078,728</div><div class="text-[10px] text-slate-400">34.6% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold badge-player-opt inline-block">$61,015,192</span><div class="text-[10px] text-slate-400 mt-0.5">35.1% cap • Player Option</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white flex items-center gap-1.5">OG Anunoby <span class="text-[9px] font-semibold bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded border border-blue-500/30">Ext. Elig.</span></td>
+                <td class="py-3 px-2 text-center text-slate-300">SF</td>
+                <td class="py-3 px-2 text-center text-slate-400">29</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$42,500,000</div><div class="text-[10px] text-slate-400">25.8% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold badge-player-opt inline-block">$45,431,034</span><div class="text-[10px] text-slate-400 mt-0.5">26.1% cap • Player Option</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white flex items-center gap-1.5">Jalen Brunson <span class="text-[9px] font-semibold bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded border border-blue-500/30">Ext. Elig.</span></td>
+                <td class="py-3 px-2 text-center text-slate-300">PG</td>
+                <td class="py-3 px-2 text-center text-slate-400">30</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$37,739,521</div><div class="text-[10px] text-slate-400">22.9% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-200 border border-slate-700 inline-block">$40,535,041</span><div class="text-[10px] text-slate-400 mt-0.5">23.3% cap</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white">Mikal Bridges</td>
+                <td class="py-3 px-2 text-center text-slate-300">SF</td>
+                <td class="py-3 px-2 text-center text-slate-400">30</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$33,482,145</div><div class="text-[10px] text-slate-400">20.3% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-200 border border-slate-700 inline-block">$36,160,714</span><div class="text-[10px] text-slate-400 mt-0.5">20.8% cap</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white flex items-center gap-1.5">Josh Hart <span class="text-[9px] font-semibold bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded border border-blue-500/30">Ext. Elig.</span></td>
+                <td class="py-3 px-2 text-center text-slate-300">SG</td>
+                <td class="py-3 px-2 text-center text-slate-400">31</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$20,923,760</div><div class="text-[10px] text-slate-400">12.7% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold badge-team-opt inline-block">$22,375,280</span><div class="text-[10px] text-slate-400 mt-0.5">12.9% cap • Team Option</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white flex items-center gap-1.5">Landry Shamet <i data-lucide="lock" class="w-3 h-3 text-slate-400"></i></td>
+                <td class="py-3 px-2 text-center text-slate-300">SG</td>
+                <td class="py-3 px-2 text-center text-slate-400">29</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$5,490,967</div><div class="text-[10px] text-slate-400">3.3% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-200 border border-slate-700 inline-block">$5,737,500</span><div class="text-[10px] text-slate-400 mt-0.5">3.3% cap</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white flex items-center gap-1.5">Jose Alvarado <i data-lucide="lock" class="w-3 h-3 text-slate-400"></i></td>
+                <td class="py-3 px-2 text-center text-slate-300">PG</td>
+                <td class="py-3 px-2 text-center text-slate-400">28</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$4,439,656</div><div class="text-[10px] text-slate-400">2.7% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-200 border border-slate-700 inline-block">$4,794,828</span><div class="text-[10px] text-slate-400 mt-0.5">2.8% cap</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white flex items-center gap-1.5">Miles McBride <span class="text-[9px] font-semibold bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded border border-blue-500/30">Ext. Elig.</span></td>
+                <td class="py-3 px-2 text-center text-slate-300">PG</td>
+                <td class="py-3 px-2 text-center text-slate-400">26</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$3,956,523</div><div class="text-[10px] text-slate-400">2.4% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold badge-ufa inline-block">UFA / $7.5M</span><div class="text-[10px] text-slate-400 mt-0.5">4.3% cap • UFA</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white flex items-center gap-1.5">Pacome Dadiet <span class="text-[9px] font-semibold bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded border border-blue-500/30">Ext. Elig.</span></td>
+                <td class="py-3 px-2 text-center text-slate-300">SG</td>
+                <td class="py-3 px-2 text-center text-slate-400">21</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$2,983,680</div><div class="text-[10px] text-slate-400">1.8% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold badge-team-opt inline-block">$5,373,608</span><div class="text-[10px] text-slate-400 mt-0.5">3.1% cap • Team Option</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white flex items-center gap-1.5">Mohamed Diawara <i data-lucide="lock" class="w-3 h-3 text-slate-400"></i></td>
+                <td class="py-3 px-2 text-center text-slate-300">PF</td>
+                <td class="py-3 px-2 text-center text-slate-400">21</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$2,622,139</div><div class="text-[10px] text-slate-400">1.6% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-200 border border-slate-700 inline-block">$2,753,246</span><div class="text-[10px] text-slate-400 mt-0.5">1.6% cap</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white flex items-center gap-1.5">Andre Drummond <i data-lucide="lock" class="w-3 h-3 text-slate-400"></i></td>
+                <td class="py-3 px-2 text-center text-slate-300">C</td>
+                <td class="py-3 px-2 text-center text-slate-400">33</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$2,449,421</div><div class="text-[10px] text-slate-400">1.5% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold badge-ufa inline-block">UFA / $2.6M</span><div class="text-[10px] text-slate-400 mt-0.5">1.5% cap • UFA</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white flex items-center gap-1.5">Jordan Clarkson <i data-lucide="lock" class="w-3 h-3 text-slate-400"></i></td>
+                <td class="py-3 px-2 text-center text-slate-300">SG</td>
+                <td class="py-3 px-2 text-center text-slate-400">34</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$2,449,421</div><div class="text-[10px] text-slate-400">1.5% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold badge-ufa inline-block">UFA / $2.6M</span><div class="text-[10px] text-slate-400 mt-0.5">1.5% cap • UFA</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white flex items-center gap-1.5">Tyler Kolek <span class="text-[9px] font-semibold bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded border border-blue-500/30">Ext. Elig.</span></td>
+                <td class="py-3 px-2 text-center text-slate-300">PG</td>
+                <td class="py-3 px-2 text-center text-slate-400">25</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$2,296,271</div><div class="text-[10px] text-slate-400">1.4% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold badge-team-opt inline-block">$2,486,995</span><div class="text-[10px] text-slate-400 mt-0.5">1.4% cap • Team Option</div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Salary Contract Legend & Status Indicators -->
+        <div class="mt-5 pt-4 border-t border-slate-800/80">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-[11px] text-slate-400">
+            <div class="font-bold text-slate-300 flex items-center gap-1.5 flex-shrink-0">
+              <i data-lucide="info" class="w-3.5 h-3.5 text-amber-400"></i> Contract Legend:
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:flex md:flex-wrap items-center gap-2">
+              <div class="flex items-center gap-1.5 px-2 py-1 bg-slate-950/70 rounded-lg border border-slate-800">
+                <span class="w-2.5 h-2.5 rounded badge-player-opt inline-block flex-shrink-0"></span>
+                <span>Player Option</span>
+              </div>
+              <div class="flex items-center gap-1.5 px-2 py-1 bg-slate-950/70 rounded-lg border border-slate-800">
+                <span class="w-2.5 h-2.5 rounded badge-team-opt inline-block flex-shrink-0"></span>
+                <span>Team Option</span>
+              </div>
+              <div class="flex items-center gap-1.5 px-2 py-1 bg-slate-950/70 rounded-lg border border-slate-800">
+                <span class="w-2.5 h-2.5 rounded badge-estimate inline-block flex-shrink-0"></span>
+                <span>Estimate / Max</span>
+              </div>
+              <div class="flex items-center gap-1.5 px-2 py-1 bg-slate-950/70 rounded-lg border border-slate-800">
+                <span class="w-2.5 h-2.5 rounded badge-ufa inline-block flex-shrink-0"></span>
+                <span>UFA (Free Agent)</span>
+              </div>
+              <div class="flex items-center gap-1.5 px-2 py-1 bg-slate-950/70 rounded-lg border border-slate-800">
+                <span class="w-2.5 h-2.5 rounded badge-rfa inline-block flex-shrink-0"></span>
+                <span>RFA</span>
+              </div>
+              <div class="flex items-center gap-1.5 px-2 py-1 bg-slate-950/70 rounded-lg border border-slate-800">
+                <i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400 flex-shrink-0"></i>
+                <span>Trade Restriction</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. PHILADELPHIA 76ERS (Listed #4 by Odds: +900) -->
+    <section id="sixers" class="scroll-mt-20 space-y-6">
+      <!-- Team Header Banner -->
+      <div class="rounded-3xl bg-gradient-to-r from-red-950/40 via-slate-900 to-blue-950/30 border border-red-700/50 p-5 sm:p-7 shadow-2xl relative overflow-hidden">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="flex items-center space-x-4">
+            <div class="w-14 h-14 rounded-2xl bg-slate-900 border border-slate-700 flex items-center justify-center text-2xl font-black text-red-400 shadow-xl">
+              PHI
+            </div>
+            <div>
+              <h2 class="text-xl sm:text-3xl font-black text-white tracking-tight">Philadelphia 76ers</h2>
+              <p class="text-xs sm:text-sm text-slate-400 mt-0.5 font-medium">Eastern Conference</p>
+            </div>
+          </div>
+
+          <div class="bg-slate-950/80 backdrop-blur px-3 py-1.5 rounded-xl border border-slate-800 self-start sm:self-auto text-right">
+            <div class="text-[10px] uppercase font-bold text-slate-400 leading-none">2027 Title Odds</div>
+            <div class="text-base sm:text-lg font-black text-amber-400 mt-1 leading-tight">+900</div>
+          </div>
+        </div>
+
+        <!-- ANALYTICAL OUTLIER PROFILE -->
+        <div class="mt-5 p-4 sm:p-5 rounded-2xl bg-slate-950/80 border border-slate-700/70 shadow-inner">
+          <div class="flex items-center gap-2 text-amber-400 text-xs font-black uppercase tracking-wider mb-1">
+            <i data-lucide="activity" class="w-4 h-4"></i> Analytical Outlier Profile
+          </div>
+          <h4 class="text-base sm:text-lg font-black text-white tracking-tight mb-3">
+            High-Foul Generation vs. Halfcourt Playmaking Deficits
+          </h4>
+          <ul class="space-y-2">
+            <li class="flex items-start gap-2.5 text-xs sm:text-sm text-slate-300">
+              <span class="text-base flex-shrink-0 leading-none pt-0.5">⬆️</span>
+              <div>
+                <strong class="text-emerald-300 font-bold">Free Throw Rate (FTr) / Foul Generation (Top Outlier):</strong>
+                <span class="text-slate-300 ml-1">Top 5 in NBA. Relentless rim attacks from Maxey (28.3 PPG) and Embiid consistently draw contact to generate efficient scoring at the stripe.</span>
+              </div>
+            </li>
+            <li class="flex items-start gap-2.5 text-xs sm:text-sm text-slate-300">
+              <span class="text-base flex-shrink-0 leading-none pt-0.5">⬇️</span>
+              <div>
+                <strong class="text-amber-300 font-bold">Assist Percentage (AST%) & Movement (Bottom Outlier):</strong>
+                <span class="text-slate-300 ml-1">Bottom 8 in NBA. High isolation reliance and low ball movement create scoring droughts, which adding LeBron James directly addresses.</span>
+              </div>
+            </li>
+            <li class="flex items-start gap-2.5 text-xs sm:text-sm text-slate-300">
+              <span class="text-base flex-shrink-0 leading-none pt-0.5">⬇️</span>
+              <div>
+                <strong class="text-amber-300 font-bold">Defensive Rating (DRtg) Exposure (Bottom Outlier):</strong>
+                <span class="text-slate-300 ml-1">115.58 DRtg (19th in NBA). Perimeter penetration breakdowns expose backline defense; projected to improve to Top 8 with LeBron & Edgecombe.</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Depth Chart -->
+      <div class="bg-slate-900/90 border border-slate-800 rounded-3xl p-4 sm:p-6 shadow-xl">
+        <div class="flex items-center space-x-2.5 pb-4 border-b border-slate-800">
+          <div class="p-2 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
+            <i data-lucide="layers" class="w-4 h-4"></i>
+          </div>
+          <div>
+            <h3 class="text-base sm:text-lg font-bold text-white">Philadelphia 76ers Depth Chart</h3>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto mt-4">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="text-[11px] uppercase tracking-wider text-slate-400 bg-slate-950/60 border-y border-slate-800">
+                <th class="py-2.5 px-4 font-semibold">POS</th>
+                <th class="py-2.5 px-4 font-semibold text-amber-400">STARTER</th>
+                <th class="py-2.5 px-4 font-semibold">2ND</th>
+                <th class="py-2.5 px-4 font-semibold">3RD</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800/50 text-xs sm:text-sm">
+              <tr class="hover:bg-slate-800/40 transition">
+                <td class="py-3 px-4 font-black text-amber-400 uppercase">PG</td>
+                <td class="py-3 px-4 font-bold text-white">Tyrese Maxey</td>
+                <td class="py-3 px-4 text-slate-300">Labaron Philon Jr.</td>
+                <td class="py-3 px-4 text-slate-400">Anfernee Simons</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40 transition">
+                <td class="py-3 px-4 font-black text-amber-400 uppercase">SG</td>
+                <td class="py-3 px-4 font-bold text-white">VJ Edgecombe</td>
+                <td class="py-3 px-4 text-slate-300">Anfernee Simons</td>
+                <td class="py-3 px-4 text-slate-400">Kentavious Caldwell-Pope</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40 transition">
+                <td class="py-3 px-4 font-black text-amber-400 uppercase">SF</td>
+                <td class="py-3 px-4 font-bold text-white">Jaylen Brown</td>
+                <td class="py-3 px-4 text-slate-300">Kentavious Caldwell-Pope</td>
+                <td class="py-3 px-4 text-slate-400">Justin Edwards</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40 transition">
+                <td class="py-3 px-4 font-black text-amber-400 uppercase">PF</td>
+                <td class="py-3 px-4 font-bold text-white">LeBron James</td>
+                <td class="py-3 px-4 text-slate-300">Dean Wade</td>
+                <td class="py-3 px-4 text-slate-400">Dominick Barlow</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40 transition">
+                <td class="py-3 px-4 font-black text-amber-400 uppercase">C</td>
+                <td class="py-3 px-4 font-bold text-white">Joel Embiid</td>
+                <td class="py-3 px-4 text-slate-300">Adem Bona</td>
+                <td class="py-3 px-4 text-slate-400">Ariel Hukporti</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Salaries Table -->
+      <div class="bg-slate-900/90 border border-slate-800 rounded-3xl p-4 sm:p-6 shadow-xl">
+        <div class="flex items-center space-x-2.5 pb-4 border-b border-slate-800">
+          <div class="p-2 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+            <i data-lucide="wallet" class="w-4 h-4"></i>
+          </div>
+          <div>
+            <h3 class="text-base sm:text-lg font-bold text-white">Philadelphia 76ers Active Salaries</h3>
+            <p class="text-xs text-slate-400">2026-27 and 2027-28 Financial commitments (% Cap)</p>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto mt-4">
+          <table class="w-full text-left border-collapse min-w-[550px]">
+            <thead>
+              <tr class="text-[11px] uppercase tracking-wider text-slate-400 bg-slate-950/60 border-y border-slate-800">
+                <th class="py-3 px-4 font-semibold">PLAYER (17)</th>
+                <th class="py-3 px-2 text-center font-semibold">POS</th>
+                <th class="py-3 px-2 text-center font-semibold">AGE</th>
+                <th class="py-3 px-4 text-right font-semibold text-slate-200">2026-27</th>
+                <th class="py-3 px-4 text-right font-semibold text-slate-200">2027-28</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800/60 text-xs sm:text-sm">
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white flex items-center gap-1.5">Joel Embiid <span class="text-[9px] font-semibold bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded border border-blue-500/30">Ext. Elig.</span></td>
+                <td class="py-3 px-2 text-center text-slate-300">C</td>
+                <td class="py-3 px-2 text-center text-slate-400">32</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$57,985,752</div><div class="text-[10px] text-slate-400">35.2% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold badge-player-opt inline-block">$62,624,612</span><div class="text-[10px] text-slate-400 mt-0.5">36.0% cap • Player Option</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white flex items-center gap-1.5">Jaylen Brown <i data-lucide="lock" class="w-3 h-3 text-slate-400"></i><span class="text-[9px] font-semibold bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded border border-blue-500/30">Ext. Elig.</span></td>
+                <td class="py-3 px-2 text-center text-slate-300">SF</td>
+                <td class="py-3 px-2 text-center text-slate-400">30</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$57,736,350</div><div class="text-[10px] text-slate-400">35.0% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-200 border border-slate-700 inline-block">$61,672,814</span><div class="text-[10px] text-slate-400 mt-0.5">35.4% cap</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white flex items-center gap-1.5">Tyrese Maxey <span class="text-[9px] font-semibold bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded border border-blue-500/30">Ext. Elig.</span></td>
+                <td class="py-3 px-2 text-center text-slate-300">PG</td>
+                <td class="py-3 px-2 text-center text-slate-400">26</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$40,770,520</div><div class="text-[10px] text-slate-400">24.7% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-200 border border-slate-700 inline-block">$43,582,280</span><div class="text-[10px] text-slate-400 mt-0.5">25.0% cap</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white">VJ Edgecombe</td>
+                <td class="py-3 px-2 text-center text-slate-300">SG</td>
+                <td class="py-3 px-2 text-center text-slate-400">21</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$11,663,880</div><div class="text-[10px] text-slate-400">7.1% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold badge-team-opt inline-block">$12,219,840</span><div class="text-[10px] text-slate-400 mt-0.5">7.0% cap • Team Option</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white flex items-center gap-1.5">Dean Wade <i data-lucide="lock" class="w-3 h-3 text-slate-400"></i></td>
+                <td class="py-3 px-2 text-center text-slate-300">PF</td>
+                <td class="py-3 px-2 text-center text-slate-400">30</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$9,000,000</div><div class="text-[10px] text-slate-400">5.5% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-200 border border-slate-700 inline-block">$9,450,000</span><div class="text-[10px] text-slate-400 mt-0.5">5.4% cap</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white flex items-center gap-1.5">Anfernee Simons <i data-lucide="lock" class="w-3 h-3 text-slate-400"></i></td>
+                <td class="py-3 px-2 text-center text-slate-300">SG</td>
+                <td class="py-3 px-2 text-center text-slate-400">27</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$6,000,000</div><div class="text-[10px] text-slate-400">3.6% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold badge-player-opt inline-block">$6,300,000</span><div class="text-[10px] text-slate-400 mt-0.5">3.6% cap • Player Option</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white flex items-center gap-1.5">LeBron James <i data-lucide="lock" class="w-3 h-3 text-slate-400"></i></td>
+                <td class="py-3 px-2 text-center text-slate-300">PF</td>
+                <td class="py-3 px-2 text-center text-slate-400">42</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$3,876,529</div><div class="text-[10px] text-slate-400">2.4% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold badge-player-opt inline-block">$4,070,355</span><div class="text-[10px] text-slate-400 mt-0.5">2.3% cap • Player Option</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white">Labaron Philon Jr.</td>
+                <td class="py-3 px-2 text-center text-slate-300">PG</td>
+                <td class="py-3 px-2 text-center text-slate-400">21</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$3,597,120</div><div class="text-[10px] text-slate-400">2.2% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-200 border border-slate-700 inline-block">$3,776,760</span><div class="text-[10px] text-slate-400 mt-0.5">2.2% cap</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white">Dominick Barlow</td>
+                <td class="py-3 px-2 text-center text-slate-300">PF</td>
+                <td class="py-3 px-2 text-center text-slate-400">23</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$3,415,000</div><div class="text-[10px] text-slate-400">2.1% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold badge-ufa inline-block">UFA / $4.4M</span><div class="text-[10px] text-slate-400 mt-0.5">2.5% cap • UFA</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white flex items-center gap-1.5">Ariel Hukporti <i data-lucide="lock" class="w-3 h-3 text-slate-400"></i></td>
+                <td class="py-3 px-2 text-center text-slate-300">C</td>
+                <td class="py-3 px-2 text-center text-slate-400">24</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$3,400,000</div><div class="text-[10px] text-slate-400">2.1% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold badge-ufa inline-block">UFA / $4.1M</span><div class="text-[10px] text-slate-400 mt-0.5">2.3% cap • UFA</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white">Jabari Walker</td>
+                <td class="py-3 px-2 text-center text-slate-300">SF</td>
+                <td class="py-3 px-2 text-center text-slate-400">24</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$2,584,539</div><div class="text-[10px] text-slate-400">1.6% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold badge-ufa inline-block">UFA / $2.6M</span><div class="text-[10px] text-slate-400 mt-0.5">1.5% cap • UFA</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white flex items-center gap-1.5">Kentavious Caldwell-Pope <i data-lucide="lock" class="w-3 h-3 text-slate-400"></i></td>
+                <td class="py-3 px-2 text-center text-slate-300">SG</td>
+                <td class="py-3 px-2 text-center text-slate-400">33</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$2,449,421</div><div class="text-[10px] text-slate-400">1.5% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold badge-ufa inline-block">UFA / $2.6M</span><div class="text-[10px] text-slate-400 mt-0.5">1.5% cap • UFA</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white flex items-center gap-1.5">Justin Edwards <span class="text-[9px] font-semibold bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded border border-blue-500/30">Ext. Elig.</span></td>
+                <td class="py-3 px-2 text-center text-slate-300">SG</td>
+                <td class="py-3 px-2 text-center text-slate-400">23</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$2,411,090</div><div class="text-[10px] text-slate-400">1.5% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold badge-team-opt inline-block">$2,616,754</span><div class="text-[10px] text-slate-400 mt-0.5">1.5% cap • Team Option</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white flex items-center gap-1.5">Adem Bona <span class="text-[9px] font-semibold bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded border border-blue-500/30">Ext. Elig.</span></td>
+                <td class="py-3 px-2 text-center text-slate-300">C</td>
+                <td class="py-3 px-2 text-center text-slate-400">23</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$2,296,271</div><div class="text-[10px] text-slate-400">1.4% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold badge-team-opt inline-block">$2,486,995</span><div class="text-[10px] text-slate-400 mt-0.5">1.4% cap • Team Option</div></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-slate-400">Rayan Rupert</td>
+                <td class="py-3 px-2 text-center text-slate-400">SG</td>
+                <td class="py-3 px-2 text-center text-slate-400">22</td>
+                <td class="py-3 px-4 text-right"><span class="text-xs text-slate-400 font-mono">Two-Way</span></td>
+                <td class="py-3 px-4 text-right"><span class="text-xs text-slate-500 font-mono">-</span></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-slate-400">Caleb Love</td>
+                <td class="py-3 px-2 text-center text-slate-400">G</td>
+                <td class="py-3 px-2 text-center text-slate-400">25</td>
+                <td class="py-3 px-4 text-right"><span class="text-xs text-slate-400 font-mono">Two-Way</span></td>
+                <td class="py-3 px-4 text-right"><span class="text-xs text-slate-500 font-mono">-</span></td>
+              </tr>
+              <tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-4 font-bold text-white flex items-center gap-1.5">Duke Miles <i data-lucide="lock" class="w-3 h-3 text-slate-400"></i></td>
+                <td class="py-3 px-2 text-center text-slate-300">G</td>
+                <td class="py-3 px-2 text-center text-slate-400">24</td>
+                <td class="py-3 px-4 text-right"><div class="font-semibold">$0</div><div class="text-[10px] text-slate-400">0% cap</div></td>
+                <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold badge-rfa inline-block">RFA / $2.5M</span><div class="text-[10px] text-slate-400 mt-0.5">1.4% cap • RFA</div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Salary Contract Legend & Status Indicators -->
+        <div class="mt-5 pt-4 border-t border-slate-800/80">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-[11px] text-slate-400">
+            <div class="font-bold text-slate-300 flex items-center gap-1.5 flex-shrink-0">
+              <i data-lucide="info" class="w-3.5 h-3.5 text-amber-400"></i> Contract Legend:
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:flex md:flex-wrap items-center gap-2">
+              <div class="flex items-center gap-1.5 px-2 py-1 bg-slate-950/70 rounded-lg border border-slate-800">
+                <span class="w-2.5 h-2.5 rounded badge-player-opt inline-block flex-shrink-0"></span>
+                <span>Player Option</span>
+              </div>
+              <div class="flex items-center gap-1.5 px-2 py-1 bg-slate-950/70 rounded-lg border border-slate-800">
+                <span class="w-2.5 h-2.5 rounded badge-team-opt inline-block flex-shrink-0"></span>
+                <span>Team Option</span>
+              </div>
+              <div class="flex items-center gap-1.5 px-2 py-1 bg-slate-950/70 rounded-lg border border-slate-800">
+                <span class="w-2.5 h-2.5 rounded badge-estimate inline-block flex-shrink-0"></span>
+                <span>Estimate / Max</span>
+              </div>
+              <div class="flex items-center gap-1.5 px-2 py-1 bg-slate-950/70 rounded-lg border border-slate-800">
+                <span class="w-2.5 h-2.5 rounded badge-ufa inline-block flex-shrink-0"></span>
+                <span>UFA (Free Agent)</span>
+              </div>
+              <div class="flex items-center gap-1.5 px-2 py-1 bg-slate-950/70 rounded-lg border border-slate-800">
+                <span class="w-2.5 h-2.5 rounded badge-rfa inline-block flex-shrink-0"></span>
+                <span>RFA</span>
+              </div>
+              <div class="flex items-center gap-1.5 px-2 py-1 bg-slate-950/70 rounded-lg border border-slate-800">
+                <i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400 flex-shrink-0"></i>
+                <span>Trade Restriction</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contract Status Guide / Legend Section -->
+    <footer class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-5 text-xs text-slate-400">
+      <h4 class="font-bold text-slate-200 text-sm mb-3 flex items-center gap-2">
+        <i data-lucide="info" class="w-4 h-4 text-amber-400"></i> Salary Contract Legend & Status Indicators
+      </h4>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2 text-[11px]">
+        <div class="flex items-center gap-1.5 p-2 bg-slate-950/60 rounded-lg border border-slate-800">
+          <span class="w-3 h-3 rounded badge-player-opt inline-block flex-shrink-0"></span>
+          <span>Player Option</span>
+        </div>
+        <div class="flex items-center gap-1.5 p-2 bg-slate-950/60 rounded-lg border border-slate-800">
+          <span class="w-3 h-3 rounded badge-team-opt inline-block flex-shrink-0"></span>
+          <span>Team Option</span>
+        </div>
+        <div class="flex items-center gap-1.5 p-2 bg-slate-950/60 rounded-lg border border-slate-800">
+          <span class="w-3 h-3 rounded badge-estimate inline-block flex-shrink-0"></span>
+          <span>Estimate / Max</span>
+        </div>
+        <div class="flex items-center gap-1.5 p-2 bg-slate-950/60 rounded-lg border border-slate-800">
+          <span class="w-3 h-3 rounded badge-ufa inline-block flex-shrink-0"></span>
+          <span>UFA (Free Agent)</span>
+        </div>
+        <div class="flex items-center gap-1.5 p-2 bg-slate-950/60 rounded-lg border border-slate-800">
+          <span class="w-3 h-3 rounded badge-rfa inline-block flex-shrink-0"></span>
+          <span>RFA</span>
+        </div>
+        <div class="flex items-center gap-1.5 p-2 bg-slate-950/60 rounded-lg border border-slate-800">
+          <i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400 flex-shrink-0"></i>
+          <span>Trade Restriction</span>
+        </div>
+      </div>
+      <p class="mt-4 text-[11px] text-slate-500 text-center">
+        Data snapshot compiled Aug 30, 2026. Cap % calculated based on 2026-27 and projected 2027-28 NBA salary thresholds.
+      </p>
+    </footer>
+
+  </main>
+
+  <script>
+    // Initialize Lucide Icons & Active Nav ScrollSpy
+    window.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      initScrollSpy();
+    });
+
+    function initScrollSpy() {
+      const sections = ['odds', 'okc', 'spurs', 'knicks', 'sixers']
+        .map(id => document.getElementById(id))
+        .filter(Boolean);
+      const navLinks = Array.from(document.querySelectorAll('header nav a'));
+
+      const activeClasses = ['bg-amber-500', 'text-black', 'hover:bg-amber-400', 'border-amber-400', 'shadow'];
+      const inactiveClasses = ['bg-slate-800', 'text-slate-300', 'hover:text-white', 'hover:bg-slate-700', 'border-slate-700/70'];
+
+      function updateActiveNav() {
+        const scrollY = window.scrollY || window.pageYOffset;
+        const offset = 180;
+        let currentId = sections[0] ? sections[0].id : 'odds';
+
+        for (let i = 0; i < sections.length; i++) {
+          const section = sections[i];
+          const top = section.getBoundingClientRect().top + scrollY;
+          if (scrollY >= top - offset) {
+            currentId = section.id;
+          }
+        }
+
+        // Activate last section if near the bottom of the page
+        if ((window.innerHeight + scrollY) >= document.documentElement.scrollHeight - 50) {
+          if (sections.length > 0) {
+            currentId = sections[sections.length - 1].id;
+          }
+        }
+
+        navLinks.forEach(link => {
+          const href = link.getAttribute('href');
+          const targetId = href ? href.replace('#', '') : '';
+          
+          if (targetId === currentId) {
+            inactiveClasses.forEach(c => link.classList.remove(c));
+            activeClasses.forEach(c => link.classList.add(c));
+          } else {
+            activeClasses.forEach(c => link.classList.remove(c));
+            inactiveClasses.forEach(c => link.classList.add(c));
+          }
+        });
+      }
+
+      window.addEventListener('scroll', updateActiveNav, { passive: true });
+      window.addEventListener('resize', updateActiveNav, { passive: true });
+      window.addEventListener('hashchange', updateActiveNav, { passive: true });
+      updateActiveNav();
+    }
+  </script>
+</body>
+</html>
