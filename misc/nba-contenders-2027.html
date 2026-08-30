@@ -51,6 +51,26 @@
     .badge-ufa { background-color: #1e40af; color: #93c5fd; border: 1px solid #3b82f6; }
     .badge-rfa { background-color: #831843; color: #fbcfe8; border: 1px solid #ec4899; }
     .badge-estimate { background-color: #6b21a8; color: #e9d5ff; border: 1px solid #a855f7; }
+    /* Sticky first column (Player Name) for Salary Tables */
+    .salary-table th:first-child {
+      position: sticky;
+      left: 0;
+      z-index: 20;
+      background-color: #0b0f17;
+      box-shadow: 3px 0 6px -2px rgba(0, 0, 0, 0.6);
+      white-space: nowrap;
+    }
+    .salary-table td:first-child {
+      position: sticky;
+      left: 0;
+      z-index: 10;
+      background-color: #0f172a;
+      box-shadow: 3px 0 6px -2px rgba(0, 0, 0, 0.6);
+      white-space: nowrap;
+    }
+    .salary-table tr:hover td:first-child {
+      background-color: #1e293b;
+    }
   </style>
 </head>
 <body class="bg-[#0B0F17] text-slate-100 min-h-screen font-sans antialiased selection:bg-amber-500 selection:text-black">
@@ -296,7 +316,7 @@
         </div>
 
         <div class="overflow-x-auto mt-4">
-          <table class="w-full text-left border-collapse min-w-[550px]">
+          <table class="salary-table w-full text-left border-collapse min-w-[550px]">
             <thead>
               <tr class="text-[11px] uppercase tracking-wider text-slate-400 bg-slate-950/60 border-y border-slate-800">
                 <th class="py-3 px-4 font-semibold">PLAYER (14)</th>
@@ -571,7 +591,7 @@
         </div>
 
         <div class="overflow-x-auto mt-4">
-          <table class="w-full text-left border-collapse min-w-[550px]">
+          <table class="salary-table w-full text-left border-collapse min-w-[550px]">
             <thead>
               <tr class="text-[11px] uppercase tracking-wider text-slate-400 bg-slate-950/60 border-y border-slate-800">
                 <th class="py-3 px-4 font-semibold">PLAYER (14)</th>
@@ -846,7 +866,7 @@
         </div>
 
         <div class="overflow-x-auto mt-4">
-          <table class="w-full text-left border-collapse min-w-[550px]">
+          <table class="salary-table w-full text-left border-collapse min-w-[550px]">
             <thead>
               <tr class="text-[11px] uppercase tracking-wider text-slate-400 bg-slate-950/60 border-y border-slate-800">
                 <th class="py-3 px-4 font-semibold">PLAYER (13)</th>
@@ -1114,7 +1134,7 @@
         </div>
 
         <div class="overflow-x-auto mt-4">
-          <table class="w-full text-left border-collapse min-w-[550px]">
+          <table class="salary-table w-full text-left border-collapse min-w-[550px]">
             <thead>
               <tr class="text-[11px] uppercase tracking-wider text-slate-400 bg-slate-950/60 border-y border-slate-800">
                 <th class="py-3 px-4 font-semibold">PLAYER (17)</th>
