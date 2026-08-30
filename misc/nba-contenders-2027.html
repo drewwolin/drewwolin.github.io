@@ -52,6 +52,10 @@
     .badge-rfa { background-color: #831843; color: #fbcfe8; border: 1px solid #ec4899; }
     .badge-estimate { background-color: #6b21a8; color: #e9d5ff; border: 1px solid #a855f7; }
     /* Sticky first column (Player Name) for Salary Tables */
+    .salary-table {
+      border-collapse: separate !important;
+      border-spacing: 0 !important;
+    }
     .salary-table th:first-child {
       position: sticky;
       left: 0;
@@ -70,6 +74,9 @@
     }
     .salary-table tr:hover td:first-child {
       background-color: #1e293b;
+    }
+    .salary-table th, .salary-table td {
+      border-bottom: 1px solid rgba(51, 65, 85, 0.4);
     }
   </style>
 </head>
@@ -328,98 +335,98 @@
             </thead>
             <tbody class="divide-y divide-slate-800/60 text-xs sm:text-sm">
               <tr class="hover:bg-slate-800/50">
-                <td class="py-3 px-4 font-bold text-white">Jalen Williams</td>
+                <td class="py-3 px-4 font-bold text-white"><div class="flex items-center gap-1.5"><span>Jalen Williams</span></div></td>
                 <td class="py-3 px-2 text-center text-slate-300">SF</td>
                 <td class="py-3 px-2 text-center text-slate-400">25</td>
                 <td class="py-3 px-4 text-right"><div class="font-semibold">$41,240,250</div><div class="text-[10px] text-slate-400">25.0% cap</div></td>
                 <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-200 border border-slate-700 inline-block">$44,539,470</span><div class="text-[10px] text-slate-400 mt-0.5">25.6% cap</div></td>
               </tr>
               <tr class="hover:bg-slate-800/50">
-                <td class="py-3 px-4 font-bold text-white">Chet Holmgren</td>
+                <td class="py-3 px-4 font-bold text-white"><div class="flex items-center gap-1.5"><span>Chet Holmgren</span></div></td>
                 <td class="py-3 px-2 text-center text-slate-300">C</td>
                 <td class="py-3 px-2 text-center text-slate-400">24</td>
                 <td class="py-3 px-4 text-right"><div class="font-semibold">$41,240,250</div><div class="text-[10px] text-slate-400">25.0% cap</div></td>
                 <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-200 border border-slate-700 inline-block">$44,539,470</span><div class="text-[10px] text-slate-400 mt-0.5">25.6% cap</div></td>
               </tr>
               <tr class="hover:bg-slate-800/50">
-                <td class="py-3 px-4 font-bold text-white">Shai Gilgeous-Alexander</td>
+                <td class="py-3 px-4 font-bold text-white"><div class="flex items-center gap-1.5"><span>Shai Gilgeous-Alexander</span></div></td>
                 <td class="py-3 px-2 text-center text-slate-300">PG</td>
                 <td class="py-3 px-2 text-center text-slate-400">28</td>
                 <td class="py-3 px-4 text-right"><div class="font-semibold">$40,806,150</div><div class="text-[10px] text-slate-400">24.7% cap</div></td>
                 <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold badge-estimate inline-block">$60,637,500</span><div class="text-[10px] text-slate-400 mt-0.5">34.8% cap • Estimate</div></td>
               </tr>
               <tr class="hover:bg-slate-800/50">
-                <td class="py-3 px-4 font-bold text-white flex items-center gap-1.5">Isaiah Hartenstein <i data-lucide="lock" class="w-3 h-3 text-slate-400"></i></td>
+                <td class="py-3 px-4 font-bold text-white"><div class="flex items-center gap-1.5"><span>Isaiah Hartenstein</span> <i data-lucide="lock" class="w-3 h-3 text-slate-400"></i></div></td>
                 <td class="py-3 px-2 text-center text-slate-300">C</td>
                 <td class="py-3 px-2 text-center text-slate-400">28</td>
                 <td class="py-3 px-4 text-right"><div class="font-semibold">$23,148,148</div><div class="text-[10px] text-slate-400">14.0% cap</div></td>
                 <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-200 border border-slate-700 inline-block">$25,000,000</span><div class="text-[10px] text-slate-400 mt-0.5">14.4% cap</div></td>
               </tr>
               <tr class="hover:bg-slate-800/50">
-                <td class="py-3 px-4 font-bold text-white flex items-center gap-1.5">Alex Caruso <span class="text-[9px] font-semibold bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded border border-blue-500/30">Ext. Elig.</span></td>
+                <td class="py-3 px-4 font-bold text-white"><div class="flex items-center gap-1.5"><span>Alex Caruso</span> <span class="text-[9px] font-semibold bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded border border-blue-500/30">Ext. Elig.</span></div></td>
                 <td class="py-3 px-2 text-center text-slate-300">SG</td>
                 <td class="py-3 px-2 text-center text-slate-400">32</td>
                 <td class="py-3 px-4 text-right"><div class="font-semibold">$19,550,160</div><div class="text-[10px] text-slate-400">11.9% cap</div></td>
                 <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-200 border border-slate-700 inline-block">$20,998,320</span><div class="text-[10px] text-slate-400 mt-0.5">12.1% cap</div></td>
               </tr>
               <tr class="hover:bg-slate-800/50">
-                <td class="py-3 px-4 font-bold text-white flex items-center gap-1.5">Jaylin Williams <span class="text-[9px] font-semibold bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded border border-blue-500/30">Ext. Elig.</span></td>
+                <td class="py-3 px-4 font-bold text-white"><div class="flex items-center gap-1.5"><span>Jaylin Williams</span> <span class="text-[9px] font-semibold bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded border border-blue-500/30">Ext. Elig.</span></div></td>
                 <td class="py-3 px-2 text-center text-slate-300">C</td>
                 <td class="py-3 px-2 text-center text-slate-400">24</td>
                 <td class="py-3 px-4 text-right"><div class="font-semibold">$7,774,648</div><div class="text-[10px] text-slate-400">4.7% cap</div></td>
                 <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold badge-team-opt inline-block">$7,774,648</span><div class="text-[10px] text-slate-400 mt-0.5">4.5% cap • Team Option</div></td>
               </tr>
               <tr class="hover:bg-slate-800/50">
-                <td class="py-3 px-4 font-bold text-white flex items-center gap-1.5">Cason Wallace <span class="text-[9px] font-semibold bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded border border-blue-500/30">Ext. Elig.</span></td>
+                <td class="py-3 px-4 font-bold text-white"><div class="flex items-center gap-1.5"><span>Cason Wallace</span> <span class="text-[9px] font-semibold bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded border border-blue-500/30">Ext. Elig.</span></div></td>
                 <td class="py-3 px-2 text-center text-slate-300">PG</td>
                 <td class="py-3 px-2 text-center text-slate-400">23</td>
                 <td class="py-3 px-4 text-right"><div class="font-semibold">$7,420,806</div><div class="text-[10px] text-slate-400">4.5% cap</div></td>
                 <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold badge-rfa inline-block">RFA / $22.3M</span><div class="text-[10px] text-slate-400 mt-0.5">12.8% cap • RFA</div></td>
               </tr>
               <tr class="hover:bg-slate-800/50">
-                <td class="py-3 px-4 font-bold text-white">Aday Mara</td>
+                <td class="py-3 px-4 font-bold text-white"><div class="flex items-center gap-1.5"><span>Aday Mara</span></div></td>
                 <td class="py-3 px-2 text-center text-slate-300">C</td>
                 <td class="py-3 px-2 text-center text-slate-400">21</td>
                 <td class="py-3 px-4 text-right"><div class="font-semibold">$5,791,680</div><div class="text-[10px] text-slate-400">3.5% cap</div></td>
                 <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-200 border border-slate-700 inline-block">$6,081,480</span><div class="text-[10px] text-slate-400 mt-0.5">3.5% cap</div></td>
               </tr>
               <tr class="hover:bg-slate-800/50">
-                <td class="py-3 px-4 font-bold text-white flex items-center gap-1.5">Nikola Topic <span class="text-[9px] font-semibold bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded border border-blue-500/30">Ext. Elig.</span></td>
+                <td class="py-3 px-4 font-bold text-white"><div class="flex items-center gap-1.5"><span>Nikola Topic</span> <span class="text-[9px] font-semibold bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded border border-blue-500/30">Ext. Elig.</span></div></td>
                 <td class="py-3 px-2 text-center text-slate-300">PG</td>
                 <td class="py-3 px-2 text-center text-slate-400">21</td>
                 <td class="py-3 px-4 text-right"><div class="font-semibold">$5,429,760</div><div class="text-[10px] text-slate-400">3.3% cap</div></td>
                 <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold badge-team-opt inline-block">$7,482,210</span><div class="text-[10px] text-slate-400 mt-0.5">4.3% cap • Team Option</div></td>
               </tr>
               <tr class="hover:bg-slate-800/50">
-                <td class="py-3 px-4 font-bold text-white flex items-center gap-1.5">Kenrich Williams <i data-lucide="lock" class="w-3 h-3 text-slate-400"></i></td>
+                <td class="py-3 px-4 font-bold text-white"><div class="flex items-center gap-1.5"><span>Kenrich Williams</span> <i data-lucide="lock" class="w-3 h-3 text-slate-400"></i></div></td>
                 <td class="py-3 px-2 text-center text-slate-300">PF</td>
                 <td class="py-3 px-2 text-center text-slate-400">32</td>
                 <td class="py-3 px-4 text-right"><div class="font-semibold">$5,000,000</div><div class="text-[10px] text-slate-400">3.0% cap</div></td>
                 <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold badge-ufa inline-block">UFA / $9.5M</span><div class="text-[10px] text-slate-400 mt-0.5">5.5% cap • UFA</div></td>
               </tr>
               <tr class="hover:bg-slate-800/50">
-                <td class="py-3 px-4 font-bold text-white">Thomas Sorber</td>
+                <td class="py-3 px-4 font-bold text-white"><div class="flex items-center gap-1.5"><span>Thomas Sorber</span></div></td>
                 <td class="py-3 px-2 text-center text-slate-300">C</td>
                 <td class="py-3 px-2 text-center text-slate-400">21</td>
                 <td class="py-3 px-4 text-right"><div class="font-semibold">$4,887,720</div><div class="text-[10px] text-slate-400">3.0% cap</div></td>
                 <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold badge-team-opt inline-block">$5,120,400</span><div class="text-[10px] text-slate-400 mt-0.5">2.9% cap • Team Option</div></td>
               </tr>
               <tr class="hover:bg-slate-800/50">
-                <td class="py-3 px-4 font-bold text-white">Bennett Stirtz</td>
+                <td class="py-3 px-4 font-bold text-white"><div class="flex items-center gap-1.5"><span>Bennett Stirtz</span></div></td>
                 <td class="py-3 px-2 text-center text-slate-300">PG</td>
                 <td class="py-3 px-2 text-center text-slate-400">23</td>
                 <td class="py-3 px-4 text-right"><div class="font-semibold">$4,717,320</div><div class="text-[10px] text-slate-400">2.9% cap</div></td>
                 <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-200 border border-slate-700 inline-block">$4,953,240</span><div class="text-[10px] text-slate-400 mt-0.5">2.8% cap</div></td>
               </tr>
               <tr class="hover:bg-slate-800/50">
-                <td class="py-3 px-4 font-bold text-white flex items-center gap-1.5">Jared McCain <span class="text-[9px] font-semibold bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded border border-blue-500/30">Ext. Elig.</span></td>
+                <td class="py-3 px-4 font-bold text-white"><div class="flex items-center gap-1.5"><span>Jared McCain</span> <span class="text-[9px] font-semibold bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded border border-blue-500/30">Ext. Elig.</span></div></td>
                 <td class="py-3 px-2 text-center text-slate-300">PG</td>
                 <td class="py-3 px-2 text-center text-slate-400">22</td>
                 <td class="py-3 px-4 text-right"><div class="font-semibold">$4,422,600</div><div class="text-[10px] text-slate-400">2.7% cap</div></td>
                 <td class="py-3 px-4 text-right"><span class="px-2.5 py-1 rounded-lg text-xs font-bold badge-team-opt inline-block">$6,784,268</span><div class="text-[10px] text-slate-400 mt-0.5">3.9% cap • Team Option</div></td>
               </tr>
               <tr class="hover:bg-slate-800/50">
-                <td class="py-3 px-4 font-bold text-white">Ajay Mitchell</td>
+                <td class="py-3 px-4 font-bold text-white"><div class="flex items-center gap-1.5"><span>Ajay Mitchell</span></div></td>
                 <td class="py-3 px-2 text-center text-slate-300">PG</td>
                 <td class="py-3 px-2 text-center text-slate-400">24</td>
                 <td class="py-3 px-4 text-right"><div class="font-semibold">$2,850,000</div><div class="text-[10px] text-slate-400">1.7% cap</div></td>
